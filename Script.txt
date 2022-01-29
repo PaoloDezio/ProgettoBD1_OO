@@ -6,28 +6,28 @@ CREATE TABLE CORSO(
 	MaxPartecipanti INT NOT NULL,
 --	NumLezioni INT,
 	DataInizio DATE,
-	DataCreazione TIMESTAMP DEFAULT(CURRENT TIMESTAMP()),
+	DataCreazione TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	CreatoDa INT,
-	DataUltimaModifica TIMESTAMP DEFAULT(CURRENT TIMESTAMP()),
-	UltimaModificaDa INT,
+	DataUltimaModifica TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+	UltimaModificaDa INT
 );
 
 --Creazione tabella AREA_TEMATICA
 CREATE TABLE AREA_TEMATICA(
 	CodiceCategoria INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	Categoria VARCHAR(16) NOT NULL,
-	DataCreazione TIMESTAMP DEFAULT(CURRENT TIMESTAMP()),
+	DataCreazione TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	CreatoDa INT,
-	DataUltimaModifica TIMESTAMP DEFAULT(CURRENT TIMESTAMP()),
-	UltimaModificaDa INT,
+	DataUltimaModifica TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+	UltimaModificaDa INT
 );
 
 --Creazione tabella TEMATICA_CORSO
 CREATE TABLE TEMATICA_CORSO(
-	Categoria VARCHAR(16) NOT NULL,
-	CodiceCorso CHAR(10) NOT NULL,
+	CodiceCategoria INT NOT NULL,
+	CodiceCorso INT NOT NULL,
 	FOREIGN KEY(CodiceCorso) REFERENCES CORSO(CodiceCorso),
-	FOREIGN KEY(Categoria) REFERENCES AREA_TEMATICA(Categoria),	
+	FOREIGN KEY(CodiceCategoria) REFERENCES AREA_TEMATICA(CodiceCategoria)
 );
 
 --Creazione tabella RESPONSABILE
@@ -39,7 +39,7 @@ CREATE TABLE RESPONSABILE(
 	DataNascita DATE,
 	CodiceFiscale CHAR(16) NOT NULL,
 	Username VARCHAR(16),
-	Pwd VARCHAR(16),
+	Pwd VARCHAR(16)
 );
 
 --Creazione tabella STUDENTE
@@ -49,7 +49,7 @@ CREATE TABLE STUDENTE(
 	Cognome VARCHAR(15) NOT NULL,
 	LuogoNascita VARCHAR(15),
 	DataNascita DATE,
-	CodiceFiscale CHAR(16) NOT NULL,
+	CodiceFiscale CHAR(16) NOT NULL
 );
 
 --Creazione tabella DOCENTE
@@ -59,7 +59,7 @@ CREATE TABLE DOCENTE(
 	Cognome VARCHAR(15) NOT NULL,
 	LuogoNascita VARCHAR(15),
 	DataNascita DATE,
-	CodiceFiscale CHAR(16) NOT NULL,
+	CodiceFiscale CHAR(16) NOT NULL
 );
 
 --Creazione tabella LEZIONE
@@ -72,7 +72,7 @@ CREATE TABLE LEZIONE (
 	CodiceCorso INT NOT NULL,
 	CodiceDocente INT NOT NULL,
 	FOREIGN KEY(CodiceCorso) REFERENCES CORSO(CodiceCorso),
-	FOREIGN KEY(CodiceDocente) REFERENCES DOCENTE(CodiceDocente),
+	FOREIGN KEY(CodiceDocente) REFERENCES DOCENTE(CodiceDocente)
 );
 
 --Creazione tabella PARTECIPARE
@@ -80,7 +80,7 @@ CREATE TABLE PARTECIPARE(
 	Matricola CHAR(10) NOT NULL,
 	CodiceLezione INT NOT NULL,
 	FOREIGN KEY(Matricola) REFERENCES STUDENTE(Matricola),
-	FOREIGN KEY(CodiceLezione) REFERENCES LEZIONE(CodiceLezione),
+	FOREIGN KEY(CodiceLezione) REFERENCES LEZIONE(CodiceLezione)
 );
 
 --Creazione tabella ISCRIZIONE
