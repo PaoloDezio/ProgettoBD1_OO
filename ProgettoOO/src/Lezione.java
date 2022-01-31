@@ -6,6 +6,7 @@ public class Lezione {
 	private String dataInizio;
 	private String orarioInizio;
 	private String codiceLezione;
+	private String modalita;
 	
 	
 	public String getTitolo() {
@@ -43,6 +44,12 @@ public class Lezione {
 	}
 	public void setCodiceLezione(String codiceLezione) {
 		this.codiceLezione = codiceLezione;
+	}
+	public String getModalita() {
+		return modalita;
+	}
+	public void setModalita(String modalita) {
+		this.modalita = modalita;
 	}
 	
 	
