@@ -27,7 +27,8 @@ CREATE TABLE TEMATICA_CORSO(
 	CodiceCategoria INT NOT NULL,
 	CodiceCorso INT NOT NULL,
 	FOREIGN KEY(CodiceCorso) REFERENCES CORSO(CodiceCorso),
-	FOREIGN KEY(CodiceCategoria) REFERENCES AREA_TEMATICA(CodiceCategoria)
+	FOREIGN KEY(CodiceCategoria) REFERENCES AREA_TEMATICA(CodiceCategoria),
+	UNIQUE(CodiceCategoria,CodiceCorso)
 );
 
 --Creazione tabella RESPONSABILE
@@ -72,7 +73,8 @@ CREATE TABLE LEZIONE (
 	CodiceCorso INT NOT NULL,
 	CodiceDocente INT NOT NULL,
 	FOREIGN KEY(CodiceCorso) REFERENCES CORSO(CodiceCorso),
-	FOREIGN KEY(CodiceDocente) REFERENCES DOCENTE(CodiceDocente)
+	FOREIGN KEY(CodiceDocente) REFERENCES DOCENTE(CodiceDocente),
+	UNIQUE(CodiceCorso,CodiceDocente)
 );
 
 --Creazione tabella PARTECIPARE
@@ -80,7 +82,8 @@ CREATE TABLE PARTECIPARE(
 	Matricola CHAR(10) NOT NULL,
 	CodiceLezione INT NOT NULL,
 	FOREIGN KEY(Matricola) REFERENCES STUDENTE(Matricola),
-	FOREIGN KEY(CodiceLezione) REFERENCES LEZIONE(CodiceLezione)
+	FOREIGN KEY(CodiceLezione) REFERENCES LEZIONE(CodiceLezione),
+	UNIQUE (Matricola, CodiceLezione)
 );
 
 --Creazione tabella ISCRIZIONE
@@ -88,6 +91,40 @@ CREATE TABLE ISCRIZIONE(
 	CodiceCorso INT,
 	Matricola CHAR(10),
 	FOREIGN KEY(CodiceCorso) REFERENCES CORSO(CodiceCorso),
-	FOREIGN KEY(Matricola) REFERENCES STUDENTE(Matricola)
+	FOREIGN KEY(Matricola) REFERENCES STUDENTE(Matricola),
+	UNIQUE(CodiceCorso,Matricola)
 );
+--funzioni
+--scrivi con underscore
+--popola le tabelle
+CREATE OR REPLACE PROCEDURE ISCRIZIONE_CORSO_MATRICOLA(
+	_CORSO INT,
+	_MATRICOLA CHAR(10))
+	LANGUAGE SQL AS
+	$$
+	INSERT INTO ISCRIZIONE (CodiceCorso, Matricola)
+	VALUES (_CORSO, _MATRICOLA)
+	ON CONFLICT DO NOTHING
+	RETURNING 1 AS OP_RESULT
+	$$;
+--CALL ISCRIZIONE_CORSO_MATRICOLA(1,'1234567890')
+	SELECT * FROM ISCRIZIONE
+
+
+CREATE OR REPLACE PROCEDURE PARTECIPA_LEZIONE(
+	_CORSO INT,
+	_MATRICOLA CHAR(10))
+	LANGUAGE SQL AS
+	$$
+	INSERT INTO ISCRIZIONE (CodiceCorso, Matricola)
+	VALUES (_CORSO, _MATRICOLA)
+	ON CONFLICT DO NOTHING
+	RETURNING 1 AS OP_RESULT
+	$$;
+
+
+
+
+
+
 
