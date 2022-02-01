@@ -1,25 +1,19 @@
+--CREAZIONE DELLE TABELLE
+
 --Creazione tabella CORSO
 CREATE TABLE CORSO(
-	CodiceCorso INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	CodiceCorso INT PRIMARY KEY,
 	Nome VARCHAR(15) NOT NULL,
 	Descrizione VARCHAR(50),
 	MaxPartecipanti INT NOT NULL,
---	NumLezioni INT,
+	NumLezioni INT,
 	DataInizio DATE,
-	DataCreazione TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	CreatoDa INT,
-	DataUltimaModifica TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	UltimaModificaDa INT
 );
 
 --Creazione tabella AREA_TEMATICA
 CREATE TABLE AREA_TEMATICA(
-	CodiceCategoria INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	CodiceCategoria INT PRIMARY KEY,
 	Categoria VARCHAR(16) NOT NULL,
-	DataCreazione TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	CreatoDa INT,
-	DataUltimaModifica TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	UltimaModificaDa INT
 );
 
 --Creazione tabella TEMATICA_CORSO
@@ -28,16 +22,18 @@ CREATE TABLE TEMATICA_CORSO(
 	CodiceCorso INT NOT NULL,
 	FOREIGN KEY(CodiceCorso) REFERENCES CORSO(CodiceCorso),
 	FOREIGN KEY(CodiceCategoria) REFERENCES AREA_TEMATICA(CodiceCategoria),
-	UNIQUE(CodiceCategoria,CodiceCorso)
+	
+	--Implemento il vincolo: CategoriaRipetuta
+	CONSTRAINT CategoriaRipetuta UNIQUE(CodiceCategoria,CodiceCorso)
 );
 
 --Creazione tabella RESPONSABILE
 CREATE TABLE RESPONSABILE(
-	CodiceResponsabile INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	CodiceResponsabile INT PRIMARY KEY,
 	Nome VARCHAR(15) NOT NULL,
 	Cognome VARCHAR(15) NOT NULL,
-	LuogoNascita VARCHAR(15),
-	DataNascita DATE,
+	LuogoNascita VARCHAR(15) NOT NULL,
+	DataNascita DATE NOT NULL,
 	CodiceFiscale CHAR(16) NOT NULL,
 	Username VARCHAR(16),
 	Pwd VARCHAR(16)
@@ -49,13 +45,13 @@ CREATE TABLE STUDENTE(
 	Nome VARCHAR(15) NOT NULL,
 	Cognome VARCHAR(15) NOT NULL,
 	LuogoNascita VARCHAR(15),
-	DataNascita DATE,
+	DataNascita DATE NOT NULL,
 	CodiceFiscale CHAR(16) NOT NULL
 );
 
 --Creazione tabella DOCENTE
 CREATE TABLE DOCENTE(
-	CodiceDocente INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	CodiceDocente INT PRIMARY KEY,
 	Nome VARCHAR(15) NOT NULL,
 	Cognome VARCHAR(15) NOT NULL,
 	LuogoNascita VARCHAR(15),
@@ -65,7 +61,7 @@ CREATE TABLE DOCENTE(
 
 --Creazione tabella LEZIONE
 CREATE TABLE LEZIONE (
-	CodiceLezione INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	CodiceLezione INT PRIMARY KEY,
 	Titolo VARCHAR(16),
 	Descrizione VARCHAR(32),
 	Durata INTERVAL,
@@ -74,7 +70,8 @@ CREATE TABLE LEZIONE (
 	CodiceDocente INT NOT NULL,
 	FOREIGN KEY(CodiceCorso) REFERENCES CORSO(CodiceCorso),
 	FOREIGN KEY(CodiceDocente) REFERENCES DOCENTE(CodiceDocente),
-	UNIQUE(CodiceCorso,CodiceDocente)
+	--Implemento il vincolo: DocenteRipetuto
+	CONSTRAINT DocenteRipetuto UNIQUE(CodiceCorso,CodiceDocente)
 );
 
 --Creazione tabella PARTECIPARE
@@ -83,7 +80,8 @@ CREATE TABLE PARTECIPARE(
 	CodiceLezione INT NOT NULL,
 	FOREIGN KEY(Matricola) REFERENCES STUDENTE(Matricola),
 	FOREIGN KEY(CodiceLezione) REFERENCES LEZIONE(CodiceLezione),
-	UNIQUE (Matricola, CodiceLezione)
+	--Implemento il vincolo: MatricolaRipetuta
+	CONSTRAINT MatricolaRipetuta UNIQUE (Matricola, CodiceLezione)
 );
 
 --Creazione tabella ISCRIZIONE
@@ -92,38 +90,27 @@ CREATE TABLE ISCRIZIONE(
 	Matricola CHAR(10),
 	FOREIGN KEY(CodiceCorso) REFERENCES CORSO(CodiceCorso),
 	FOREIGN KEY(Matricola) REFERENCES STUDENTE(Matricola),
-	UNIQUE(CodiceCorso,Matricola)
+	--Implemento il vincolo: IscrizioneRipetuta
+	CONSTRAINT IscrizioneRipetuta UNIQUE(CodiceCorso,Matricola)
 );
---funzioni
---scrivi con underscore
---popola le tabelle
-CREATE OR REPLACE PROCEDURE ISCRIZIONE_CORSO_MATRICOLA(
-	_CORSO INT,
-	_MATRICOLA CHAR(10))
-	LANGUAGE SQL AS
-	$$
+
+--CREAZIONE DELLE PROCEDURE
+
+--Creo la 
+CREATE OR REPLACE PROCEDURE ISCRIZIONECORSO(_Corso INT,_Matricola CHAR(10))
+	LANGUAGE 'plpgsql' AS '
+	BEGIN
 	INSERT INTO ISCRIZIONE (CodiceCorso, Matricola)
-	VALUES (_CORSO, _MATRICOLA)
-	ON CONFLICT DO NOTHING
-	RETURNING 1 AS OP_RESULT
-	$$;
---CALL ISCRIZIONE_CORSO_MATRICOLA(1,'1234567890')
-	SELECT * FROM ISCRIZIONE
+	VALUES (_Corso, _Matricola);
+	END;'
 
 
-CREATE OR REPLACE PROCEDURE PARTECIPA_LEZIONE(
-	_CORSO INT,
-	_MATRICOLA CHAR(10))
-	LANGUAGE SQL AS
-	$$
+CREATE OR REPLACE PROCEDURE ISCRIZIONECORSO(_Corso INT,_Matricola CHAR(10))
+	LANGUAGE 'plpgsql' AS '
+	BEGIN
 	INSERT INTO ISCRIZIONE (CodiceCorso, Matricola)
-	VALUES (_CORSO, _MATRICOLA)
-	ON CONFLICT DO NOTHING
-	RETURNING 1 AS OP_RESULT
-	$$;
-
-
-
+	VALUES (_Corso, _Matricola);
+	END;'
 
 
 
