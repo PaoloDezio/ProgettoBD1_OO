@@ -7,18 +7,12 @@ CREATE TABLE CORSO(
 	Descrizione VARCHAR(200),
 	MaxPartecipanti INT NOT NULL,
 	NumLezioni INT,
-	DataInizio DATE
-);
-
-DROP TABLE CORSO CASCADE
+	DataInizio DATE);
 
 --Creazione tabella AREA_TEMATICA
 CREATE TABLE AREA_TEMATICA(
 	CodiceCategoria INT PRIMARY KEY,
-	Categoria VARCHAR(30) NOT NULL
-);
-
-DROP TABLE AREA_TEMATICA CASCADE
+	Categoria VARCHAR(30) NOT NULL);
 
 --Creazione tabella TEMATICA_CORSO
 CREATE TABLE TEMATICA_CORSO(
@@ -28,9 +22,8 @@ CREATE TABLE TEMATICA_CORSO(
 	FOREIGN KEY(CodiceCategoria) REFERENCES AREA_TEMATICA(CodiceCategoria),
 	
 	--Implemento il vincolo: CategoriaRipetuta
-	CONSTRAINT CategoriaRipetuta UNIQUE(CodiceCategoria,CodiceCorso)
-);
-DROP TABLE TEMATICA_CORSO CASCADE
+	CONSTRAINT CategoriaRipetuta UNIQUE(CodiceCategoria,CodiceCorso));
+
 --Creazione tabella RESPONSABILE
 CREATE TABLE RESPONSABILE(
 	CodiceResponsabile INT PRIMARY KEY,
@@ -40,9 +33,8 @@ CREATE TABLE RESPONSABILE(
 	DataNascita DATE NOT NULL,
 	CodiceFiscale CHAR(16) NOT NULL,
 	Username VARCHAR(16),
-	Pwd VARCHAR(16)
-);
-DROP TABLE RESPONSABILE CASCADE
+	Pwd VARCHAR(16));
+	
 --Creazione tabella STUDENTE
 CREATE TABLE STUDENTE(
 	Matricola CHAR(10) PRIMARY KEY,
@@ -50,9 +42,8 @@ CREATE TABLE STUDENTE(
 	Cognome VARCHAR(20) NOT NULL,
 	LuogoNascita VARCHAR(30),
 	DataNascita DATE NOT NULL,
-	CodiceFiscale CHAR(16) NOT NULL
-);
-DROP TABLE STUDENTE CASCADE
+	CodiceFiscale CHAR(16) NOT NULL);
+
 --Creazione tabella DOCENTE
 CREATE TABLE DOCENTE(
 	CodiceDocente INT PRIMARY KEY,
@@ -60,9 +51,8 @@ CREATE TABLE DOCENTE(
 	Cognome VARCHAR(20) NOT NULL,
 	LuogoNascita VARCHAR(30),
 	DataNascita DATE,
-	CodiceFiscale CHAR(16) NOT NULL
-);
-DROP TABLE DOCENTE CASCADE
+	CodiceFiscale CHAR(16) NOT NULL);
+
 --Creazione tabella LEZIONE
 CREATE TABLE LEZIONE (
 	CodiceLezione INT PRIMARY KEY,
@@ -78,31 +68,32 @@ CREATE TABLE LEZIONE (
 	Piattaforma VARCHAR(20),
 	FOREIGN KEY(CodiceCorso) REFERENCES CORSO(CodiceCorso),
 	FOREIGN KEY(CodiceDocente) REFERENCES DOCENTE(CodiceDocente),
+	
 	--Implemento il vincolo: DocenteRipetuto
-	CONSTRAINT DocenteRipetuto UNIQUE(CodiceCorso,CodiceDocente)
-);
-DROP TABLE LEZIONE CASCADE
+	CONSTRAINT DocenteRipetuto UNIQUE(CodiceCorso,CodiceDocente));
+
 --Creazione tabella PARTECIPARE
 CREATE TABLE PARTECIPARE(
 	Matricola CHAR(10) NOT NULL,
 	CodiceLezione INT NOT NULL,
 	FOREIGN KEY(Matricola) REFERENCES STUDENTE(Matricola),
 	FOREIGN KEY(CodiceLezione) REFERENCES LEZIONE(CodiceLezione),
+	
 	--Implemento il vincolo: MatricolaRipetuta
-	CONSTRAINT MatricolaRipetuta UNIQUE (Matricola, CodiceLezione)
-);
-DROP TABLE PARTECIPARE CASCADE
+	CONSTRAINT MatricolaRipetuta UNIQUE (Matricola, CodiceLezione));
+
 --Creazione tabella ISCRIZIONE
 CREATE TABLE ISCRIZIONE(
 	CodiceCorso INT,
 	Matricola CHAR(10),
 	FOREIGN KEY(CodiceCorso) REFERENCES CORSO(CodiceCorso),
 	FOREIGN KEY(Matricola) REFERENCES STUDENTE(Matricola),
+	
 	--Implemento il vincolo: IscrizioneRipetuta
-	CONSTRAINT IscrizioneRipetuta UNIQUE(CodiceCorso,Matricola)
-);
-DROP TABLE ISCRIZIONE CASCADE
---Popolazione delle tabelle
+	CONSTRAINT IscrizioneRipetuta UNIQUE(CodiceCorso,Matricola));
+
+--POPOLAZIONE DELLE TABELLE
+
 --Popolazione tabella CORSO
 INSERT INTO CORSO(CodiceCorso, Nome, Descrizione, MaxPartecipanti, NumLezioni, DataInizio)
 VALUES ('001','BASI DI DATI I','Corso di Basi di dati', '200','34',CURRENT_DATE);
@@ -145,71 +136,75 @@ VALUES ('002','003');
 --CREAZIONE DELLE PROCEDURE
 
 --Creazione procedure per iscrivere uno studente ad un corso
-CREATE OR REPLACE PROCEDURE ISCRIZIONECORSO(_Corso INT,_Matricola CHAR(10))
+CREATE OR REPLACE PROCEDURE ISCRIZIONE_CORSO(_CodiceCorso INT,_Matricola CHAR(10))
 	LANGUAGE 'plpgsql' AS '
 	BEGIN
 	INSERT INTO ISCRIZIONE (CodiceCorso, Matricola)
-	VALUES (_Corso, _Matricola);
-	END;'
+	VALUES (_CodiceCorso, _Matricola);
+	END;';
 
 --Creazione procedure che determina la partecipazione di uno studente ad una lezione
-CREATE OR REPLACE PROCEDURE PARTECIPAZIONELEZIONE(_Matricola CHAR(10),_CodiceLezione INT)
+CREATE OR REPLACE PROCEDURE PARTECIPAZIONE_LEZIONE(_Matricola CHAR(10),_CodiceLezione INT)
 	LANGUAGE 'plpgsql' AS '
 	BEGIN
 	INSERT INTO PARTECIPARE (Matricola, CodiceLezione)
 	VALUES (_Matricola, _CodiceLezione);
-	END;'
+	END;';
 
 --Creazione procedure che permette di creare un corso
-CREATE OR REPLACE PROCEDURE CREACORSO(_CodiceCorso INT,_Nome VARCHAR(50),_Descrizione VARCHAR(200),_MaxPartecipanti INT,_NumLezioni INT,_DataInizio DATE)
+CREATE OR REPLACE PROCEDURE CREA_CORSO(_CodiceCorso INT,_Nome VARCHAR(50),_Descrizione VARCHAR(200),_MaxPartecipanti INT,_NumLezioni INT,_DataInizio DATE)
 	LANGUAGE 'plpgsql' AS '
 	BEGIN
 	INSERT INTO CORSO(CodiceCorso,Nome,Descrizione,MaxPartecipanti,NumLezioni,DataInizio)
 	VALUES (_CodiceCorso, _Nome, _Descrizione, _MaxPartecipanti, _NumLezioni,_DataInizio);
-	END;'
+	END;';
 
 --Creazione procedure che permette di creare una lezione
-CREATE OR REPLACE PROCEDURE CREALEZIONE(_CodiceLezione INT,_Titolo VARCHAR(50),_Descrizione VARCHAR(200),_Durata INTERVAL,_DataOraInizio TIMESTAMP,_CodiceCorso INT,_CodiceDocente INT)
+CREATE OR REPLACE PROCEDURE CREA_LEZIONE(_CodiceLezione INT,_Titolo VARCHAR(50),_Descrizione VARCHAR(200),_Durata INTERVAL,_DataOraInizio TIMESTAMP,_CodiceCorso INT,_CodiceDocente INT,_Online BOOLEAN,_Aula VARCHAR(20),_Sede VARCHAR(20),_Piattaforma VARCHAR(20))
 	LANGUAGE 'plpgsql' AS '
 	BEGIN
-	INSERT INTO LEZIONE (CodiceLezione,Titolo,Descrizione,Durata,DataOraInizio,CodiceCorso,CodiceDocente)
-	VALUES (_CodiceLezione,_Titolo,_Descrizione,_Durata,_DataOraInizio,_CodiceCorso,_CodiceDocente);
-	END;'
+	INSERT INTO LEZIONE (CodiceLezione,Titolo,Descrizione,Durata,DataOraInizio,CodiceCorso,CodiceDocente,Online,Aula,Sede,Piattaforma)
+	VALUES (_CodiceLezione,_Titolo,_Descrizione,_Durata,_DataOraInizio,_CodiceCorso,_CodiceDocente,_Online,_Aula,_Sede,_Piattaforma);
+	END;';
 
---
-	CREATE OR REPLACE PROCEDURE REGISTRADOCENTE(_Corso INT,_Matricola CHAR(10))
+--Creazione procedure per registrare uno docente
+	CREATE OR REPLACE PROCEDURE REGISTRA_DOCENTE(_CodiceDocente INT,_Nome VARCHAR(20),_Cognome VARCHAR(20),_LuogoNascita VARCHAR(30),_DataNascita DATE,_CodiceFiscale CHAR(16))
 	LANGUAGE 'plpgsql' AS '
 	BEGIN
-	INSERT INTO ISCRIZIONE (CodiceCorso, Matricola)
-	VALUES (_Corso, _Matricola);
-	END;'
-	
-	CREATE OR REPLACE PROCEDURE ISCRIZIONECORSO(_Corso INT,_Matricola CHAR(10))
+	INSERT INTO DOCENTE (CodiceDocente,Nome,Cognome,LuogoNascita,DataNascita,CodiceFiscale)
+	VALUES (_CodiceDocente,_Nome,_Cognome,_LuogoNascita,_DataNascita,_CodiceFiscale);
+	END;';
+
+--Creazione procedure per registrare uno studente
+	CREATE OR REPLACE PROCEDURE REGISTRA_STUDENTE(_Matricola CHAR(10),_Nome VARCHAR(20),_Cognome VARCHAR(20),_LuogoNascita VARCHAR(30),_DataNascita DATE,_CodiceFiscale CHAR(16))
 	LANGUAGE 'plpgsql' AS '
 	BEGIN
-	INSERT INTO ISCRIZIONE (CodiceCorso, Matricola)
-	VALUES (_Corso, _Matricola);
-	END;'
-	
-	CREATE OR REPLACE PROCEDURE ISCRIZIONECORSO(_Corso INT,_Matricola CHAR(10))
+	INSERT INTO STUDENTE(Matricola,Nome,Cognome,LuogoNascita,DataNascita,CodiceFiscale)
+	VALUES (_Matricola,_Nome,_Cognome,_LuogoNascita,_DataNascita,_CodiceFiscale);
+	END;';
+
+--Creazione procedure per registrare un reponsabile
+	CREATE OR REPLACE PROCEDURE REGISTRA_RESPONSABILE(_CodiceResponsabile INT,_Nome VARCHAR(20),_Cognome VARCHAR(20),_LuogoNascita VARCHAR(30),_DataNascita DATE,_CodiceFiscale CHAR(16),_Username VARCHAR(16),_Pwd VARCHAR(16))
 	LANGUAGE 'plpgsql' AS '
 	BEGIN
-	INSERT INTO ISCRIZIONE (CodiceCorso, Matricola)
-	VALUES (_Corso, _Matricola);
-	END;'
-	
-	CREATE OR REPLACE PROCEDURE ISCRIZIONECORSO(_Corso INT,_Matricola CHAR(10))
+	INSERT INTO RESPONSABILE (CodiceResponsabile,Nome,Cognome,LuogoNascita,DataNascita,CodiceFiscale,Username,Pwd)
+	VALUES (_CodiceResponsabile,_Nome,_Cognome,_LuogoNascita,_DataNascita,_CodiceFiscale,_Username,_Pwd);
+	END;';
+
+--Creazione procedure per definire un'area tematica
+	CREATE OR REPLACE PROCEDURE CREA_AREA_TEMATICA(_CodiceCategoria INT,_Categoria VARCHAR(30))
 	LANGUAGE 'plpgsql' AS '
 	BEGIN
-	INSERT INTO ISCRIZIONE (CodiceCorso, Matricola)
-	VALUES (_Corso, _Matricola);
-	END;'
-	
-	CREATE OR REPLACE PROCEDURE ISCRIZIONECORSO(_Corso INT,_Matricola CHAR(10))
+	INSERT INTO AREA_TEMATICA (CodiceCategoria, Categoria)
+	VALUES (_CodiceCategoria,_Categoria);
+	END;';
+
+--Creazione procedure per associare un'area tematica ad un corso
+	CREATE OR REPLACE PROCEDURE ASSOCIA_TEMATICA_CORSO(_CodiceCategoria INT,_CodiceCorso INT)
 	LANGUAGE 'plpgsql' AS '
 	BEGIN
-	INSERT INTO ISCRIZIONE (CodiceCorso, Matricola)
-	VALUES (_Corso, _Matricola);
-	END;'
+	INSERT INTO TEMATICA_CORSO (CodiceCategoria,CodiceCorso)
+	VALUES (_CodiceCategoria,_CodiceCorso);
+	END;';
 
 
