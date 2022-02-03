@@ -6,7 +6,10 @@ public class Lezione {
 	private String dataInizio;
 	private String orarioInizio;
 	private Integer codiceLezione;
-	private String modalita;
+	private String aula;
+	private String sede;
+	private Boolean online;
+	private String piattaforma;
 	
 	
 	public String getTitolo() {
@@ -45,11 +48,29 @@ public class Lezione {
 	public void setCodiceLezione(Integer codiceLezione) {
 		this.codiceLezione = codiceLezione;
 	}
-	public String getModalita() {
-		return modalita;
+	public String getAula() {
+		return aula;
 	}
-	public void setModalita(String modalita) {
-		this.modalita = modalita;
+	public void setAula(String aula) {
+		this.aula = aula;
+	}
+	public String getSede() {
+		return sede;
+	}
+	public void setSede(String sede) {
+		this.sede = sede;
+	}
+	public Boolean getOnline() {
+		return online;
+	}
+	public void setOnline(Boolean online) {
+		this.online = online;
+	}
+	public String getPiattaforma() {
+		return piattaforma;
+	}
+	public void setPiattaforma(String piattaforma) {
+		this.piattaforma = piattaforma;
 	}
 	
 	
