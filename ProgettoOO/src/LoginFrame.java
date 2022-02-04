@@ -22,6 +22,8 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Window.Type;
 import java.awt.Rectangle;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class LoginFrame extends JFrame {
 
@@ -29,34 +31,37 @@ public class LoginFrame extends JFrame {
 	private JTextField usernameTF;
 	private JPasswordField passwordTF;
 	private Controller controller;
+	private JLabel loginLabel;
+	private JLabel usernameLabel;
+	private JLabel passwordLabel;
+	private JButton accediButton;
+	
 	
 	/**
 	 * Create the frame.
 	 */
 	public LoginFrame(Controller c) {
 		
-		
 		controller=c;
 		
 		setTitle("Login");
 		setBackground(new Color(240, 240, 240));
-		setResizable(false);
 		setBounds(375, 175, 600, 365);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel();
-		contentPane.setToolTipText("");
+		contentPane.setMaximumSize(new Dimension(20000, 20000));
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{87, 86, 90, 90, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{66, 40, 40, 0, 15, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[]{65, 86, 90, 90, 0, 40, 80, 0};
+		gbl_contentPane.rowHeights = new int[]{66, 25, 25, 30, 39, 0};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		JLabel loginLabel = new JLabel("Login");
+		loginLabel = new JLabel("Login");
 		loginLabel.setVerticalAlignment(SwingConstants.TOP);
 		loginLabel.setLabelFor(this);
 		loginLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -67,7 +72,7 @@ public class LoginFrame extends JFrame {
 		gbc_lblNewLabel.gridy = 0;
 		contentPane.add(loginLabel, gbc_lblNewLabel);
 		
-		JLabel usernameLabel = new JLabel("Username");
+		usernameLabel = new JLabel("Username");
 		usernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_usernameLabel = new GridBagConstraints();
 		gbc_usernameLabel.anchor = GridBagConstraints.EAST;
@@ -79,7 +84,7 @@ public class LoginFrame extends JFrame {
 		usernameTF = new JTextField();
 		usernameTF.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_usernameTF = new GridBagConstraints();
-		gbc_usernameTF.fill = GridBagConstraints.HORIZONTAL;
+		gbc_usernameTF.fill = GridBagConstraints.BOTH;
 		gbc_usernameTF.gridwidth = 3;
 		gbc_usernameTF.insets = new Insets(0, 0, 5, 5);
 		gbc_usernameTF.gridx = 2;
@@ -87,7 +92,7 @@ public class LoginFrame extends JFrame {
 		contentPane.add(usernameTF, gbc_usernameTF);
 		usernameTF.setColumns(10);
 		
-		JLabel passwordLabel = new JLabel("Password");
+		passwordLabel = new JLabel("Password");
 		passwordLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_passwordLabel = new GridBagConstraints();
 		gbc_passwordLabel.anchor = GridBagConstraints.EAST;
@@ -99,14 +104,14 @@ public class LoginFrame extends JFrame {
 		passwordTF = new JPasswordField();
 		passwordTF.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_passwordTF = new GridBagConstraints();
-		gbc_passwordTF.fill = GridBagConstraints.HORIZONTAL;
+		gbc_passwordTF.fill = GridBagConstraints.BOTH;
 		gbc_passwordTF.gridwidth = 3;
 		gbc_passwordTF.insets = new Insets(0, 0, 5, 5);
 		gbc_passwordTF.gridx = 2;
 		gbc_passwordTF.gridy = 2;
 		contentPane.add(passwordTF, gbc_passwordTF);
 		
-		JButton accediButton = new JButton("Accedi");
+		accediButton = new JButton("Accedi");
 		accediButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String username = usernameTF.getText();
@@ -125,9 +130,9 @@ public class LoginFrame extends JFrame {
 		
 		accediButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_accediButton = new GridBagConstraints();
-		gbc_accediButton.insets = new Insets(0, 0, 5, 0);
-		gbc_accediButton.gridx = 5;
+		gbc_accediButton.gridx = 6;
 		gbc_accediButton.gridy = 4;
+		
 		contentPane.add(accediButton, gbc_accediButton);
 	}
 
