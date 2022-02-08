@@ -7,7 +7,11 @@ CREATE TABLE CORSO(
 	Descrizione VARCHAR(200),
 	MaxPartecipanti INT NOT NULL,
 	NumLezioni INT,
-	DataInizio DATE);
+	DataInizio DATE,
+	CodiceDocente INT
+);
+	ALTER TABLE CORSO 
+	ADD CodiceDocente INT
 
 --Creazione tabella AREA_TEMATICA
 CREATE TABLE AREA_TEMATICA(
@@ -105,7 +109,25 @@ INSERT INTO CORSO(CodiceCorso, Nome, Descrizione, MaxPartecipanti, NumLezioni, D
 VALUES ('003','ALGORITMI E STRUTTURE DATI','Corso di Algoritmi e stutture dati', '75','24',CURRENT_DATE+2);
 
 INSERT INTO CORSO(CodiceCorso, Nome, Descrizione, MaxPartecipanti, NumLezioni, DataInizio)
-VALUES ('004','ELEMENTI DI INFORMATICA TEORICA','Corso di Elementi di informatica teorica', '100','22',CURRENT_DATE+4);
+VALUES ('11','GEOGRAFIA','Corso di Geografia', '100','22',CURRENT_DATE+4);
+
+INSERT INTO CORSO(CodiceCorso, Nome, Descrizione, MaxPartecipanti, NumLezioni, DataInizio)
+VALUES ('005','ELEMENTI DI INFORMATICA TEORICA','Corso di Elementi di informatica teorica', '100','22',CURRENT_DATE+4);
+
+INSERT INTO CORSO(CodiceCorso, Nome, Descrizione, MaxPartecipanti, NumLezioni, DataInizio)
+VALUES ('006','PROGRAMMAZIONE','Corso di Programmazione', '100','22',CURRENT_DATE+4);
+
+INSERT INTO CORSO(CodiceCorso, Nome, Descrizione, MaxPartecipanti, NumLezioni, DataInizio)
+VALUES ('7','MATEMATICA','Corso di Matematica', '100','22',CURRENT_DATE+4);
+
+INSERT INTO CORSO(CodiceCorso, Nome, Descrizione, MaxPartecipanti, NumLezioni, DataInizio)
+VALUES ('8','ITALIANO','Corso di Italiano', '100','22',CURRENT_DATE+4);
+
+INSERT INTO CORSO(CodiceCorso, Nome, Descrizione, MaxPartecipanti, NumLezioni, DataInizio)
+VALUES ('9','INGEGNERIA DEL SOFTWARE','Corso di Ingegneria del software', '100','22',CURRENT_DATE+4);
+
+INSERT INTO CORSO(CodiceCorso, Nome, Descrizione, MaxPartecipanti, NumLezioni, DataInizio)
+VALUES ('10','ANALISI MATEMATICA 1','Corso di Analisi Matematica 1', '100','22',CURRENT_DATE+4);
 
 --Popolazione tabella AREA_TEMATICA
 INSERT INTO AREA_TEMATICA(CodiceCategoria, Categoria)
@@ -118,11 +140,29 @@ INSERT INTO AREA_TEMATICA(CodiceCategoria, Categoria)
 VALUES ('003','LETTERATURA');
 
 INSERT INTO AREA_TEMATICA(CodiceCategoria, Categoria)
-VALUES ('004','MATEMATICA');
+VALUES ('004','GEOGRAFIA');
+
+INSERT INTO AREA_TEMATICA(CodiceCategoria, Categoria)
+VALUES ('005','MATEMATICA2');
+
+INSERT INTO AREA_TEMATICA(CodiceCategoria, Categoria)
+VALUES ('006','MATEMATICA');
+
+INSERT INTO AREA_TEMATICA(CodiceCategoria, Categoria)
+VALUES ('007','ALGEBRA');
+
+INSERT INTO AREA_TEMATICA(CodiceCategoria, Categoria)
+VALUES ('008','STORIA');
+
+INSERT INTO AREA_TEMATICA(CodiceCategoria, Categoria)
+VALUES ('009','BIOLOGIA');
+
+INSERT INTO AREA_TEMATICA(CodiceCategoria, Categoria)
+VALUES ('010','GIURISPRUDENZA');
 
 --Popolazione tabella TEMATICA_CORSO
 INSERT INTO TEMATICA_CORSO(CodiceCategoria, CodiceCorso)
-VALUES ('001','001');
+VALUES ('005','005');
 
 INSERT INTO TEMATICA_CORSO(CodiceCategoria, CodiceCorso)
 VALUES ('002','001');
@@ -131,7 +171,26 @@ INSERT INTO TEMATICA_CORSO(CodiceCategoria, CodiceCorso)
 VALUES ('003','004');
 
 INSERT INTO TEMATICA_CORSO(CodiceCategoria, CodiceCorso)
-VALUES ('002','003');
+VALUES ('007','004');
+
+INSERT INTO TEMATICA_CORSO(CodiceCategoria, CodiceCorso)
+VALUES ('8','01');
+
+INSERT INTO TEMATICA_CORSO(CodiceCategoria, CodiceCorso)
+VALUES ('09','02');
+
+INSERT INTO TEMATICA_CORSO(CodiceCategoria, CodiceCorso)
+VALUES ('010','001');
+
+INSERT INTO TEMATICA_CORSO(CodiceCategoria, CodiceCorso)
+VALUES ('002','007');
+
+INSERT INTO TEMATICA_CORSO(CodiceCategoria, CodiceCorso)
+VALUES ('002','08');
+
+--Popolazione tabella LEZIONE
+INSERT INTO TEMATICA_CORSO(CodiceCategoria, CodiceCorso)
+VALUES ('002','08');
 
 --CREAZIONE DELLE PROCEDURE
 
@@ -206,5 +265,111 @@ CREATE OR REPLACE PROCEDURE CREA_LEZIONE(_CodiceLezione INT,_Titolo VARCHAR(50),
 	INSERT INTO TEMATICA_CORSO (CodiceCategoria,CodiceCorso)
 	VALUES (_CodiceCategoria,_CodiceCorso);
 	END;';
+
+--PROVA
+CREATE OR REPLACE PROCEDURE ELIMINA_CORSO(_CodiceCorso INT)
+	LANGUAGE 'plpgsql' AS '
+	BEGIN
+	DELETE FROM CORSO
+	WHERE CodiceCorso=_CodiceCorso;
+	END;';
+CALL ELIMINA_CORSO('5')
+
+/*CREATE TABLE TEST(
+CodiceCorso int)
+--DROP TABLE TEST
+
+CREATE FUNCTION test_test() RETURNS TRIGGER AS $test_test$
+	BEGIN
+		INSERT INTO TEST (CodiceCorso)
+		VALUES (New.CodiceCorso);
+		RETURN New;
+	END
+	$test_test$ LANGUAGE plpgsql;
+
+
+--CREAZIONE DEI TRIGGER
+CREATE TRIGGER INSERISCI_ID_CORSO
+BEFORE INSERT ON CORSO
+FOR EACH ROW
+ EXECUTE FUNCTION test_test();
+
+SELECT * FROM CORSO
+*/
+
+
+CREATE FUNCTION elimina_tematica() RETURNS TRIGGER AS $elimina_tematica$
+	BEGIN
+		DELETE FROM TEMATICA_CORSO
+		WHERE CodiceCategoria=Old.CodiceCategoria;
+		RETURN Old;
+	END
+	$elimina_tematica$ LANGUAGE plpgsql;
+
+--DROP TRIGGER INSERISCI_ID_CORSO ON AREA_TEMATICA
+--CREAZIONE DEI TRIGGER
+CREATE OR REPLACE TRIGGER elimina_tematica
+	BEFORE DELETE ON AREA_TEMATICA
+	FOR EACH ROW
+ EXECUTE FUNCTION elimina_tematica();
+ 
+CREATE OR REPLACE VIEW PROVA as
+SELECT Categoria FROM AREA_TEMATICA
+COUNT (B.CodiceCategoria) AS Num_Caregorie
+FROM CORSO A, AREA_TEMATICA B
+
+
+
+
+
+CREATE OR REPLACE VIEW DETTAGLIO_CORSI AS 
+ SELECT
+ 	A.CodiceCorso
+	, A.Nome
+	--, C.Categoria
+	, COUNT(B.CodiceCategoria) AS _N_Categorie
+	, COALESCE(string_agg(C.Categoria,','),'Nessuna Categoria') AS _Categorie
+	, COUNT(D.codicelezione) AS _N_Lezioni
+	, COUNT(E.matricola) AS _N_Iscrizioni
+	, COALESCE(F.Nome,'Nessun docente assegnato') AS _Docente
+FROM CORSO A
+LEFT JOIN TEMATICA_CORSO B ON A.CodiceCorso = B.CodiceCorso
+LEFT JOIN AREA_TEMATICA C ON B.CodiceCategoria = C.CodiceCategoria
+LEFT JOIN LEZIONE D ON A.CodiceCorso = D.CodiceCorso
+LEFT JOIN ISCRIZIONE E ON A.CodiceCorso = E.CodiceCorso
+LEFT JOIN DOCENTE F ON A.CodiceDocente = F.CodiceDocente 
+
+
+GROUP BY A.CodiceCorso, F.Nome
+
+
+SELECT * FROM DETTAGLIO_CORSI
+
+CREATE OR REPLACE VIEW DETTAGLIO_PARTECIPANTI_CORSI AS 
+SELECT 
+	CodiceCorso
+	, SUM(_Partecipanti)
+	, AVG(_Partecipanti) 
+	FROM (
+SELECT 
+	A.CodiceCorso
+	, A.Nome
+	, B.Titolo
+	, COUNT(C.matricola) AS _Partecipanti
+FROM CORSO A
+INNER JOIN LEZIONE B ON A.CodiceCorso  = B.CodiceCorso
+INNER JOIN PARTECIPARE C ON B.CodiceLezione = C.CodiceLezione
+
+GROUP BY A.CodiceCorso, B.Titolo
+	) A
+	
+	GROUP BY CodiceCorso
+	
+	
+SELECT * FROM DETTAGLIO_PARTECIPANTI_CORSI	
+
+
+
+
 
 
