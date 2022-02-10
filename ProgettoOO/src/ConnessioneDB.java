@@ -1,9 +1,11 @@
 import java.sql.*;
 
+
 public class ConnessioneDB {
-	
+	public static void main(String[] args) throws Exception{
+		
 	//private static ConnessioneDB istanzaDB = null;
-	private Connection connessioneDB = null;
+	//private Connection connessioneDB = null;
 
 //	public static ConnessioneDB getIstanza() {
 //		if(istanzaDB == null) {
@@ -13,14 +15,17 @@ public class ConnessioneDB {
 //		return istanzaDB;
 //	}
 
-	public Connection connectToDb() throws Exception{
-		if(connessioneDB == null) {
+	//public Connection connectToDb() throws Exception{
+		//if(connessioneDB == null) {
 			try {
-				Class.forName("org.postgres.Driver");
+				Class.forName("org.postgresql.Driver");
+				
 				String url = "jdbc:postgresql://localhost:5432/BasiDiDati";
-				connessioneDB = DriverManager.getConnection(url,"admin","admin");
+				Connection connessioneDB = DriverManager.getConnection(url,"admin","admin");
+				System.out.println("Connessione OK\n");
 				connessioneDB.close();
-			}catch(ClassNotFoundException e) {
+			}
+			catch(ClassNotFoundException e) {
 				System.out.println("Driver non trovato\n");
 				System.out.println("ClassNotFoundException: "+e);
 			}
@@ -29,9 +34,9 @@ public class ConnessioneDB {
 				System.out.println("SQL Exception: "+e);
 			}
 		}
-
-		return connessioneDB;
-	}
+}
+//		return connessioneDB;
+//	}
 
 //	public boolean checkConnectionToDb() {	
 //		try {
@@ -52,5 +57,5 @@ public class ConnessioneDB {
 //			return false;
 //		}
 //	}
-}
+
 
