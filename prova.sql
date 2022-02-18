@@ -5,57 +5,25 @@ CREATE TABLE CORSO(
 	CodiceCorso INT PRIMARY KEY,
 	Nome VARCHAR(50) NOT NULL,
 	Descrizione VARCHAR(200),
-	MaxPartecipanti INT NOT NULL,
+	Capienza INT NOT NULL,
 	NumLezioni INT,
-	DataInizio DATE,
-	CodiceDocente INT
+	DataInizioCorso DATE,
+	CodiceResponsabile INT
 );
-	ALTER TABLE CORSO 
-	ADD CodiceDocente INT
 
 --Creazione tabella AREA_TEMATICA
 CREATE TABLE AREA_TEMATICA(
-	CodiceCategoria INT PRIMARY KEY,
 	Categoria VARCHAR(30) NOT NULL);
 
 --Creazione tabella TEMATICA_CORSO
 CREATE TABLE TEMATICA_CORSO(
-	CodiceCategoria INT NOT NULL,
+	Categoria VARCHAR(30) NOT NULL,
 	CodiceCorso INT NOT NULL,
 	FOREIGN KEY(CodiceCorso) REFERENCES CORSO(CodiceCorso),
-	FOREIGN KEY(CodiceCategoria) REFERENCES AREA_TEMATICA(CodiceCategoria),
+	FOREIGN KEY(Categoria) REFERENCES AREA_TEMATICA(Categoria),
 	
 	--Implemento il vincolo: CategoriaRipetuta
 	CONSTRAINT CategoriaRipetuta UNIQUE(CodiceCategoria,CodiceCorso));
-
---Creazione tabella RESPONSABILE
-CREATE TABLE RESPONSABILE(
-	CodiceResponsabile INT PRIMARY KEY,
-	Nome VARCHAR(20) NOT NULL,
-	Cognome VARCHAR(20) NOT NULL,
-	LuogoNascita VARCHAR(30) NOT NULL,
-	DataNascita DATE NOT NULL,
-	CodiceFiscale CHAR(16) NOT NULL,
-	Username VARCHAR(16),
-	Pwd VARCHAR(16));
-	
---Creazione tabella STUDENTE
-CREATE TABLE STUDENTE(
-	Matricola CHAR(10) PRIMARY KEY,
-	Nome VARCHAR(20) NOT NULL,
-	Cognome VARCHAR(20) NOT NULL,
-	LuogoNascita VARCHAR(30),
-	DataNascita DATE NOT NULL,
-	CodiceFiscale CHAR(16) NOT NULL);
-
---Creazione tabella DOCENTE
-CREATE TABLE DOCENTE(
-	CodiceDocente INT PRIMARY KEY,
-	Nome VARCHAR(20) NOT NULL,
-	Cognome VARCHAR(20) NOT NULL,
-	LuogoNascita VARCHAR(30),
-	DataNascita DATE,
-	CodiceFiscale CHAR(16) NOT NULL);
 
 --Creazione tabella LEZIONE
 CREATE TABLE LEZIONE (
@@ -75,6 +43,36 @@ CREATE TABLE LEZIONE (
 	
 	--Implemento il vincolo: DocenteRipetuto
 	CONSTRAINT DocenteRipetuto UNIQUE(CodiceCorso,CodiceDocente));
+
+--Creazione tabella RESPONSABILE
+CREATE TABLE RESPONSABILE(
+	CodiceResponsabile INT PRIMARY KEY,
+	Nome VARCHAR(20) NOT NULL,
+	Cognome VARCHAR(20) NOT NULL,
+	LuogoNascita VARCHAR(30) NOT NULL,
+	DataNascita DATE NOT NULL,
+	CF CHAR(16) NOT NULL,
+	Username VARCHAR(16),
+	Pwd VARCHAR(16));
+	
+--Creazione tabella STUDENTE
+CREATE TABLE STUDENTE(
+	Matricola CHAR(10) PRIMARY KEY,
+	Nome VARCHAR(20) NOT NULL,
+	Cognome VARCHAR(20) NOT NULL,
+	LuogoNascita VARCHAR(30),
+	DataNascita DATE NOT NULL,
+	CF CHAR(16) NOT NULL);
+
+--Creazione tabella DOCENTE
+CREATE TABLE DOCENTE(
+	CodiceDocente INT PRIMARY KEY,
+	Nome VARCHAR(20) NOT NULL,
+	Cognome VARCHAR(20) NOT NULL,
+	LuogoNascita VARCHAR(30),
+	DataNascita DATE,
+	CodiceFiscale CHAR(16) NOT NULL);
+
 
 --Creazione tabella PARTECIPARE
 CREATE TABLE PARTECIPARE(
