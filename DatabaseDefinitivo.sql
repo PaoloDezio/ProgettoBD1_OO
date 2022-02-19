@@ -1,5 +1,38 @@
 --CREAZIONE DELLE TABELLE
 
+--Creazione tabella AREA_TEMATICA
+CREATE TABLE AREA_TEMATICA(
+	Categoria VARCHAR(30) PRIMARY KEY);
+	
+--Creazione tabella RESPONSABILE
+CREATE TABLE RESPONSABILE(
+	CodiceResponsabile INT PRIMARY KEY,
+	Nome VARCHAR(20) NOT NULL,
+	Cognome VARCHAR(20) NOT NULL,
+	LuogoNascita VARCHAR(30) NOT NULL,
+	DataNascita NascitaLecita NOT NULL,
+	CF CHAR(16) NOT NULL,
+	Username VARCHAR(16),
+	Pwd VARCHAR(16));
+
+--Creazione tabella STUDENTE
+CREATE TABLE STUDENTE(
+	CodiceStudente CHAR(10) PRIMARY KEY,
+	Nome VARCHAR(20) NOT NULL,
+	Cognome VARCHAR(20) NOT NULL,
+	LuogoNascita VARCHAR(30),
+	DataNascita NascitaLecita NOT NULL,
+	CF CHAR(16) NOT NULL);
+
+--Creazione tabella DOCENTE
+CREATE TABLE DOCENTE(
+	CodiceDocente INT PRIMARY KEY,
+	Nome VARCHAR(20) NOT NULL,
+	Cognome VARCHAR(20) NOT NULL,
+	LuogoNascita VARCHAR(30),
+	DataNascita  NascitaLecita NOT NULL,
+	CF CHAR(16) NOT NULL);
+
 --Creazione tabella CORSO
 CREATE TABLE CORSO(
 	CodiceCorso INT PRIMARY KEY,
@@ -13,10 +46,6 @@ CREATE TABLE CORSO(
 --Imposto CodiceResponsabile come chiave esterna
 FOREIGN KEY(CodiceResponsabile) REFERENCES RESPONSABILE(CodiceResponsabile)
 );
-
---Creazione tabella AREA_TEMATICA
-CREATE TABLE AREA_TEMATICA(
-	Categoria VARCHAR(30) PRIMARY KEY);
 
 --Creazione tabella TEMATICA_CORSO
 CREATE TABLE TEMATICA_CORSO(
@@ -47,35 +76,6 @@ CREATE TABLE LEZIONE (
 	--Implemento il vincolo: DocenteRipetuto
 	CONSTRAINT DocenteRipetuto UNIQUE(CodiceCorso,CodiceDocente));
 
---Creazione tabella RESPONSABILE
-CREATE TABLE RESPONSABILE(
-	CodiceResponsabile INT PRIMARY KEY,
-	Nome VARCHAR(20) NOT NULL,
-	Cognome VARCHAR(20) NOT NULL,
-	LuogoNascita VARCHAR(30) NOT NULL,
-	DataNascita DATE NOT NULL,
-	CF CHAR(16) NOT NULL,
-	Username VARCHAR(16),
-	Pwd VARCHAR(16));
-	
---Creazione tabella STUDENTE
-CREATE TABLE STUDENTE(
-	CodiceStudente CHAR(10) PRIMARY KEY,
-	Nome VARCHAR(20) NOT NULL,
-	Cognome VARCHAR(20) NOT NULL,
-	LuogoNascita VARCHAR(30),
-	DataNascita DATE NOT NULL,
-	CF CHAR(16) NOT NULL);
-
---Creazione tabella DOCENTE
-CREATE TABLE DOCENTE(
-	CodiceDocente INT PRIMARY KEY,
-	Nome VARCHAR(20) NOT NULL,
-	Cognome VARCHAR(20) NOT NULL,
-	LuogoNascita VARCHAR(30),
-	DataNascita DATE,
-	CF CHAR(16) NOT NULL);
-
 --Creazione tabella PARTECIPARE
 CREATE TABLE PARTECIPARE(
 	CodiceStudente CHAR(10) NOT NULL,
@@ -96,3 +96,24 @@ CREATE TABLE ISCRIZIONE(
 	--Implemento il vincolo: IscrizioneRipetuta
 	CONSTRAINT IscrizioneRipetuta UNIQUE(CodiceCorso,CodiceStudente));
 
+
+--ALTRI VINCOLI
+--Creo il vincolo: NascitaLecita
+CREATE DOMAIN NascitaLecita AS DATE
+	CHECK (VALUE >'1960-01-01');
+	
+	
+--DROP DI TUTTE LE TABELLE
+
+DROP TABLE ISCRIZIONE CASCADE;
+DROP TABLE CORSO CASCADE;
+DROP TABLE LEZIONE CASCADE;
+DROP TABLE STUDENTE CASCADE;
+DROP TABLE AREA_TEMATICA CASCADE;
+DROP TABLE TEMATICA_CORSO CASCADE;
+DROP TABLE RESPONSABILE CASCADE;
+DROP TABLE DOCENTE CASCADE;
+DROP TABLE PARTECIPARE CASCADE;
+
+--DROP DEI VINCOLI
+DROP DOMAIN NascitaLecita;
