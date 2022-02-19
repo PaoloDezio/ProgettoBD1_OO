@@ -96,4 +96,3 @@ CREATE TABLE ISCRIZIONE(
 	--Implemento il vincolo: IscrizioneRipetuta
 	CONSTRAINT IscrizioneRipetuta UNIQUE(CodiceCorso,CodiceStudente));
 
-
