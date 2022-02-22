@@ -74,7 +74,8 @@ CREATE TABLE LEZIONE (
 	FOREIGN KEY(CodiceDocente) REFERENCES DOCENTE(CodiceDocente),
 	
 	--Implemento il vincolo: DocenteRipetuto
-	CONSTRAINT DocenteRipetuto UNIQUE(CodiceCorso,CodiceDocente));
+	CONSTRAINT DocenteRipetuto UNIQUE(CodiceCorso,CodiceDocente),
+	CONSTRAINT LezioneOnline CHECK (Piattaforma IS NULL OR Online=TRUE));
 
 --Creazione tabella PARTECIPARE
 CREATE TABLE PARTECIPARE(
