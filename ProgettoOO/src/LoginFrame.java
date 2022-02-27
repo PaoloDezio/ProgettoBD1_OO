@@ -24,6 +24,10 @@ import java.awt.Window.Type;
 import java.awt.Rectangle;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class LoginFrame extends JFrame {
 
@@ -120,6 +124,17 @@ public class LoginFrame extends JFrame {
 					JOptionPane.showMessageDialog(contentPane,"Inserire un Username e una Password per accedere","",JOptionPane.WARNING_MESSAGE);
 				}
 				else {
+					//CONTROLLO VALIDITà CREDENZIALI
+					try {
+					String url = "jdbc:postgresql://localhost:5432/BasiDiDati";
+					Connection connessioneDB = DriverManager.getConnection(url,"admin","admin");
+					Statement st = connessioneDB.createStatement();
+					st.executeQuery("CALL CONTROLLA_LOGIN(username, pwd);");
+							
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}//FINE CONTROLLO VALIDITà CREDENZIALI
 				c.checkResponsabile(username,pwd);
 				usernameTF.setText("");
 				passwordTF.setText("");
