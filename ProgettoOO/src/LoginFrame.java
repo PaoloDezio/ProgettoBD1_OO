@@ -24,11 +24,18 @@ import java.awt.Window.Type;
 import java.awt.Rectangle;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+<<<<<<< HEAD
 import javax.swing.UIManager;
 import javax.swing.JToggleButton;
 import javax.swing.JCheckBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+=======
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+>>>>>>> 4e2e669dd64a39f131e33b5a77f3a4135a875cd7
 
 public class LoginFrame extends JFrame {
 
@@ -129,6 +136,7 @@ public class LoginFrame extends JFrame {
 					JOptionPane.showMessageDialog(contentPane,"Inserire un Username e una Password per accedere","",JOptionPane.WARNING_MESSAGE);
 				}
 				else {
+<<<<<<< HEAD
 					try {
 						if(R.checkResponsabile(username,pwd)==true) {
 							System.out.print("if_checkResponsabile");
@@ -146,6 +154,22 @@ public class LoginFrame extends JFrame {
 						e1.printStackTrace();
 					}				
 					
+=======
+					//CONTROLLO VALIDITà CREDENZIALI
+					try {
+					String url = "jdbc:postgresql://localhost:5432/BasiDiDati";
+					Connection connessioneDB = DriverManager.getConnection(url,"admin","admin");
+					Statement st = connessioneDB.createStatement();
+					st.executeQuery("CALL CONTROLLA_LOGIN(username, pwd);");
+							
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}//FINE CONTROLLO VALIDITà CREDENZIALI
+				c.checkResponsabile(username,pwd);
+				usernameTF.setText("");
+				passwordTF.setText("");
+>>>>>>> 4e2e669dd64a39f131e33b5a77f3a4135a875cd7
 				}
 				
 				
