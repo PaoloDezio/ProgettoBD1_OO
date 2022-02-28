@@ -154,7 +154,7 @@ public class RicercaCorsoFrame extends JFrame {
 		tornaHomeButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		tornaHomeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.apriHome();
+				c.setVisibleHome(true);
 				c.chiudiRicercaCorso();
 			}
 		});

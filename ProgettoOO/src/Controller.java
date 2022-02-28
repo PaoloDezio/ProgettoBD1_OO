@@ -22,20 +22,19 @@ public class Controller {
 	}
 	
 	
-	public void checkResponsabile(String usn,String pwd) {
-		   	//codice jdbc
-			lf.setVisible(false);
-			hf.setVisible(true);
-
-		}
+	
 	
 	public void tornaAlLoginFrame() {
 		lf.setVisible(true);
 		hf.setVisible(false);
 	}
 	
-	public void apriHome() {
-		hf.setVisible(true);
+	public void setVisibleHome(boolean b) {
+		hf.setVisible(b);
+	}
+	
+	public void setVisibleLogin(boolean b) {
+		lf.setVisible(b);
 	}
 	
 	public void apriRicercaCorso() {

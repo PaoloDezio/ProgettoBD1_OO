@@ -17,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class IscrizioneFrame extends JFrame {
 
@@ -24,7 +26,6 @@ public class IscrizioneFrame extends JFrame {
 	private Controller controller;
 	private JTextField nomeTF;
 	private JTextField textField;
-	private JTextField matricolaTF;
 	private JTextField dataDiNascitaTF;
 	private JTextField luogoDiNascitaTF;
 	
@@ -59,7 +60,7 @@ public class IscrizioneFrame extends JFrame {
 		JLabel nomeLabel = new JLabel("Nome");
 		nomeLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_nomeLabel = new GridBagConstraints();
-		gbc_nomeLabel.anchor = GridBagConstraints.WEST;
+		gbc_nomeLabel.anchor = GridBagConstraints.EAST;
 		gbc_nomeLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_nomeLabel.gridx = 1;
 		gbc_nomeLabel.gridy = 3;
@@ -78,7 +79,7 @@ public class IscrizioneFrame extends JFrame {
 		JLabel cognomeLabel = new JLabel("Cognome");
 		cognomeLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_cognomeLabel = new GridBagConstraints();
-		gbc_cognomeLabel.anchor = GridBagConstraints.WEST;
+		gbc_cognomeLabel.anchor = GridBagConstraints.EAST;
 		gbc_cognomeLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_cognomeLabel.gridx = 1;
 		gbc_cognomeLabel.gridy = 4;
@@ -94,32 +95,13 @@ public class IscrizioneFrame extends JFrame {
 		contentPane.add(textField, gbc_textField);
 		textField.setColumns(10);
 		
-		JLabel matricolaLabel = new JLabel("Matricola");
-		matricolaLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_matricolaLabel = new GridBagConstraints();
-		gbc_matricolaLabel.anchor = GridBagConstraints.WEST;
-		gbc_matricolaLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_matricolaLabel.gridx = 1;
-		gbc_matricolaLabel.gridy = 5;
-		contentPane.add(matricolaLabel, gbc_matricolaLabel);
-		
-		matricolaTF = new JTextField();
-		matricolaTF.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_matricolaTF = new GridBagConstraints();
-		gbc_matricolaTF.insets = new Insets(0, 0, 5, 5);
-		gbc_matricolaTF.fill = GridBagConstraints.HORIZONTAL;
-		gbc_matricolaTF.gridx = 2;
-		gbc_matricolaTF.gridy = 5;
-		contentPane.add(matricolaTF, gbc_matricolaTF);
-		matricolaTF.setColumns(10);
-		
 		JLabel dataDiNascitaLabel = new JLabel("Data di Nascita");
 		dataDiNascitaLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_dataDiNascitaLabel = new GridBagConstraints();
-		gbc_dataDiNascitaLabel.anchor = GridBagConstraints.WEST;
+		gbc_dataDiNascitaLabel.anchor = GridBagConstraints.EAST;
 		gbc_dataDiNascitaLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_dataDiNascitaLabel.gridx = 1;
-		gbc_dataDiNascitaLabel.gridy = 6;
+		gbc_dataDiNascitaLabel.gridy = 5;
 		contentPane.add(dataDiNascitaLabel, gbc_dataDiNascitaLabel);
 		
 		dataDiNascitaTF = new JTextField();
@@ -128,7 +110,7 @@ public class IscrizioneFrame extends JFrame {
 		gbc_dataDiNascitaTF.insets = new Insets(0, 0, 5, 5);
 		gbc_dataDiNascitaTF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_dataDiNascitaTF.gridx = 2;
-		gbc_dataDiNascitaTF.gridy = 6;
+		gbc_dataDiNascitaTF.gridy = 5;
 		contentPane.add(dataDiNascitaTF, gbc_dataDiNascitaTF);
 		dataDiNascitaTF.setColumns(10);
 		
@@ -138,7 +120,7 @@ public class IscrizioneFrame extends JFrame {
 		gbc_luogoDiNascitaLabel.anchor = GridBagConstraints.EAST;
 		gbc_luogoDiNascitaLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_luogoDiNascitaLabel.gridx = 1;
-		gbc_luogoDiNascitaLabel.gridy = 7;
+		gbc_luogoDiNascitaLabel.gridy = 6;
 		contentPane.add(luogoDiNascitaLabel, gbc_luogoDiNascitaLabel);
 		
 		luogoDiNascitaTF = new JTextField();
@@ -147,7 +129,7 @@ public class IscrizioneFrame extends JFrame {
 		gbc_luogoDiNascitaTF.insets = new Insets(0, 0, 5, 5);
 		gbc_luogoDiNascitaTF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_luogoDiNascitaTF.gridx = 2;
-		gbc_luogoDiNascitaTF.gridy = 7;
+		gbc_luogoDiNascitaTF.gridy = 6;
 		contentPane.add(luogoDiNascitaTF, gbc_luogoDiNascitaTF);
 		luogoDiNascitaTF.setColumns(10);
 		
@@ -157,29 +139,30 @@ public class IscrizioneFrame extends JFrame {
 		gbc_codiceDelCorsoLabel.anchor = GridBagConstraints.EAST;
 		gbc_codiceDelCorsoLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_codiceDelCorsoLabel.gridx = 1;
-		gbc_codiceDelCorsoLabel.gridy = 8;
+		gbc_codiceDelCorsoLabel.gridy = 7;
 		contentPane.add(codiceDelCorsoLabel, gbc_codiceDelCorsoLabel);
 		
 		JComboBox codiceCorsoCB = new JComboBox();
+		codiceCorsoCB.setEditable(true);
 		GridBagConstraints gbc_codiceCorsoCB = new GridBagConstraints();
 		gbc_codiceCorsoCB.insets = new Insets(0, 0, 5, 5);
 		gbc_codiceCorsoCB.fill = GridBagConstraints.HORIZONTAL;
 		gbc_codiceCorsoCB.gridx = 2;
-		gbc_codiceCorsoCB.gridy = 8;
+		gbc_codiceCorsoCB.gridy = 7;
 		contentPane.add(codiceCorsoCB, gbc_codiceCorsoCB);
 		
 		JButton tornaHomeButton = new JButton("Indietro");
 		tornaHomeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.apriHome();
+				c.setVisibleHome(true);
 				c.chiudiIscrizione();
 			}
 		});
 		tornaHomeButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_tornaHomeButton = new GridBagConstraints();
-		gbc_tornaHomeButton.insets = new Insets(0, 0, 0, 5);
-		gbc_tornaHomeButton.gridx = 4;
-		gbc_tornaHomeButton.gridy = 10;
+		gbc_tornaHomeButton.insets = new Insets(0, 0, 5, 5);
+		gbc_tornaHomeButton.gridx = 3;
+		gbc_tornaHomeButton.gridy = 9;
 		contentPane.add(tornaHomeButton, gbc_tornaHomeButton);
 		
 		JButton confermaButton = new JButton("Conferma");
@@ -187,14 +170,17 @@ public class IscrizioneFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null,"Iscrizione avvenuta con successo");
 				c.chiudiIscrizione();
-				c.apriHome();
+				c.setVisibleHome(true);
 			}
 		});
 		confermaButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_confermaButton = new GridBagConstraints();
-		gbc_confermaButton.gridx = 5;
-		gbc_confermaButton.gridy = 10;
+		gbc_confermaButton.insets = new Insets(0, 0, 5, 5);
+		gbc_confermaButton.gridx = 4;
+		gbc_confermaButton.gridy = 9;
 		contentPane.add(confermaButton, gbc_confermaButton);
+		
+		
 	}
 
 }

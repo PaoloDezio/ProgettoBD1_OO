@@ -24,6 +24,11 @@ import java.awt.Window.Type;
 import java.awt.Rectangle;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import javax.swing.UIManager;
+import javax.swing.JToggleButton;
+import javax.swing.JCheckBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class LoginFrame extends JFrame {
 
@@ -35,18 +40,20 @@ public class LoginFrame extends JFrame {
 	private JLabel usernameLabel;
 	private JLabel passwordLabel;
 	private JButton accediButton;
+	private JCheckBox mostraPasswordCheckBox;
 	
 	
 	/**
 	 * Create the frame.
 	 */
 	public LoginFrame(Controller c) {
+		setResizable(false);
 		
 		controller=c;
 		
 		setTitle("Login");
 		setBackground(new Color(240, 240, 240));
-		setBounds(375, 175, 600, 365);
+		setBounds(375, 175, 580, 285);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel();
@@ -55,8 +62,8 @@ public class LoginFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{65, 86, 90, 90, 0, 40, 80, 0};
-		gbl_contentPane.rowHeights = new int[]{66, 25, 25, 30, 39, 0};
+		gbl_contentPane.columnWidths = new int[]{65, 86, 90, 90, 0, 25, 80, 0};
+		gbl_contentPane.rowHeights = new int[]{56, 25, 25, 20, 28, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
@@ -65,7 +72,7 @@ public class LoginFrame extends JFrame {
 		loginLabel.setVerticalAlignment(SwingConstants.TOP);
 		loginLabel.setLabelFor(this);
 		loginLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		loginLabel.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		loginLabel.setFont(new Font("Century", Font.BOLD, 25));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 1;
@@ -73,7 +80,7 @@ public class LoginFrame extends JFrame {
 		contentPane.add(loginLabel, gbc_lblNewLabel);
 		
 		usernameLabel = new JLabel("Username");
-		usernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		usernameLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_usernameLabel = new GridBagConstraints();
 		gbc_usernameLabel.anchor = GridBagConstraints.EAST;
 		gbc_usernameLabel.insets = new Insets(0, 0, 5, 5);
@@ -93,7 +100,7 @@ public class LoginFrame extends JFrame {
 		usernameTF.setColumns(10);
 		
 		passwordLabel = new JLabel("Password");
-		passwordLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		passwordLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_passwordLabel = new GridBagConstraints();
 		gbc_passwordLabel.anchor = GridBagConstraints.EAST;
 		gbc_passwordLabel.insets = new Insets(0, 0, 5, 5);
@@ -112,23 +119,50 @@ public class LoginFrame extends JFrame {
 		contentPane.add(passwordTF, gbc_passwordTF);
 		
 		accediButton = new JButton("Accedi");
+		accediButton.setBackground(new Color(255, 255, 255));
 		accediButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ResponsabileDAO R=new ResponsabileDAO();
 				String username = usernameTF.getText();
 				String pwd= new String(passwordTF.getPassword());
 				if(username.isEmpty() || pwd.isEmpty()) {
 					JOptionPane.showMessageDialog(contentPane,"Inserire un Username e una Password per accedere","",JOptionPane.WARNING_MESSAGE);
 				}
 				else {
-				c.checkResponsabile(username,pwd);
-				usernameTF.setText("");
-				passwordTF.setText("");
+					try {
+						if(R.checkResponsabile(username,pwd)==true) {
+							System.out.print("if_checkResponsabile");
+							c.setVisibleLogin(false);	
+							c.setVisibleHome(true);
+							usernameTF.setText("");
+							passwordTF.setText("");
+						}
+						else {
+							JOptionPane.showMessageDialog(contentPane,"Username e Password non validi","",JOptionPane.ERROR_MESSAGE);
+							usernameTF.setText("");
+							passwordTF.setText("");
+						}
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}				
+					
 				}
+				
+				
+				
 			}
 		});
+		mostraPasswordCheckBox = new JCheckBox("Mostra Password");
+		mostraPasswordCheckBox.setFont(new Font("Century", Font.PLAIN, 14));
+		mostraPasswordCheckBox.setBackground(new Color(30, 144, 255));
+		GridBagConstraints gbc_mostraPasswordCheckBox = new GridBagConstraints();
+		gbc_mostraPasswordCheckBox.insets = new Insets(0, 0, 5, 5);
+		gbc_mostraPasswordCheckBox.gridx = 2;
+		gbc_mostraPasswordCheckBox.gridy = 3;
+		contentPane.add(mostraPasswordCheckBox, gbc_mostraPasswordCheckBox);
 		
 		
-		accediButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		accediButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_accediButton = new GridBagConstraints();
 		gbc_accediButton.gridx = 6;
 		gbc_accediButton.gridy = 4;

@@ -1,16 +1,15 @@
 
 public class Studente extends Utente {
-	private String matricola;
+	private Integer codiceStudenten;
 	private String emailIstituzionale;
 	
-	
-	
-	public String getMatricola() {
-		return matricola;
+	public Integer getCodiceStudenten() {
+		return codiceStudenten;
 	}
-	public void setMatricola(String matricola) {
-		this.matricola = matricola;
+	public void setCodiceStudenten(Integer codiceStudenten) {
+		this.codiceStudenten = codiceStudenten;
 	}
+
 	public String getEmailIstituzionale() {
 		return emailIstituzionale;
 	}
