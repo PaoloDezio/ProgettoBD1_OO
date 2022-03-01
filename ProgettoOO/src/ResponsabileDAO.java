@@ -4,36 +4,36 @@ public class ResponsabileDAO {
 	private ConnessioneDB istanzaDB;
 	private Connection connessioneDB = null;
 	
-//	public void ResponsabileDAO() {
-//		istanzaDB=ConnessioneDB.getIstanza();
-//	}
+	public ResponsabileDAO() {
+		istanzaDB=ConnessioneDB.getIstanza();
+	}
 	
 	
-	public boolean checkResponsabile(String usn,String pwd) throws Exception {
-		Boolean b=false;
+	public boolean checkResponsabile(String usn,String pwd) throws SQLException {
+//		Boolean b=false;
+		System.out.println(usn+" "+pwd);
 		try {
-			istanzaDB=ConnessioneDB.getIstanza();
 			connessioneDB=istanzaDB.ConnectToDB();
 			
 			
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery(" SELECT username,pwd FROM responsabile ");
-			
+			ResultSet rs = st.executeQuery(" SELECT * FROM responsabile ");
+		
 			while(rs.next()) {
-				if(rs.getString(1).equals(usn) && rs.getString(2).equals(pwd)) {
-					b=true;
-					System.out.print("b=true");
+				if(rs.getString("username").equals(usn) && rs.getString("pwd").equals(pwd)) {
+					
+					return true;
 				}
 			}
-//			st.close();
-//			rs.close();
+			st.close();
+			rs.close();
 			
 			istanzaDB.closeDbConnection();
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return b;
+		return false;
 	}
 	
 	
