@@ -47,13 +47,15 @@ public class LoginFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginFrame(Controller c) {
-		setResizable(false);
-		
 		controller=c;
+		
+		ResponsabileDAO R=new ResponsabileDAO();
+		
 		
 		setTitle("Login");
 		setBackground(new Color(240, 240, 240));
 		setBounds(375, 175, 580, 285);
+		setResizable(false);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel();
@@ -122,7 +124,6 @@ public class LoginFrame extends JFrame {
 		accediButton.setBackground(new Color(255, 255, 255));
 		accediButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ResponsabileDAO R=new ResponsabileDAO();
 				String username = usernameTF.getText();
 				String pwd= new String(passwordTF.getPassword());
 				if(username.isEmpty() || pwd.isEmpty()) {
@@ -131,14 +132,13 @@ public class LoginFrame extends JFrame {
 				else {
 					try {
 						if(R.checkResponsabile(username,pwd)==true) {
-							System.out.print("if_checkResponsabile");
 							c.setVisibleLogin(false);	
 							c.setVisibleHome(true);
 							usernameTF.setText("");
 							passwordTF.setText("");
 						}
 						else {
-							JOptionPane.showMessageDialog(contentPane,"Username e Password non validi","",JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(contentPane,"Username e/o Password non validi","",JOptionPane.ERROR_MESSAGE);
 							usernameTF.setText("");
 							passwordTF.setText("");
 						}
@@ -152,13 +152,21 @@ public class LoginFrame extends JFrame {
 				
 			}
 		});
+//		Boolean stato_p=false;
 		mostraPasswordCheckBox = new JCheckBox("Mostra Password");
-		mostraPasswordCheckBox.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-//				passwordTF.show
-			}
-		});
+//		mostraPasswordCheckBox.addMouseListener(new MouseAdapter() {
+//			
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				if(stato_p==false) {
+//					passwordTF.setEchoChar((char)0);
+//					stato_p=true;
+//				}
+//				else
+//					passwordTF.setEchoChar('*');
+//					stato_p=false;
+//			}
+//		});
 		mostraPasswordCheckBox.setFont(new Font("Century", Font.PLAIN, 14));
 		mostraPasswordCheckBox.setBackground(new Color(30, 144, 255));
 		GridBagConstraints gbc_mostraPasswordCheckBox = new GridBagConstraints();

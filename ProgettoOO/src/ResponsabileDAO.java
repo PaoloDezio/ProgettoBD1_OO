@@ -10,8 +10,6 @@ public class ResponsabileDAO {
 	
 	
 	public boolean checkResponsabile(String usn,String pwd) throws SQLException {
-//		Boolean b=false;
-		System.out.println(usn+" "+pwd);
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
 			

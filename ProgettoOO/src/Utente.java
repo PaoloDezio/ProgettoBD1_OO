@@ -1,3 +1,4 @@
+import java.sql.Date;
 
 public class Utente {
 	private String nome;

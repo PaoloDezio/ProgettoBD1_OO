@@ -1,13 +1,13 @@
 
 public class Studente extends Utente {
-	private Integer codiceStudenten;
+	private Integer codiceStudente;
 	private String emailIstituzionale;
 	
-	public Integer getCodiceStudenten() {
-		return codiceStudenten;
+	public Integer getCodiceStudente() {
+		return codiceStudente;
 	}
-	public void setCodiceStudenten(Integer codiceStudenten) {
-		this.codiceStudenten = codiceStudenten;
+	public void setCodiceStudente(Integer codiceStudente) {
+		this.codiceStudente = codiceStudente;
 	}
 
 	public String getEmailIstituzionale() {

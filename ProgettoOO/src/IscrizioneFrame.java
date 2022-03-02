@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -19,15 +20,17 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 public class IscrizioneFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Controller controller;
 	private JTextField nomeTF;
-	private JTextField textField;
+	private JTextField cognomeTF;
 	private JTextField dataDiNascitaTF;
 	private JTextField luogoDiNascitaTF;
+	private JTextField codiceCorsoTF;
 	
 
 	/**
@@ -35,6 +38,8 @@ public class IscrizioneFrame extends JFrame {
 	 */
 	public IscrizioneFrame(Controller c) {
 		controller = c;
+		
+		StudenteDAO s= new StudenteDAO();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(375, 175, 600, 400);
@@ -45,7 +50,7 @@ public class IscrizioneFrame extends JFrame {
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{70, 0, 100, 31, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
@@ -85,15 +90,15 @@ public class IscrizioneFrame extends JFrame {
 		gbc_cognomeLabel.gridy = 4;
 		contentPane.add(cognomeLabel, gbc_cognomeLabel);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 2;
-		gbc_textField.gridy = 4;
-		contentPane.add(textField, gbc_textField);
-		textField.setColumns(10);
+		cognomeTF = new JTextField();
+		cognomeTF.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_cognomeTF = new GridBagConstraints();
+		gbc_cognomeTF.insets = new Insets(0, 0, 5, 5);
+		gbc_cognomeTF.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cognomeTF.gridx = 2;
+		gbc_cognomeTF.gridy = 4;
+		contentPane.add(cognomeTF, gbc_cognomeTF);
+		cognomeTF.setColumns(10);
 		
 		JLabel dataDiNascitaLabel = new JLabel("Data di Nascita");
 		dataDiNascitaLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -141,15 +146,7 @@ public class IscrizioneFrame extends JFrame {
 		gbc_codiceDelCorsoLabel.gridx = 1;
 		gbc_codiceDelCorsoLabel.gridy = 7;
 		contentPane.add(codiceDelCorsoLabel, gbc_codiceDelCorsoLabel);
-		
-		JComboBox codiceCorsoCB = new JComboBox();
-		codiceCorsoCB.setEditable(true);
-		GridBagConstraints gbc_codiceCorsoCB = new GridBagConstraints();
-		gbc_codiceCorsoCB.insets = new Insets(0, 0, 5, 5);
-		gbc_codiceCorsoCB.fill = GridBagConstraints.HORIZONTAL;
-		gbc_codiceCorsoCB.gridx = 2;
-		gbc_codiceCorsoCB.gridy = 7;
-		contentPane.add(codiceCorsoCB, gbc_codiceCorsoCB);
+	
 		
 		JButton tornaHomeButton = new JButton("Indietro");
 		tornaHomeButton.addActionListener(new ActionListener() {
@@ -164,13 +161,36 @@ public class IscrizioneFrame extends JFrame {
 		gbc_tornaHomeButton.gridx = 3;
 		gbc_tornaHomeButton.gridy = 9;
 		contentPane.add(tornaHomeButton, gbc_tornaHomeButton);
+
+		codiceCorsoTF = new JTextField();
+		GridBagConstraints gbc_codiceCorsoTF = new GridBagConstraints();
+		gbc_codiceCorsoTF.insets = new Insets(0, 0, 5, 5);
+		gbc_codiceCorsoTF.fill = GridBagConstraints.BOTH;
+		gbc_codiceCorsoTF.gridx = 2;
+		gbc_codiceCorsoTF.gridy = 7;
+		contentPane.add(codiceCorsoTF, gbc_codiceCorsoTF);
+		codiceCorsoTF.setColumns(10);
+
 		
 		JButton confermaButton = new JButton("Conferma");
 		confermaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null,"Iscrizione avvenuta con successo");
-				c.chiudiIscrizione();
-				c.setVisibleHome(true);
+				try {
+					String nome = nomeTF.getText();
+					String cognome = cognomeTF.getText();
+					String luogo = luogoDiNascitaTF.getText();
+					String data = dataDiNascitaTF.getText();
+					String codC= codiceCorsoTF.getText();
+					s.salvaStudente(nome, cognome, luogo, data);
+					//s.recuperaCodStudente(nome, cognome, luogo, data);
+					//s.iscriviStudente(nome, cognome, luogo, data,codC);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				
+//				JOptionPane.showMessageDialog(null,"Iscrizione avvenuta con successo");
+//				c.chiudiIscrizione();
+//				c.setVisibleHome(true);
 			}
 		});
 		confermaButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
