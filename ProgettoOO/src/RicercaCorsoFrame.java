@@ -155,7 +155,7 @@ public class RicercaCorsoFrame extends JFrame {
 		tornaHomeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				c.setVisibleHome(true);
-				c.chiudiRicercaCorso();
+				c.setVisibleRicercaCorso(false);
 			}
 		});
 		GridBagConstraints gbc_tornaHomeButton = new GridBagConstraints();

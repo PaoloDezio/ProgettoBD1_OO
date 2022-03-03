@@ -56,7 +56,7 @@ public class HomeFrame extends JFrame {
 		JButton ricercaCorsoButton = new JButton("Ricerca Corso");
 		ricercaCorsoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.apriRicercaCorso();
+				c.setVisibleRicercaCorso(true);
 				
 			}
 		});
@@ -71,7 +71,7 @@ public class HomeFrame extends JFrame {
 		JButton iscriviStudenteButton = new JButton("Iscrivi Studente");
 		iscriviStudenteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.apriIscrizione();
+				c.setVisibleIscriviStudente(true);
 			}
 		});
 		iscriviStudenteButton.setFont(new Font("Tahoma", Font.PLAIN, 16));

@@ -152,7 +152,7 @@ public class IscrizioneFrame extends JFrame {
 		tornaHomeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				c.setVisibleHome(true);
-				c.chiudiIscrizione();
+				c.setVisibleIscriviStudente(false);
 			}
 		});
 		tornaHomeButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -178,8 +178,8 @@ public class IscrizioneFrame extends JFrame {
 				try {
 					String nome = nomeTF.getText();
 					String cognome = cognomeTF.getText();
-					String luogo = luogoDiNascitaTF.getText();
 					String data = dataDiNascitaTF.getText();
+					String luogo = luogoDiNascitaTF.getText();
 					String codC= codiceCorsoTF.getText();
 					s.salvaStudente(nome, cognome, luogo, data);
 					//s.recuperaCodStudente(nome, cognome, luogo, data);
@@ -188,9 +188,14 @@ public class IscrizioneFrame extends JFrame {
 					e1.printStackTrace();
 				}
 				
-//				JOptionPane.showMessageDialog(null,"Iscrizione avvenuta con successo");
-//				c.chiudiIscrizione();
-//				c.setVisibleHome(true);
+				JOptionPane.showMessageDialog(null,"Iscrizione avvenuta con successo");
+				nomeTF.setText("");
+				cognomeTF.setText("");
+				dataDiNascitaTF.setText("");
+				luogoDiNascitaTF.setText("");
+				codiceCorsoTF.setText("");
+				c.setVisibleIscriviStudente(false);
+				c.setVisibleHome(true);
 			}
 		});
 		confermaButton.setFont(new Font("Tahoma", Font.PLAIN, 16));

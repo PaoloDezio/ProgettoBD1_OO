@@ -37,23 +37,13 @@ public class Controller {
 		lf.setVisible(b);
 	}
 	
-	public void apriRicercaCorso() {
-		hf.setVisible(false);
-		rcf.setVisible(true);
+
+	public void setVisibleRicercaCorso(Boolean b) {
+		rcf.setVisible(b);
 	}
 	
-	public void chiudiRicercaCorso() {
-		rcf.setVisible(false);
-	}
-	
-	
-	public void apriIscrizione() {
-		hf.setVisible(false);
-		isf.setVisible(true);
-	}
-	
-	public void chiudiIscrizione() {
-		isf.setVisible(false);
+	public void setVisibleIscriviStudente(Boolean b) {
+		isf.setVisible(b);
 	}
 		
 }

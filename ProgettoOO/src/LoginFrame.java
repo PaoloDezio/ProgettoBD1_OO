@@ -47,11 +47,6 @@ public class LoginFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginFrame(Controller c) {
-<<<<<<< HEAD
-=======
-		setResizable(false);
-		ResponsabileDAO R=  new ResponsabileDAO(); 
->>>>>>> 988e994a338cd705e7220bb71e79a185ae3b002b
 		controller=c;
 		
 		ResponsabileDAO R=new ResponsabileDAO();
@@ -129,10 +124,6 @@ public class LoginFrame extends JFrame {
 		accediButton.setBackground(new Color(255, 255, 255));
 		accediButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
-=======
-				//ResponsabileDAO R=new ResponsabileDAO();
->>>>>>> 988e994a338cd705e7220bb71e79a185ae3b002b
 				String username = usernameTF.getText();
 				String pwd= new String(passwordTF.getPassword());
 				if(username.isEmpty() || pwd.isEmpty()) {
