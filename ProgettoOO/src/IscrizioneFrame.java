@@ -37,6 +37,7 @@ public class IscrizioneFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public IscrizioneFrame(Controller c) {
+		setTitle("Iscrizione");
 		controller = c;
 		
 		StudenteDAO s= new StudenteDAO();
@@ -50,12 +51,12 @@ public class IscrizioneFrame extends JFrame {
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{70, 0, 100, 31, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel iscrizioneLabel = new JLabel("Iscrizione ");
-		iscrizioneLabel.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		iscrizioneLabel.setFont(new Font("Century", Font.BOLD, 25));
 		GridBagConstraints gbc_iscrizioneLabel = new GridBagConstraints();
 		gbc_iscrizioneLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_iscrizioneLabel.gridx = 1;
@@ -63,7 +64,7 @@ public class IscrizioneFrame extends JFrame {
 		contentPane.add(iscrizioneLabel, gbc_iscrizioneLabel);
 		
 		JLabel nomeLabel = new JLabel("Nome");
-		nomeLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		nomeLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_nomeLabel = new GridBagConstraints();
 		gbc_nomeLabel.anchor = GridBagConstraints.EAST;
 		gbc_nomeLabel.insets = new Insets(0, 0, 5, 5);
@@ -82,7 +83,7 @@ public class IscrizioneFrame extends JFrame {
 		nomeTF.setColumns(10);
 		
 		JLabel cognomeLabel = new JLabel("Cognome");
-		cognomeLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		cognomeLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_cognomeLabel = new GridBagConstraints();
 		gbc_cognomeLabel.anchor = GridBagConstraints.EAST;
 		gbc_cognomeLabel.insets = new Insets(0, 0, 5, 5);
@@ -101,7 +102,7 @@ public class IscrizioneFrame extends JFrame {
 		cognomeTF.setColumns(10);
 		
 		JLabel dataDiNascitaLabel = new JLabel("Data di Nascita");
-		dataDiNascitaLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		dataDiNascitaLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_dataDiNascitaLabel = new GridBagConstraints();
 		gbc_dataDiNascitaLabel.anchor = GridBagConstraints.EAST;
 		gbc_dataDiNascitaLabel.insets = new Insets(0, 0, 5, 5);
@@ -120,7 +121,7 @@ public class IscrizioneFrame extends JFrame {
 		dataDiNascitaTF.setColumns(10);
 		
 		JLabel luogoDiNascitaLabel = new JLabel("Luogo di Nascita");
-		luogoDiNascitaLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		luogoDiNascitaLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_luogoDiNascitaLabel = new GridBagConstraints();
 		gbc_luogoDiNascitaLabel.anchor = GridBagConstraints.EAST;
 		gbc_luogoDiNascitaLabel.insets = new Insets(0, 0, 5, 5);
@@ -139,7 +140,7 @@ public class IscrizioneFrame extends JFrame {
 		luogoDiNascitaTF.setColumns(10);
 		
 		JLabel codiceDelCorsoLabel = new JLabel("Codice del Corso");
-		codiceDelCorsoLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		codiceDelCorsoLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_codiceDelCorsoLabel = new GridBagConstraints();
 		gbc_codiceDelCorsoLabel.anchor = GridBagConstraints.EAST;
 		gbc_codiceDelCorsoLabel.insets = new Insets(0, 0, 5, 5);
@@ -152,10 +153,10 @@ public class IscrizioneFrame extends JFrame {
 		tornaHomeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				c.setVisibleHome(true);
-				c.setVisibleIscriviStudente(false);
+				c.setVisibleIscrizione(false);
 			}
 		});
-		tornaHomeButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		tornaHomeButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_tornaHomeButton = new GridBagConstraints();
 		gbc_tornaHomeButton.insets = new Insets(0, 0, 5, 5);
 		gbc_tornaHomeButton.gridx = 3;
@@ -163,6 +164,7 @@ public class IscrizioneFrame extends JFrame {
 		contentPane.add(tornaHomeButton, gbc_tornaHomeButton);
 
 		codiceCorsoTF = new JTextField();
+		codiceCorsoTF.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_codiceCorsoTF = new GridBagConstraints();
 		gbc_codiceCorsoTF.insets = new Insets(0, 0, 5, 5);
 		gbc_codiceCorsoTF.fill = GridBagConstraints.BOTH;
@@ -180,10 +182,12 @@ public class IscrizioneFrame extends JFrame {
 					String cognome = cognomeTF.getText();
 					String data = dataDiNascitaTF.getText();
 					String luogo = luogoDiNascitaTF.getText();
-					String codC= codiceCorsoTF.getText();
+					String codCorso= codiceCorsoTF.getText();
+					String codStudente="";
+					
 					s.salvaStudente(nome, cognome, luogo, data);
-					//s.recuperaCodStudente(nome, cognome, luogo, data);
-					//s.iscriviStudente(nome, cognome, luogo, data,codC);
+					codStudente=s.recuperaCodStudente(nome, cognome, luogo, data);
+					s.iscriviStudente(codCorso,codStudente);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -194,11 +198,11 @@ public class IscrizioneFrame extends JFrame {
 				dataDiNascitaTF.setText("");
 				luogoDiNascitaTF.setText("");
 				codiceCorsoTF.setText("");
-				c.setVisibleIscriviStudente(false);
+				c.setVisibleIscrizione(false);
 				c.setVisibleHome(true);
 			}
 		});
-		confermaButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		confermaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_confermaButton = new GridBagConstraints();
 		gbc_confermaButton.insets = new Insets(0, 0, 5, 5);
 		gbc_confermaButton.gridx = 4;

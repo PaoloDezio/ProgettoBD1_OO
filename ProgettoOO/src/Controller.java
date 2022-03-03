@@ -42,7 +42,7 @@ public class Controller {
 		rcf.setVisible(b);
 	}
 	
-	public void setVisibleIscriviStudente(Boolean b) {
+	public void setVisibleIscrizione(Boolean b) {
 		isf.setVisible(b);
 	}
 		
