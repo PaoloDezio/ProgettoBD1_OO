@@ -317,11 +317,51 @@ VALUES(6,4);
 INSERT INTO ISCRIZIONE
 VALUES(7,5);
 
+CREATE OR REPLACE FUNCTION RICERCACORSONOME (_nome varCHAR(50))
+RETURNS TABLE (codicecorso Integer, nome VARCHAR(50), descrizione VARCHAR(200), capienza INT, numlezioni INT, datainiziocorso DATE, codiceresponsabile INT)
+language plpgsql
+as $$
+begin
+SELECT * FROM CORSO as S WHERE S.nome=_nome;
+END;$$
+INSERT INTO PROVA SELECT RICERCACORSONOME('Programmazione');
+
+CREATE TABLE PROVA (CodiceCorso INTEGER,
+	Nome VARCHAR(50) NOT NULL,
+	Descrizione VARCHAR(200),
+	Capienza INT NOT NULL,
+	NumLezioni INT NOT NULl,
+	DataInizioCorso DATE,
+	CodiceResponsabile INT)
+
 --prova1
-CREATE OR REPLACE PROCEDURE ELIMINA_CORSO(_CodiceCorso INT)
+CREATE OR REPLACE PROCEDURE RICERCACORSO (_nome CORSO.Nome%TYPE , _areaTematica AREATEMATICA.Categoria%TYPE, _parolaChiave CORSO.Descrizione%TYPE, _data CORSO.datainiziocorso%TYPE)
 	LANGUAGE 'plpgsql' AS '
 	BEGIN
-	DELETE FROM CORSO
-	WHERE CodiceCorso=_CodiceCorso;
+	
+	IF(_nome IS NOT NULL) THEN
+	SELECT * FROM CORSO AS C
+	WHERE C.nome=_nome
+	
+	IF(_areaTematica IS NOT NULL) THEN
+	SELECT * FROM CORSO AS C
+	WHERE C.nome=_nome
+	IF(_nome IS NOT NULL) THEN
+	SELECT * FROM CORSO AS C
+	WHERE C.nome=_nome
+	
+	create view a1 IF(_nome IS NOT NULL) THEN
+	SELECT * FROM CORSO AS C
+	WHERE C.nome=_nome
+	
+	return a1 intersect a2 ins
+	
+	
+	
+	
+	
+	
+	
+	
 	END;';
 
