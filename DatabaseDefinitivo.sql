@@ -322,10 +322,10 @@ RETURNS TABLE (codicecorso Integer, nome VARCHAR(50), descrizione VARCHAR(200), 
 language plpgsql
 as $$
 begin
-SELECT * FROM CORSO as S WHERE S.nome=_nome;
+SELECT * FROM CORSO as S WHERE _nome=S.nome;
 END;$$
-INSERT INTO PROVA SELECT RICERCACORSONOME('Programmazione');
-
+Create view a2 as SELECT * from RICERCACORSONOME('Programmazione');
+call a1;
 CREATE TABLE PROVA (CodiceCorso INTEGER,
 	Nome VARCHAR(50) NOT NULL,
 	Descrizione VARCHAR(200),
@@ -364,4 +364,12 @@ CREATE OR REPLACE PROCEDURE RICERCACORSO (_nome CORSO.Nome%TYPE , _areaTematica 
 	
 	
 	END;';
+
+create view a1 (_nome varchar(50))
+as
+select * from corso as I
+where _nome=I.nome
+
+
+
 
