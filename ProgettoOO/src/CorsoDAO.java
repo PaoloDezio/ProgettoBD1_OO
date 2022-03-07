@@ -28,7 +28,7 @@ public class CorsoDAO {
 			connessioneDB=istanzaDB.ConnectToDB();
 			
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM CORSO WHERE nome ='"+nome+"'");
+			ResultSet rs = st.executeQuery("SELECT * FROM CORSO JOIN WHERE nome ='"+nome+"' AND ");
 		
 			while(rs.next()) {
 				
