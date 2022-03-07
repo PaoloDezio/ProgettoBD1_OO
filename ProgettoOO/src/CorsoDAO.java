@@ -5,14 +5,8 @@ public class CorsoDAO {
 	private ConnessioneDB istanzaDB;
 	private Connection connessioneDB = null;
 	
-	
-	public CorsoDAO() {
-		istanzaDB=ConnessioneDB.getIstanza();
-	}
-	
 	public void salvaCorso(Corso c) throws Exception {
-		
-		
+
 //		try {
 //			//creo uno statement
 //			Connection con=new Connection();
@@ -36,7 +30,9 @@ public class CorsoDAO {
 			Statement st = connessioneDB.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM CORSO WHERE nome ='"+nome+"'");
 		
-			while(rs.next()) {}
+			while(rs.next()) {
+				
+			}
 		
 			st.close();
 			rs.close();
@@ -52,6 +48,7 @@ public class CorsoDAO {
 		
 		
 	}
+	
 	
 	
 	
