@@ -1,7 +1,6 @@
 import java.sql.*;
 
 public class ResponsabileDAO {
-	
 	private ConnessioneDB istanzaDB;
 	private Connection connessioneDB = null;
 	
@@ -10,10 +9,10 @@ public class ResponsabileDAO {
 	}
 	
 	
-	
 	public boolean checkResponsabile(String usn,String pwd) throws SQLException {
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
+			
 			
 			Statement st = connessioneDB.createStatement();
 			ResultSet rs = st.executeQuery(" SELECT * FROM responsabile ");
@@ -37,6 +36,5 @@ public class ResponsabileDAO {
 	
 	
 	
-
 	
 }
