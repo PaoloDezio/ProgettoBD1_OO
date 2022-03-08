@@ -204,7 +204,12 @@ public class RicercaCorsoFrame extends JFrame {
 		JButton StatisticheButton = new JButton("Statistische");
 		StatisticheButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			
+			c.setVisibleStatistiche(true);
+			
 			}
+			
+			
 		});
 		StatisticheButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_StatisticheButton = new GridBagConstraints();

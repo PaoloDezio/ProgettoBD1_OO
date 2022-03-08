@@ -21,6 +21,7 @@ public class StatisticheDAO {
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
 			Statement st;
+			
 			st = connessioneDB.createStatement();
 			st.executeQuery("SELECT * FROM STATISTICHE");
 			//INSERIRE CODICE CHE MOSTRA A SCHERMO I DATI

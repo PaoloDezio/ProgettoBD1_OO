@@ -6,6 +6,7 @@ public class Controller {
 	private HomeFrame hf;
 	private RicercaCorsoFrame rcf;
 	private IscrizioneFrame isf;
+	private StatisticheFrame sf;
 	
 	
 	public static void main(String[] args) {
@@ -18,6 +19,7 @@ public class Controller {
 		hf =new HomeFrame(this);
 		rcf = new RicercaCorsoFrame(this);
 		isf = new IscrizioneFrame(this);
+		sf = new StatisticheFrame(this);
 		
 		lf.setVisible(true);
 	}
@@ -46,5 +48,9 @@ public class Controller {
 	public void setVisibleIscrizione(Boolean b) {
 		isf.setVisible(b);
 	}
-		
+	
+	public void setVisibleStatistiche(Boolean b) {
+		sf.setVisible(b);
+	}
+	
 }
