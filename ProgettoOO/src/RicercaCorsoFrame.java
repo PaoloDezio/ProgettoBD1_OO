@@ -1,31 +1,22 @@
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.GridBagLayout;
 import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
-import java.awt.GridBagConstraints;
-import java.awt.Font;
-import java.awt.Insets;
+import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import javax.swing.JScrollPane;
-import javax.swing.JScrollBar;
-import javax.swing.JButton;
-import javax.swing.JTextPane;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
-import java.awt.Dimension;
+import javax.swing.border.EmptyBorder;
 
 public class RicercaCorsoFrame extends JFrame {
 
@@ -34,8 +25,8 @@ public class RicercaCorsoFrame extends JFrame {
 	private JTextField nomeTF;
 	private JTextField parolaChiaveTF;
 	private JTextField dataTF;
-	private JTextField areaTematicaTF;
-	private JTable table;
+	private JTextField categoriaTF;
+	private JTable ListaCorsiTable;
 
 	/**
 	 * Create the frame.
@@ -88,24 +79,63 @@ public class RicercaCorsoFrame extends JFrame {
 		contentPane.add(nomeTF, gbc_nomeTF);
 		nomeTF.setColumns(10);
 		
-		JLabel areaTematicaLabel = new JLabel("Area Tematica");
-		areaTematicaLabel.setFont(new Font("Century", Font.PLAIN, 16));
-		GridBagConstraints gbc_areaTematicaLabel = new GridBagConstraints();
-		gbc_areaTematicaLabel.anchor = GridBagConstraints.EAST;
-		gbc_areaTematicaLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_areaTematicaLabel.gridx = 1;
-		gbc_areaTematicaLabel.gridy = 3;
-		contentPane.add(areaTematicaLabel, gbc_areaTematicaLabel);
+		JLabel CategoriaLabel = new JLabel("Categoria");
+		CategoriaLabel.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_CategoriaLabel = new GridBagConstraints();
+		gbc_CategoriaLabel.anchor = GridBagConstraints.EAST;
+		gbc_CategoriaLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_CategoriaLabel.gridx = 1;
+		gbc_CategoriaLabel.gridy = 3;
+		contentPane.add(CategoriaLabel, gbc_CategoriaLabel);
 		
-		areaTematicaTF = new JTextField();
-		areaTematicaTF.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_areaTematicaTF = new GridBagConstraints();
-		gbc_areaTematicaTF.insets = new Insets(0, 0, 5, 5);
-		gbc_areaTematicaTF.fill = GridBagConstraints.HORIZONTAL;
-		gbc_areaTematicaTF.gridx = 2;
-		gbc_areaTematicaTF.gridy = 3;
-		contentPane.add(areaTematicaTF, gbc_areaTematicaTF);
-		areaTematicaTF.setColumns(10);
+		categoriaTF = new JTextField();
+		categoriaTF.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_categoriaTF = new GridBagConstraints();
+		gbc_categoriaTF.insets = new Insets(0, 0, 5, 5);
+		gbc_categoriaTF.fill = GridBagConstraints.HORIZONTAL;
+		gbc_categoriaTF.gridx = 2;
+		gbc_categoriaTF.gridy = 3;
+		contentPane.add(categoriaTF, gbc_categoriaTF);
+		categoriaTF.setColumns(10);
+		
+		JLabel dataLabel = new JLabel("Data");
+		dataLabel.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_dataLabel = new GridBagConstraints();
+		gbc_dataLabel.anchor = GridBagConstraints.EAST;
+		gbc_dataLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_dataLabel.gridx = 1;
+		gbc_dataLabel.gridy = 4;
+		contentPane.add(dataLabel, gbc_dataLabel);
+		
+		JButton cercaButton = new JButton("Cerca");
+		cercaButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String nome = nomeTF.getText();
+				String categoria= categoriaTF.getText();
+				String data = dataTF.getText();  
+				String parolaChiave = parolaChiaveTF.getText();
+				
+				if(nome.isEmpty() && categoria.isEmpty() && data.isEmpty() && parolaChiave.isEmpty() ) {
+					JOptionPane.showMessageDialog(contentPane, "Inserisci almeno un campo", "", JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+//				ricercaCorso(nome, areaTematica, parolaChiave, data);
+			}
+			
+			}});
+		
+		dataTF = new JTextField();
+		dataTF.setName("");
+		dataTF.setToolTipText("AAAA-MM-GG");
+		dataTF.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_dataTF = new GridBagConstraints();
+		gbc_dataTF.insets = new Insets(0, 0, 5, 5);
+		gbc_dataTF.fill = GridBagConstraints.HORIZONTAL;
+		gbc_dataTF.gridx = 2;
+		gbc_dataTF.gridy = 4;
+		contentPane.add(dataTF, gbc_dataTF);
+		dataTF.setColumns(10);
 		
 		JLabel parolaChiaveLabel = new JLabel("Parola Chiave");
 		parolaChiaveLabel.setFont(new Font("Century", Font.PLAIN, 16));
@@ -113,7 +143,7 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_parolaChiaveLabel.anchor = GridBagConstraints.EAST;
 		gbc_parolaChiaveLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_parolaChiaveLabel.gridx = 1;
-		gbc_parolaChiaveLabel.gridy = 4;
+		gbc_parolaChiaveLabel.gridy = 5;
 		contentPane.add(parolaChiaveLabel, gbc_parolaChiaveLabel);
 		
 		parolaChiaveTF = new JTextField();
@@ -122,47 +152,10 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_parolaChiaveTF.insets = new Insets(0, 0, 5, 5);
 		gbc_parolaChiaveTF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_parolaChiaveTF.gridx = 2;
-		gbc_parolaChiaveTF.gridy = 4;
+		gbc_parolaChiaveTF.gridy = 5;
 		contentPane.add(parolaChiaveTF, gbc_parolaChiaveTF);
 		parolaChiaveTF.setColumns(10);
-		
-		JLabel dataLabel = new JLabel("Data");
-		dataLabel.setFont(new Font("Century", Font.PLAIN, 16));
-		GridBagConstraints gbc_dataLabel = new GridBagConstraints();
-		gbc_dataLabel.anchor = GridBagConstraints.EAST;
-		gbc_dataLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_dataLabel.gridx = 1;
-		gbc_dataLabel.gridy = 5;
-		contentPane.add(dataLabel, gbc_dataLabel);
-		
-		dataTF = new JTextField();
-		dataTF.setToolTipText("01-01-22");
-		dataTF.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_dataTF = new GridBagConstraints();
-		gbc_dataTF.insets = new Insets(0, 0, 5, 5);
-		gbc_dataTF.fill = GridBagConstraints.HORIZONTAL;
-		gbc_dataTF.gridx = 2;
-		gbc_dataTF.gridy = 5;
-		contentPane.add(dataTF, gbc_dataTF);
-		dataTF.setColumns(10);
-		
-		JButton cercaButton = new JButton("Cerca");
-		cercaButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				String nome = nomeTF.getText();
-				String areaTematica= areaTematicaTF.getText();
-				String parolaChiave = parolaChiaveTF.getText();
-				String data = dataTF.getText();
-				
-				if(nome.isEmpty() && areaTematica.isEmpty() && parolaChiave.isEmpty() && data.isEmpty()) {
-					JOptionPane.showMessageDialog(contentPane, "Inserisci almeno un campo", "", JOptionPane.WARNING_MESSAGE);
-				}
-				else {
-					
-			}
-			
-			}});
+
 		cercaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_cercaButton = new GridBagConstraints();
 		gbc_cercaButton.anchor = GridBagConstraints.WEST;
@@ -196,17 +189,17 @@ public class RicercaCorsoFrame extends JFrame {
 		contentPane.add(selezionaUnCorsoLabel, gbc_selezionaUnCorsoLabel);
 		
 		
-		String[][] data={{" "}};
-		String[] colonne= {"Nome","",""};
-		table = new JTable(data,colonne);
-		GridBagConstraints gbc_table = new GridBagConstraints();
-		gbc_table.gridheight = 3;
-		gbc_table.gridwidth = 3;
-		gbc_table.insets = new Insets(0, 0, 5, 5);
-		gbc_table.fill = GridBagConstraints.BOTH;
-		gbc_table.gridx = 1;
-		gbc_table.gridy = 9;
-		contentPane.add(table, gbc_table);
+//		String[][] data={{" "}};
+//		String[] colonne= {"Nome","",""};
+		ListaCorsiTable = new JTable();
+		GridBagConstraints gbc_ListaCorsiTable = new GridBagConstraints();
+		gbc_ListaCorsiTable.gridheight = 3;
+		gbc_ListaCorsiTable.gridwidth = 3;
+		gbc_ListaCorsiTable.insets = new Insets(0, 0, 5, 5);
+		gbc_ListaCorsiTable.fill = GridBagConstraints.BOTH;
+		gbc_ListaCorsiTable.gridx = 1;
+		gbc_ListaCorsiTable.gridy = 9;
+		contentPane.add(ListaCorsiTable, gbc_ListaCorsiTable);
 		
 		JButton StatisticheButton = new JButton("Statistische");
 		StatisticheButton.addActionListener(new ActionListener() {
@@ -241,4 +234,3 @@ public class RicercaCorsoFrame extends JFrame {
 	}
 
 }
-
