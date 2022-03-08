@@ -45,15 +45,15 @@ public class RicercaCorsoFrame extends JFrame {
 		controller = c;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(375, 175, 565, 526);
+		setBounds(375, 175, 700, 526);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{23, 91, 130, 69, 0, 0};
+		gbl_contentPane.columnWidths = new int[]{23, 91, 130, 69, 0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{40, 0, 0, 0, 0, 0, 0, 0, 0, 55, 55, 55, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
@@ -129,7 +129,7 @@ public class RicercaCorsoFrame extends JFrame {
 					JOptionPane.showMessageDialog(contentPane, "Inserisci almeno un campo", "", JOptionPane.WARNING_MESSAGE);
 				}
 				else {
-//				ricercaCorso(nome, areaTematica, parolaChiave, data);
+//					ricercaCorso(nome, areaTematica, parolaChiave, data);
 			}
 			
 			}});
@@ -181,7 +181,7 @@ public class RicercaCorsoFrame extends JFrame {
 			}
 		});
 		GridBagConstraints gbc_tornaHomeButton = new GridBagConstraints();
-		gbc_tornaHomeButton.insets = new Insets(0, 0, 5, 0);
+		gbc_tornaHomeButton.insets = new Insets(0, 0, 5, 5);
 		gbc_tornaHomeButton.gridx = 4;
 		gbc_tornaHomeButton.gridy = 6;
 		contentPane.add(tornaHomeButton, gbc_tornaHomeButton);
@@ -197,9 +197,30 @@ public class RicercaCorsoFrame extends JFrame {
 		contentPane.add(selezionaUnCorsoLabel, gbc_selezionaUnCorsoLabel);
 		
 		
-//		String[][] data={{" "}};
-//		String[] colonne= {"Nome","",""};
-		table = new JTable();
+
+		String[] nomeColonne= {"Nome","Categoria","Data","Parola Chiave"};
+		Object[][] dati= {{"Pippo","Math","2022-03-08","Cartoni"},
+						  {"Pluto","Italiano","2021-04-11","Cartoni"},	
+						  {"Paperino","Inglese","2020-09-24","Cartoni"},
+						  {"Pippo","Math","2022-03-08","Cartoni"},
+						  {"Pluto","Italiano","2021-04-11","Cartoni"},	
+						  {"Paperino","Inglese","2020-09-24","Cartoni"},
+						  {"Pippo","Math","2022-03-08","Cartoni"},
+						  {"Pluto","Italiano","2021-04-11","Cartoni"},	
+						  {"Paperino","Inglese","2020-09-24","Cartoni"},
+						  {"Pippo","Math","2022-03-08","Cartoni"},
+						  {"Pluto","Italiano","2021-04-11","Cartoni"},	
+						  {"Paperino","Inglese","2020-09-24","Cartoni"}};
+		
+		table = new JTable(dati,nomeColonne);
+		//sto provando a rendere la jtable non modificabile
+//		{ 
+//			public boolean isCellEditable(int dati,int nomeColonne) {
+//				return false;
+//			}
+//		};
+		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		table.setFillsViewportHeight(true);
 		GridBagConstraints gbc_table = new GridBagConstraints();
 		gbc_table.gridheight = 3;
 		gbc_table.gridwidth = 3;
@@ -209,6 +230,18 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_table.gridy = 9;
 		contentPane.add(table, gbc_table);
 		
+		JScrollPane scrollPane = new JScrollPane(table);
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridwidth = 5;
+		gbc_scrollPane.gridheight = 3;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 9;
+		getContentPane().add(scrollPane, gbc_scrollPane);
+		
+		
+
 		JButton StatisticheButton = new JButton("Statistische");
 		StatisticheButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -220,7 +253,7 @@ public class RicercaCorsoFrame extends JFrame {
 		GridBagConstraints gbc_StatisticheButton = new GridBagConstraints();
 		gbc_StatisticheButton.insets = new Insets(0, 0, 5, 0);
 		gbc_StatisticheButton.anchor = GridBagConstraints.WEST;
-		gbc_StatisticheButton.gridx = 4;
+		gbc_StatisticheButton.gridx = 6;
 		gbc_StatisticheButton.gridy = 9;
 		contentPane.add(StatisticheButton, gbc_StatisticheButton);
 		
@@ -229,7 +262,7 @@ public class RicercaCorsoFrame extends JFrame {
 		GridBagConstraints gbc_ModificaButton = new GridBagConstraints();
 		gbc_ModificaButton.anchor = GridBagConstraints.WEST;
 		gbc_ModificaButton.insets = new Insets(0, 0, 5, 0);
-		gbc_ModificaButton.gridx = 4;
+		gbc_ModificaButton.gridx = 6;
 		gbc_ModificaButton.gridy = 10;
 		contentPane.add(ModificaButton, gbc_ModificaButton);
 		
@@ -238,7 +271,7 @@ public class RicercaCorsoFrame extends JFrame {
 		GridBagConstraints gbc_EliminaButton = new GridBagConstraints();
 		gbc_EliminaButton.anchor = GridBagConstraints.WEST;
 		gbc_EliminaButton.insets = new Insets(0, 0, 5, 0);
-		gbc_EliminaButton.gridx = 4;
+		gbc_EliminaButton.gridx = 6;
 		gbc_EliminaButton.gridy = 11;
 		contentPane.add(EliminaButton, gbc_EliminaButton);
 	}
