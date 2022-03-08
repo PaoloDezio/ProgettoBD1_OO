@@ -7,7 +7,7 @@ public class Controller {
 	private RicercaCorsoFrame rcf;
 	private IscrizioneFrame isf;
 	private StatisticheFrame sf;
-	
+	private IdoneiFrame idof;
 	
 	public static void main(String[] args) {
 		Controller c= new Controller();
@@ -20,7 +20,7 @@ public class Controller {
 		rcf = new RicercaCorsoFrame(this);
 		isf = new IscrizioneFrame(this);
 		sf = new StatisticheFrame(this);
-		
+		idof = new IdoneiFrame(this);
 		lf.setVisible(true);
 	}
 	
@@ -41,16 +41,20 @@ public class Controller {
 	}
 	
 
-	public void setVisibleRicercaCorso(Boolean b) {
+	public void setVisibleRicercaCorso(boolean b) {
 		rcf.setVisible(b);
 	}
 	
-	public void setVisibleIscrizione(Boolean b) {
+	public void setVisibleIscrizione(boolean b) {
 		isf.setVisible(b);
 	}
 	
-	public void setVisibleStatistiche(Boolean b) {
+	public void setVisibleStatistiche(boolean b) {
 		sf.setVisible(b);
+	}
+	
+	public void setVisibleIdonei(boolean b) {
+		idof.setVisible(b);
 	}
 	
 }

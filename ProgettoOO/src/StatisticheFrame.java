@@ -148,6 +148,12 @@ public class StatisticheFrame extends JFrame {
 		MediaPercentualeTF.setColumns(10);
 		
 		JButton idoneiButton = new JButton("Idonei");
+		idoneiButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				c.setVisibleIdonei(true);
+				
+			}
+		});
 		idoneiButton.setFont(new Font("Dialog", Font.PLAIN, 16));
 		GridBagConstraints gbc_idoneiButton = new GridBagConstraints();
 		gbc_idoneiButton.insets = new Insets(0, 0, 5, 5);
