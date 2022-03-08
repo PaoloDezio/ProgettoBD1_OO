@@ -21,6 +21,7 @@ public class Controller {
 		isf = new IscrizioneFrame(this);
 		sf = new StatisticheFrame(this);
 		idof = new IdoneiFrame(this);
+		
 		lf.setVisible(true);
 	}
 	
@@ -52,7 +53,6 @@ public class Controller {
 	public void setVisibleStatistiche(boolean b) {
 		sf.setVisible(b);
 	}
-	
 	public void setVisibleIdonei(boolean b) {
 		idof.setVisible(b);
 	}
