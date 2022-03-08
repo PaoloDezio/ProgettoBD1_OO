@@ -50,7 +50,7 @@ public class HomeFrame extends JFrame {
 		ricercaCorsoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				c.setVisibleRicercaCorso(true);
-				
+				c.setVisibleHome(false);
 			}
 		});
 		ricercaCorsoButton.setFont(new Font("Century", Font.PLAIN, 16));

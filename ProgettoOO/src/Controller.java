@@ -1,7 +1,6 @@
 import javax.swing.JFrame;
 
 public class Controller {
-	
 	private LoginFrame lf;
 	private HomeFrame hf;
 	private RicercaCorsoFrame rcf;
@@ -42,19 +41,21 @@ public class Controller {
 	}
 	
 
-	public void setVisibleRicercaCorso(boolean b) {
+	public void setVisibleRicercaCorso(Boolean b) {
 		rcf.setVisible(b);
 	}
 	
-	public void setVisibleIscrizione(boolean b) {
+	public void setVisibleIscrizione(Boolean b) {
 		isf.setVisible(b);
 	}
 	
 	public void setVisibleStatistiche(boolean b) {
 		sf.setVisible(b);
 	}
+	
 	public void setVisibleIdonei(boolean b) {
 		idof.setVisible(b);
 	}
 	
+		
 }
