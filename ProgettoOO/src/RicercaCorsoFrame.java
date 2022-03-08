@@ -159,7 +159,7 @@ public class RicercaCorsoFrame extends JFrame {
 					JOptionPane.showMessageDialog(contentPane, "Inserisci almeno un campo", "", JOptionPane.WARNING_MESSAGE);
 				}
 				else {
-//				ricercaCorso(nome, areaTematica, parolaChiave, data);
+					
 			}
 			
 			}});

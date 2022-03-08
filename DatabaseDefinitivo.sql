@@ -41,7 +41,7 @@ CREATE TABLE DOCENTE(
 
 --Creazione tabella CORSO
 CREATE TABLE CORSO(
-	CodiceCorso INTEGER PRIMARY KEY,
+	CodiceCorso INT PRIMARY KEY,
 	Nome VARCHAR(50) NOT NULL,
 	Descrizione VARCHAR(200),
 	Capienza INT NOT NULL,
@@ -86,7 +86,7 @@ CREATE TABLE LEZIONE (
 
 --Creazione tabella PARTECIPARE
 CREATE TABLE PARTECIPARE(
-	CodiceStudente CHAR(10) NOT NULL,
+	CodiceStudente INT NOT NULL,
 	CodiceLezione INT NOT NULL,
 	
 	FOREIGN KEY(CodiceStudente) REFERENCES STUDENTE(CodiceStudente),
@@ -288,6 +288,8 @@ INSERT INTO PARTECIPARE
 VALUES(1,5);
 INSERT INTO PARTECIPARE
 VALUES(1,6);
+INSERT INTO PARTECIPARE
+VALUES(1,7);
 
 --POPOLO LA TABELLA ISCRIZIONE
 INSERT INTO ISCRIZIONE
@@ -317,25 +319,7 @@ VALUES(6,4);
 INSERT INTO ISCRIZIONE
 VALUES(7,5);
 
-CREATE OR REPLACE FUNCTION RICERCACORSONOME (_nome varCHAR(50))
-RETURNS TABLE (codicecorso Integer, nome VARCHAR(50), descrizione VARCHAR(200), capienza INT, numlezioni INT, datainiziocorso DATE, codiceresponsabile INT)
-language plpgsql
-as $$
-begin
-insert into a2
-SELECT * FROM CORSO as S WHERE S.nome=_nome;
-END;$$
-SElect * from a2
-Create view a4 as SELECT * from RICERCACORSONOME('Programmazione');
-call a1;
-select * from a4
-CREATE TABLE PROVA (CodiceCorso INTEGER,
-	Nome VARCHAR(50) NOT NULL,
-	Descrizione VARCHAR(200),
-	Capienza INT NOT NULL,
-	NumLezioni INT NOT NULl,
-	DataInizioCorso DATE,
-	CodiceResponsabile INT)
+
 
 --prova1
 CREATE OR REPLACE PROCEDURE RICERCACORSO (_nome CORSO.Nome%TYPE , _areaTematica AREATEMATICA.Categoria%TYPE, _parolaChiave CORSO.Descrizione%TYPE, _data CORSO.datainiziocorso%TYPE)
@@ -368,11 +352,18 @@ CREATE OR REPLACE PROCEDURE RICERCACORSO (_nome CORSO.Nome%TYPE , _areaTematica 
 	
 	END;';
 
-create view a1 (_nome varchar(50))
-as
-select * from corso as I
-where _nome=I.nome
+--RINOMINA COLONNE STATISTICHE
+alter view statistiche
+rename column count to numeroPartecipazioni
 
+CREATE VIEW STATISTICHE AS
+SELECT P.CODICESTUDENTE, COUNT(P.CODICELEZIONE)
+FROM PARTECIPARE AS P
+WHERE CODICEL
+GROUP BY P.CODICESTUDENTE AND L.CODICECORSO
+ORDER BY P.CODICESTUDENTE
+
+SELECT * FROM STATISTICHE
 
 
 

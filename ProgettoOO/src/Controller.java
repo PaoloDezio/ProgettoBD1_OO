@@ -1,6 +1,7 @@
 import javax.swing.JFrame;
 
 public class Controller {
+	
 	private LoginFrame lf;
 	private HomeFrame hf;
 	private RicercaCorsoFrame rcf;
