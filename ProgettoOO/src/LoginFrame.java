@@ -53,7 +53,7 @@ public class LoginFrame extends JFrame {
 	public LoginFrame(Controller c) {
 		controller=c;
 		
-		ResponsabileDAO R=new ResponsabileDAO();
+		ResponsabileDAO responsabile=new ResponsabileDAO();
 		
 		
 		setTitle("Login");
@@ -152,7 +152,7 @@ public class LoginFrame extends JFrame {
 				}
 				else {
 					try {
-						if(R.checkResponsabile(username,pwd)==true) {
+						if(responsabile.checkResponsabile(username,pwd)==true) {
 							c.setVisibleLogin(false);	
 							c.setVisibleHome(true);
 							usernameTF.setText("");
