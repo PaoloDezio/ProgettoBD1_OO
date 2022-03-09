@@ -20,12 +20,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
+import javax.swing.ListSelectionModel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import java.awt.Dimension;
+import javax.swing.table.DefaultTableModel;
 
 public class RicercaCorsoFrame extends JFrame {
 
@@ -212,13 +215,36 @@ public class RicercaCorsoFrame extends JFrame {
 						  {"Pluto","Italiano","2021-04-11","Cartoni"},	
 						  {"Paperino","Inglese","2020-09-24","Cartoni"}};
 		
+		
 		table = new JTable(dati,nomeColonne);
-		//sto provando a rendere la jtable non modificabile
-//		{ 
-//			public boolean isCellEditable(int dati,int nomeColonne) {
-//				return false;
-//			}
-//		};
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"Pippo", "Math", "2022-03-08", "Cartoni"},
+				{"Pluto", "Italiano", "2021-04-11", "Cartoni"},
+				{"Paperino", "Inglese", "2020-09-24", "Cartoni"},
+				{"Pippo", "Math", "2022-03-08", "Cartoni"},
+				{"Pluto", "Italiano", "2021-04-11", "Cartoni"},
+				{"Paperino", "Inglese", "2020-09-24", "Cartoni"},
+				{"Pippo", "Math", "2022-03-08", "Cartoni"},
+				{"Pluto", "Italiano", "2021-04-11", "Cartoni"},
+				{"Paperino", "Inglese", "2020-09-24", "Cartoni"},
+				{"Pippo", "Math", "2022-03-08", "Cartoni"},
+				{"Pluto", "Italiano", "2021-04-11", "Cartoni"},
+				{"Paperino", "Inglese", "2020-09-24", "Cartoni"},
+				{null, null, null, null},
+				{null, null, null, null},
+			},
+			new String[] {
+				"Nome", "Categoria", "Data", "Parola Chiave"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		table.setFillsViewportHeight(true);
 		GridBagConstraints gbc_table = new GridBagConstraints();
