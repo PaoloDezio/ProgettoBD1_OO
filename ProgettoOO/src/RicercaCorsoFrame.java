@@ -242,8 +242,11 @@ public class RicercaCorsoFrame extends JFrame {
 				false, false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
+				if(row == table.getSelectedRow())
+					return true;
+					else return false;
 			}
+			
 		}); 
 		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		table.setFillsViewportHeight(true);
@@ -286,7 +289,7 @@ public class RicercaCorsoFrame extends JFrame {
 		JButton ModificaButton = new JButton("Modifica");
 		ModificaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				table.isCellEditable(//NON HO IDEA DEI PARAMETRI TABLE.GETSELECTEDROW(), ABORT)
 			}
 		});
 		ModificaButton.setFont(new Font("Century", Font.PLAIN, 16));
