@@ -244,7 +244,7 @@ public class RicercaCorsoFrame extends JFrame {
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
-		});
+		}); 
 		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		table.setFillsViewportHeight(true);
 		GridBagConstraints gbc_table = new GridBagConstraints();
@@ -284,6 +284,11 @@ public class RicercaCorsoFrame extends JFrame {
 		contentPane.add(StatisticheButton, gbc_StatisticheButton);
 		
 		JButton ModificaButton = new JButton("Modifica");
+		ModificaButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		ModificaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_ModificaButton = new GridBagConstraints();
 		gbc_ModificaButton.anchor = GridBagConstraints.WEST;
