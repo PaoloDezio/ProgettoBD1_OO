@@ -1,3 +1,5 @@
+import java.sql.SQLException;
+
 import javax.swing.JFrame;
 
 public class Controller {
@@ -7,19 +9,21 @@ public class Controller {
 	private IscrizioneFrame isf;
 	private StatisticheFrame sf;
 	private IdoneiFrame idof;
+	private AggiungiAreaTematicaFrame atf;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		Controller c= new Controller();
 		
 	}
 
-	public Controller() {
+	public Controller() throws SQLException {
 		lf=new LoginFrame(this);
 		hf =new HomeFrame(this);
 		rcf = new RicercaCorsoFrame(this);
 		isf = new IscrizioneFrame(this);
 		sf = new StatisticheFrame(this);
 		idof = new IdoneiFrame(this);
+		atf = new AggiungiAreaTematicaFrame(this);
 		
 		lf.setVisible(true);
 	}
@@ -57,5 +61,8 @@ public class Controller {
 		idof.setVisible(b);
 	}
 	
+	public void setVisibleAggiungiAreaTematica(boolean b) {
+		atf.setVisible(b);
+	}
 		
 }

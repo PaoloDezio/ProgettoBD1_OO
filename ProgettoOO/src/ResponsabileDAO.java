@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 
 public class ResponsabileDAO {
 	private ConnessioneDB istanzaDB;
@@ -13,13 +14,11 @@ public class ResponsabileDAO {
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
 			
-			
 			Statement st = connessioneDB.createStatement();
 			ResultSet rs = st.executeQuery(" SELECT * FROM responsabile ");
-		
+			
 			while(rs.next()) {
 				if(rs.getString("username").equals(usn) && rs.getString("pwd").equals(pwd)) {
-					
 					return true;
 				}
 			}

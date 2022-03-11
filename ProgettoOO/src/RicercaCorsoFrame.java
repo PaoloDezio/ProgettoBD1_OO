@@ -14,9 +14,11 @@ import javax.swing.JTextArea;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
@@ -41,12 +43,7 @@ public class RicercaCorsoFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Controller controller;
-//	private JTextField nomeTF;
-//	private JTextField parolaChiaveTF;
-//	private JTextField dataTF;
-//	private JTextField categoria1TF;
 	private JTable table;
-//	private JTextField categoria2TF;
 	private JComboBox campoCB;
 	private JTextField nomeTF;
 	private JLabel nomeLabel;
@@ -54,8 +51,9 @@ public class RicercaCorsoFrame extends JFrame {
 	
 	/**
 	 * Create the frame.
+	 * 
 	 */
-	public RicercaCorsoFrame(Controller c) {
+	public RicercaCorsoFrame(Controller c) throws SQLException {
 		setTitle("Ricerca Corso");
 		controller = c;
 		
@@ -84,9 +82,7 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_ricercaCorsoLabel.gridy = 0;
 		contentPane.add(ricercaCorsoLabel, gbc_ricercaCorsoLabel);
 		
-		
-		String[] campi= {"Nome","Categoria","Data","Parola Chiave"};
-		
+				
 		JLabel selezionareUnCampoLabel = new JLabel("Selezionare un campo");
 		selezionareUnCampoLabel.setFont(new Font("Century", Font.PLAIN, 18));
 		GridBagConstraints gbc_selezionareUnCampoLabel = new GridBagConstraints();
@@ -105,120 +101,11 @@ public class RicercaCorsoFrame extends JFrame {
 				c.setVisibleRicercaCorso(false);
 			}
 		});
-				
-//		JLabel nomeLabel = new JLabel("Nome");
-//		nomeLabel.setHorizontalTextPosition(SwingConstants.CENTER);
-//		nomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//		nomeLabel.setFont(new Font("Century", Font.PLAIN, 16));
-//		GridBagConstraints gbc_nomeLabel = new GridBagConstraints();
-//		gbc_nomeLabel.anchor = GridBagConstraints.EAST;
-//		gbc_nomeLabel.insets = new Insets(0, 0, 5, 5);
-//		gbc_nomeLabel.gridx = 1;
-//		gbc_nomeLabel.gridy = 2;
-//		contentPane.add(nomeLabel, gbc_nomeLabel);
-//		
-//		nomeTF.setFont(new Font("Tahoma", Font.PLAIN, 16));
-//		GridBagConstraints gbc_nomeTF = new GridBagConstraints();
-//		gbc_nomeTF.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_nomeTF.insets = new Insets(0, 0, 5, 5);
-//		gbc_nomeTF.gridx = 2;
-//		gbc_nomeTF.gridy = 2;
-//		contentPane.add(nomeTF, gbc_nomeTF);
-//		nomeTF.setColumns(10);
-//		
-//		JLabel Categoria1Label = new JLabel("Categoria n.1");
-//		Categoria1Label.setFont(new Font("Century", Font.PLAIN, 16));
-//		GridBagConstraints gbc_Categoria1Label = new GridBagConstraints();
-//		gbc_Categoria1Label.anchor = GridBagConstraints.EAST;
-//		gbc_Categoria1Label.insets = new Insets(0, 0, 5, 5);
-//		gbc_Categoria1Label.gridx = 1;
-//		gbc_Categoria1Label.gridy = 3;
-//		contentPane.add(Categoria1Label, gbc_Categoria1Label);
-//		
-//		categoria1TF = new JTextField();
-//		categoria1TF.setFont(new Font("Tahoma", Font.PLAIN, 16));
-//		GridBagConstraints gbc_categoria1TF = new GridBagConstraints();
-//		gbc_categoria1TF.insets = new Insets(0, 0, 5, 5);
-//		gbc_categoria1TF.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_categoria1TF.gridx = 2;
-//		gbc_categoria1TF.gridy = 3;
-//		contentPane.add(categoria1TF, gbc_categoria1TF);
-//		categoria1TF.setColumns(10);
-//		
-//		JLabel Categoria2Label = new JLabel("Categoria n.2");
-//		Categoria2Label.setFont(new Font("Century", Font.PLAIN, 16));
-//		GridBagConstraints gbc_Categoria2Label = new GridBagConstraints();
-//		gbc_Categoria2Label.anchor = GridBagConstraints.EAST;
-//		gbc_Categoria2Label.insets = new Insets(0, 0, 5, 5);
-//		gbc_Categoria2Label.gridx = 1;
-//		gbc_Categoria2Label.gridy = 4;
-//		contentPane.add(Categoria2Label, gbc_Categoria2Label);
-//		
-//		categoria2TF = new JTextField();
-//		categoria2TF.setFont(new Font("Tahoma", Font.PLAIN, 16));
-//		categoria2TF.setColumns(10);
-//		GridBagConstraints gbc_categoria2TF = new GridBagConstraints();
-//		gbc_categoria2TF.insets = new Insets(0, 0, 5, 5);
-//		gbc_categoria2TF.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_categoria2TF.gridx = 2;
-//		gbc_categoria2TF.gridy = 4;
-//		contentPane.add(categoria2TF, gbc_categoria2TF);
-//		
-//		JLabel dataLabel = new JLabel("Data");
-//		dataLabel.setFont(new Font("Century", Font.PLAIN, 16));
-//		GridBagConstraints gbc_dataLabel = new GridBagConstraints();
-//		gbc_dataLabel.anchor = GridBagConstraints.EAST;
-//		gbc_dataLabel.insets = new Insets(0, 0, 5, 5);
-//		gbc_dataLabel.gridx = 1;
-//		gbc_dataLabel.gridy = 5;
-//		contentPane.add(dataLabel, gbc_dataLabel);
-//	
-
-//		dataTF = new JTextField();
-//		dataTF.setName("");
-//		dataTF.setToolTipText("AAAA-MM-GG");
-//		dataTF.setFont(new Font("Tahoma", Font.PLAIN, 16));
-//		GridBagConstraints gbc_dataTF = new GridBagConstraints();
-//		gbc_dataTF.insets = new Insets(0, 0, 5, 5);
-//		gbc_dataTF.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_dataTF.gridx = 2;
-//		gbc_dataTF.gridy = 5;
-//		contentPane.add(dataTF, gbc_dataTF);
-//		dataTF.setColumns(10);
-//		
-//		JLabel parolaChiaveLabel = new JLabel("Parola Chiave");
-//		parolaChiaveLabel.setFont(new Font("Century", Font.PLAIN, 16));
-//		GridBagConstraints gbc_parolaChiaveLabel = new GridBagConstraints();
-//		gbc_parolaChiaveLabel.anchor = GridBagConstraints.EAST;
-//		gbc_parolaChiaveLabel.insets = new Insets(0, 0, 5, 5);
-//		gbc_parolaChiaveLabel.gridx = 1;
-//		gbc_parolaChiaveLabel.gridy = 6;
-//		contentPane.add(parolaChiaveLabel, gbc_parolaChiaveLabel);
-//		
-//		parolaChiaveTF = new JTextField();
-//		parolaChiaveTF.setFont(new Font("Tahoma", Font.PLAIN, 16));
-//		GridBagConstraints gbc_parolaChiaveTF = new GridBagConstraints();
-//		gbc_parolaChiaveTF.insets = new Insets(0, 0, 5, 5);
-//		gbc_parolaChiaveTF.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_parolaChiaveTF.gridx = 2;
-//		gbc_parolaChiaveTF.gridy = 6;
-//		contentPane.add(parolaChiaveTF, gbc_parolaChiaveTF);
-//		parolaChiaveTF.setColumns(10);
 						
-		JButton cercaButton = new JButton("Cerca");
-		cercaButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String parolachiave = campoTF.getText();
-				try {
-					corso.ricercaCorsoPerParolaChiave(parolachiave);
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
 		
 		
-
+		String[] campi= {"Nome","Categoria","Data","Parola Chiave"};
+		
 		campoCB = new JComboBox(campi);	
 		campoCB.setFont(new Font("Century", Font.PLAIN, 18));
 		GridBagConstraints gbc_campoCB = new GridBagConstraints();
@@ -247,7 +134,46 @@ public class RicercaCorsoFrame extends JFrame {
 		contentPane.add(campoTF, gbc_campoTF);
 		campoTF.setColumns(10);
 
-
+		JButton cercaButton = new JButton("Cerca");
+		cercaButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String parolachiave = campoTF.getText();
+				try {
+					Vector nomeColonne = new Vector();
+					nomeColonne.add("Nome");
+					nomeColonne.add("CodiceCorso");
+		
+					Vector dati;		
+					
+					dati = corso.ricercaCorsoPerNome(campoTF.getText());
+					table = new JTable(dati,nomeColonne);	
+					table.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					table.setFillsViewportHeight(true);
+					GridBagConstraints gbc_table = new GridBagConstraints();
+					gbc_table.gridheight = 3;
+					gbc_table.gridwidth = 3;
+					gbc_table.insets = new Insets(0, 0, 5, 5);
+					gbc_table.fill = GridBagConstraints.BOTH;
+					gbc_table.gridx = 1;
+					gbc_table.gridy = 9;
+					contentPane.add(table, gbc_table);
+					
+					JScrollPane scrollPane = new JScrollPane(table);
+					GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+					gbc_scrollPane.fill = GridBagConstraints.BOTH;
+					gbc_scrollPane.gridwidth = 5;
+					gbc_scrollPane.gridheight = 3;
+					gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+					gbc_scrollPane.gridx = 1;
+					gbc_scrollPane.gridy = 10;
+					getContentPane().add(scrollPane, gbc_scrollPane);
+					//corso.ricercaCorsoPerParolaChiave(parolachiave);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		
 		cercaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_cercaButton = new GridBagConstraints();
 		gbc_cercaButton.anchor = GridBagConstraints.WEST;
@@ -272,83 +198,44 @@ public class RicercaCorsoFrame extends JFrame {
 		contentPane.add(selezionaUnCorsoLabel, gbc_selezionaUnCorsoLabel);
 		
 		
-		String[] nomeColonne= {"Nome","Categoria","Data","Parola Chiave"};
-		Object[][] dati= {{"Pippo","Math","2022-03-08","Cartoni"},
-						  {"Pluto","Italiano","2021-04-11","Cartoni"},	
-						  {"Paperino","Inglese","2020-09-24","Cartoni"},
-						  {"Pippo","Math","2022-03-08","Cartoni"},
-						  {"Pluto","Italiano","2021-04-11","Cartoni"},	
-						  {"Paperino","Inglese","2020-09-24","Cartoni"},
-						  {"Pippo","Math","2022-03-08","Cartoni"},
-						  {"Pluto","Italiano","2021-04-11","Cartoni"},	
-						  {"Paperino","Inglese","2020-09-24","Cartoni"},
-						  {"Pippo","Math","2022-03-08","Cartoni"},
-						  {"Pluto","Italiano","2021-04-11","Cartoni"},	
-						  {"Paperino","Inglese","2020-09-24","Cartoni"}};
+	
+//		try {
+//			Vector nomeColonne = new Vector();
+//			nomeColonne.add("Nome");
+//			nomeColonne.add("CodiceCorso");
+//
+//			Vector dati;
+//			String ciao=campoTF.getText();
+//			System.out.print("prova"+ciao+"prova");
+//
+//			
+//			dati = corso.ricercaCorsoPerNome(ciao);
+//		
 		
+//		table = new JTable(dati,nomeColonne);	
+//		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
+//		table.setFillsViewportHeight(true);
+//		GridBagConstraints gbc_table = new GridBagConstraints();
+//		gbc_table.gridheight = 3;
+//		gbc_table.gridwidth = 3;
+//		gbc_table.insets = new Insets(0, 0, 5, 5);
+//		gbc_table.fill = GridBagConstraints.BOTH;
+//		gbc_table.gridx = 1;
+//		gbc_table.gridy = 9;
+//		contentPane.add(table, gbc_table);
 		
-		table = new JTable(dati,nomeColonne);// {
-//			public boolean isCellEditable(int dati,int nomeColonne) {
-//				return false;
-//			}
-//		};
-//		table.setModel(new DefaultTableModel(
-//			new Object[][] {
-//				{"Pippo", "Math", "2022-03-08", "Cartoni"},
-//				{"Pluto", "Italiano", "2021-04-11", "Cartoni"},
-//				{"Paperino", "Inglese", "2020-09-24", "Cartoni"},
-//				{"Pippo", "Math", "2022-03-08", "Cartoni"},
-//				{"Pluto", "Italiano", "2021-04-11", "Cartoni"},
-//				{"Paperino", "Inglese", "2020-09-24", "Cartoni"},
-//				{"Pippo", "Math", "2022-03-08", "Cartoni"},
-//				{"Pluto", "Italiano", "2021-04-11", "Cartoni"},
-//				{"Paperino", "Inglese", "2020-09-24", "Cartoni"},
-//				{"Pippo", "Math", "2022-03-08", "Cartoni"},
-//				{"Pluto", "Italiano", "2021-04-11", "Cartoni"},
-//				{"Paperino", "Inglese", "2020-09-24", "Cartoni"},
-//				{"Pluto", "Italiano", "2021-04-11", "Cartoni"},
-//				{"Paperino", "Inglese", "2020-09-24", "Cartoni"},
-//				{"Pippo", "Math", "2022-03-08", "Cartoni"},
-//				{"Pluto", "Italiano", "2021-04-11", "Cartoni"},
-//				{"Paperino", "Inglese", "2020-09-24", "Cartoni"},
-//				{"Pippo", "Math", "2022-03-08", "Cartoni"},
-//				{"Pluto", "Italiano", "2021-04-11", "Cartoni"},
-//				{"Paperino", "Inglese", "2020-09-24", "Cartoni"},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//			},
-//			new String[] {
-//				"Nome", "Categoria", "Data", "Parola Chiave"
-//			}
-//		) {
-//			boolean[] columnEditables = new boolean[] {
-//				false, false, false, false
-//			};
-//			public boolean isCellEditable(int row, int column) {
-//				return columnEditables[column];
-//			}
-//		});
-		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		table.setFillsViewportHeight(true);
-		GridBagConstraints gbc_table = new GridBagConstraints();
-		gbc_table.gridheight = 3;
-		gbc_table.gridwidth = 3;
-		gbc_table.insets = new Insets(0, 0, 5, 5);
-		gbc_table.fill = GridBagConstraints.BOTH;
-		gbc_table.gridx = 1;
-		gbc_table.gridy = 9;
-		contentPane.add(table, gbc_table);
-		
-		JScrollPane scrollPane = new JScrollPane(table);
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridwidth = 5;
-		gbc_scrollPane.gridheight = 3;
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 10;
-		getContentPane().add(scrollPane, gbc_scrollPane);
-		
+//		JScrollPane scrollPane = new JScrollPane(table);
+//		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+//		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+//		gbc_scrollPane.gridwidth = 5;
+//		gbc_scrollPane.gridheight = 3;
+//		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+//		gbc_scrollPane.gridx = 1;
+//		gbc_scrollPane.gridy = 10;
+//		getContentPane().add(scrollPane, gbc_scrollPane);
+//		} catch (SQLException e1) {
+//			
+//		}
 
 		JButton StatisticheButton = new JButton("Statistische");
 		StatisticheButton.addActionListener(new ActionListener() {

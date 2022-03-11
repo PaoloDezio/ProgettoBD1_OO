@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class CorsoDAO {
 	private ConnessioneDB istanzaDB;
@@ -9,15 +10,23 @@ public class CorsoDAO {
 		istanzaDB=ConnessioneDB.getIstanza();
 	}
 	
-	public void ricercaCorsoPerNome(String nome) throws SQLException {
+	public Vector ricercaCorsoPerNome(String nome) throws SQLException {
+		Vector v= new Vector();
+		int colonne=0;
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
 			
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM CORSO WHERE nome ='"+nome+"'");
-		
+			ResultSet rs = st.executeQuery("SELECT nome,codicecorso FROM CORSO WHERE nome ='"+nome+"'");
+			ResultSetMetaData rsmd=rs.getMetaData();
+			colonne=rsmd.getColumnCount();
+			
 			while(rs.next()) {
-				
+				Vector record = new Vector();
+				for(int i=0;i<colonne;i++) {
+					record.add(rs.getString(i+1));
+				}
+				v.add(record);
 			}
 		
 			st.close();
@@ -28,7 +37,7 @@ public class CorsoDAO {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-	
+	return v;
 	}
 	
 	

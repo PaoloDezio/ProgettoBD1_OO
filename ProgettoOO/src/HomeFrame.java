@@ -25,26 +25,17 @@ public class HomeFrame extends JFrame {
 		controller = c;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(375, 175, 601, 279);
+		setBounds(375, 175, 592, 279);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 40, 0, 118, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{53, 52, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowHeights = new int[]{40, 32, 0, 0, 0, 0};
+		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
-		
-		JLabel homeLabel = new JLabel("Home");
-		homeLabel.setFont(new Font("Century", Font.BOLD, 25));
-		GridBagConstraints gbc_homeLabel = new GridBagConstraints();
-		gbc_homeLabel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_homeLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_homeLabel.gridx = 2;
-		gbc_homeLabel.gridy = 0;
-		contentPane.add(homeLabel, gbc_homeLabel);
 		
 		JButton ricercaCorsoButton = new JButton("Ricerca Corso");
 		ricercaCorsoButton.addActionListener(new ActionListener() {
@@ -53,11 +44,22 @@ public class HomeFrame extends JFrame {
 				c.setVisibleHome(false);
 			}
 		});
+		
+		JLabel homeLabel = new JLabel("Home");
+		homeLabel.setFont(new Font("Century", Font.BOLD, 25));
+		GridBagConstraints gbc_homeLabel = new GridBagConstraints();
+		gbc_homeLabel.anchor = GridBagConstraints.NORTH;
+		gbc_homeLabel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_homeLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_homeLabel.gridx = 1;
+		gbc_homeLabel.gridy = 0;
+		contentPane.add(homeLabel, gbc_homeLabel);
 		ricercaCorsoButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_ricercaCorsoButton = new GridBagConstraints();
 		gbc_ricercaCorsoButton.fill = GridBagConstraints.HORIZONTAL;
+		gbc_ricercaCorsoButton.gridwidth = 2;
 		gbc_ricercaCorsoButton.insets = new Insets(0, 0, 5, 5);
-		gbc_ricercaCorsoButton.gridx = 2;
+		gbc_ricercaCorsoButton.gridx = 1;
 		gbc_ricercaCorsoButton.gridy = 1;
 		contentPane.add(ricercaCorsoButton, gbc_ricercaCorsoButton);
 		
@@ -82,8 +84,24 @@ public class HomeFrame extends JFrame {
 				c.tornaAlLoginFrame();
 			}
 		});
+		
+		JButton aggiungiAreaTematicaButton = new JButton("Aggiungi Area Tematica");
+		aggiungiAreaTematicaButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				c.setVisibleHome(false);
+				c.setVisibleAggiungiAreaTematica(true);
+			}
+		});
+		aggiungiAreaTematicaButton.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_aggiungiAreaTematicaButton = new GridBagConstraints();
+		gbc_aggiungiAreaTematicaButton.gridwidth = 3;
+		gbc_aggiungiAreaTematicaButton.insets = new Insets(0, 0, 5, 5);
+		gbc_aggiungiAreaTematicaButton.gridx = 1;
+		gbc_aggiungiAreaTematicaButton.gridy = 2;
+		contentPane.add(aggiungiAreaTematicaButton, gbc_aggiungiAreaTematicaButton);
 		tornaAlLoginButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_tornaAlLoginButton = new GridBagConstraints();
+		gbc_tornaAlLoginButton.gridwidth = 2;
 		gbc_tornaAlLoginButton.insets = new Insets(0, 0, 5, 5);
 		gbc_tornaAlLoginButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tornaAlLoginButton.gridx = 4;
