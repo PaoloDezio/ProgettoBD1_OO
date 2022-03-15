@@ -40,8 +40,8 @@ public class HomeFrame extends JFrame {
 		JButton ricercaCorsoButton = new JButton("Ricerca Corso");
 		ricercaCorsoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.setVisibleRicercaCorso(true);
-				c.setVisibleHome(false);
+				c.getRicercaCorsoFrame().setVisible(true);
+				c.getHomeFrame().setVisible(false);
 			}
 		});
 		
@@ -66,9 +66,9 @@ public class HomeFrame extends JFrame {
 		JButton iscriviStudenteButton = new JButton("Iscrivi Studente");
 		iscriviStudenteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.setVisibleIscrizione(true);
-				c.setVisibleHome(false);
-			}
+				c.getIscriviStudenteFrame().setVisible(true);
+				c.getHomeFrame().setVisible(false);			
+				}
 		});
 		iscriviStudenteButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_iscriviStudenteButton = new GridBagConstraints();
@@ -81,15 +81,16 @@ public class HomeFrame extends JFrame {
 		JButton tornaAlLoginButton = new JButton("Torna al Login");
 		tornaAlLoginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.tornaAlLoginFrame();
+				c.getHomeFrame().setVisible(false);	
+				c.getLoginFrame().setVisible(true);
 			}
 		});
 		
 		JButton aggiungiAreaTematicaButton = new JButton("Aggiungi Area Tematica");
 		aggiungiAreaTematicaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.setVisibleHome(false);
-				c.setVisibleAggiungiAreaTematica(true);
+				c.getHomeFrame().setVisible(false);	
+				c.getAggiungiAreaTematicaFrame().setVisible(true);
 			}
 		});
 		aggiungiAreaTematicaButton.setFont(new Font("Century", Font.PLAIN, 16));

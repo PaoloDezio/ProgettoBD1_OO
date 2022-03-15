@@ -150,7 +150,7 @@ public class StatisticheFrame extends JFrame {
 		JButton idoneiButton = new JButton("Idonei");
 		idoneiButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.setVisibleIdonei(true);
+				c.getIdoneiFrame().setVisible(true);
 			}
 		});
 		
@@ -164,9 +164,9 @@ public class StatisticheFrame extends JFrame {
 		JButton tornaAllaRicercaCorsoButton = new JButton("Torna alla Ricerca Corso");
 		tornaAllaRicercaCorsoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.setVisibleStatistiche(false);
-				c.setVisibleIdonei(false);
-				c.setVisibleRicercaCorso(true);
+				c.getStatisticheFrame().setVisible(false);
+				c.getIdoneiFrame().setVisible(false);
+				c.getRicercaCorsoFrame().setVisible(true);
 			}
 		});
 

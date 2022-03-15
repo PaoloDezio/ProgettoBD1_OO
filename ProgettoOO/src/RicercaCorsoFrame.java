@@ -97,8 +97,8 @@ public class RicercaCorsoFrame extends JFrame {
 		tornaHomeButton.setFont(new Font("Century", Font.PLAIN, 16));
 		tornaHomeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.setVisibleHome(true);
-				c.setVisibleRicercaCorso(false);
+				c.getHomeFrame().setVisible(true);
+				c.getRicercaCorsoFrame().setVisible(false);
 			}
 		});
 						
@@ -240,8 +240,8 @@ public class RicercaCorsoFrame extends JFrame {
 		JButton StatisticheButton = new JButton("Statistische");
 		StatisticheButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.setVisibleStatistiche(true);
-				c.setVisibleRicercaCorso(false);
+				c.getStatisticheFrame().setVisible(true);
+				c.getRicercaCorsoFrame().setVisible(false);
 			}
 		});
 		StatisticheButton.setFont(new Font("Century", Font.PLAIN, 16));

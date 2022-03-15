@@ -46,7 +46,6 @@ public class LoginFrame extends JFrame {
 	private JButton accediButton;
 	private JCheckBox mostraPasswordCheckBox;
 	
-	
 	/**
 	 * Create the frame.
 	 */
@@ -153,8 +152,8 @@ public class LoginFrame extends JFrame {
 				else {
 					try {
 						if(responsabile.checkResponsabile(username,pwd)==true) {
-							c.setVisibleLogin(false);	
-							c.setVisibleHome(true);
+							c.getLoginFrame().setVisible(false);
+							c.getHomeFrame().setVisible(true);
 							usernameTF.setText("");
 							passwordTF.setText("");
 						}

@@ -85,8 +85,8 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 					try {
 						if(areatematica.aggiungiAreaTematica(categoria)==true) {
 							JOptionPane.showMessageDialog(contentPane, "Nuova area tematica aggiunta correttamente","",JOptionPane.CLOSED_OPTION);
-							c.setVisibleAggiungiAreaTematica(false);
-							c.setVisibleHome(true);
+							c.getAggiungiAreaTematicaFrame().setVisible(false);
+							c.getHomeFrame().setVisible(true);
 							areaTematicaTF.setText("");
 						}
 					} 
@@ -99,8 +99,8 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 		JButton indietroButton = new JButton("Indietro");
 		indietroButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.setVisibleAggiungiAreaTematica(false);
-				c.setVisibleHome(true);
+				c.getAggiungiAreaTematicaFrame().setVisible(false);
+				c.getHomeFrame().setVisible(true);
 			}
 		});
 		indietroButton.setFont(new Font("Century", Font.PLAIN, 16));

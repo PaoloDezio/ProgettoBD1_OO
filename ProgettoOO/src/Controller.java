@@ -3,66 +3,85 @@ import java.sql.SQLException;
 import javax.swing.JFrame;
 
 public class Controller {
-	private LoginFrame lf;
-	private HomeFrame hf;
-	private RicercaCorsoFrame rcf;
-	private IscrizioneFrame isf;
-	private StatisticheFrame sf;
-	private IdoneiFrame idof;
-	private AggiungiAreaTematicaFrame atf;
+	private LoginFrame loginFrame;
+	private HomeFrame homeFrame;
+	private RicercaCorsoFrame ricercaCorsoFrame;
+	private IscriviStudenteFrame iscriviStudenteFrame;
+	private StatisticheFrame statisticheFrame;
+	private IdoneiFrame idoneiFrame;
+	private AggiungiAreaTematicaFrame aggiungiAreaTematicaFrame;
 	
 	public static void main(String[] args) throws SQLException {
-		Controller c= new Controller();
+		Controller controller= new Controller();
 		
+		controller.getLoginFrame().setVisible(true);
 	}
 
 	public Controller() throws SQLException {
-		lf=new LoginFrame(this);
-		hf =new HomeFrame(this);
-		rcf = new RicercaCorsoFrame(this);
-		isf = new IscrizioneFrame(this);
-		sf = new StatisticheFrame(this);
-		idof = new IdoneiFrame(this);
-		atf = new AggiungiAreaTematicaFrame(this);
-		
-		lf.setVisible(true);
+		this.setLoginFrame(new LoginFrame(this));
+		this.setHomeFrame(new HomeFrame(this));
+		this.setRicercaCorsoFrame(new RicercaCorsoFrame(this));;
+		this.setIscriviStudenteFrame(new IscriviStudenteFrame(this));;
+		this.setStatisticheFrame(new StatisticheFrame(this));;
+		this.setIdoneiFrame(new IdoneiFrame(this));;
+		this.setAggiungiAreaTematicaFrame(new AggiungiAreaTematicaFrame(this)); ;
 	}
 	
 	
-	
-	
-	public void tornaAlLoginFrame() {
-		lf.setVisible(true);
-		hf.setVisible(false);
+	public LoginFrame getLoginFrame() {
+		return loginFrame;
 	}
-	
-	public void setVisibleHome(boolean b) {
-		hf.setVisible(b);
-	}
-	
-	public void setVisibleLogin(boolean b) {
-		lf.setVisible(b);
-	}
-	
 
-	public void setVisibleRicercaCorso(Boolean b) {
-		rcf.setVisible(b);
+	public void setLoginFrame(LoginFrame loginFrame) {
+		this.loginFrame = loginFrame;
 	}
-	
-	public void setVisibleIscrizione(Boolean b) {
-		isf.setVisible(b);
+
+	public HomeFrame getHomeFrame() {
+		return homeFrame;
 	}
-	
-	public void setVisibleStatistiche(boolean b) {
-		sf.setVisible(b);
+
+	public void setHomeFrame(HomeFrame homeFrame) {
+		this.homeFrame = homeFrame;
 	}
-	
-	public void setVisibleIdonei(boolean b) {
-		idof.setVisible(b);
+
+	public RicercaCorsoFrame getRicercaCorsoFrame() {
+		return ricercaCorsoFrame;
 	}
-	
-	public void setVisibleAggiungiAreaTematica(boolean b) {
-		atf.setVisible(b);
+
+	public void setRicercaCorsoFrame(RicercaCorsoFrame ricercaCorsoFrame) {
+		this.ricercaCorsoFrame = ricercaCorsoFrame;
+	}
+
+	public IscriviStudenteFrame getIscriviStudenteFrame() {
+		return iscriviStudenteFrame;
+	}
+
+	public void setIscriviStudenteFrame(IscriviStudenteFrame iscriviStudenteFrame) {
+		this.iscriviStudenteFrame = iscriviStudenteFrame;
+	}
+
+	public StatisticheFrame getStatisticheFrame() {
+		return statisticheFrame;
+	}
+
+	public void setStatisticheFrame(StatisticheFrame statisticheFrame) {
+		this.statisticheFrame = statisticheFrame;
+	}
+
+	public IdoneiFrame getIdoneiFrame() {
+		return idoneiFrame;
+	}
+
+	public void setIdoneiFrame(IdoneiFrame idoneiFrame) {
+		this.idoneiFrame = idoneiFrame;
+	}
+
+	public AggiungiAreaTematicaFrame getAggiungiAreaTematicaFrame() {
+		return aggiungiAreaTematicaFrame;
+	}
+
+	public void setAggiungiAreaTematicaFrame(AggiungiAreaTematicaFrame aggiungiAreaTematicaFrame) {
+		this.aggiungiAreaTematicaFrame = aggiungiAreaTematicaFrame;
 	}
 		
 }
