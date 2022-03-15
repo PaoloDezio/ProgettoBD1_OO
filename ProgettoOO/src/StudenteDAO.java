@@ -13,48 +13,59 @@ public class StudenteDAO {
 		istanzaDB=ConnessioneDB.getIstanza();
 	}
 	
-	public void salvaStudente(String nome,String cognome,String luogoN,String dataN) throws SQLException {
-		connessioneDB=istanzaDB.ConnectToDB();
-		
-		Statement st = connessioneDB.createStatement();
-		st.executeUpdate("INSERT INTO studente(nome,cognome,luogonascita,datanascita) VALUES('"+nome+"','"+cognome+"','"+luogoN+"','"+dataN+"')");
-		
-		st.close();
-		istanzaDB.closeDbConnection();
-		
+	public void salvaStudente(String nome,String cognome,String luogoN,String dataN)  {
+		try {
+			connessioneDB=istanzaDB.ConnectToDB();
+			
+			Statement st = connessioneDB.createStatement();
+			st.executeUpdate("INSERT INTO studente(nome,cognome,luogonascita,datanascita) VALUES('"+nome+"','"+cognome+"','"+luogoN+"','"+dataN+"')");
+			
+			st.close();
+			istanzaDB.closeDbConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public String recuperaCodStudente(String nome,String cognome,String luogoN,String dataN) throws SQLException {
-		connessioneDB=istanzaDB.ConnectToDB();
-
-		Statement st= connessioneDB.createStatement();
-		ResultSet rs= st.executeQuery("SELECT codicestudente "
-									+ "FROM studente "
-									+ "WHERE nome='"+nome+"' AND cognome='"+cognome+
-									"' AND luogoNascita= '"+luogoN+"' AND dataNascita= '"+dataN+"'");
+	public String recuperaCodStudente(String nome,String cognome,String luogoN,String dataN) {
 		String codiceStudente="";
-		while(rs.next()) {
-			codiceStudente=rs.getString("codicestudente");
+		try {
+			connessioneDB=istanzaDB.ConnectToDB();
+
+			Statement st= connessioneDB.createStatement();
+			ResultSet rs= st.executeQuery("SELECT codicestudente "
+										+ "FROM studente "
+										+ "WHERE nome='"+nome+"' AND cognome='"+cognome+
+										"' AND luogoNascita= '"+luogoN+"' AND dataNascita= '"+dataN+"'");
+			while(rs.next()) {
+				codiceStudente=rs.getString("codicestudente");
+			}
+			
+			
+			st.close();
+			rs.close();
+			istanzaDB.closeDbConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		
-		
-		st.close();
-		rs.close();
-		istanzaDB.closeDbConnection();
 		
 		return codiceStudente;
 	}
 	
 	
-	public void iscriviStudente(String codCorso,String codStudente) throws SQLException{
-		connessioneDB=istanzaDB.ConnectToDB();
+	public boolean iscriviStudente(String codCorso,String codStudente) {
+		try {
+			connessioneDB=istanzaDB.ConnectToDB();
 
-		Statement st= connessioneDB.createStatement();
-		st.executeUpdate("INSERT INTO iscrizione Values("+codCorso+","+codStudente+");");	
-		
-	
-		st.close();
-		istanzaDB.closeDbConnection();
+			Statement st= connessioneDB.createStatement();
+			st.executeUpdate("INSERT INTO iscrizione Values("+codCorso+","+codStudente+");");	
+			
+			st.close();
+			istanzaDB.closeDbConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 

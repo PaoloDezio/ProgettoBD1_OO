@@ -10,6 +10,7 @@ public class Controller {
 	private StatisticheFrame statisticheFrame;
 	private IdoneiFrame idoneiFrame;
 	private AggiungiAreaTematicaFrame aggiungiAreaTematicaFrame;
+	private StudenteDAO studenteDAO;
 	
 	public static void main(String[] args) throws SQLException {
 		Controller controller= new Controller();
@@ -83,5 +84,21 @@ public class Controller {
 	public void setAggiungiAreaTematicaFrame(AggiungiAreaTematicaFrame aggiungiAreaTematicaFrame) {
 		this.aggiungiAreaTematicaFrame = aggiungiAreaTematicaFrame;
 	}
-		
+			
+	public boolean checkResponsabile(String username,String password) {
+		ResponsabileDAO responsabileDAO = new ResponsabileDAO();
+		return responsabileDAO.checkResponsabile(username, password);
+	}
+	
+	public void salvaStudente(String nome,String cognome,String luogo,String data) {
+		studenteDAO.salvaStudente(nome, cognome, luogo, data);
+	}
+	
+	public String recuperaCodStudente(String nome,String cognome,String luogo,String data) {
+		return studenteDAO.recuperaCodStudente(nome, cognome, luogo, data);
+	}
+	
+	public boolean iscriviStudente(String codCorso,String codStudente) {
+		return studenteDAO.iscriviStudente(codCorso,codStudente);
+	}
 }

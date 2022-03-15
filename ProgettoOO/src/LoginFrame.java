@@ -49,11 +49,8 @@ public class LoginFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LoginFrame(Controller c) {
-		controller=c;
-		
-		ResponsabileDAO responsabile=new ResponsabileDAO();
-		
+	public LoginFrame(Controller controller) {
+		this.controller=controller;
 		
 		setTitle("Login");
 		setBackground(new Color(240, 240, 240));
@@ -150,26 +147,18 @@ public class LoginFrame extends JFrame {
 					JOptionPane.showMessageDialog(contentPane,"Inserire un Username e una Password per accedere","",JOptionPane.WARNING_MESSAGE);
 				}
 				else {
-					try {
-						if(responsabile.checkResponsabile(username,pwd)==true) {
-							c.getLoginFrame().setVisible(false);
-							c.getHomeFrame().setVisible(true);
-							usernameTF.setText("");
-							passwordTF.setText("");
-						}
-						else {
-							JOptionPane.showMessageDialog(contentPane,"Username e/o Password non validi","",JOptionPane.ERROR_MESSAGE);
-							usernameTF.setText("");
-							passwordTF.setText("");
-						}
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}				
-					
-				}
-				
-				
-				
+					if(controller.checkResponsabile(username,pwd)==true) {
+						controller.getLoginFrame().setVisible(false);
+						controller.getHomeFrame().setVisible(true);
+						usernameTF.setText("");
+						passwordTF.setText("");
+					}
+					else {
+						JOptionPane.showMessageDialog(contentPane,"Username e/o Password non validi","",JOptionPane.ERROR_MESSAGE);
+						usernameTF.setText("");
+						passwordTF.setText("");
+					}			
+				}				
 			}
 		});
 		
