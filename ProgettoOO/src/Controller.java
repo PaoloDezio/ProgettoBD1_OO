@@ -1,4 +1,5 @@
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JFrame;
 
@@ -16,6 +17,7 @@ public class Controller {
 		Controller controller= new Controller();
 		
 		controller.getLoginFrame().setVisible(true);
+
 	}
 
 	public Controller() throws SQLException {
@@ -26,6 +28,8 @@ public class Controller {
 		this.setStatisticheFrame(new StatisticheFrame(this));;
 		this.setIdoneiFrame(new IdoneiFrame(this));;
 		this.setAggiungiAreaTematicaFrame(new AggiungiAreaTematicaFrame(this)); ;
+		studenteDAO= new StudenteDAO();
+
 	}
 	
 	
@@ -90,11 +94,11 @@ public class Controller {
 		return responsabileDAO.checkResponsabile(username, password);
 	}
 	
-	public void salvaStudente(String nome,String cognome,String luogo,String data) {
+	public void salvaStudente(String nome,String cognome,String luogo,SimpleDateFormat data) {
 		studenteDAO.salvaStudente(nome, cognome, luogo, data);
 	}
 	
-	public String recuperaCodStudente(String nome,String cognome,String luogo,String data) {
+	public String recuperaCodStudente(String nome,String cognome,String luogo,SimpleDateFormat data) {
 		return studenteDAO.recuperaCodStudente(nome, cognome, luogo, data);
 	}
 	

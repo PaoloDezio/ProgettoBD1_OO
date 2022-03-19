@@ -20,9 +20,13 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
-public class IscrizioneFrame extends JFrame {
+public class IscriviStudenteFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Controller controller;
@@ -36,11 +40,9 @@ public class IscrizioneFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public IscrizioneFrame(Controller c) {
+	public IscriviStudenteFrame(Controller c) {
 		setTitle("Iscrizione");
 		controller = c;
-		
-		StudenteDAO studente= new StudenteDAO();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(375, 175, 600, 400);
@@ -152,8 +154,8 @@ public class IscrizioneFrame extends JFrame {
 		JButton tornaHomeButton = new JButton("Indietro");
 		tornaHomeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.setVisibleHome(true);
-				c.setVisibleIscrizione(false);
+				c.getHomeFrame().setVisible(true);	
+				c.getIscriviStudenteFrame().setVisible(false);
 			}
 		});
 		tornaHomeButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -177,30 +179,32 @@ public class IscrizioneFrame extends JFrame {
 		JButton confermaButton = new JButton("Conferma");
 		confermaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
 					String nome = nomeTF.getText();
 					String cognome = cognomeTF.getText();
-					String data = dataDiNascitaTF.getText();
+					SimpleDateFormat data=new SimpleDateFormat();
+					data.applyPattern("YYYY-MM-DD");
+					try {
+						data.parse(dataDiNascitaTF.getText());
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
 					String luogo = luogoDiNascitaTF.getText();
 					String codCorso= codiceCorsoTF.getText();
 					String codStudente="";
 					
-					studente.salvaStudente(nome, cognome, luogo, data);
-					codStudente=studente.recuperaCodStudente(nome, cognome, luogo, data);
-					studente.iscriviStudente(codCorso,codStudente);
-				} catch (SQLException e1) {
-					e1.printStackTrace();
+					c.salvaStudente(nome, cognome, luogo, data);
+					codStudente=c.recuperaCodStudente(nome, cognome, luogo, data);
+					if(c.iscriviStudente(codCorso,codStudente)) {
+						JOptionPane.showMessageDialog(null,"Iscrizione avvenuta con successo");
+						nomeTF.setText("");
+						cognomeTF.setText("");
+						dataDiNascitaTF.setText("");
+						luogoDiNascitaTF.setText("");
+						codiceCorsoTF.setText("");
+						c.getIscriviStudenteFrame().setVisible(false);
+						c.getHomeFrame().setVisible(true);
+					}
 				}
-				
-				JOptionPane.showMessageDialog(null,"Iscrizione avvenuta con successo");
-				nomeTF.setText("");
-				cognomeTF.setText("");
-				dataDiNascitaTF.setText("");
-				luogoDiNascitaTF.setText("");
-				codiceCorsoTF.setText("");
-				c.setVisibleIscrizione(false);
-				c.setVisibleHome(true);
-			}
 		});
 		confermaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_confermaButton = new GridBagConstraints();

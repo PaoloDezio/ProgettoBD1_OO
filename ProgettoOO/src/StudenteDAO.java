@@ -3,6 +3,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 
 public class StudenteDAO {
 	private ConnessioneDB istanzaDB;
@@ -13,12 +14,12 @@ public class StudenteDAO {
 		istanzaDB=ConnessioneDB.getIstanza();
 	}
 	
-	public void salvaStudente(String nome,String cognome,String luogoN,String dataN)  {
+	public void salvaStudente(String nome,String cognome,String luogoN,SimpleDateFormat data)  {
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
 			
 			Statement st = connessioneDB.createStatement();
-			st.executeUpdate("INSERT INTO studente(nome,cognome,luogonascita,datanascita) VALUES('"+nome+"','"+cognome+"','"+luogoN+"','"+dataN+"')");
+			st.executeUpdate("INSERT INTO studente(nome,cognome,luogonascita,datanascita) VALUES('"+nome+"','"+cognome+"','"+luogoN+"','"+data+"')");
 			
 			st.close();
 			istanzaDB.closeDbConnection();
@@ -27,7 +28,7 @@ public class StudenteDAO {
 		}
 	}
 	
-	public String recuperaCodStudente(String nome,String cognome,String luogoN,String dataN) {
+	public String recuperaCodStudente(String nome,String cognome,String luogoN,SimpleDateFormat data) {
 		String codiceStudente="";
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
@@ -36,7 +37,7 @@ public class StudenteDAO {
 			ResultSet rs= st.executeQuery("SELECT codicestudente "
 										+ "FROM studente "
 										+ "WHERE nome='"+nome+"' AND cognome='"+cognome+
-										"' AND luogoNascita= '"+luogoN+"' AND dataNascita= '"+dataN+"'");
+										"' AND luogoNascita= '"+luogoN+"' AND dataNascita= '"+data+"'");
 			while(rs.next()) {
 				codiceStudente=rs.getString("codicestudente");
 			}
@@ -62,10 +63,12 @@ public class StudenteDAO {
 			
 			st.close();
 			istanzaDB.closeDbConnection();
+			return true;
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return true;
+		return false;
 	}
 
 
