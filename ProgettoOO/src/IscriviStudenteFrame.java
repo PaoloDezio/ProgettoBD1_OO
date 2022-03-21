@@ -181,19 +181,14 @@ public class IscriviStudenteFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 					String nome = nomeTF.getText();
 					String cognome = cognomeTF.getText();
-					SimpleDateFormat data=new SimpleDateFormat();
-					data.applyPattern("YYYY-MM-DD");
-					try {
-						data.parse(dataDiNascitaTF.getText());
-					} catch (ParseException e1) {
-						e1.printStackTrace();
-					}
+					Date dataDiNascita = new Date(0);
+					dataDiNascita = dataDiNascita.valueOf(dataDiNascitaTF.getText());
 					String luogo = luogoDiNascitaTF.getText();
 					String codCorso= codiceCorsoTF.getText();
-					String codStudente="";
+					String codStudente;
 					
-					c.salvaStudente(nome, cognome, luogo, data);
-					codStudente=c.recuperaCodStudente(nome, cognome, luogo, data);
+					c.salvaStudente(nome, cognome, luogo, dataDiNascita);
+					codStudente=c.recuperaCodStudente(nome, cognome, luogo, dataDiNascita);
 					if(c.iscriviStudente(codCorso,codStudente)) {
 						JOptionPane.showMessageDialog(null,"Iscrizione avvenuta con successo");
 						nomeTF.setText("");

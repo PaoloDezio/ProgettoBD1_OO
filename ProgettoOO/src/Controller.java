@@ -1,3 +1,4 @@
+import java.sql.Date;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
@@ -94,12 +95,12 @@ public class Controller {
 		return responsabileDAO.checkResponsabile(username, password);
 	}
 	
-	public void salvaStudente(String nome,String cognome,String luogo,SimpleDateFormat data) {
+	public void salvaStudente(String nome,String cognome,String luogo,Date data) {
 		studenteDAO.salvaStudente(nome, cognome, luogo, data);
 	}
 	
-	public String recuperaCodStudente(String nome,String cognome,String luogo,SimpleDateFormat data) {
-		return studenteDAO.recuperaCodStudente(nome, cognome, luogo, data);
+	public String recuperaCodStudente(String nome,String cognome,String luogo,Date dataDiNascita) {
+		return studenteDAO.recuperaCodStudente(nome, cognome, luogo, dataDiNascita);
 	}
 	
 	public boolean iscriviStudente(String codCorso,String codStudente) {
