@@ -9,6 +9,7 @@ import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 
 public class HomeFrame extends JFrame {
@@ -42,8 +43,8 @@ public class HomeFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				c.getRicercaCorsoFrame().setVisible(true);
 				c.getHomeFrame().setVisible(false);
-			}
-		});
+
+			}});
 		
 		JLabel homeLabel = new JLabel("Home");
 		homeLabel.setFont(new Font("Century", Font.BOLD, 25));

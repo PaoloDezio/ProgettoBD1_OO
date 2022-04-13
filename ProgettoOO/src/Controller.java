@@ -1,6 +1,7 @@
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 
@@ -12,7 +13,10 @@ public class Controller {
 	private StatisticheFrame statisticheFrame;
 	private IdoneiFrame idoneiFrame;
 	private AggiungiAreaTematicaFrame aggiungiAreaTematicaFrame;
+	private ResponsabileDAO responsabileDAO;
 	private StudenteDAO studenteDAO;
+	
+	
 	
 	public static void main(String[] args) throws SQLException {
 		Controller controller= new Controller();
@@ -21,7 +25,7 @@ public class Controller {
 
 	}
 
-	public Controller() throws SQLException {
+	public Controller(){
 		this.setLoginFrame(new LoginFrame(this));
 		this.setHomeFrame(new HomeFrame(this));
 		this.setRicercaCorsoFrame(new RicercaCorsoFrame(this));;
@@ -29,8 +33,8 @@ public class Controller {
 		this.setStatisticheFrame(new StatisticheFrame(this));;
 		this.setIdoneiFrame(new IdoneiFrame(this));;
 		this.setAggiungiAreaTematicaFrame(new AggiungiAreaTematicaFrame(this)); ;
+		responsabileDAO = new ResponsabileDAO();
 		studenteDAO= new StudenteDAO();
-
 	}
 	
 	
@@ -91,7 +95,6 @@ public class Controller {
 	}
 			
 	public boolean checkResponsabile(String username,String password) {
-		ResponsabileDAO responsabileDAO = new ResponsabileDAO();
 		return responsabileDAO.checkResponsabile(username, password);
 	}
 	
@@ -106,4 +109,13 @@ public class Controller {
 	public boolean iscriviStudente(String codCorso,String codStudente) {
 		return studenteDAO.iscriviStudente(codCorso,codStudente);
 	}
+
+	public Vector<Vector<String>> mostraCorsi(){
+		CorsoDAO corsoDAO = new CorsoDAO();
+		return corsoDAO.mostraCorsi();
+	}
+
+
+
+
 }

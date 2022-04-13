@@ -45,7 +45,6 @@ public class RicercaCorsoFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Controller controller;
-	private JTable table;
 	private JComboBox campoCB;
 	private JTextField nomeTF;
 	private JLabel nomeLabel;
@@ -56,11 +55,12 @@ public class RicercaCorsoFrame extends JFrame {
 	 * Create the frame.
 	 * 
 	 */
-	public RicercaCorsoFrame(Controller c) throws SQLException {
+	
+	public RicercaCorsoFrame(Controller c){
 		setTitle("Ricerca Corso");
 		controller = c;
 		
-		CorsoDAO corso= new CorsoDAO();
+	
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(375, 175, 740, 626);
@@ -138,44 +138,44 @@ public class RicercaCorsoFrame extends JFrame {
 		campoTF.setColumns(10);
 
 		JButton cercaButton = new JButton("Cerca");
-		cercaButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String parolachiave = campoTF.getText();
-				try {
-					Vector nomeColonne = new Vector();
-					nomeColonne.add("Nome");
-					nomeColonne.add("CodiceCorso");
-		
-					Vector dati;		
-					
-					dati = corso.ricercaCorsoPerNome(campoTF.getText());
-					table = new JTable(dati,nomeColonne);	
-					table.setFont(new Font("Tahoma", Font.PLAIN, 14));
-					table.setFillsViewportHeight(true);
-					GridBagConstraints gbc_table = new GridBagConstraints();
-					gbc_table.gridheight = 3;
-					gbc_table.gridwidth = 3;
-					gbc_table.insets = new Insets(0, 0, 5, 5);
-					gbc_table.fill = GridBagConstraints.BOTH;
-					gbc_table.gridx = 1;
-					gbc_table.gridy = 9;
-					contentPane.add(table, gbc_table);
-					
-					JScrollPane scrollPane = new JScrollPane(table);
-					GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-					gbc_scrollPane.fill = GridBagConstraints.BOTH;
-					gbc_scrollPane.gridwidth = 5;
-					gbc_scrollPane.gridheight = 3;
-					gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
-					gbc_scrollPane.gridx = 1;
-					gbc_scrollPane.gridy = 10;
-					getContentPane().add(scrollPane, gbc_scrollPane);
+//		cercaButton.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				String parolachiave = campoTF.getText();
+//				try {
+//					Vector nomeColonne = new Vector();
+//					nomeColonne.add("Nome");
+//					nomeColonne.add("CodiceCorso");
+//		
+//					Vector dati;		
+//					
+//					dati = corso.ricercaCorsoPerNome(campoTF.getText());
+//					table = new JTable(dati,nomeColonne);	
+//					table.setFont(new Font("Tahoma", Font.PLAIN, 14));
+//					table.setFillsViewportHeight(true);
+//					GridBagConstraints gbc_table = new GridBagConstraints();
+//					gbc_table.gridheight = 3;
+//					gbc_table.gridwidth = 3;
+//					gbc_table.insets = new Insets(0, 0, 5, 5);
+//					gbc_table.fill = GridBagConstraints.BOTH;
+//					gbc_table.gridx = 1;
+//					gbc_table.gridy = 9;
+//					contentPane.add(table, gbc_table);
+//					
+//					JScrollPane scrollPane = new JScrollPane(table);
+//					GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+//					gbc_scrollPane.fill = GridBagConstraints.BOTH;
+//					gbc_scrollPane.gridwidth = 5;
+//					gbc_scrollPane.gridheight = 3;
+//					gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+//					gbc_scrollPane.gridx = 1;
+//					gbc_scrollPane.gridy = 10;
+//					getContentPane().add(scrollPane, gbc_scrollPane);
 					//corso.ricercaCorsoPerParolaChiave(parolachiave);
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
+//				} catch (SQLException e1) {
+//					e1.printStackTrace();
+//				}
+//			}
+//		});
 		
 		cercaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_cercaButton = new GridBagConstraints();
@@ -211,55 +211,18 @@ public class RicercaCorsoFrame extends JFrame {
 		contentPane.add(scrollPane, gbc_scrollPane);
 		  
 		CorsiTable = new JTable();
-		CorsiTable.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Codice", "Nome", "Area Tematica"
-			}
-		));
+		DefaultTableModel tuttiCorsi = (DefaultTableModel) CorsiTable.getModel();
+		tuttiCorsi.addColumn("Codice");
+		tuttiCorsi.addColumn("Nome");
+		tuttiCorsi.addColumn("Descrizione");
+		Vector<Vector<String>> corsi = new Vector<Vector<String>>();
+		corsi=c.mostraCorsi();
+		for (Vector<String> vettore : corsi) {
+			tuttiCorsi.addRow(vettore);
+		}
+//STO QUA
 		scrollPane.setViewportView(CorsiTable);
-		
-		
 	
-//		try {
-//			Vector nomeColonne = new Vector();
-//			nomeColonne.add("Nome");
-//			nomeColonne.add("CodiceCorso");
-//
-//			Vector dati;
-//			String ciao=campoTF.getText();
-//			System.out.print("prova"+ciao+"prova");
-//
-//			
-//			dati = corso.ricercaCorsoPerNome(ciao);
-//		
-		
-//		table = new JTable(dati,nomeColonne);	
-//		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		table.setFillsViewportHeight(true);
-//		GridBagConstraints gbc_table = new GridBagConstraints();
-//		gbc_table.gridheight = 3;
-//		gbc_table.gridwidth = 3;
-//		gbc_table.insets = new Insets(0, 0, 5, 5);
-//		gbc_table.fill = GridBagConstraints.BOTH;
-//		gbc_table.gridx = 1;
-//		gbc_table.gridy = 9;
-//		contentPane.add(table, gbc_table);
-		
-//		JScrollPane scrollPane = new JScrollPane(table);
-//		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-//		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-//		gbc_scrollPane.gridwidth = 5;
-//		gbc_scrollPane.gridheight = 3;
-//		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
-//		gbc_scrollPane.gridx = 1;
-//		gbc_scrollPane.gridy = 10;
-//		getContentPane().add(scrollPane, gbc_scrollPane);
-//		} catch (SQLException e1) {
-//			
-//		}
-
 		JButton StatisticheButton = new JButton("Statistische");
 		StatisticheButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -277,15 +240,7 @@ public class RicercaCorsoFrame extends JFrame {
 		
 		JButton ModificaButton = new JButton("Modifica");
 		ModificaButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-//		NON TOCCARE NIENTE FUNZIONA NON TI PERMETTERE		
-//				DefaultTableModel model = (DefaultTableModel) CorsiTable.getModel();
-//				Vector<String> row = new Vector<String>();
-//			    row.add("Enter data to column 1");
-//			    row.add("Enter data to column 2");
-//			    row.add("Enter data to column 3");
-//			    model.addRow(row);
-//				
+			public void actionPerformed(ActionEvent e) {	
 			}
 		});
 		ModificaButton.setFont(new Font("Century", Font.PLAIN, 16));

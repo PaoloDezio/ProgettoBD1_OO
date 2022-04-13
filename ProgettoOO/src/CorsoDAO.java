@@ -90,5 +90,50 @@ public class CorsoDAO {
 	}
 	
 	
+//	
+	public Vector<Vector<String>> mostraCorsi(){
+		
+		Vector<Vector<String>> corsi = new Vector<Vector<String>>();
+			
+		
+		try {
+			connessioneDB=istanzaDB.ConnectToDB();
+			Statement st = connessioneDB.createStatement();
+			ResultSet rs = st.executeQuery("SELECT codiceCorso,nome,descrizione FROM CORSO ORDER BY codiceCorso");
+
+			
+
+			while(rs.next()) {
+
+				Vector<String> vettore = new Vector<String>();
+				vettore.add(rs.getString("codiceCorso"));
+				vettore.add(rs.getString("nome"));
+				vettore.add(rs.getString("descrizione"));
+				corsi.add(vettore);
+				
+			}
+			st.close();
+			rs.close();
+			
+			istanzaDB.closeDbConnection();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return corsi;
+	}
+
+//
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
