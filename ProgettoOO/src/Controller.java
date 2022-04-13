@@ -15,7 +15,7 @@ public class Controller {
 	private AggiungiAreaTematicaFrame aggiungiAreaTematicaFrame;
 	private ResponsabileDAO responsabileDAO;
 	private StudenteDAO studenteDAO;
-	
+
 	
 	
 	public static void main(String[] args) throws SQLException {
@@ -35,6 +35,7 @@ public class Controller {
 		this.setAggiungiAreaTematicaFrame(new AggiungiAreaTematicaFrame(this)); ;
 		responsabileDAO = new ResponsabileDAO();
 		studenteDAO= new StudenteDAO();
+		
 	}
 	
 	
