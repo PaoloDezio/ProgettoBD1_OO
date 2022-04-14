@@ -109,7 +109,7 @@ public class RicercaCorsoFrame extends JFrame {
 		
 		String[] campi= {"Nome","Categoria","Data","Parola Chiave"};
 		
-		campoCB = new JComboBox(campi);	
+		campoCB = new JComboBox(campi);
 		campoCB.setFont(new Font("Century", Font.PLAIN, 18));
 		GridBagConstraints gbc_campoCB = new GridBagConstraints();
 		gbc_campoCB.fill = GridBagConstraints.HORIZONTAL;
@@ -138,45 +138,16 @@ public class RicercaCorsoFrame extends JFrame {
 		campoTF.setColumns(10);
 
 		JButton cercaButton = new JButton("Cerca");
-//		cercaButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				String parolachiave = campoTF.getText();
-//				try {
-//					Vector nomeColonne = new Vector();
-//					nomeColonne.add("Nome");
-//					nomeColonne.add("CodiceCorso");
-//		
-//					Vector dati;		
-//					
-//					dati = corso.ricercaCorsoPerNome(campoTF.getText());
-//					table = new JTable(dati,nomeColonne);	
-//					table.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//					table.setFillsViewportHeight(true);
-//					GridBagConstraints gbc_table = new GridBagConstraints();
-//					gbc_table.gridheight = 3;
-//					gbc_table.gridwidth = 3;
-//					gbc_table.insets = new Insets(0, 0, 5, 5);
-//					gbc_table.fill = GridBagConstraints.BOTH;
-//					gbc_table.gridx = 1;
-//					gbc_table.gridy = 9;
-//					contentPane.add(table, gbc_table);
-//					
-//					JScrollPane scrollPane = new JScrollPane(table);
-//					GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-//					gbc_scrollPane.fill = GridBagConstraints.BOTH;
-//					gbc_scrollPane.gridwidth = 5;
-//					gbc_scrollPane.gridheight = 3;
-//					gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
-//					gbc_scrollPane.gridx = 1;
-//					gbc_scrollPane.gridy = 10;
-//					getContentPane().add(scrollPane, gbc_scrollPane);
-					//corso.ricercaCorsoPerParolaChiave(parolachiave);
-//				} catch (SQLException e1) {
-//					e1.printStackTrace();
-//				}
-//			}
-//		});
-		
+		cercaButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String prova = new String(campoCB.getSelectedItem().toString());
+				String prova2 = new String("Nome");
+				if(prova.equalsIgnoreCase(prova2)) {
+					tuttiCorsi.getDataVector().removeAllElements();
+					tuttiCorsi.fireTableDataChanged();
+													}
+			}
+		});
 		cercaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_cercaButton = new GridBagConstraints();
 		gbc_cercaButton.anchor = GridBagConstraints.WEST;
@@ -220,7 +191,6 @@ public class RicercaCorsoFrame extends JFrame {
 		for (Vector<String> vettore : corsi) {
 			tuttiCorsi.addRow(vettore);
 		}
-//STO QUA
 		scrollPane.setViewportView(CorsiTable);
 	
 		JButton StatisticheButton = new JButton("Statistische");
@@ -242,6 +212,7 @@ public class RicercaCorsoFrame extends JFrame {
 		ModificaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
 			}
+			
 		});
 		ModificaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_ModificaButton = new GridBagConstraints();
