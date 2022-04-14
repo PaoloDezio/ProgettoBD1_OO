@@ -10,49 +10,59 @@ public class CorsoDAO {
 		istanzaDB=ConnessioneDB.getIstanza();
 	}
 	
-	public Vector ricercaCorsoPerNome(String nome) throws SQLException {
-		Vector v= new Vector();
-		int colonne=0;
+	public Vector<Vector<String>> ricercaCorsoPerNome(String nome){
+		Vector<Vector<String>> corsiPerNome = new Vector<Vector<String>>();
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
 			
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT nome,codicecorso FROM CORSO WHERE nome ='"+nome+"'");
-			ResultSetMetaData rsmd=rs.getMetaData();
-			colonne=rsmd.getColumnCount();
+			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainiziocorso,A.categoria,C.Descrizione FROM CORSO AS C JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso WHERE Nome LIKE '%"+nome+"%'ORDER BY codiceCorso");
+
 			
 			while(rs.next()) {
-				Vector record = new Vector();
-				for(int i=0;i<colonne;i++) {
-					record.add(rs.getString(i+1));
+
+				Vector<String> vettore = new Vector<String>();
+				vettore.add(rs.getString("codiceCorso"));
+				vettore.add(rs.getString("nome"));
+				vettore.add(rs.getString("datainiziocorso"));
+				vettore.add(rs.getString("categoria"));
+				vettore.add(rs.getString("descrizione"));
+				corsiPerNome.add(vettore);
 				}
-				v.add(record);
-			}
-		
+	
 			st.close();
 			rs.close();
-			
 			istanzaDB.closeDbConnection();
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-	return v;
+		
+			}
+		
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+	return corsiPerNome;
 	}
 	
 	
 	
-	public void ricercaCorsoPerData(String data) throws SQLException {
+	public Vector<Vector<String>> ricercaCorsoPerData (String data){
+		Vector<Vector<String>> corsiPerData = new Vector<Vector<String>>();
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
 			
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM CORSO WHERE data ='"+data+"'");
+			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainiziocorso,A.categoria,C.Descrizione FROM CORSO AS C JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso WHERE CAST(C.datainiziocorso AS VARCHAR(25)) LIKE '%"+data+"%' ORDER BY codiceCorso");
 		
 			while(rs.next()) {
-				
-			}
-		
+
+				Vector<String> vettore = new Vector<String>();
+				vettore.add(rs.getString("codiceCorso"));
+				vettore.add(rs.getString("nome"));
+				vettore.add(rs.getString("datainiziocorso"));
+				vettore.add(rs.getString("categoria"));
+				vettore.add(rs.getString("descrizione"));
+				corsiPerData.add(vettore);
+				}
+	
 			st.close();
 			rs.close();
 			
@@ -61,22 +71,59 @@ public class CorsoDAO {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return corsiPerData;
+	}
+	public Vector<Vector<String>> ricercaCorsoPerCategoria(String categoria){
+		Vector<Vector<String>> corsiPerCategoria = new Vector<Vector<String>>();
+		
+		try {
+			connessioneDB=istanzaDB.ConnectToDB();
+			
+			Statement st = connessioneDB.createStatement();
+			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainiziocorso,A.categoria,C.Descrizione FROM CORSO AS C JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso WHERE A.categoria LIKE '%"+categoria+"%'ORDER BY codiceCorso");
+
+			
+			while(rs.next()) {
+
+				Vector<String> vettore = new Vector<String>();
+				vettore.add(rs.getString("codiceCorso"));
+				vettore.add(rs.getString("nome"));
+				vettore.add(rs.getString("datainiziocorso"));
+				vettore.add(rs.getString("categoria"));
+				vettore.add(rs.getString("descrizione"));
+				corsiPerCategoria.add(vettore);
+				}
 	
+			st.close();
+			rs.close();
+			istanzaDB.closeDbConnection();
+		
+			}
+		
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+	return corsiPerCategoria;
 	}
 	
-	public void ricercaCorsoPerParolaChiave(String parolaChiave) throws SQLException {
+	public Vector<Vector<String>> ricercaCorsoPerParolaChiave(String parolaChiave){
+		Vector<Vector<String>> corsiPerParolaChiave = new Vector<Vector<String>>();
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
 			
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM CORSO WHERE descrizione LIKE '%"+parolaChiave+"%'");
+			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainiziocorso,A.categoria,C.Descrizione FROM CORSO AS C JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso WHERE C.descrizione LIKE '%"+parolaChiave+"%' ORDER BY codiceCorso");
 		
 			while(rs.next()) {
-				System.out.print(rs.getString("codicecorso")+" ");
-				System.out.print(rs.getString("nome")+" ");
-				System.out.print(rs.getString("descrizione")+" ");
-				System.out.println(rs.getString("datainiziocorso"));
-			}
+
+				Vector<String> vettore = new Vector<String>();
+				vettore.add(rs.getString("codiceCorso"));
+				vettore.add(rs.getString("nome"));
+				vettore.add(rs.getString("datainiziocorso"));
+				vettore.add(rs.getString("categoria"));
+				vettore.add(rs.getString("descrizione"));
+				corsiPerParolaChiave.add(vettore);
+				}
 		
 			st.close();
 			rs.close();
@@ -86,7 +133,7 @@ public class CorsoDAO {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-	
+		return corsiPerParolaChiave;
 	}
 	
 	
@@ -99,7 +146,7 @@ public class CorsoDAO {
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT codiceCorso,nome,descrizione FROM CORSO ORDER BY codiceCorso");
+			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainiziocorso,A.categoria,C.Descrizione FROM CORSO AS C JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso ORDER BY codiceCorso");
 
 			
 
@@ -108,6 +155,8 @@ public class CorsoDAO {
 				Vector<String> vettore = new Vector<String>();
 				vettore.add(rs.getString("codiceCorso"));
 				vettore.add(rs.getString("nome"));
+				vettore.add(rs.getString("datainiziocorso"));
+				vettore.add(rs.getString("categoria"));
 				vettore.add(rs.getString("descrizione"));
 				corsi.add(vettore);
 				

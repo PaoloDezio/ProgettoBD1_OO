@@ -115,8 +115,24 @@ public class Controller {
 		CorsoDAO corsoDAO = new CorsoDAO();
 		return corsoDAO.mostraCorsi();
 	}
-
-
-
-
+	
+	public Vector<Vector<String>> ricercaCorsoPerNome(String nome){
+		CorsoDAO corsoDAO = new CorsoDAO();
+		return corsoDAO.ricercaCorsoPerNome(nome);
+	}
+	
+	public Vector<Vector<String>> ricercaCorsoPerData (String data){
+		CorsoDAO corsoDAO = new CorsoDAO();
+		return corsoDAO.ricercaCorsoPerData(data);
+	}
+	
+	public Vector<Vector<String>> ricercaCorsoPerParolaChiave (String parolaChiave){
+		CorsoDAO corsoDAO = new CorsoDAO();
+		return corsoDAO.ricercaCorsoPerParolaChiave(parolaChiave);
+	}
+	
+	public Vector<Vector<String>> ricercaCorsoPerCategoria (String categoria){
+		CorsoDAO corsoDAO = new CorsoDAO();
+		return corsoDAO.ricercaCorsoPerCategoria(categoria);
+	}
 }
