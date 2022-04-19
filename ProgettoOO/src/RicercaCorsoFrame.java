@@ -51,6 +51,7 @@ public class RicercaCorsoFrame extends JFrame {
 	private JTextField campoTF;
 	private JTable CorsiTable;
 	private Vector<Vector<String>> corsi;
+	
 	/**
 	 * Create the frame.
 	 * 
@@ -262,6 +263,24 @@ public class RicercaCorsoFrame extends JFrame {
 		contentPane.add(ModificaButton, gbc_ModificaButton);
 		
 		JButton EliminaButton = new JButton("Elimina");
+		EliminaButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Object codiceCorsoSelezionato;
+				codiceCorsoSelezionato = CorsiTable.getValueAt(CorsiTable.getSelectedRow(),0);
+				c.eliminaCorsoSelezionato(codiceCorsoSelezionato);
+				tuttiCorsi.getDataVector().removeAllElements();
+				corsi = new Vector<Vector<String>>();
+				corsi=c.mostraCorsi();
+				for (Vector<String> vettore : corsi) {
+					tuttiCorsi.addRow(vettore);
+				}
+				tuttiCorsi.fireTableDataChanged();
+				
+				
+				
+			}
+		});
 		EliminaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_EliminaButton = new GridBagConstraints();
 		gbc_EliminaButton.insets = new Insets(0, 0, 5, 0);

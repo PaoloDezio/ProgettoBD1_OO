@@ -135,4 +135,10 @@ public class Controller {
 		CorsoDAO corsoDAO = new CorsoDAO();
 		return corsoDAO.ricercaCorsoPerCategoria(categoria);
 	}
+	
+	public void eliminaCorsoSelezionato(Object codiceCorso) {
+		CorsoDAO corsoDAO= new CorsoDAO();
+		corsoDAO.eliminaCorsoSelezionato(codiceCorso);
+	}
+	
 }

@@ -137,7 +137,7 @@ public class CorsoDAO {
 	}
 	
 	
-//	
+	
 	public Vector<Vector<String>> mostraCorsi(){
 		
 		Vector<Vector<String>> corsi = new Vector<Vector<String>>();
@@ -146,7 +146,7 @@ public class CorsoDAO {
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainiziocorso,A.categoria,C.Descrizione FROM CORSO AS C JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso ORDER BY codiceCorso");
+			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainiziocorso,A.categoria,C.Descrizione FROM CORSO AS C LEFT JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso ORDER BY codiceCorso");
 
 			
 
@@ -174,8 +174,25 @@ public class CorsoDAO {
 		return corsi;
 	}
 
-//
-	
+
+	public void eliminaCorsoSelezionato(Object codiceCorso) {
+		
+		
+		try {
+			connessioneDB=istanzaDB.ConnectToDB();
+			Statement st = connessioneDB.createStatement();
+			st.executeUpdate("DELETE FROM CORSO WHERE CODICECORSO="+codiceCorso);
+		
+			st.close();
+			istanzaDB.closeDbConnection();
+		} 
+		
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 	
