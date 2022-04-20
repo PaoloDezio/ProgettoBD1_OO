@@ -62,6 +62,7 @@ public class StatisticheFrame extends JFrame {
 		contentPane.add(nomeCorsoLabel, gbc_nomeCorsoLabel);
 		
 		CorsoTF = new JTextField();
+		CorsoTF.setBackground(new Color(30, 144, 255));
 		CorsoTF.setEditable(false);
 		GridBagConstraints gbc_CorsoTF = new GridBagConstraints();
 		gbc_CorsoTF.insets = new Insets(0, 0, 5, 5);

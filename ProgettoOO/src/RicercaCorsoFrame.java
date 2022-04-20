@@ -45,18 +45,18 @@ public class RicercaCorsoFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Controller controller;
-	private JComboBox campoCB;
+	private JComboBox<String> campoCB;
 	private JTextField nomeTF;
 	private JLabel nomeLabel;
 	private JTextField campoTF;
-	private JTable CorsiTable;
+	private JTable corsiTable;
 	private Vector<Vector<String>> corsi;
+	private DefaultTableModel tuttiCorsi;
 	
-	/**
-	 * Create the frame.
-	 * 
-	 */
-	
+	public DefaultTableModel getTuttiCorsi() {
+		return tuttiCorsi;
+	}
+
 	public RicercaCorsoFrame(Controller c){
 		setTitle("Ricerca Corso");
 		controller = c;
@@ -165,8 +165,8 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_scrollPane.gridy = 5;
 		contentPane.add(scrollPane, gbc_scrollPane);
 		  
-		CorsiTable = new JTable();
-		DefaultTableModel tuttiCorsi = (DefaultTableModel) CorsiTable.getModel();
+		corsiTable = new JTable();
+		tuttiCorsi = (DefaultTableModel) corsiTable.getModel();
 		tuttiCorsi.addColumn("Codice");
 		tuttiCorsi.addColumn("Nome");
 		tuttiCorsi.addColumn("Data");
@@ -178,7 +178,7 @@ public class RicercaCorsoFrame extends JFrame {
 		for (Vector<String> vettore : corsi) {
 			tuttiCorsi.addRow(vettore);
 		}
-		scrollPane.setViewportView(CorsiTable);
+		scrollPane.setViewportView(corsiTable);
 		
 		
 		
@@ -188,35 +188,32 @@ public class RicercaCorsoFrame extends JFrame {
 				String campo = new String(campoCB.getSelectedItem().toString());
 				tuttiCorsi.getDataVector().removeAllElements();
 				tuttiCorsi.fireTableDataChanged();
-			switch(campo) {
-			case "Nome":
-				corsi=c.ricercaCorsoPerNome(campoTF.getText().toUpperCase());
-				for (Vector<String> vettore : corsi) {
-					tuttiCorsi.addRow(vettore);
-				}
-				break;
-			case "Categoria":
-				corsi=c.ricercaCorsoPerCategoria(campoTF.getText().toUpperCase());
-				for (Vector<String> vettore : corsi) {
-					tuttiCorsi.addRow(vettore);
-				}
-				break;
-			case "Data":
-				corsi=c.ricercaCorsoPerData(campoTF.getText());
-				for (Vector<String> vettore : corsi) {
-					tuttiCorsi.addRow(vettore);
-				}
-				break;
-			case "Parola Chiave":
-				corsi=c.ricercaCorsoPerParolaChiave(campoTF.getText().toUpperCase());
-			for (Vector<String> vettore : corsi) {
-				tuttiCorsi.addRow(vettore);
-			}
-			break;
-			}
-			
-			
-			
+				switch(campo) {
+				case "Nome":
+					corsi=c.ricercaCorsoPerNome(campoTF.getText().toUpperCase());
+					for (Vector<String> vettore : corsi) {
+						tuttiCorsi.addRow(vettore);
+					}
+					break;
+				case "Categoria":
+					corsi=c.ricercaCorsoPerCategoria(campoTF.getText().toUpperCase());
+					for (Vector<String> vettore : corsi) {
+						tuttiCorsi.addRow(vettore);
+					}
+					break;
+				case "Data":
+					corsi=c.ricercaCorsoPerData(campoTF.getText());
+					for (Vector<String> vettore : corsi) {
+						tuttiCorsi.addRow(vettore);
+					}
+					break;
+				case "Parola Chiave":
+					corsi=c.ricercaCorsoPerParolaChiave(campoTF.getText().toUpperCase());
+					for (Vector<String> vettore : corsi) {
+						tuttiCorsi.addRow(vettore);
+					}
+					break;
+				}	
 			}
 		});
 		cercaButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -228,8 +225,6 @@ public class RicercaCorsoFrame extends JFrame {
 		contentPane.add(cercaButton, gbc_cercaButton);
 		
 		
-		
-		
 		JButton StatisticheButton = new JButton("Statistische");
 		StatisticheButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -237,9 +232,6 @@ public class RicercaCorsoFrame extends JFrame {
 				c.getRicercaCorsoFrame().setVisible(false);
 			}
 		});
-		
-		
-		
 		StatisticheButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_StatisticheButton = new GridBagConstraints();
 		gbc_StatisticheButton.insets = new Insets(0, 0, 5, 0);
@@ -248,11 +240,18 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_StatisticheButton.gridy = 5;
 		contentPane.add(StatisticheButton, gbc_StatisticheButton);
 		
+		
+		
+		
 		JButton ModificaButton = new JButton("Modifica");
 		ModificaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
-			}
-			
+				c.getModificaFrame().setVisible(true);
+				c.getModificaFrame().setCodiceCorso(corsiTable.getValueAt(corsiTable.getSelectedRow(),0));
+				c.getModificaFrame().setNomeTF(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
+				c.getModificaFrame().setDataTF(corsiTable.getValueAt(corsiTable.getSelectedRow(),2).toString());
+				c.getModificaFrame().setDescrizioneTF(corsiTable.getValueAt(corsiTable.getSelectedRow(),4).toString());
+			}			
 		});
 		ModificaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_ModificaButton = new GridBagConstraints();
@@ -262,12 +261,15 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_ModificaButton.gridy = 6;
 		contentPane.add(ModificaButton, gbc_ModificaButton);
 		
+		
+		
+		
 		JButton EliminaButton = new JButton("Elimina");
 		EliminaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				Object codiceCorsoSelezionato;
-				codiceCorsoSelezionato = CorsiTable.getValueAt(CorsiTable.getSelectedRow(),0);
+				codiceCorsoSelezionato = corsiTable.getValueAt(corsiTable.getSelectedRow(),0);
 				c.eliminaCorsoSelezionato(codiceCorsoSelezionato);
 				tuttiCorsi.getDataVector().removeAllElements();
 				corsi = new Vector<Vector<String>>();
@@ -275,10 +277,7 @@ public class RicercaCorsoFrame extends JFrame {
 				for (Vector<String> vettore : corsi) {
 					tuttiCorsi.addRow(vettore);
 				}
-				tuttiCorsi.fireTableDataChanged();
-				
-				
-				
+				tuttiCorsi.fireTableDataChanged();				
 			}
 		});
 		EliminaButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -288,15 +287,6 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_EliminaButton.gridx = 4;
 		gbc_EliminaButton.gridy = 7;
 		contentPane.add(EliminaButton, gbc_EliminaButton);
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	}
 	
 	

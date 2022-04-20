@@ -13,6 +13,7 @@ public class Controller {
 	private StatisticheFrame statisticheFrame;
 	private IdoneiFrame idoneiFrame;
 	private AggiungiAreaTematicaFrame aggiungiAreaTematicaFrame;
+	private ModificaFrame modificaFrame;
 	private ResponsabileDAO responsabileDAO;
 	private StudenteDAO studenteDAO;
 
@@ -28,11 +29,12 @@ public class Controller {
 	public Controller(){
 		this.setLoginFrame(new LoginFrame(this));
 		this.setHomeFrame(new HomeFrame(this));
-		this.setRicercaCorsoFrame(new RicercaCorsoFrame(this));;
-		this.setIscriviStudenteFrame(new IscriviStudenteFrame(this));;
-		this.setStatisticheFrame(new StatisticheFrame(this));;
-		this.setIdoneiFrame(new IdoneiFrame(this));;
-		this.setAggiungiAreaTematicaFrame(new AggiungiAreaTematicaFrame(this)); ;
+		this.setRicercaCorsoFrame(new RicercaCorsoFrame(this));
+		this.setIscriviStudenteFrame(new IscriviStudenteFrame(this));
+		this.setStatisticheFrame(new StatisticheFrame(this));
+		this.setIdoneiFrame(new IdoneiFrame(this));
+		this.setAggiungiAreaTematicaFrame(new AggiungiAreaTematicaFrame(this)); 
+		this.setModificaFrame(new ModificaFrame(this));
 		responsabileDAO = new ResponsabileDAO();
 		studenteDAO= new StudenteDAO();
 		
@@ -95,6 +97,14 @@ public class Controller {
 		this.aggiungiAreaTematicaFrame = aggiungiAreaTematicaFrame;
 	}
 			
+	public ModificaFrame getModificaFrame() {
+		return modificaFrame;
+	}
+
+	public void setModificaFrame(ModificaFrame modificaFrame) {
+		this.modificaFrame = modificaFrame;
+	}
+
 	public boolean checkResponsabile(String username,String password) {
 		return responsabileDAO.checkResponsabile(username, password);
 	}
@@ -139,6 +149,11 @@ public class Controller {
 	public void eliminaCorsoSelezionato(Object codiceCorso) {
 		CorsoDAO corsoDAO= new CorsoDAO();
 		corsoDAO.eliminaCorsoSelezionato(codiceCorso);
+	}
+	
+	public void modificaCorso(Object codiceCorso,String nome,String data,String categoria,String descrizione) {
+	CorsoDAO corsoDAO = new CorsoDAO();
+	corsoDAO.modificaCorso(codiceCorso, nome, data, descrizione, categoria);
 	}
 	
 }

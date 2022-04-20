@@ -176,8 +176,6 @@ public class CorsoDAO {
 
 
 	public void eliminaCorsoSelezionato(Object codiceCorso) {
-		
-		
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
 			Statement st = connessioneDB.createStatement();
@@ -189,6 +187,25 @@ public class CorsoDAO {
 		
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	public void modificaCorso(Object codiceCorso,String nome,String data,String descrizione,String categoria) {
+		try {
+			connessioneDB=istanzaDB.ConnectToDB();
+			Statement st = connessioneDB.createStatement();
+			st.executeUpdate("UPDATE CORSO SET nome='"+nome+"',datainiziocorso='"+data+"',descrizione='"+descrizione+"' WHERE CODICECORSO="+codiceCorso);
+			st.executeUpdate("UPDATE TEMATICA_CORSO SET categoria='"+categoria+"' WHERE CODICECORSO= "+codiceCorso);
+			
+			
+			st.close();
+			istanzaDB.closeDbConnection();
+		} 
+		
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		

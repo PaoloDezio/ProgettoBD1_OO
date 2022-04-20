@@ -51,8 +51,8 @@ public class IscriviStudenteFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{70, 0, 100, 100, 100, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 82, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.columnWidths = new int[]{34, 0, 100, 100, 100, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 49, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
@@ -60,6 +60,8 @@ public class IscriviStudenteFrame extends JFrame {
 		JLabel iscrizioneLabel = new JLabel("Iscrizione ");
 		iscrizioneLabel.setFont(new Font("Century", Font.BOLD, 25));
 		GridBagConstraints gbc_iscrizioneLabel = new GridBagConstraints();
+		gbc_iscrizioneLabel.anchor = GridBagConstraints.WEST;
+		gbc_iscrizioneLabel.gridwidth = 2;
 		gbc_iscrizioneLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_iscrizioneLabel.gridx = 1;
 		gbc_iscrizioneLabel.gridy = 1;
