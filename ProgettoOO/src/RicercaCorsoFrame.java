@@ -190,13 +190,13 @@ public class RicercaCorsoFrame extends JFrame {
 				tuttiCorsi.fireTableDataChanged();
 			switch(campo) {
 			case "Nome":
-				corsi=c.ricercaCorsoPerNome(campoTF.getText());
+				corsi=c.ricercaCorsoPerNome(campoTF.getText().toUpperCase());
 				for (Vector<String> vettore : corsi) {
 					tuttiCorsi.addRow(vettore);
 				}
 				break;
 			case "Categoria":
-				corsi=c.ricercaCorsoPerCategoria(campoTF.getText());
+				corsi=c.ricercaCorsoPerCategoria(campoTF.getText().toUpperCase());
 				for (Vector<String> vettore : corsi) {
 					tuttiCorsi.addRow(vettore);
 				}
@@ -208,7 +208,7 @@ public class RicercaCorsoFrame extends JFrame {
 				}
 				break;
 			case "Parola Chiave":
-				corsi=c.ricercaCorsoPerParolaChiave(campoTF.getText());
+				corsi=c.ricercaCorsoPerParolaChiave(campoTF.getText().toUpperCase());
 			for (Vector<String> vettore : corsi) {
 				tuttiCorsi.addRow(vettore);
 			}
