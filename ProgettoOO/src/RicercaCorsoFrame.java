@@ -51,10 +51,18 @@ public class RicercaCorsoFrame extends JFrame {
 	private JTextField campoTF;
 	private JTable corsiTable;
 	private Vector<Vector<String>> corsi;
-	private DefaultTableModel tuttiCorsi;
+	private DefaultTableModel corsiDTM;
 	
+	public DefaultTableModel getCorsiDTM() {
+		return corsiDTM;
+	}
+
+	public void setCorsiDTM(DefaultTableModel corsiDTM) {
+		this.corsiDTM = corsiDTM;
+	}
+
 	public DefaultTableModel getTuttiCorsi() {
-		return tuttiCorsi;
+		return corsiDTM;
 	}
 
 	public RicercaCorsoFrame(Controller c){
@@ -104,8 +112,7 @@ public class RicercaCorsoFrame extends JFrame {
 			}
 		});
 						
-		
-		
+
 		String[] campi= {"Nome","Categoria","Data","Parola Chiave"};
 		
 		campoCB = new JComboBox(campi);
@@ -164,17 +171,17 @@ public class RicercaCorsoFrame extends JFrame {
 		contentPane.add(scrollPane, gbc_scrollPane);
 		  
 		corsiTable = new JTable();
-		tuttiCorsi = (DefaultTableModel) corsiTable.getModel();
-		tuttiCorsi.addColumn("Codice");
-		tuttiCorsi.addColumn("Nome");
-		tuttiCorsi.addColumn("Data");
-		tuttiCorsi.addColumn("Categoria");
-		tuttiCorsi.addColumn("Descrizione");
+		corsiDTM = (DefaultTableModel) corsiTable.getModel();
+		corsiDTM.addColumn("Codice");
+		corsiDTM.addColumn("Nome");
+		corsiDTM.addColumn("Data");
+		corsiDTM.addColumn("Categoria");
+		corsiDTM.addColumn("Descrizione");
 		
 		corsi = new Vector<Vector<String>>();
 		corsi=c.mostraCorsi();
 		for (Vector<String> vettore : corsi) {
-			tuttiCorsi.addRow(vettore);
+			corsiDTM.addRow(vettore);
 		}
 		scrollPane.setViewportView(corsiTable);
 		
@@ -183,32 +190,34 @@ public class RicercaCorsoFrame extends JFrame {
 		JButton cercaButton = new JButton("Cerca");
 		cercaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				corsiDTM.getDataVector().removeAllElements();
+				corsiDTM.fireTableDataChanged();
+				
 				String campo = new String(campoCB.getSelectedItem().toString());
-				tuttiCorsi.getDataVector().removeAllElements();
-				tuttiCorsi.fireTableDataChanged();
 				switch(campo) {
 				case "Nome":
 					corsi=c.ricercaCorsoPerNome(campoTF.getText().toUpperCase());
 					for (Vector<String> vettore : corsi) {
-						tuttiCorsi.addRow(vettore);
+						corsiDTM.addRow(vettore);
 					}
 					break;
 				case "Categoria":
 					corsi=c.ricercaCorsoPerCategoria(campoTF.getText().toUpperCase());
 					for (Vector<String> vettore : corsi) {
-						tuttiCorsi.addRow(vettore);
+						corsiDTM.addRow(vettore);
 					}
 					break;
 				case "Data":
 					corsi=c.ricercaCorsoPerData(campoTF.getText());
 					for (Vector<String> vettore : corsi) {
-						tuttiCorsi.addRow(vettore);
+						corsiDTM.addRow(vettore);
 					}
 					break;
 				case "Parola Chiave":
 					corsi=c.ricercaCorsoPerParolaChiave(campoTF.getText().toUpperCase());
 					for (Vector<String> vettore : corsi) {
-						tuttiCorsi.addRow(vettore);
+						corsiDTM.addRow(vettore);
 					}
 					break;
 				}	
@@ -269,13 +278,13 @@ public class RicercaCorsoFrame extends JFrame {
 				Object codiceCorsoSelezionato;
 				codiceCorsoSelezionato = corsiTable.getValueAt(corsiTable.getSelectedRow(),0);
 				c.eliminaCorsoSelezionato(codiceCorsoSelezionato);
-				tuttiCorsi.getDataVector().removeAllElements();
+				corsiDTM.getDataVector().removeAllElements();
 				corsi = new Vector<Vector<String>>();
 				corsi=c.mostraCorsi();
 				for (Vector<String> vettore : corsi) {
-					tuttiCorsi.addRow(vettore);
+					corsiDTM.addRow(vettore);
 				}
-				tuttiCorsi.fireTableDataChanged();				
+				corsiDTM.fireTableDataChanged();				
 			}
 		});
 		EliminaButton.setFont(new Font("Century", Font.PLAIN, 16));

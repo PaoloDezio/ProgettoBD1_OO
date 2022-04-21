@@ -15,30 +15,39 @@ public class Controller {
 	private AggiungiAreaTematicaFrame aggiungiAreaTematicaFrame;
 	private ModificaFrame modificaFrame;
 	private ResponsabileDAO responsabileDAO;
+	private CorsoDAO corsoDAO;
 	private AreaTematicaDAO areaTematicaDAO;
 	private StudenteDAO studenteDAO;
 
 	
+	public void setCorsoDAO(CorsoDAO corsoDAO) {
+		this.corsoDAO = corsoDAO;
+	}
 	
-	public static void main(String[] args) throws SQLException {
-		Controller controller= new Controller();
-		
-		controller.getLoginFrame().setVisible(true);
+	public CorsoDAO getCorsoDAO() {
+		return corsoDAO;
+	}
 
+
+	public static void main(String[] args) {
+		Controller controller= new Controller();
 	}
 
 	public Controller(){
-		this.setLoginFrame(new LoginFrame(this));
-		this.setHomeFrame(new HomeFrame(this));
-		this.setRicercaCorsoFrame(new RicercaCorsoFrame(this));
-		this.setIscriviStudenteFrame(new IscriviStudenteFrame(this));
-		this.setStatisticheFrame(new StatisticheFrame(this));
-		this.setIdoneiFrame(new IdoneiFrame(this));
-		this.setAggiungiAreaTematicaFrame(new AggiungiAreaTematicaFrame(this)); 
-		this.setModificaFrame(new ModificaFrame(this));
 		responsabileDAO = new ResponsabileDAO();
-		//areaTematicaDAO = new AreaTematicaDAO();
 		studenteDAO= new StudenteDAO();
+		corsoDAO = new CorsoDAO();
+		areaTematicaDAO = new AreaTematicaDAO();
+
+		setLoginFrame(new LoginFrame(this));
+		getLoginFrame().setVisible(true);
+		setHomeFrame(new HomeFrame(this));
+		setRicercaCorsoFrame(new RicercaCorsoFrame(this));
+		setIscriviStudenteFrame(new IscriviStudenteFrame(this));
+		setStatisticheFrame(new StatisticheFrame(this));
+		setIdoneiFrame(new IdoneiFrame(this));
+		setAggiungiAreaTematicaFrame(new AggiungiAreaTematicaFrame(this)); 
+		setModificaFrame(new ModificaFrame(this));
 		
 	}
 	
@@ -119,53 +128,51 @@ public class Controller {
 		return studenteDAO.recuperaCodStudente(nome, cognome, luogo, dataDiNascita);
 	}
 	
-	public boolean iscriviStudente(String codCorso,String codStudente) {
-		return studenteDAO.iscriviStudente(codCorso,codStudente);
+	public boolean iscriviStudente(String codiceCorso,String codStudente) {
+		return studenteDAO.iscriviStudente(codiceCorso,codStudente);
 	}
 
 	public boolean AreaTematicaIsPresentInDB(String areaTematica) {
-		areaTematicaDAO = new AreaTematicaDAO();
 		return areaTematicaDAO.AreaTematicaIsPresentInDB(areaTematica);
 	}
 	public void aggiungiAreaTematica(String areaTematica) {
-		areaTematicaDAO = new AreaTematicaDAO();
 		areaTematicaDAO.aggiungiAreaTematica(areaTematica);
 	}
 	
+	public String[] salvaAreeTematiche(Integer numeroCategorie) {
+		return areaTematicaDAO.salvaAreeTematiche(numeroCategorie);
+	}
+	
+	public Integer contaCategorie() {
+		return areaTematicaDAO.contaCategorie();
+	}
 	
 	public Vector<Vector<String>> mostraCorsi(){
-		CorsoDAO corsoDAO = new CorsoDAO();
 		return corsoDAO.mostraCorsi();
 	}
 	
 	public Vector<Vector<String>> ricercaCorsoPerNome(String nome){
-		CorsoDAO corsoDAO = new CorsoDAO();
 		return corsoDAO.ricercaCorsoPerNome(nome);
 	}
 	
 	public Vector<Vector<String>> ricercaCorsoPerData (String data){
-		CorsoDAO corsoDAO = new CorsoDAO();
 		return corsoDAO.ricercaCorsoPerData(data);
 	}
 	
 	public Vector<Vector<String>> ricercaCorsoPerParolaChiave (String parolaChiave){
-		CorsoDAO corsoDAO = new CorsoDAO();
 		return corsoDAO.ricercaCorsoPerParolaChiave(parolaChiave);
 	}
 	
 	public Vector<Vector<String>> ricercaCorsoPerCategoria (String categoria){
-		CorsoDAO corsoDAO = new CorsoDAO();
 		return corsoDAO.ricercaCorsoPerCategoria(categoria);
 	}
 	
 	public void eliminaCorsoSelezionato(Object codiceCorso) {
-		CorsoDAO corsoDAO= new CorsoDAO();
 		corsoDAO.eliminaCorsoSelezionato(codiceCorso);
 	}
 	
 	public void modificaCorso(Object codiceCorso,String nome,String data,String categoria,String descrizione) {
-	CorsoDAO corsoDAO = new CorsoDAO();
-	corsoDAO.modificaCorso(codiceCorso, nome, data, descrizione, categoria);
+		corsoDAO.modificaCorso(codiceCorso, nome, data, descrizione, categoria);
 	}
 	
 }

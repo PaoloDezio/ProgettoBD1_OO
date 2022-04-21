@@ -39,7 +39,7 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 		gbl_contentPane.columnWidths = new int[]{20, 0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{27, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JButton confermaButton = new JButton("Conferma");
@@ -48,16 +48,13 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 				if(areaTematicaTF.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(contentPane, "Inserire un'area tematica","",JOptionPane.INFORMATION_MESSAGE);
 				}
-				
-				if(c.AreaTematicaIsPresentInDB(areaTematicaTF.getText().toUpperCase())) {
-					JOptionPane.showMessageDialog(contentPane, "Questa area tematica è già presente nel database.\nInserirne una nuova","",JOptionPane.WARNING_MESSAGE);
+				else if(c.AreaTematicaIsPresentInDB(areaTematicaTF.getText().toUpperCase())) {
+					JOptionPane.showMessageDialog(contentPane, "L'area tematica '"+areaTematicaTF.getText().toUpperCase()+ "' è già presente nel database.\nInserirne una nuova.","",JOptionPane.WARNING_MESSAGE);
 					areaTematicaTF.setText("");
 				}
 				else {
 					c.aggiungiAreaTematica(areaTematicaTF.getText().toUpperCase());
-					JOptionPane.showMessageDialog(contentPane, "Nuova area tematica aggiunta correttamente","",JOptionPane.CLOSED_OPTION);
-//					c.getAggiungiAreaTematicaFrame().setVisible(false);
-//					c.getHomeFrame().setVisible(true);
+					JOptionPane.showMessageDialog(contentPane, "L'area tematica '"+areaTematicaTF.getText().toUpperCase()+"' è stata aggiunta correttamente","",JOptionPane.CLOSED_OPTION);
 					areaTematicaTF.setText("");
 				}
 			}});
@@ -70,29 +67,30 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 			}
 		});
 		
-		JLabel lblNewLabel = new JLabel("Aggiungi Area Tematica");
-		lblNewLabel.setFont(new Font("Century", Font.PLAIN, 24));
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel.gridwidth = 2;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 1;
-		gbc_lblNewLabel.gridy = 0;
-		contentPane.add(lblNewLabel, gbc_lblNewLabel);
+		JLabel aggiungiAreaTematicaLabel = new JLabel("Aggiungi Area Tematica");
+		aggiungiAreaTematicaLabel.setFont(new Font("Century", Font.PLAIN, 24));
+		GridBagConstraints gbc_aggiungiAreaTematicaLabel = new GridBagConstraints();
+		gbc_aggiungiAreaTematicaLabel.anchor = GridBagConstraints.WEST;
+		gbc_aggiungiAreaTematicaLabel.gridwidth = 2;
+		gbc_aggiungiAreaTematicaLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_aggiungiAreaTematicaLabel.gridx = 1;
+		gbc_aggiungiAreaTematicaLabel.gridy = 0;
+		contentPane.add(aggiungiAreaTematicaLabel, gbc_aggiungiAreaTematicaLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Inserisci una nuova Area Tematica");
-		lblNewLabel_1.setFont(new Font("Century", Font.PLAIN, 16));
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.gridwidth = 2;
-		gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 1;
-		gbc_lblNewLabel_1.gridy = 3;
-		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		JLabel nuovaAreaTematica = new JLabel("Nuova Area Tematica");
+		nuovaAreaTematica.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_nuovaAreaTematica = new GridBagConstraints();
+		gbc_nuovaAreaTematica.gridwidth = 2;
+		gbc_nuovaAreaTematica.anchor = GridBagConstraints.WEST;
+		gbc_nuovaAreaTematica.insets = new Insets(0, 0, 5, 5);
+		gbc_nuovaAreaTematica.gridx = 1;
+		gbc_nuovaAreaTematica.gridy = 2;
+		contentPane.add(nuovaAreaTematica, gbc_nuovaAreaTematica);
 		
 		areaTematicaTF = new JTextField();
 		areaTematicaTF.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_areaTematicaTF = new GridBagConstraints();
+		gbc_areaTematicaTF.anchor = GridBagConstraints.NORTH;
 		gbc_areaTematicaTF.gridwidth = 2;
 		gbc_areaTematicaTF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_areaTematicaTF.insets = new Insets(0, 0, 5, 5);

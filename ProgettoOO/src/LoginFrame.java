@@ -140,19 +140,19 @@ public class LoginFrame extends JFrame {
 		accediButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String username = usernameTF.getText();
-				String pwd= new String(passwordTF.getPassword());
-				if(username.isEmpty() || pwd.isEmpty()) {
-					JOptionPane.showMessageDialog(contentPane,"Inserire un Username e una Password per accedere","",JOptionPane.WARNING_MESSAGE);
+				String password= new String(passwordTF.getPassword());
+				if(username.isEmpty() && password.isEmpty()) {
+					JOptionPane.showMessageDialog(contentPane,"Inserire un Username e una Password","",JOptionPane.WARNING_MESSAGE);
 				}
 				else {
-					if(controller.checkResponsabile(username,pwd)==true) {
+					if(controller.checkResponsabile(username,password)==true) {
 						controller.getLoginFrame().setVisible(false);
 						controller.getHomeFrame().setVisible(true);
 						usernameTF.setText("");
 						passwordTF.setText("");
 					}
 					else {
-						JOptionPane.showMessageDialog(contentPane,"Username e/o Password non validi","",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(contentPane,"Username e Password non validi","",JOptionPane.ERROR_MESSAGE);
 						usernameTF.setText("");
 						passwordTF.setText("");
 					}			

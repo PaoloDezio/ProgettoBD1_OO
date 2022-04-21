@@ -15,10 +15,10 @@ public class ResponsabileDAO {
 			connessioneDB=istanzaDB.ConnectToDB();
 			
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM responsabile WHERE username='"+username+"' AND pwd='"+password+"';");
+			ResultSet rs = st.executeQuery("SELECT * FROM responsabile");
 			
 			while(rs.next()) {
-				if(rs.getString("username").equals(username) && rs.getString("pwd").equals(password))
+				if(rs.getString("username").equals(username) && rs.getString("password").equals(password))
 					return true;
 			}
 			

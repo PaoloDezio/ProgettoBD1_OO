@@ -14,11 +14,11 @@ public class CorsoDAO {
 		Vector<Vector<String>> corsiPerNome = new Vector<Vector<String>>();
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
-			
+
 			Statement st = connessioneDB.createStatement();
 			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainiziocorso,A.categoria,C.Descrizione FROM CORSO AS C LEFT JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso WHERE Nome LIKE '%"+nome+"%'ORDER BY codiceCorso");
 
-			
+
 			while(rs.next()) {
 
 				Vector<String> vettore = new Vector<String>();
@@ -28,18 +28,18 @@ public class CorsoDAO {
 				vettore.add(rs.getString("categoria"));
 				vettore.add(rs.getString("descrizione"));
 				corsiPerNome.add(vettore);
-				}
-	
+			}
+
 			st.close();
 			rs.close();
 			istanzaDB.closeDbConnection();
-		
-			}
-		
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
-	return corsiPerNome;
+
+		}
+
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return corsiPerNome;
 	}
 	
 	
@@ -48,12 +48,11 @@ public class CorsoDAO {
 		Vector<Vector<String>> corsiPerData = new Vector<Vector<String>>();
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
-			
+
 			Statement st = connessioneDB.createStatement();
 			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainiziocorso,A.categoria,C.Descrizione FROM CORSO AS C LEFT JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso WHERE CAST(C.datainiziocorso AS VARCHAR(25)) LIKE '%"+data+"%' ORDER BY codiceCorso");
-		
-			while(rs.next()) {
 
+			while(rs.next()) {
 				Vector<String> vettore = new Vector<String>();
 				vettore.add(rs.getString("codiceCorso"));
 				vettore.add(rs.getString("nome"));
@@ -61,11 +60,10 @@ public class CorsoDAO {
 				vettore.add(rs.getString("categoria"));
 				vettore.add(rs.getString("descrizione"));
 				corsiPerData.add(vettore);
-				}
-	
+			}
+
 			st.close();
 			rs.close();
-			
 			istanzaDB.closeDbConnection();
 		}
 		catch (SQLException e) {
@@ -75,16 +73,14 @@ public class CorsoDAO {
 	}
 	public Vector<Vector<String>> ricercaCorsoPerCategoria(String categoria){
 		Vector<Vector<String>> corsiPerCategoria = new Vector<Vector<String>>();
-		
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
-			
+
 			Statement st = connessioneDB.createStatement();
 			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainiziocorso,A.categoria,C.Descrizione FROM CORSO AS C LEFT JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso WHERE A.categoria LIKE '%"+categoria+"%'ORDER BY codiceCorso");
 
-			
-			while(rs.next()) {
 
+			while(rs.next()) {
 				Vector<String> vettore = new Vector<String>();
 				vettore.add(rs.getString("codiceCorso"));
 				vettore.add(rs.getString("nome"));
@@ -92,30 +88,27 @@ public class CorsoDAO {
 				vettore.add(rs.getString("categoria"));
 				vettore.add(rs.getString("descrizione"));
 				corsiPerCategoria.add(vettore);
-				}
-	
+			}
+
 			st.close();
 			rs.close();
 			istanzaDB.closeDbConnection();
-		
-			}
-		
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
-	return corsiPerCategoria;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return corsiPerCategoria;
 	}
 	
 	public Vector<Vector<String>> ricercaCorsoPerParolaChiave(String parolaChiave){
 		Vector<Vector<String>> corsiPerParolaChiave = new Vector<Vector<String>>();
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
-			
+
 			Statement st = connessioneDB.createStatement();
 			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainiziocorso,A.categoria,C.Descrizione FROM CORSO AS C LEFT JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso WHERE C.descrizione LIKE '%"+parolaChiave+"%' ORDER BY codiceCorso");
-		
-			while(rs.next()) {
 
+			while(rs.next()) {
 				Vector<String> vettore = new Vector<String>();
 				vettore.add(rs.getString("codiceCorso"));
 				vettore.add(rs.getString("nome"));
@@ -123,11 +116,10 @@ public class CorsoDAO {
 				vettore.add(rs.getString("categoria"));
 				vettore.add(rs.getString("descrizione"));
 				corsiPerParolaChiave.add(vettore);
-				}
-		
+			}
+
 			st.close();
 			rs.close();
-			
 			istanzaDB.closeDbConnection();
 		}
 		catch (SQLException e) {
@@ -139,15 +131,11 @@ public class CorsoDAO {
 	
 	
 	public Vector<Vector<String>> mostraCorsi(){
-		
 		Vector<Vector<String>> corsi = new Vector<Vector<String>>();
-			
-		
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
 			Statement st = connessioneDB.createStatement();
 			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainiziocorso,A.categoria,C.Descrizione FROM CORSO AS C LEFT JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso ORDER BY codiceCorso");
-
 
 			while(rs.next()) {
 				Vector<String> vettore = new Vector<String>();
@@ -195,17 +183,10 @@ public class CorsoDAO {
 			st.close();
 			istanzaDB.closeDbConnection();
 		} 
-		
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
-	
-	
-	
-	
-	
 	
 	
 	

@@ -15,17 +15,15 @@ public class ConnessioneDB {
 	
 	public Connection ConnectToDB() {	
 		if(connessioneDB==null) {
-			
-				try {
-					Class.forName("org.postgresql.Driver");
-					String url = "jdbc:postgresql://localhost:5432/BasiDiDati";
-					connessioneDB = DriverManager.getConnection(url,"postgres","admin");
-				
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
+			try {
+				Class.forName("org.postgresql.Driver");
+				String url = "jdbc:postgresql://localhost:5432/BasiDiDati";
+				connessioneDB = DriverManager.getConnection(url,"postgres","admin");
+
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+
 			catch(SQLException e) {
 				System.out.println("SQL Exception: " + e);
 				e.printStackTrace();
@@ -61,50 +59,3 @@ public class ConnessioneDB {
 
 
 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//			try {
-//				Class.forName("org.postgresql.Driver");
-//				
-//				String url = "jdbc:postgresql://localhost:5432/BasiDiDati";
-//				Connection con = DriverManager.getConnection(url,"postgres","admin");
-//				
-//				System.out.println("Connessione OK\n");
-//			}
-//			catch(ClassNotFoundException e) {
-//				System.out.println("Driver non trovato\n");
-//				System.out.println("ClassNotFoundException: "+e);
-//			}
-//			catch(SQLException e) {
-//				System.out.println("Connessione fallita");
-//				System.out.println("SQL Exception: "+e);
-//			}
-	
-
-//SCHEMA CREAZIONE QUERY
-//Statement st = con.createStatement();
-//String query="CALL ELIMINA_CORSO(2)";
-//		
-//ResultSet rs =st.executeQuery(query);
-//
-//while(rs.next()) {
-//
-//}
-//rs.close();
-//st.close();
-
-

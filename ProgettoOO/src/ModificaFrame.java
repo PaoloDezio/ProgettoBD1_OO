@@ -12,9 +12,12 @@ import java.awt.Font;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ModificaFrame extends JFrame {
 
@@ -24,6 +27,7 @@ public class ModificaFrame extends JFrame {
 	private JTextField dataTF;
 	private JTextField descrizioneTF;
 	private Controller controller;
+	private JComboBox categoriaCB;
 
 
 	public Object getCodiceCorso() {
@@ -141,11 +145,11 @@ public class ModificaFrame extends JFrame {
 		gbc_categoriaLabel.gridy = 4;
 		contentPane.add(categoriaLabel, gbc_categoriaLabel);
 		
+		Integer numeroCategorie=c.contaCategorie();
+		String[] categorie = c.salvaAreeTematiche(numeroCategorie);
+//		ComboBoxModel comboBoxModel;
 		
-		
-		String[] campi= {"INFORMATICA","MATEMATICA","ITALIANO"};
-		
-		JComboBox categoriaCB = new JComboBox(campi);
+		categoriaCB = new JComboBox(categorie);
 		categoriaCB.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_categoriaCB = new GridBagConstraints();
 		gbc_categoriaCB.insets = new Insets(0, 0, 5, 5);

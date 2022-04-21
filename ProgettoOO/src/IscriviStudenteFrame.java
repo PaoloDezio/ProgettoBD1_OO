@@ -174,7 +174,7 @@ public class IscriviStudenteFrame extends JFrame {
 		contentPane.add(codiceCorsoTF, gbc_codiceCorsoTF);
 		codiceCorsoTF.setColumns(10);
 
-		
+
 		JButton confermaButton = new JButton("Conferma");
 		confermaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -183,12 +183,12 @@ public class IscriviStudenteFrame extends JFrame {
 					Date dataDiNascita = new Date(0);
 					dataDiNascita = dataDiNascita.valueOf(dataDiNascitaTF.getText());
 					String luogo = luogoDiNascitaTF.getText();
-					String codCorso= codiceCorsoTF.getText();
-					String codStudente;
+					String codiceCorso= codiceCorsoTF.getText();
+					String codiceStudente;
 					
 					c.salvaStudente(nome, cognome, luogo, dataDiNascita);
-					codStudente=c.recuperaCodStudente(nome, cognome, luogo, dataDiNascita);
-					if(c.iscriviStudente(codCorso,codStudente)) {
+					codiceStudente=c.recuperaCodStudente(nome, cognome, luogo, dataDiNascita);
+					if(c.iscriviStudente(codiceCorso,codiceStudente)) {
 						JOptionPane.showMessageDialog(null,"Iscrizione avvenuta con successo");
 						nomeTF.setText("");
 						cognomeTF.setText("");
