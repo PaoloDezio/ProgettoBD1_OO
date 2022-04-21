@@ -15,6 +15,7 @@ public class Controller {
 	private AggiungiAreaTematicaFrame aggiungiAreaTematicaFrame;
 	private ModificaFrame modificaFrame;
 	private ResponsabileDAO responsabileDAO;
+	private AreaTematicaDAO areaTematicaDAO;
 	private StudenteDAO studenteDAO;
 
 	
@@ -36,6 +37,7 @@ public class Controller {
 		this.setAggiungiAreaTematicaFrame(new AggiungiAreaTematicaFrame(this)); 
 		this.setModificaFrame(new ModificaFrame(this));
 		responsabileDAO = new ResponsabileDAO();
+		//areaTematicaDAO = new AreaTematicaDAO();
 		studenteDAO= new StudenteDAO();
 		
 	}
@@ -121,6 +123,16 @@ public class Controller {
 		return studenteDAO.iscriviStudente(codCorso,codStudente);
 	}
 
+	public boolean AreaTematicaIsPresentInDB(String areaTematica) {
+		areaTematicaDAO = new AreaTematicaDAO();
+		return areaTematicaDAO.AreaTematicaIsPresentInDB(areaTematica);
+	}
+	public void aggiungiAreaTematica(String areaTematica) {
+		areaTematicaDAO = new AreaTematicaDAO();
+		areaTematicaDAO.aggiungiAreaTematica(areaTematica);
+	}
+	
+	
 	public Vector<Vector<String>> mostraCorsi(){
 		CorsoDAO corsoDAO = new CorsoDAO();
 		return corsoDAO.mostraCorsi();

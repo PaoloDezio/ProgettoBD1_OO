@@ -46,9 +46,7 @@ public class LoginFrame extends JFrame {
 	private JButton accediButton;
 	private JCheckBox mostraPasswordCheckBox;
 	
-	/**
-	 * Create the frame.
-	 */
+
 	public LoginFrame(Controller controller) {
 		this.controller=controller;
 		

@@ -37,9 +37,6 @@ public class IscriviStudenteFrame extends JFrame {
 	private JTextField codiceCorsoTF;
 	
 
-	/**
-	 * Create the frame.
-	 */
 	public IscriviStudenteFrame(Controller c) {
 		setTitle("Iscrizione");
 		controller = c;

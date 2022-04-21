@@ -60,9 +60,7 @@ public class RicercaCorsoFrame extends JFrame {
 	public RicercaCorsoFrame(Controller c){
 		setTitle("Ricerca Corso");
 		controller = c;
-		
-	
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(375, 175, 740, 626);
 		contentPane = new JPanel();

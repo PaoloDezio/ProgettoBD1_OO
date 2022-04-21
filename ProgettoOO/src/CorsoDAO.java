@@ -148,10 +148,8 @@ public class CorsoDAO {
 			Statement st = connessioneDB.createStatement();
 			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainiziocorso,A.categoria,C.Descrizione FROM CORSO AS C LEFT JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso ORDER BY codiceCorso");
 
-			
 
 			while(rs.next()) {
-
 				Vector<String> vettore = new Vector<String>();
 				vettore.add(rs.getString("codiceCorso"));
 				vettore.add(rs.getString("nome"));
@@ -159,18 +157,14 @@ public class CorsoDAO {
 				vettore.add(rs.getString("categoria"));
 				vettore.add(rs.getString("descrizione"));
 				corsi.add(vettore);
-				
 			}
 			st.close();
 			rs.close();
-			
 			istanzaDB.closeDbConnection();
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
-		}
-		
-		
+		}		
 		return corsi;
 	}
 
@@ -186,10 +180,8 @@ public class CorsoDAO {
 		} 
 		
 		catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
 	
@@ -199,7 +191,6 @@ public class CorsoDAO {
 			Statement st = connessioneDB.createStatement();
 			st.executeUpdate("UPDATE CORSO SET nome='"+nome+"',datainiziocorso='"+data+"',descrizione='"+descrizione+"' WHERE CODICECORSO="+codiceCorso);
 			st.executeUpdate("UPDATE TEMATICA_CORSO SET categoria='"+categoria+"' WHERE CODICECORSO= "+codiceCorso);
-			
 			
 			st.close();
 			istanzaDB.closeDbConnection();

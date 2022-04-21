@@ -9,16 +9,39 @@ public class AreaTematicaDAO {
 		istanzaDB= ConnessioneDB.getIstanza();
 	}
 	
-	
-	public boolean aggiungiAreaTematica(String areatematica) throws SQLException {
+	public boolean AreaTematicaIsPresentInDB(String areaTematica) {
+		try{
 			connessioneDB = istanzaDB.ConnectToDB();
-			
 			Statement st = connessioneDB.createStatement();
-			st.executeUpdate("INSERT INTO area_tematica(categoria) VALUES('"+areatematica+"');");	
+			ResultSet rs = st.executeQuery("SELECT * FROM area_tematica WHERE categoria='"+areaTematica+"'");	
+			
+			while(rs.next()) {
+				if(rs.getString("categoria").equals(areaTematica))
+					return true;
+			}
 			
 			st.close();
+			rs.close();
 			istanzaDB.closeDbConnection();
-			return true;
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public void aggiungiAreaTematica(String areaTematica) {
+		try {
+			connessioneDB = istanzaDB.ConnectToDB();
+			Statement st = connessioneDB.createStatement();
+			st.executeUpdate("INSERT INTO area_tematica(categoria) VALUES('"+areaTematica+"');");	
+				
+			st.close();
+			istanzaDB.closeDbConnection();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}		
 	}
 	
 	

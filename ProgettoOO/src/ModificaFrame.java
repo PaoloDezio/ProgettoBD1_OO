@@ -141,6 +141,8 @@ public class ModificaFrame extends JFrame {
 		gbc_categoriaLabel.gridy = 4;
 		contentPane.add(categoriaLabel, gbc_categoriaLabel);
 		
+		
+		
 		String[] campi= {"INFORMATICA","MATEMATICA","ITALIANO"};
 		
 		JComboBox categoriaCB = new JComboBox(campi);
@@ -176,7 +178,6 @@ public class ModificaFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				codiceCorso= c.getModificaFrame().getCodiceCorso();
 				c.modificaCorso(codiceCorso,nomeTF.getText(),dataTF.getText(),categoriaCB.getSelectedItem().toString(),descrizioneTF.getText());
-				c.getRicercaCorsoFrame().getTuttiCorsi().fireTableDataChanged();
 				c.getModificaFrame().setVisible(false);
 			}
 		});

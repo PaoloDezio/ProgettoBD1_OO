@@ -18,9 +18,6 @@ public class HomeFrame extends JFrame {
 	private Controller controller;
 	
 
-	/**
-	 * Create the frame.
-	 */
 	public HomeFrame(Controller c) {
 		setTitle("Home");
 		controller = c;
