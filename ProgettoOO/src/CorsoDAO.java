@@ -16,7 +16,7 @@ public class CorsoDAO {
 			connessioneDB=istanzaDB.ConnectToDB();
 
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainiziocorso,A.categoria,C.Descrizione FROM CORSO AS C LEFT JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso WHERE Nome LIKE '%"+nome+"%'ORDER BY codiceCorso");
+			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainizio,A.categoria,C.Descrizione FROM CORSO AS C LEFT JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso WHERE Nome LIKE '%"+nome+"%'ORDER BY codiceCorso");
 
 
 			while(rs.next()) {
@@ -24,7 +24,7 @@ public class CorsoDAO {
 				Vector<String> vettore = new Vector<String>();
 				vettore.add(rs.getString("codiceCorso"));
 				vettore.add(rs.getString("nome"));
-				vettore.add(rs.getString("datainiziocorso"));
+				vettore.add(rs.getString("datainizio"));
 				vettore.add(rs.getString("categoria"));
 				vettore.add(rs.getString("descrizione"));
 				corsiPerNome.add(vettore);
@@ -50,13 +50,13 @@ public class CorsoDAO {
 			connessioneDB=istanzaDB.ConnectToDB();
 
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainiziocorso,A.categoria,C.Descrizione FROM CORSO AS C LEFT JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso WHERE CAST(C.datainiziocorso AS VARCHAR(25)) LIKE '%"+data+"%' ORDER BY codiceCorso");
+			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainizio,A.categoria,C.Descrizione FROM CORSO AS C LEFT JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso WHERE CAST(C.datainiziocorso AS VARCHAR(25)) LIKE '%"+data+"%' ORDER BY codiceCorso");
 
 			while(rs.next()) {
 				Vector<String> vettore = new Vector<String>();
 				vettore.add(rs.getString("codiceCorso"));
 				vettore.add(rs.getString("nome"));
-				vettore.add(rs.getString("datainiziocorso"));
+				vettore.add(rs.getString("datainizio"));
 				vettore.add(rs.getString("categoria"));
 				vettore.add(rs.getString("descrizione"));
 				corsiPerData.add(vettore);
@@ -77,14 +77,14 @@ public class CorsoDAO {
 			connessioneDB=istanzaDB.ConnectToDB();
 
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainiziocorso,A.categoria,C.Descrizione FROM CORSO AS C LEFT JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso WHERE A.categoria LIKE '%"+categoria+"%'ORDER BY codiceCorso");
+			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainizio,A.categoria,C.Descrizione FROM CORSO AS C LEFT JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso WHERE A.categoria LIKE '%"+categoria+"%'ORDER BY codiceCorso");
 
 
 			while(rs.next()) {
 				Vector<String> vettore = new Vector<String>();
 				vettore.add(rs.getString("codiceCorso"));
 				vettore.add(rs.getString("nome"));
-				vettore.add(rs.getString("datainiziocorso"));
+				vettore.add(rs.getString("datainizio"));
 				vettore.add(rs.getString("categoria"));
 				vettore.add(rs.getString("descrizione"));
 				corsiPerCategoria.add(vettore);
@@ -106,13 +106,13 @@ public class CorsoDAO {
 			connessioneDB=istanzaDB.ConnectToDB();
 
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainiziocorso,A.categoria,C.Descrizione FROM CORSO AS C LEFT JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso WHERE C.descrizione LIKE '%"+parolaChiave+"%' ORDER BY codiceCorso");
+			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainizio,A.categoria,C.Descrizione FROM CORSO AS C LEFT JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso WHERE C.descrizione LIKE '%"+parolaChiave+"%' ORDER BY codiceCorso");
 
 			while(rs.next()) {
 				Vector<String> vettore = new Vector<String>();
 				vettore.add(rs.getString("codiceCorso"));
 				vettore.add(rs.getString("nome"));
-				vettore.add(rs.getString("datainiziocorso"));
+				vettore.add(rs.getString("datainizio"));
 				vettore.add(rs.getString("categoria"));
 				vettore.add(rs.getString("descrizione"));
 				corsiPerParolaChiave.add(vettore);
@@ -135,13 +135,13 @@ public class CorsoDAO {
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainiziocorso,A.categoria,C.Descrizione FROM CORSO AS C LEFT JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso ORDER BY codiceCorso");
+			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainizio,A.categoria,C.Descrizione FROM CORSO AS C LEFT JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso ORDER BY codiceCorso");
 
 			while(rs.next()) {
 				Vector<String> vettore = new Vector<String>();
 				vettore.add(rs.getString("codiceCorso"));
 				vettore.add(rs.getString("nome"));
-				vettore.add(rs.getString("datainiziocorso"));
+				vettore.add(rs.getString("datainizio"));
 				vettore.add(rs.getString("categoria"));
 				vettore.add(rs.getString("descrizione"));
 				corsi.add(vettore);
@@ -177,7 +177,7 @@ public class CorsoDAO {
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
 			Statement st = connessioneDB.createStatement();
-			st.executeUpdate("UPDATE CORSO SET nome='"+nome+"',datainiziocorso='"+data+"',descrizione='"+descrizione+"' WHERE CODICECORSO="+codiceCorso);
+			st.executeUpdate("UPDATE CORSO SET nome='"+nome+"',datainizio='"+data+"',descrizione='"+descrizione+"' WHERE CODICECORSO="+codiceCorso);
 			st.executeUpdate("UPDATE TEMATICA_CORSO SET categoria='"+categoria+"' WHERE CODICECORSO= "+codiceCorso);
 			
 			st.close();
