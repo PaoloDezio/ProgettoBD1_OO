@@ -18,7 +18,7 @@ public class ResponsabileDAO {
 			ResultSet rs = st.executeQuery("SELECT * FROM responsabile");
 			
 			while(rs.next()) {
-				if(rs.getString("username").equals(username) && rs.getString("pwd").equals(password))
+				if(rs.getString("username").equals(username) && rs.getString("password").equals(password))
 					return true;
 			}
 			
