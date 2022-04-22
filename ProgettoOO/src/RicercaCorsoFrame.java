@@ -45,25 +45,13 @@ public class RicercaCorsoFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Controller controller;
-	private JComboBox<String> campoCB;
+	private JComboBox campoCB;
 	private JTextField nomeTF;
 	private JLabel nomeLabel;
 	private JTextField campoTF;
-	private JTable corsiTable;
 	private Vector<Vector<String>> corsi;
-	private DefaultTableModel corsiDTM;
 	
-	public DefaultTableModel getCorsiDTM() {
-		return corsiDTM;
-	}
-
-	public void setCorsiDTM(DefaultTableModel corsiDTM) {
-		this.corsiDTM = corsiDTM;
-	}
-
-	public DefaultTableModel getTuttiCorsi() {
-		return corsiDTM;
-	}
+	
 
 	public RicercaCorsoFrame(Controller c){
 		setTitle("Ricerca Corso");
@@ -170,30 +158,43 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_scrollPane.gridy = 5;
 		contentPane.add(scrollPane, gbc_scrollPane);
 		  
-		corsiTable = new JTable();
-		corsiDTM = (DefaultTableModel) corsiTable.getModel();
+		
+		JTable corsiTable = new JTable();
+		DefaultTableModel corsiDTM = new DefaultTableModel();
+		
 		corsiDTM.addColumn("Codice");
 		corsiDTM.addColumn("Nome");
+		corsiDTM.addColumn("Docente");
 		corsiDTM.addColumn("Data");
 		corsiDTM.addColumn("Categoria");
 		corsiDTM.addColumn("Descrizione");
-		
+
 		corsi = new Vector<Vector<String>>();
 		corsi=c.mostraCorsi();
 		for (Vector<String> vettore : corsi) {
 			corsiDTM.addRow(vettore);
 		}
+		corsiDTM.newDataAvailable(null);
+		corsiTable.setModel(corsiDTM);
+		corsiTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		corsiTable.getColumnModel().getColumn(0).setResizable(false);
+		corsiTable.getColumnModel().getColumn(0).setPreferredWidth(43);
+		corsiTable.getColumnModel().getColumn(1).setResizable(false);
+		corsiTable.getColumnModel().getColumn(1).setPreferredWidth(156);
+		corsiTable.getColumnModel().getColumn(2).setResizable(false);
+		corsiTable.getColumnModel().getColumn(3).setResizable(false);
+		corsiTable.getColumnModel().getColumn(3).setPreferredWidth(110);
+		corsiTable.getColumnModel().getColumn(4).setResizable(false);
+		corsiTable.getColumnModel().getColumn(4).setPreferredWidth(192);
+		corsiTable.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		scrollPane.setViewportView(corsiTable);
-		
-		
 		
 		JButton cercaButton = new JButton("Cerca");
 		cercaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				corsiDTM.getDataVector().removeAllElements();
 				corsiDTM.fireTableDataChanged();
-				
+
 				String campo = new String(campoCB.getSelectedItem().toString());
 				switch(campo) {
 				case "Nome":
@@ -236,7 +237,6 @@ public class RicercaCorsoFrame extends JFrame {
 		StatisticheButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				c.getStatisticheFrame().setVisible(true);
-				c.getRicercaCorsoFrame().setVisible(false);
 			}
 		});
 		StatisticheButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -246,8 +246,6 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_StatisticheButton.gridx = 4;
 		gbc_StatisticheButton.gridy = 5;
 		contentPane.add(StatisticheButton, gbc_StatisticheButton);
-		
-		
 		
 		
 		JButton ModificaButton = new JButton("Modifica");

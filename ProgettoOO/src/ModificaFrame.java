@@ -75,7 +75,7 @@ public class ModificaFrame extends JFrame {
 		controller = c;
 		
 		setTitle("ModificaFrame");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
