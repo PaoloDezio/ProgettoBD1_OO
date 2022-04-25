@@ -29,7 +29,7 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 
 
 		setTitle("Aggiungi Area Tematica");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 470, 285);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
@@ -39,33 +39,8 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 		gbl_contentPane.columnWidths = new int[]{20, 0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{27, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
-		
-		JButton confermaButton = new JButton("Conferma");
-		confermaButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(areaTematicaTF.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(contentPane, "Inserire un'area tematica","",JOptionPane.INFORMATION_MESSAGE);
-				}
-				else if(c.AreaTematicaIsPresentInDB(areaTematicaTF.getText().toUpperCase())) {
-					JOptionPane.showMessageDialog(contentPane, "L'area tematica '"+areaTematicaTF.getText().toUpperCase()+ "' è già presente nel database.\nInserirne una nuova.","",JOptionPane.WARNING_MESSAGE);
-					areaTematicaTF.setText("");
-				}
-				else {
-					c.aggiungiAreaTematica(areaTematicaTF.getText().toUpperCase());
-					JOptionPane.showMessageDialog(contentPane, "L'area tematica '"+areaTematicaTF.getText().toUpperCase()+"' è stata aggiunta correttamente","",JOptionPane.CLOSED_OPTION);
-					areaTematicaTF.setText("");
-				}
-			}});
-		
-		JButton indietroButton = new JButton("Indietro");
-		indietroButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				c.getAggiungiAreaTematicaFrame().setVisible(false);
-				c.getHomeFrame().setVisible(true);
-			}
-		});
 		
 		JLabel aggiungiAreaTematicaLabel = new JLabel("Aggiungi Area Tematica");
 		aggiungiAreaTematicaLabel.setFont(new Font("Century", Font.PLAIN, 24));
@@ -78,8 +53,9 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 		contentPane.add(aggiungiAreaTematicaLabel, gbc_aggiungiAreaTematicaLabel);
 		
 		JLabel nuovaAreaTematica = new JLabel("Nuova Area Tematica");
-		nuovaAreaTematica.setFont(new Font("Century", Font.PLAIN, 16));
+		nuovaAreaTematica.setFont(new Font("Century", Font.PLAIN, 18));
 		GridBagConstraints gbc_nuovaAreaTematica = new GridBagConstraints();
+		gbc_nuovaAreaTematica.gridheight = 2;
 		gbc_nuovaAreaTematica.gridwidth = 2;
 		gbc_nuovaAreaTematica.anchor = GridBagConstraints.WEST;
 		gbc_nuovaAreaTematica.insets = new Insets(0, 0, 5, 5);
@@ -98,19 +74,43 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 		gbc_areaTematicaTF.gridy = 4;
 		contentPane.add(areaTematicaTF, gbc_areaTematicaTF);
 		areaTematicaTF.setColumns(10);
+		
+		JButton indietroButton = new JButton("Indietro");
+		indietroButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				c.getAggiungiAreaTematicaFrame().setVisible(false);
+			}
+		});
 		indietroButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_indietroButton = new GridBagConstraints();
 		gbc_indietroButton.anchor = GridBagConstraints.WEST;
 		gbc_indietroButton.insets = new Insets(0, 0, 5, 5);
 		gbc_indietroButton.gridx = 1;
-		gbc_indietroButton.gridy = 6;
+		gbc_indietroButton.gridy = 5;
 		contentPane.add(indietroButton, gbc_indietroButton);
+		
+		JButton confermaButton = new JButton("Conferma");
+		confermaButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(areaTematicaTF.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(contentPane, "Inserire un'area tematica","",JOptionPane.INFORMATION_MESSAGE);
+				}
+				else if(c.AreaTematicaIsPresentInDB(areaTematicaTF.getText().toUpperCase())) {
+					JOptionPane.showMessageDialog(contentPane, "L'area tematica '"+areaTematicaTF.getText().toUpperCase()+ "' è già presente nel database.\nInserirne una nuova.","",JOptionPane.WARNING_MESSAGE);
+					areaTematicaTF.setText("");
+				}
+				else {
+					c.aggiungiAreaTematica(areaTematicaTF.getText().toUpperCase());
+					JOptionPane.showMessageDialog(contentPane, "L'area tematica '"+areaTematicaTF.getText().toUpperCase()+"' è stata aggiunta correttamente","",JOptionPane.CLOSED_OPTION);
+					areaTematicaTF.setText("");
+				}
+			}});
 		confermaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_confermaButton = new GridBagConstraints();
 		gbc_confermaButton.gridwidth = 2;
 		gbc_confermaButton.insets = new Insets(0, 0, 5, 0);
-		gbc_confermaButton.gridx = 2;
-		gbc_confermaButton.gridy = 6;
+		gbc_confermaButton.gridx = 3;
+		gbc_confermaButton.gridy = 5;
 		contentPane.add(confermaButton, gbc_confermaButton);
 	}
 

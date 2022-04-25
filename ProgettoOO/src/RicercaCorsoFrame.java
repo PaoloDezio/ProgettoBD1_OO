@@ -49,16 +49,23 @@ public class RicercaCorsoFrame extends JFrame {
 	private JTextField nomeTF;
 	private JLabel nomeLabel;
 	private JTextField campoTF;
+	private JTable corsiTable;
 	private Vector<Vector<String>> corsi;
 	
 	
+
+	public JTable getCorsiTable() {
+		return corsiTable;
+	}
+
+
 
 	public RicercaCorsoFrame(Controller c){
 		setTitle("Ricerca Corso");
 		controller = c;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(375, 175, 740, 626);
+		setBounds(375, 175, 1001, 635);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -159,7 +166,7 @@ public class RicercaCorsoFrame extends JFrame {
 		contentPane.add(scrollPane, gbc_scrollPane);
 		  
 		
-		JTable corsiTable = new JTable();
+		corsiTable = new JTable();
 		DefaultTableModel corsiDTM = new DefaultTableModel();
 		
 		corsiDTM.addColumn("Codice");
@@ -186,6 +193,8 @@ public class RicercaCorsoFrame extends JFrame {
 		corsiTable.getColumnModel().getColumn(3).setPreferredWidth(110);
 		corsiTable.getColumnModel().getColumn(4).setResizable(false);
 		corsiTable.getColumnModel().getColumn(4).setPreferredWidth(192);
+		corsiTable.getColumnModel().getColumn(5).setResizable(false);
+		corsiTable.getColumnModel().getColumn(5).setPreferredWidth(192);
 		corsiTable.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		scrollPane.setViewportView(corsiTable);
 		
@@ -236,7 +245,12 @@ public class RicercaCorsoFrame extends JFrame {
 		JButton StatisticheButton = new JButton("Statistische");
 		StatisticheButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(corsiTable.getSelectedRow()==-1) {
+					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
+				}
+				else {
 				c.getStatisticheFrame().setVisible(true);
+				}
 			}
 		});
 		StatisticheButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -250,12 +264,17 @@ public class RicercaCorsoFrame extends JFrame {
 		
 		JButton ModificaButton = new JButton("Modifica");
 		ModificaButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {	
-				c.getModificaFrame().setVisible(true);
-				c.getModificaFrame().setCodiceCorso(corsiTable.getValueAt(corsiTable.getSelectedRow(),0));
-				c.getModificaFrame().setNomeTF(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
-				c.getModificaFrame().setDataTF(corsiTable.getValueAt(corsiTable.getSelectedRow(),2).toString());
-				c.getModificaFrame().setDescrizioneTF(corsiTable.getValueAt(corsiTable.getSelectedRow(),4).toString());
+			public void actionPerformed(ActionEvent e) {
+				if(corsiTable.getSelectedRow()==-1) {
+					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
+				}
+				else {
+					c.getModificaFrame().setVisible(true);
+					c.getModificaFrame().setCodiceCorso(corsiTable.getValueAt(corsiTable.getSelectedRow(),0));
+					c.getModificaFrame().setNomeTF(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
+					c.getModificaFrame().setDataTF(corsiTable.getValueAt(corsiTable.getSelectedRow(),2).toString());
+					c.getModificaFrame().setDescrizioneTF(corsiTable.getValueAt(corsiTable.getSelectedRow(),4).toString());
+				}
 			}			
 		});
 		ModificaButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -272,17 +291,21 @@ public class RicercaCorsoFrame extends JFrame {
 		JButton EliminaButton = new JButton("Elimina");
 		EliminaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				Object codiceCorsoSelezionato;
-				codiceCorsoSelezionato = corsiTable.getValueAt(corsiTable.getSelectedRow(),0);
-				c.eliminaCorsoSelezionato(codiceCorsoSelezionato);
-				corsiDTM.getDataVector().removeAllElements();
-				corsi = new Vector<Vector<String>>();
-				corsi=c.mostraCorsi();
-				for (Vector<String> vettore : corsi) {
-					corsiDTM.addRow(vettore);
+				if(corsiTable.getSelectedRow()==-1) {
+					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
 				}
-				corsiDTM.fireTableDataChanged();				
+				else {
+					Object codiceCorsoSelezionato;
+					codiceCorsoSelezionato = corsiTable.getValueAt(corsiTable.getSelectedRow(),0);
+					c.eliminaCorsoSelezionato(codiceCorsoSelezionato);
+					corsiDTM.getDataVector().removeAllElements();
+					corsi = new Vector<Vector<String>>();
+					corsi=c.mostraCorsi();
+					for (Vector<String> vettore : corsi) {
+						corsiDTM.addRow(vettore);
+					}
+					corsiDTM.fireTableDataChanged();	
+				}
 			}
 		});
 		EliminaButton.setFont(new Font("Century", Font.PLAIN, 16));

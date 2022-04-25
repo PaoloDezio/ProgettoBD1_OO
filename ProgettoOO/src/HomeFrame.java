@@ -84,20 +84,6 @@ public class HomeFrame extends JFrame {
 			}
 		});
 		
-		JButton aggiungiAreaTematicaButton = new JButton("Aggiungi Area Tematica");
-		aggiungiAreaTematicaButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				c.getHomeFrame().setVisible(false);	
-				c.getAggiungiAreaTematicaFrame().setVisible(true);
-			}
-		});
-		aggiungiAreaTematicaButton.setFont(new Font("Century", Font.PLAIN, 16));
-		GridBagConstraints gbc_aggiungiAreaTematicaButton = new GridBagConstraints();
-		gbc_aggiungiAreaTematicaButton.gridwidth = 3;
-		gbc_aggiungiAreaTematicaButton.insets = new Insets(0, 0, 5, 5);
-		gbc_aggiungiAreaTematicaButton.gridx = 1;
-		gbc_aggiungiAreaTematicaButton.gridy = 2;
-		contentPane.add(aggiungiAreaTematicaButton, gbc_aggiungiAreaTematicaButton);
 		tornaAlLoginButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_tornaAlLoginButton = new GridBagConstraints();
 		gbc_tornaAlLoginButton.gridwidth = 2;
