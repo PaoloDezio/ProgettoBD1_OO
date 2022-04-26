@@ -19,12 +19,16 @@ import java.awt.event.ActionEvent;
 public class StatisticheFrame extends JFrame {
 	private JPanel contentPane;
 	private Controller controller;
-	private JTextField CorsoTF;
-	private JTextField MinStudentiTF;
-	private JTextField MediaPercentualeTF;
-	private JTextField MediaStudentiTF;
-	private JTextField MaxStudentiTF;
+	private JTextField corsoTF;
+	private JTextField minStudentiTF;
+	private JTextField mediaPercentualeTF;
+	private JTextField mediaStudentiTF;
+	private JTextField maxStudentiTF;
 	
+	public JTextField getCorsoTF() {
+		return corsoTF;
+	}
+
 	public StatisticheFrame(Controller c) {
 		controller = c;
 		
@@ -61,18 +65,19 @@ public class StatisticheFrame extends JFrame {
 		gbc_nomeCorsoLabel.gridy = 3;
 		contentPane.add(nomeCorsoLabel, gbc_nomeCorsoLabel);
 		
-		CorsoTF = new JTextField();
-		CorsoTF.setEnabled(false);
-		CorsoTF.setFont(new Font("Century", Font.PLAIN, 18));
-		CorsoTF.setBackground(new Color(30, 144, 255));
-		CorsoTF.setEditable(false);
+		corsoTF = new JTextField();
+		corsoTF.setBorder(null);
+		corsoTF.setEnabled(false);
+		corsoTF.setFont(new Font("Century", Font.PLAIN, 18));
+		corsoTF.setBackground(new Color(30, 144, 255));
+		corsoTF.setEditable(false);
 		GridBagConstraints gbc_CorsoTF = new GridBagConstraints();
-		gbc_CorsoTF.anchor = GridBagConstraints.WEST;
+		gbc_CorsoTF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_CorsoTF.insets = new Insets(0, 0, 5, 5);
 		gbc_CorsoTF.gridx = 2;
 		gbc_CorsoTF.gridy = 3;
-		contentPane.add(CorsoTF, gbc_CorsoTF);
-		CorsoTF.setColumns(10);
+		contentPane.add(corsoTF, gbc_CorsoTF);
+		corsoTF.setColumns(10);
 		
 		JLabel presenzeMinimeLabel = new JLabel("Presenze minime");
 		presenzeMinimeLabel.setFont(new Font("Century", Font.PLAIN, 18));
@@ -83,18 +88,19 @@ public class StatisticheFrame extends JFrame {
 		gbc_presenzeMinimeLabel.gridy = 4;
 		contentPane.add(presenzeMinimeLabel, gbc_presenzeMinimeLabel);
 		
-		MinStudentiTF = new JTextField();
-		MinStudentiTF.setBackground(new Color(30, 144, 255));
-		MinStudentiTF.setFont(new Font("Century", Font.PLAIN, 18));
-		MinStudentiTF.setEditable(false);
+		minStudentiTF = new JTextField();
+		minStudentiTF.setBorder(null);
+		minStudentiTF.setBackground(new Color(30, 144, 255));
+		minStudentiTF.setFont(new Font("Century", Font.PLAIN, 18));
+		minStudentiTF.setEditable(false);
 		GridBagConstraints gbc_MinStudentiTF = new GridBagConstraints();
-		gbc_MinStudentiTF.anchor = GridBagConstraints.WEST;
+		gbc_MinStudentiTF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_MinStudentiTF.gridwidth = 2;
 		gbc_MinStudentiTF.insets = new Insets(0, 0, 5, 5);
 		gbc_MinStudentiTF.gridx = 2;
 		gbc_MinStudentiTF.gridy = 4;
-		contentPane.add(MinStudentiTF, gbc_MinStudentiTF);
-		MinStudentiTF.setColumns(10);
+		contentPane.add(minStudentiTF, gbc_MinStudentiTF);
+		minStudentiTF.setColumns(10);
 		
 		JLabel presenzeMassimeLabel = new JLabel("Presenze massime");
 		presenzeMassimeLabel.setFont(new Font("Century", Font.PLAIN, 18));
@@ -105,17 +111,18 @@ public class StatisticheFrame extends JFrame {
 		gbc_presenzeMassimeLabel.gridy = 5;
 		contentPane.add(presenzeMassimeLabel, gbc_presenzeMassimeLabel);
 		
-		MaxStudentiTF = new JTextField();
-		MaxStudentiTF.setBackground(new Color(30, 144, 255));
-		MaxStudentiTF.setFont(new Font("Century", Font.PLAIN, 18));
-		MaxStudentiTF.setEditable(false);
+		maxStudentiTF = new JTextField();
+		maxStudentiTF.setBorder(null);
+		maxStudentiTF.setBackground(new Color(30, 144, 255));
+		maxStudentiTF.setFont(new Font("Century", Font.PLAIN, 18));
+		maxStudentiTF.setEditable(false);
 		GridBagConstraints gbc_MaxStudentiTF = new GridBagConstraints();
-		gbc_MaxStudentiTF.anchor = GridBagConstraints.WEST;
+		gbc_MaxStudentiTF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_MaxStudentiTF.insets = new Insets(0, 0, 5, 5);
 		gbc_MaxStudentiTF.gridx = 2;
 		gbc_MaxStudentiTF.gridy = 5;
-		contentPane.add(MaxStudentiTF, gbc_MaxStudentiTF);
-		MaxStudentiTF.setColumns(10);
+		contentPane.add(maxStudentiTF, gbc_MaxStudentiTF);
+		maxStudentiTF.setColumns(10);
 		
 		JLabel mediaStudentiLabel = new JLabel("N\u00B0 presenze medio");
 		mediaStudentiLabel.setFont(new Font("Century", Font.PLAIN, 18));
@@ -126,17 +133,18 @@ public class StatisticheFrame extends JFrame {
 		gbc_mediaStudentiLabel.gridy = 6;
 		contentPane.add(mediaStudentiLabel, gbc_mediaStudentiLabel);
 		
-		MediaStudentiTF = new JTextField();
-		MediaStudentiTF.setBackground(new Color(30, 144, 255));
-		MediaStudentiTF.setFont(new Font("Century", Font.PLAIN, 18));
-		MediaStudentiTF.setEditable(false);
+		mediaStudentiTF = new JTextField();
+		mediaStudentiTF.setBorder(null);
+		mediaStudentiTF.setBackground(new Color(30, 144, 255));
+		mediaStudentiTF.setFont(new Font("Century", Font.PLAIN, 18));
+		mediaStudentiTF.setEditable(false);
 		GridBagConstraints gbc_MediaStudentiTF = new GridBagConstraints();
-		gbc_MediaStudentiTF.anchor = GridBagConstraints.WEST;
+		gbc_MediaStudentiTF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_MediaStudentiTF.insets = new Insets(0, 0, 5, 5);
 		gbc_MediaStudentiTF.gridx = 2;
 		gbc_MediaStudentiTF.gridy = 6;
-		contentPane.add(MediaStudentiTF, gbc_MediaStudentiTF);
-		MediaStudentiTF.setColumns(10);
+		contentPane.add(mediaStudentiTF, gbc_MediaStudentiTF);
+		mediaStudentiTF.setColumns(10);
 		
 		JLabel mediaStudentiPercentualeLabel = new JLabel("N\u00B0 presenze medio in %");
 		mediaStudentiPercentualeLabel.setFont(new Font("Century", Font.PLAIN, 18));
@@ -147,17 +155,18 @@ public class StatisticheFrame extends JFrame {
 		gbc_mediaStudentiPercentualeLabel.gridy = 7;
 		contentPane.add(mediaStudentiPercentualeLabel, gbc_mediaStudentiPercentualeLabel);
 		
-		MediaPercentualeTF = new JTextField();
-		MediaPercentualeTF.setBackground(new Color(30, 144, 255));
-		MediaPercentualeTF.setFont(new Font("Century", Font.PLAIN, 18));
-		MediaPercentualeTF.setEditable(false);
+		mediaPercentualeTF = new JTextField();
+		mediaPercentualeTF.setBorder(null);
+		mediaPercentualeTF.setBackground(new Color(30, 144, 255));
+		mediaPercentualeTF.setFont(new Font("Century", Font.PLAIN, 18));
+		mediaPercentualeTF.setEditable(false);
 		GridBagConstraints gbc_MediaPercentualeTF = new GridBagConstraints();
-		gbc_MediaPercentualeTF.anchor = GridBagConstraints.WEST;
+		gbc_MediaPercentualeTF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_MediaPercentualeTF.insets = new Insets(0, 0, 5, 5);
 		gbc_MediaPercentualeTF.gridx = 2;
 		gbc_MediaPercentualeTF.gridy = 7;
-		contentPane.add(MediaPercentualeTF, gbc_MediaPercentualeTF);
-		MediaPercentualeTF.setColumns(10);
+		contentPane.add(mediaPercentualeTF, gbc_MediaPercentualeTF);
+		mediaPercentualeTF.setColumns(10);
 				
 				JButton idoneiButton = new JButton("Idonei");
 				idoneiButton.addActionListener(new ActionListener() {

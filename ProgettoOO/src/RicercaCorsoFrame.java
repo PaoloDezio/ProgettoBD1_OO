@@ -249,7 +249,8 @@ public class RicercaCorsoFrame extends JFrame {
 					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
-				c.getStatisticheFrame().setVisible(true);
+					c.getStatisticheFrame().setVisible(true);
+					c.getStatisticheFrame().getCorsoTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
 				}
 			}
 		});

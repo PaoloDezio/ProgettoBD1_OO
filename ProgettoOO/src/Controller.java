@@ -175,4 +175,11 @@ public class Controller {
 		corsoDAO.modificaCorso(codiceCorso, nome, data, descrizione, categoria);
 	}
 	
+	public String recuperaNomeCorso(String codiceCorso) {
+		return corsoDAO.recuperaNomeCorso(codiceCorso);
+	}
+
+
+
 }
+

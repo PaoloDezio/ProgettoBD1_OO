@@ -194,7 +194,27 @@ public class CorsoDAO {
 		}
 	}
 	
-	
+	public String recuperaNomeCorso(String codiceCorso) {
+		String nomeCorso="";
+		try {
+			connessioneDB=istanzaDB.ConnectToDB();
+			Statement st = connessioneDB.createStatement();
+			ResultSet rs=st.executeQuery("SELECT C.nome FROM CORSO AS C WHERE CODICECORSO="+codiceCorso);
+			
+			while(rs.next()) {
+				nomeCorso=rs.getString("nome");
+			}
+				
+			
+			st.close();
+			rs.close();
+			istanzaDB.closeDbConnection();
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return nomeCorso;
+	}
 	
 	
 }
