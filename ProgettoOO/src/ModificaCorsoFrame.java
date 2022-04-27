@@ -18,8 +18,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 
-public class ModificaFrame extends JFrame {
+public class ModificaCorsoFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Object codiceCorso;
@@ -46,18 +48,13 @@ public class ModificaFrame extends JFrame {
 	}
 
 
-	public void setNomeTF(String nomeTF) {
-		this.nomeTF.setText(nomeTF);
-	}
-
-
-	public JTextField getDataTF() {
+	public JTextField getDocenteTF() {
 		return docenteTF;
 	}
 
 
-	public void setDataTF(String dataTF) {
-		this.docenteTF.setText(dataTF);
+	public JTextField getDataTF() {
+		return dataTF;
 	}
 
 
@@ -66,27 +63,22 @@ public class ModificaFrame extends JFrame {
 	}
 
 
-	public void setDescrizioneTF(String descrizioneTF) {
-		this.descrizioneTF.setText(descrizioneTF);
-	}
-
-
-	public ModificaFrame(Controller c) {
+	public ModificaCorsoFrame(Controller c) {
 		
 		controller = c;
 		
-		setTitle("ModificaFrame");
+		setTitle("ModificaCorsoFrame");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 608, 348);
+		setBounds(100, 100, 640, 365);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0};
+		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 18, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel modificaCorsoLabel = new JLabel("Modifica Corso");
@@ -125,8 +117,10 @@ public class ModificaFrame extends JFrame {
 		salvaModificheButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				codiceCorso= c.getModificaFrame().getCodiceCorso();
-				c.modificaCorso(codiceCorso,nomeTF.getText(),docenteTF.getText(),categoriaCB.getSelectedItem().toString(),descrizioneTF.getText());
+				c.modificaCorso(codiceCorso,nomeTF.getText(),docenteTF.getText(),dataTF.getText(),categoriaCB.getSelectedItem().toString(),descrizioneTF.getText());
 				c.getModificaFrame().setVisible(false);
+				c.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
+				c.getRicercaCorsoFrame().getCorsiTable().setModel(c.getRicercaCorsoFrame().resettaDefaultTableModel(c.getRicercaCorsoFrame().getCorsiDTM()));
 			}
 		});
 		
@@ -159,7 +153,7 @@ public class ModificaFrame extends JFrame {
 		contentPane.add(dataLabel, gbc_dataLabel);
 		
 		dataTF = new JTextField();
-		dataTF.setFont(new Font("Century", Font.PLAIN, 18));
+		dataTF.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_dataTF = new GridBagConstraints();
 		gbc_dataTF.insets = new Insets(0, 0, 5, 5);
 		gbc_dataTF.fill = GridBagConstraints.HORIZONTAL;
@@ -179,7 +173,8 @@ public class ModificaFrame extends JFrame {
 				
 		categoriaCB = new JComboBox(categorie);
 		categoriaCB.setFont(new Font("Century", Font.PLAIN, 16));
-		GridBagConstraints gbc_categoriaCB = new GridBagConstraints();				gbc_categoriaCB.insets = new Insets(0, 0, 5, 5);
+		GridBagConstraints gbc_categoriaCB = new GridBagConstraints();		
+		gbc_categoriaCB.insets = new Insets(0, 0, 5, 5);
 		gbc_categoriaCB.fill = GridBagConstraints.HORIZONTAL;
 		gbc_categoriaCB.gridx = 2;
 		gbc_categoriaCB.gridy = 5;
@@ -193,7 +188,7 @@ public class ModificaFrame extends JFrame {
 		});
 		aggiungiAreaTematicaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_aggiungiAreaTematicaButton = new GridBagConstraints();
-		gbc_aggiungiAreaTematicaButton.insets = new Insets(0, 0, 5, 0);
+		gbc_aggiungiAreaTematicaButton.insets = new Insets(0, 0, 5, 5);
 		gbc_aggiungiAreaTematicaButton.gridx = 3;
 		gbc_aggiungiAreaTematicaButton.gridy = 5;
 		contentPane.add(aggiungiAreaTematicaButton, gbc_aggiungiAreaTematicaButton);
@@ -226,10 +221,11 @@ public class ModificaFrame extends JFrame {
 		contentPane.add(indietroButton, gbc_indietroButton);
 		salvaModificheButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_salvaButton = new GridBagConstraints();
+		gbc_salvaButton.insets = new Insets(0, 0, 0, 5);
 		gbc_salvaButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_salvaButton.gridx = 3;
 		gbc_salvaButton.gridy = 8;
 		contentPane.add(salvaModificheButton, gbc_salvaButton);
 	}
-
+	
 }

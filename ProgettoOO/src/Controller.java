@@ -13,7 +13,7 @@ public class Controller {
 	private StatisticheFrame statisticheFrame;
 	private IdoneiFrame idoneiFrame;
 	private AggiungiAreaTematicaFrame aggiungiAreaTematicaFrame;
-	private ModificaFrame modificaFrame;
+	private ModificaCorsoFrame modificaFrame;
 	private ResponsabileDAO responsabileDAO;
 	private CorsoDAO corsoDAO;
 	private AreaTematicaDAO areaTematicaDAO;
@@ -47,7 +47,7 @@ public class Controller {
 		setStatisticheFrame(new StatisticheFrame(this));
 		setIdoneiFrame(new IdoneiFrame(this));
 		setAggiungiAreaTematicaFrame(new AggiungiAreaTematicaFrame(this)); 
-		setModificaFrame(new ModificaFrame(this));
+		setModificaFrame(new ModificaCorsoFrame(this));
 		
 	}
 	
@@ -108,11 +108,11 @@ public class Controller {
 		this.aggiungiAreaTematicaFrame = aggiungiAreaTematicaFrame;
 	}
 			
-	public ModificaFrame getModificaFrame() {
+	public ModificaCorsoFrame getModificaFrame() {
 		return modificaFrame;
 	}
 
-	public void setModificaFrame(ModificaFrame modificaFrame) {
+	public void setModificaFrame(ModificaCorsoFrame modificaFrame) {
 		this.modificaFrame = modificaFrame;
 	}
 
@@ -147,8 +147,8 @@ public class Controller {
 		return areaTematicaDAO.contaCategorie();
 	}
 	
-	public Vector<Vector<String>> mostraCorsi(){
-		return corsoDAO.mostraCorsi();
+	public Vector<Vector<String>> recuperaTuttiICorsi(){
+		return corsoDAO.recuperaTuttiICorsi();
 	}
 	
 	public Vector<Vector<String>> ricercaCorsoPerNome(String nome){
@@ -171,8 +171,8 @@ public class Controller {
 		corsoDAO.eliminaCorsoSelezionato(codiceCorso);
 	}
 	
-	public void modificaCorso(Object codiceCorso,String nome,String data,String categoria,String descrizione) {
-		corsoDAO.modificaCorso(codiceCorso, nome, data, descrizione, categoria);
+	public void modificaCorso(Object codiceCorso,String nome,String docente,String data,String categoria,String descrizione) {
+		corsoDAO.modificaCorso(codiceCorso, nome, docente, data, descrizione, categoria);
 	}
 	
 	public String recuperaNomeCorso(String codiceCorso) {

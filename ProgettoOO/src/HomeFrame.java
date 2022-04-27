@@ -1,6 +1,8 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
@@ -40,7 +42,10 @@ public class HomeFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				c.getRicercaCorsoFrame().setVisible(true);
 				c.getHomeFrame().setVisible(false);
-
+				c.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
+				c.getRicercaCorsoFrame().getCorsiTable().setModel(c.getRicercaCorsoFrame().resettaDefaultTableModel(c.getRicercaCorsoFrame().getCorsiDTM()));
+				c.getRicercaCorsoFrame().getCampoTF().setText("");
+				c.getRicercaCorsoFrame().getCampoCB().setSelectedItem("Nome");
 			}});
 		
 		JLabel homeLabel = new JLabel("Home");

@@ -40,6 +40,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Component;
+import java.awt.Rectangle;
+import java.awt.Point;
 
 public class RicercaCorsoFrame extends JFrame {
 
@@ -51,21 +53,31 @@ public class RicercaCorsoFrame extends JFrame {
 	private JTextField campoTF;
 	private JTable corsiTable;
 	private Vector<Vector<String>> corsi;
+	private DefaultTableModel corsiDTM;
 	
-	
+	public JComboBox getCampoCB() {
+		return campoCB;
+	}
+
+	public DefaultTableModel getCorsiDTM() {
+		return corsiDTM;
+	}
 
 	public JTable getCorsiTable() {
 		return corsiTable;
 	}
 
 
+	public JTextField getCampoTF() {
+		return campoTF;
+	}
 
 	public RicercaCorsoFrame(Controller c){
 		setTitle("Ricerca Corso");
 		controller = c;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(375, 175, 1001, 635);
+		setBounds(35, 50, 1300, 635);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -166,22 +178,16 @@ public class RicercaCorsoFrame extends JFrame {
 		contentPane.add(scrollPane, gbc_scrollPane);
 		  
 		
-		corsiTable = new JTable();
-		DefaultTableModel corsiDTM = new DefaultTableModel();
-		
+		corsiDTM = new DefaultTableModel();
 		corsiDTM.addColumn("Codice");
 		corsiDTM.addColumn("Nome");
 		corsiDTM.addColumn("Docente");
 		corsiDTM.addColumn("Data");
 		corsiDTM.addColumn("Categoria");
 		corsiDTM.addColumn("Descrizione");
-
-		corsi = new Vector<Vector<String>>();
-		corsi=c.mostraCorsi();
-		for (Vector<String> vettore : corsi) {
-			corsiDTM.addRow(vettore);
-		}
-		corsiDTM.newDataAvailable(null);
+		corsiDTM=resettaDefaultTableModel(corsiDTM);
+		
+		corsiTable = new JTable();
 		corsiTable.setModel(corsiDTM);
 		corsiTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		corsiTable.getColumnModel().getColumn(0).setResizable(false);
@@ -272,9 +278,10 @@ public class RicercaCorsoFrame extends JFrame {
 				else {
 					c.getModificaFrame().setVisible(true);
 					c.getModificaFrame().setCodiceCorso(corsiTable.getValueAt(corsiTable.getSelectedRow(),0));
-					c.getModificaFrame().setNomeTF(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
-					c.getModificaFrame().setDataTF(corsiTable.getValueAt(corsiTable.getSelectedRow(),2).toString());
-					c.getModificaFrame().setDescrizioneTF(corsiTable.getValueAt(corsiTable.getSelectedRow(),4).toString());
+					c.getModificaFrame().getNomeTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
+					c.getModificaFrame().getDocenteTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),2).toString());
+					c.getModificaFrame().getDataTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),3).toString());
+					c.getModificaFrame().getDescrizioneTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),5).toString());
 				}
 			}			
 		});
@@ -285,8 +292,6 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_ModificaButton.gridx = 4;
 		gbc_ModificaButton.gridy = 6;
 		contentPane.add(ModificaButton, gbc_ModificaButton);
-		
-		
 		
 		
 		JButton EliminaButton = new JButton("Elimina");
@@ -300,12 +305,7 @@ public class RicercaCorsoFrame extends JFrame {
 					codiceCorsoSelezionato = corsiTable.getValueAt(corsiTable.getSelectedRow(),0);
 					c.eliminaCorsoSelezionato(codiceCorsoSelezionato);
 					corsiDTM.getDataVector().removeAllElements();
-					corsi = new Vector<Vector<String>>();
-					corsi=c.mostraCorsi();
-					for (Vector<String> vettore : corsi) {
-						corsiDTM.addRow(vettore);
-					}
-					corsiDTM.fireTableDataChanged();	
+					corsiTable.setModel(resettaDefaultTableModel(corsiDTM));
 				}
 			}
 		});
@@ -319,7 +319,16 @@ public class RicercaCorsoFrame extends JFrame {
 	}
 	
 	
-	
+	public DefaultTableModel resettaDefaultTableModel(DefaultTableModel defaultTableModel){
+		Vector<Vector<String>> corsi = new Vector<Vector<String>>();
+		
+		corsi=controller.recuperaTuttiICorsi();
+		for (Vector<String> vettore : corsi) {
+			defaultTableModel.addRow(vettore);
+		}
+		
+		return defaultTableModel;
+	}
 	
 
 }

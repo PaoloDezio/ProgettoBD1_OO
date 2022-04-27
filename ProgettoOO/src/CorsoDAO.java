@@ -11,17 +11,18 @@ public class CorsoDAO {
 	}
 	
 	
-	public Vector<Vector<String>> mostraCorsi(){
+	public Vector<Vector<String>> recuperaTuttiICorsi(){
 		Vector<Vector<String>> corsi = new Vector<Vector<String>>();
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT DISTINCT C.codiceCorso,C.Nome,C.datainizio,LDTC.categoria,C.Descrizione,LDTC.cognome \r\n"
-					+ "FROM CORSO AS C JOIN (SELECT TC.codicecorso,LD.cognome,LD.codicedocente,TC.categoria\r\n"
-					+ "					  FROM TEMATICA_CORSO AS TC JOIN (SELECT l.codicelezione,l.codicedocente,d.cognome,l.codicecorso \r\n"
-					+ "													  FROM LEZIONE AS L JOIN DOCENTE AS D ON L.CODICEDOCENTE=D.CODICEDOCENTE)AS LD ON TC.CODICECORSO=LD.CODICECORSO\r\n"
-					+ "					 )AS LDTC ON LDTC.codicecorso=C.codicecorso\r\n"
-					+ "					 ORDER BY C.codicecorso");
+			ResultSet rs = st.executeQuery("SELECT DISTINCT C.codiceCorso,C.nome,LDTC.cognome,C.datainizio,LDTC.categoria,C.descrizione"
+					+ "					    FROM CORSO AS C JOIN (SELECT TC.codicecorso,LD.cognome,LD.codicedocente,TC.categoria"
+					+ "											  FROM TEMATICA_CORSO AS TC JOIN (SELECT l.codicelezione,l.codicedocente,d.cognome,l.codicecorso \r\n"
+					+ "													  						  FROM LEZIONE AS L JOIN DOCENTE AS D ON L.CODICEDOCENTE=D.CODICEDOCENTE"
+					+ "																			  )AS LD ON TC.CODICECORSO=LD.CODICECORSO\r\n"
+					+ "					 			              )AS LDTC ON LDTC.codicecorso=C.codicecorso\r\n"
+					+ "					 	ORDER BY C.codicecorso");
 
 			while(rs.next()) {
 				Vector<String> vettore = new Vector<String>();
@@ -52,12 +53,20 @@ public class CorsoDAO {
 			connessioneDB=istanzaDB.ConnectToDB();
 
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainizio,A.categoria,C.Descrizione FROM CORSO AS C JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso WHERE Nome LIKE '%"+nome+"%'ORDER BY codiceCorso");
+			ResultSet rs = st.executeQuery("SELECT DISTINCT C.codiceCorso,C.nome,LDTC.cognome,C.datainizio,LDTC.categoria,C.descrizione "
+					+ "					    FROM CORSO AS C JOIN (SELECT TC.codicecorso,LD.cognome,LD.codicedocente,TC.categoria"
+					+ "											  FROM TEMATICA_CORSO AS TC JOIN (SELECT l.codicelezione,l.codicedocente,d.cognome,l.codicecorso \r\n"
+					+ "													  						  FROM LEZIONE AS L JOIN DOCENTE AS D ON L.CODICEDOCENTE=D.CODICEDOCENTE"
+					+ "																			  )AS LD ON TC.CODICECORSO=LD.CODICECORSO\r\n"
+					+ "					 			              )AS LDTC ON LDTC.codicecorso=C.codicecorso\r\n"
+					+ "						WHERE Nome LIKE '%"+nome+"%'"
+					+ "						ORDER BY codiceCorso");
 
 			while(rs.next()) {
 				Vector<String> vettore = new Vector<String>();
 				vettore.add(rs.getString("codiceCorso"));
 				vettore.add(rs.getString("nome"));
+				vettore.add(rs.getString("cognome"));
 				vettore.add(rs.getString("datainizio"));
 				vettore.add(rs.getString("categoria"));
 				vettore.add(rs.getString("descrizione"));
@@ -84,12 +93,20 @@ public class CorsoDAO {
 			connessioneDB=istanzaDB.ConnectToDB();
 
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainizio,A.categoria,C.Descrizione FROM CORSO AS C JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso WHERE CAST(C.datainiziocorso AS VARCHAR(25)) LIKE '%"+data+"%' ORDER BY codiceCorso");
+			ResultSet rs = st.executeQuery("SELECT DISTINCT C.codiceCorso,C.nome,LDTC.cognome,C.datainizio,LDTC.categoria,C.descrizione "
+					+ "					    FROM CORSO AS C JOIN (SELECT TC.codicecorso,LD.cognome,LD.codicedocente,TC.categoria"
+					+ "											  FROM TEMATICA_CORSO AS TC JOIN (SELECT l.codicelezione,l.codicedocente,d.cognome,l.codicecorso \r\n"
+					+ "													  						  FROM LEZIONE AS L JOIN DOCENTE AS D ON L.CODICEDOCENTE=D.CODICEDOCENTE"
+					+ "																			  )AS LD ON TC.CODICECORSO=LD.CODICECORSO\r\n"
+					+ "					 			              )AS LDTC ON LDTC.codicecorso=C.codicecorso\r\n"
+					+ "						WHERE CAST(C.datainizio AS VARCHAR(25)) LIKE '%"+data+"%' "
+							+ "				ORDER BY codiceCorso");
 
 			while(rs.next()) {
 				Vector<String> vettore = new Vector<String>();
 				vettore.add(rs.getString("codiceCorso"));
 				vettore.add(rs.getString("nome"));
+				vettore.add(rs.getString("cognome"));
 				vettore.add(rs.getString("datainizio"));
 				vettore.add(rs.getString("categoria"));
 				vettore.add(rs.getString("descrizione"));
@@ -111,13 +128,21 @@ public class CorsoDAO {
 			connessioneDB=istanzaDB.ConnectToDB();
 
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainizio,A.categoria,C.Descrizione FROM CORSO AS C JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso WHERE A.categoria LIKE '%"+categoria+"%'ORDER BY codiceCorso");
+			ResultSet rs = st.executeQuery("SELECT DISTINCT C.codiceCorso,C.nome,LDTC.cognome,C.datainizio,LDTC.categoria,C.descrizione "
+					+ "					    FROM CORSO AS C JOIN (SELECT TC.codicecorso,LD.cognome,LD.codicedocente,TC.categoria"
+					+ "											  FROM TEMATICA_CORSO AS TC JOIN (SELECT l.codicelezione,l.codicedocente,d.cognome,l.codicecorso \r\n"
+					+ "													  						  FROM LEZIONE AS L JOIN DOCENTE AS D ON L.CODICEDOCENTE=D.CODICEDOCENTE"
+					+ "																			  )AS LD ON TC.CODICECORSO=LD.CODICECORSO\r\n"
+					+ "					 			              )AS LDTC ON LDTC.codicecorso=C.codicecorso\r\n"
+					+ "						WHERE LDTC.categoria LIKE '%"+categoria+"%'"
+					+ "						ORDER BY codiceCorso");
 
 
 			while(rs.next()) {
 				Vector<String> vettore = new Vector<String>();
 				vettore.add(rs.getString("codiceCorso"));
 				vettore.add(rs.getString("nome"));
+				vettore.add(rs.getString("cognome"));
 				vettore.add(rs.getString("datainizio"));
 				vettore.add(rs.getString("categoria"));
 				vettore.add(rs.getString("descrizione"));
@@ -140,12 +165,20 @@ public class CorsoDAO {
 			connessioneDB=istanzaDB.ConnectToDB();
 
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT C.codiceCorso,C.Nome,C.datainizio,A.categoria,C.Descrizione FROM CORSO AS C JOIN TEMATICA_CORSO AS A ON C.codiceCorso=A.codiceCorso WHERE C.descrizione LIKE '%"+parolaChiave+"%' ORDER BY codiceCorso");
+			ResultSet rs = st.executeQuery("SELECT DISTINCT C.codiceCorso,C.nome,LDTC.cognome,C.datainizio,LDTC.categoria,C.descrizione "
+					+ "					    FROM CORSO AS C JOIN (SELECT TC.codicecorso,LD.cognome,LD.codicedocente,TC.categoria"
+					+ "											  FROM TEMATICA_CORSO AS TC JOIN (SELECT l.codicelezione,l.codicedocente,d.cognome,l.codicecorso \r\n"
+					+ "													  						  FROM LEZIONE AS L JOIN DOCENTE AS D ON L.CODICEDOCENTE=D.CODICEDOCENTE"
+					+ "																			  )AS LD ON TC.CODICECORSO=LD.CODICECORSO\r\n"
+					+ "					 			              )AS LDTC ON LDTC.codicecorso=C.codicecorso\r\n"
+					+ "						WHERE C.descrizione LIKE '%"+parolaChiave+"%' "
+					+ "						ORDER BY codiceCorso");
 
 			while(rs.next()) {
 				Vector<String> vettore = new Vector<String>();
 				vettore.add(rs.getString("codiceCorso"));
 				vettore.add(rs.getString("nome"));
+				vettore.add(rs.getString("cognome"));
 				vettore.add(rs.getString("datainizio"));
 				vettore.add(rs.getString("categoria"));
 				vettore.add(rs.getString("descrizione"));
@@ -179,12 +212,13 @@ public class CorsoDAO {
 	}
 	
 	
-	public void modificaCorso(Object codiceCorso,String nome,String data,String descrizione,String categoria) {
+	public void modificaCorso(Object codiceCorso,String nome,String docente,String data,String descrizione,String categoria) {
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
 			Statement st = connessioneDB.createStatement();
 			st.executeUpdate("UPDATE CORSO SET nome='"+nome+"',datainizio='"+data+"',descrizione='"+descrizione+"' WHERE CODICECORSO="+codiceCorso);
 			st.executeUpdate("UPDATE TEMATICA_CORSO SET categoria='"+categoria+"' WHERE CODICECORSO= "+codiceCorso);
+//			st.executeUpdate("UPDATE DOCENTE SET cognome='"+docente+"' WHERE CODICECORSO= "+codiceCorso);
 			
 			st.close();
 			istanzaDB.closeDbConnection();
