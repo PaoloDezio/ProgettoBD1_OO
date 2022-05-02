@@ -181,7 +181,7 @@ public class RicercaCorsoFrame extends JFrame {
 		corsiDTM = new DefaultTableModel();
 		corsiDTM.addColumn("Codice");
 		corsiDTM.addColumn("Nome");
-		corsiDTM.addColumn("Docente");
+		corsiDTM.addColumn("Responsabile");
 		corsiDTM.addColumn("Data");
 		corsiDTM.addColumn("Categoria");
 		corsiDTM.addColumn("Descrizione");
@@ -279,7 +279,6 @@ public class RicercaCorsoFrame extends JFrame {
 					c.getModificaFrame().setVisible(true);
 					c.getModificaFrame().setCodiceCorso(corsiTable.getValueAt(corsiTable.getSelectedRow(),0));
 					c.getModificaFrame().getNomeTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
-					c.getModificaFrame().getDocenteTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),2).toString());
 					c.getModificaFrame().getDataTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),3).toString());
 					c.getModificaFrame().getDescrizioneTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),5).toString());
 				}

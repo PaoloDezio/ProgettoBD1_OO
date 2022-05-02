@@ -20,17 +20,18 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import java.awt.SystemColor;
 
 public class ModificaCorsoFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Object codiceCorso;
 	private JTextField nomeTF;
-	private JTextField docenteTF;
 	private JTextField descrizioneTF;
 	private Controller controller;
 	private JComboBox categoriaCB;
 	private JTextField dataTF;
+	private JComboBox responsabileCB ;
 
 
 	public Object getCodiceCorso() {
@@ -47,10 +48,6 @@ public class ModificaCorsoFrame extends JFrame {
 		return nomeTF;
 	}
 
-
-	public JTextField getDocenteTF() {
-		return docenteTF;
-	}
 
 
 	public JTextField getDataTF() {
@@ -76,9 +73,9 @@ public class ModificaCorsoFrame extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 18, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel modificaCorsoLabel = new JLabel("Modifica Corso");
@@ -110,38 +107,40 @@ public class ModificaCorsoFrame extends JFrame {
 		contentPane.add(nomeTF, gbc_nomeTF);
 		nomeTF.setColumns(10);
 		
-		Integer numeroCategorie=c.contaCategorie();
-		String[] categorie = c.salvaAreeTematiche(numeroCategorie);
-		
 		JButton salvaModificheButton = new JButton("Salva Modifiche");
 		salvaModificheButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				codiceCorso= c.getModificaFrame().getCodiceCorso();
-				c.modificaCorso(codiceCorso,nomeTF.getText(),docenteTF.getText(),dataTF.getText(),categoriaCB.getSelectedItem().toString(),descrizioneTF.getText());
+				String nomecorso=nomeTF.getText();
+				String responsabile=c.recuperaCodiceResponsabile(responsabileCB.getSelectedItem().toString());
+				String data=dataTF.getText();
+				String categoria=categoriaCB.getSelectedItem().toString();
+				String descrizione =descrizioneTF.getText();
+				c.modificaCorso(codiceCorso,nomecorso,responsabile,data,categoria,descrizione);
 				c.getModificaFrame().setVisible(false);
 				c.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
 				c.getRicercaCorsoFrame().getCorsiTable().setModel(c.getRicercaCorsoFrame().resettaDefaultTableModel(c.getRicercaCorsoFrame().getCorsiDTM()));
 			}
 		});
 		
-		JLabel docenteLabel = new JLabel("Docente");
-		docenteLabel.setFont(new Font("Century", Font.PLAIN, 18));
-		GridBagConstraints gbc_docenteLabel = new GridBagConstraints();
-		gbc_docenteLabel.anchor = GridBagConstraints.EAST;
-		gbc_docenteLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_docenteLabel.gridx = 1;
-		gbc_docenteLabel.gridy = 3;
-		contentPane.add(docenteLabel, gbc_docenteLabel);
+		JLabel descrizioneLabel = new JLabel("Descrizione");
+		descrizioneLabel.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_descrizioneLabel = new GridBagConstraints();
+		gbc_descrizioneLabel.anchor = GridBagConstraints.EAST;
+		gbc_descrizioneLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_descrizioneLabel.gridx = 1;
+		gbc_descrizioneLabel.gridy = 3;
+		contentPane.add(descrizioneLabel, gbc_descrizioneLabel);
 		
-		docenteTF = new JTextField();
-		docenteTF.setFont(new Font("Century", Font.PLAIN, 16));
-		GridBagConstraints gbc_docenteTF = new GridBagConstraints();
-		gbc_docenteTF.insets = new Insets(0, 0, 5, 5);
-		gbc_docenteTF.fill = GridBagConstraints.HORIZONTAL;
-		gbc_docenteTF.gridx = 2;
-		gbc_docenteTF.gridy = 3;
-		contentPane.add(docenteTF, gbc_docenteTF);
-		docenteTF.setColumns(10);
+		descrizioneTF = new JTextField();
+		descrizioneTF.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_descrizioneTF = new GridBagConstraints();
+		gbc_descrizioneTF.insets = new Insets(0, 0, 5, 5);
+		gbc_descrizioneTF.fill = GridBagConstraints.HORIZONTAL;
+		gbc_descrizioneTF.gridx = 2;
+		gbc_descrizioneTF.gridy = 3;
+		contentPane.add(descrizioneTF, gbc_descrizioneTF);
+		descrizioneTF.setColumns(10);
 		
 		JLabel dataLabel = new JLabel("Data");
 		dataLabel.setFont(new Font("Century", Font.PLAIN, 16));
@@ -171,6 +170,10 @@ public class ModificaCorsoFrame extends JFrame {
 		gbc_categoriaLabel.gridy = 5;
 		contentPane.add(categoriaLabel, gbc_categoriaLabel);
 				
+		
+		int numeroCategorie=c.contaCategorie();
+		String[] categorie = c.salvaAreeTematiche(numeroCategorie);
+		
 		categoriaCB = new JComboBox(categorie);
 		categoriaCB.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_categoriaCB = new GridBagConstraints();		
@@ -193,38 +196,41 @@ public class ModificaCorsoFrame extends JFrame {
 		gbc_aggiungiAreaTematicaButton.gridy = 5;
 		contentPane.add(aggiungiAreaTematicaButton, gbc_aggiungiAreaTematicaButton);
 		
-		JLabel descrizioneLabel = new JLabel("Descrizione");
-		descrizioneLabel.setFont(new Font("Century", Font.PLAIN, 16));
-		GridBagConstraints gbc_descrizioneLabel = new GridBagConstraints();
-		gbc_descrizioneLabel.anchor = GridBagConstraints.EAST;
-		gbc_descrizioneLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_descrizioneLabel.gridx = 1;
-		gbc_descrizioneLabel.gridy = 6;
-		contentPane.add(descrizioneLabel, gbc_descrizioneLabel);
+		JLabel responsabileLabel = new JLabel("Responsabile");
+		responsabileLabel.setFont(new Font("Century", Font.PLAIN, 18));
+		GridBagConstraints gbc_responsabileLabel = new GridBagConstraints();
+		gbc_responsabileLabel.anchor = GridBagConstraints.EAST;
+		gbc_responsabileLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_responsabileLabel.gridx = 1;
+		gbc_responsabileLabel.gridy = 6;
+		contentPane.add(responsabileLabel, gbc_responsabileLabel);
 		
-		descrizioneTF = new JTextField();
-		descrizioneTF.setFont(new Font("Century", Font.PLAIN, 16));
-		GridBagConstraints gbc_descrizioneTF = new GridBagConstraints();
-		gbc_descrizioneTF.insets = new Insets(0, 0, 5, 5);
-		gbc_descrizioneTF.fill = GridBagConstraints.HORIZONTAL;
-		gbc_descrizioneTF.gridx = 2;
-		gbc_descrizioneTF.gridy = 6;
-		contentPane.add(descrizioneTF, gbc_descrizioneTF);
-		descrizioneTF.setColumns(10);
+		
+		int numeroResponsabili=c.contaResponsabili();
+		String[] responsabili=c.salvaResponsabili(numeroResponsabili);
+		
+		responsabileCB = new JComboBox(responsabili);
+		responsabileCB.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_responsabileCB = new GridBagConstraints();
+		gbc_responsabileCB.insets = new Insets(0, 0, 5, 5);
+		gbc_responsabileCB.fill = GridBagConstraints.HORIZONTAL;
+		gbc_responsabileCB.gridx = 2;
+		gbc_responsabileCB.gridy = 6;
+		contentPane.add(responsabileCB, gbc_responsabileCB);
 		
 		JButton indietroButton = new JButton("Indietro");
 		indietroButton.setFont(new Font("Century", Font.PLAIN, 18));
 		GridBagConstraints gbc_indietroButton = new GridBagConstraints();
 		gbc_indietroButton.insets = new Insets(0, 0, 0, 5);
 		gbc_indietroButton.gridx = 1;
-		gbc_indietroButton.gridy = 8;
+		gbc_indietroButton.gridy = 9;
 		contentPane.add(indietroButton, gbc_indietroButton);
 		salvaModificheButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_salvaButton = new GridBagConstraints();
 		gbc_salvaButton.insets = new Insets(0, 0, 0, 5);
 		gbc_salvaButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_salvaButton.gridx = 3;
-		gbc_salvaButton.gridy = 8;
+		gbc_salvaButton.gridy = 9;
 		contentPane.add(salvaModificheButton, gbc_salvaButton);
 	}
 	

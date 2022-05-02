@@ -51,7 +51,7 @@ public class Controller {
 		
 	}
 	
-	
+	//Getters e Setters dei Frame
 	public LoginFrame getLoginFrame() {
 		return loginFrame;
 	}
@@ -116,10 +116,25 @@ public class Controller {
 		this.modificaFrame = modificaFrame;
 	}
 
+	
+	//METODI ResponsabileDAO
 	public boolean checkResponsabile(String username,String password) {
 		return responsabileDAO.checkResponsabile(username, password);
 	}
 	
+	public Integer contaResponsabili() {
+		return responsabileDAO.contaResponsabili();
+	}
+	
+	public String[] salvaResponsabili(int numeroResponsabili) {
+		return responsabileDAO.salvaResponsabili(numeroResponsabili);
+	}
+	
+	public String recuperaCodiceResponsabile(String cognomeResponsabile) {
+		return responsabileDAO.recuperaCodiceResponsabile(cognomeResponsabile);
+	}
+	
+	//METODI StudenteDAO
 	public void salvaStudente(String nome,String cognome,String luogo,Date data) {
 		studenteDAO.salvaStudente(nome, cognome, luogo, data);
 	}
@@ -132,9 +147,11 @@ public class Controller {
 		return studenteDAO.iscriviStudente(codiceCorso,codStudente);
 	}
 
+	//METODI AreaTematicaDAO
 	public boolean AreaTematicaIsPresentInDB(String areaTematica) {
 		return areaTematicaDAO.AreaTematicaIsPresentInDB(areaTematica);
 	}
+	
 	public void aggiungiAreaTematica(String areaTematica) {
 		areaTematicaDAO.aggiungiAreaTematica(areaTematica);
 	}
@@ -147,6 +164,7 @@ public class Controller {
 		return areaTematicaDAO.contaCategorie();
 	}
 	
+	//METODI CorsoDAO
 	public Vector<Vector<String>> recuperaTuttiICorsi(){
 		return corsoDAO.recuperaTuttiICorsi();
 	}
@@ -179,6 +197,7 @@ public class Controller {
 		return corsoDAO.recuperaNomeCorso(codiceCorso);
 	}
 
+	
 
 
 }

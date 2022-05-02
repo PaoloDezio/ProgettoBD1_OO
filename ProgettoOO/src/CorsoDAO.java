@@ -16,13 +16,14 @@ public class CorsoDAO {
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT DISTINCT C.codiceCorso,C.nome,LDTC.cognome,C.datainizio,LDTC.categoria,C.descrizione"
-					+ "					    FROM CORSO AS C JOIN (SELECT TC.codicecorso,LD.cognome,LD.codicedocente,TC.categoria"
-					+ "											  FROM TEMATICA_CORSO AS TC JOIN (SELECT l.codicelezione,l.codicedocente,d.cognome,l.codicecorso \r\n"
-					+ "													  						  FROM LEZIONE AS L JOIN DOCENTE AS D ON L.CODICEDOCENTE=D.CODICEDOCENTE"
-					+ "																			  )AS LD ON TC.CODICECORSO=LD.CODICECORSO\r\n"
-					+ "					 			              )AS LDTC ON LDTC.codicecorso=C.codicecorso\r\n"
-					+ "					 	ORDER BY C.codicecorso");
+			ResultSet rs = st.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
+					+ "							   c.descrizione,c.categoria,r.cognome,r.codiceresponsabile\r\n"
+					+ "						FROM RESPONSABILE AS r JOIN (SELECT tc.codicecorso,tc.categoria,c.nome,\r\n"
+					+ "															c.descrizione,c.codiceresponsabile,"
+					+ "															c.datainizio\r\n"
+					+ "						    						 FROM tematica_corso AS tc JOIN corso AS c ON tc.codicecorso=c.codicecorso)\r\n"
+					+ "					        						 AS c ON r.codiceresponsabile=c.codiceresponsabile\r\n"
+					+ "						ORDER BY codicecorso");
 
 			while(rs.next()) {
 				Vector<String> vettore = new Vector<String>();
@@ -53,12 +54,13 @@ public class CorsoDAO {
 			connessioneDB=istanzaDB.ConnectToDB();
 
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT DISTINCT C.codiceCorso,C.nome,LDTC.cognome,C.datainizio,LDTC.categoria,C.descrizione "
-					+ "					    FROM CORSO AS C JOIN (SELECT TC.codicecorso,LD.cognome,LD.codicedocente,TC.categoria"
-					+ "											  FROM TEMATICA_CORSO AS TC JOIN (SELECT l.codicelezione,l.codicedocente,d.cognome,l.codicecorso \r\n"
-					+ "													  						  FROM LEZIONE AS L JOIN DOCENTE AS D ON L.CODICEDOCENTE=D.CODICEDOCENTE"
-					+ "																			  )AS LD ON TC.CODICECORSO=LD.CODICECORSO\r\n"
-					+ "					 			              )AS LDTC ON LDTC.codicecorso=C.codicecorso\r\n"
+			ResultSet rs = st.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
+					+ "							   c.descrizione,c.categoria,r.cognome,r.codiceresponsabile\r\n"
+					+ "						FROM RESPONSABILE AS r JOIN (SELECT tc.codicecorso,tc.categoria,c.nome,\r\n"
+					+ "															c.descrizione,c.codiceresponsabile,"
+					+ "															c.datainizio\r\n"
+					+ "						    						 FROM tematica_corso AS tc JOIN corso AS c ON tc.codicecorso=c.codicecorso)\r\n"
+					+ "					        						 AS c ON r.codiceresponsabile=c.codiceresponsabile\r\n"
 					+ "						WHERE Nome LIKE '%"+nome+"%'"
 					+ "						ORDER BY codiceCorso");
 
@@ -93,12 +95,13 @@ public class CorsoDAO {
 			connessioneDB=istanzaDB.ConnectToDB();
 
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT DISTINCT C.codiceCorso,C.nome,LDTC.cognome,C.datainizio,LDTC.categoria,C.descrizione "
-					+ "					    FROM CORSO AS C JOIN (SELECT TC.codicecorso,LD.cognome,LD.codicedocente,TC.categoria"
-					+ "											  FROM TEMATICA_CORSO AS TC JOIN (SELECT l.codicelezione,l.codicedocente,d.cognome,l.codicecorso \r\n"
-					+ "													  						  FROM LEZIONE AS L JOIN DOCENTE AS D ON L.CODICEDOCENTE=D.CODICEDOCENTE"
-					+ "																			  )AS LD ON TC.CODICECORSO=LD.CODICECORSO\r\n"
-					+ "					 			              )AS LDTC ON LDTC.codicecorso=C.codicecorso\r\n"
+			ResultSet rs = st.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
+					+ "							   c.descrizione,c.categoria,r.cognome,r.codiceresponsabile\r\n"
+					+ "						FROM RESPONSABILE AS r JOIN (SELECT tc.codicecorso,tc.categoria,c.nome,\r\n"
+					+ "															c.descrizione,c.codiceresponsabile,"
+					+ "															c.datainizio\r\n"
+					+ "						    						 FROM tematica_corso AS tc JOIN corso AS c ON tc.codicecorso=c.codicecorso)\r\n"
+					+ "					        						 AS c ON r.codiceresponsabile=c.codiceresponsabile\r\n"
 					+ "						WHERE CAST(C.datainizio AS VARCHAR(25)) LIKE '%"+data+"%' "
 							+ "				ORDER BY codiceCorso");
 
@@ -128,12 +131,13 @@ public class CorsoDAO {
 			connessioneDB=istanzaDB.ConnectToDB();
 
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT DISTINCT C.codiceCorso,C.nome,LDTC.cognome,C.datainizio,LDTC.categoria,C.descrizione "
-					+ "					    FROM CORSO AS C JOIN (SELECT TC.codicecorso,LD.cognome,LD.codicedocente,TC.categoria"
-					+ "											  FROM TEMATICA_CORSO AS TC JOIN (SELECT l.codicelezione,l.codicedocente,d.cognome,l.codicecorso \r\n"
-					+ "													  						  FROM LEZIONE AS L JOIN DOCENTE AS D ON L.CODICEDOCENTE=D.CODICEDOCENTE"
-					+ "																			  )AS LD ON TC.CODICECORSO=LD.CODICECORSO\r\n"
-					+ "					 			              )AS LDTC ON LDTC.codicecorso=C.codicecorso\r\n"
+			ResultSet rs = st.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
+					+ "							   c.descrizione,c.categoria,r.cognome,r.codiceresponsabile\r\n"
+					+ "						FROM RESPONSABILE AS r JOIN (SELECT tc.codicecorso,tc.categoria,c.nome,\r\n"
+					+ "															c.descrizione,c.codiceresponsabile,"
+					+ "															c.datainizio\r\n"
+					+ "						    						 FROM tematica_corso AS tc JOIN corso AS c ON tc.codicecorso=c.codicecorso)\r\n"
+					+ "					        						 AS c ON r.codiceresponsabile=c.codiceresponsabile\r\n"
 					+ "						WHERE LDTC.categoria LIKE '%"+categoria+"%'"
 					+ "						ORDER BY codiceCorso");
 
@@ -165,12 +169,13 @@ public class CorsoDAO {
 			connessioneDB=istanzaDB.ConnectToDB();
 
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT DISTINCT C.codiceCorso,C.nome,LDTC.cognome,C.datainizio,LDTC.categoria,C.descrizione "
-					+ "					    FROM CORSO AS C JOIN (SELECT TC.codicecorso,LD.cognome,LD.codicedocente,TC.categoria"
-					+ "											  FROM TEMATICA_CORSO AS TC JOIN (SELECT l.codicelezione,l.codicedocente,d.cognome,l.codicecorso \r\n"
-					+ "													  						  FROM LEZIONE AS L JOIN DOCENTE AS D ON L.CODICEDOCENTE=D.CODICEDOCENTE"
-					+ "																			  )AS LD ON TC.CODICECORSO=LD.CODICECORSO\r\n"
-					+ "					 			              )AS LDTC ON LDTC.codicecorso=C.codicecorso\r\n"
+			ResultSet rs = st.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
+					+ "							   c.descrizione,c.categoria,r.cognome,r.codiceresponsabile\r\n"
+					+ "						FROM RESPONSABILE AS r JOIN (SELECT tc.codicecorso,tc.categoria,c.nome,\r\n"
+					+ "															c.descrizione,c.codiceresponsabile,"
+					+ "															c.datainizio\r\n"
+					+ "						    						 FROM tematica_corso AS tc JOIN corso AS c ON tc.codicecorso=c.codicecorso)\r\n"
+					+ "					        						 AS c ON r.codiceresponsabile=c.codiceresponsabile\r\n"
 					+ "						WHERE C.descrizione LIKE '%"+parolaChiave+"%' "
 					+ "						ORDER BY codiceCorso");
 
@@ -212,13 +217,12 @@ public class CorsoDAO {
 	}
 	
 	
-	public void modificaCorso(Object codiceCorso,String nome,String docente,String data,String descrizione,String categoria) {
+	public void modificaCorso(Object codiceCorso,String nome,String codiceresponsabile,String data,String descrizione,String categoria) {
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
 			Statement st = connessioneDB.createStatement();
-			st.executeUpdate("UPDATE CORSO SET nome='"+nome+"',datainizio='"+data+"',descrizione='"+descrizione+"' WHERE CODICECORSO="+codiceCorso);
+			st.executeUpdate("UPDATE CORSO SET nome='"+nome+"',datainizio='"+data+"',descrizione='"+descrizione+"',codiceresponsabile='"+codiceresponsabile+"' WHERE codicecorso="+codiceCorso);
 			st.executeUpdate("UPDATE TEMATICA_CORSO SET categoria='"+categoria+"' WHERE CODICECORSO= "+codiceCorso);
-//			st.executeUpdate("UPDATE DOCENTE SET cognome='"+docente+"' WHERE CODICECORSO= "+codiceCorso);
 			
 			st.close();
 			istanzaDB.closeDbConnection();

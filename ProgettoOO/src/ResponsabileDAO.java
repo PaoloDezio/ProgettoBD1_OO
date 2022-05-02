@@ -31,4 +31,71 @@ public class ResponsabileDAO {
 		}
 		return false;
 	}
+	
+	
+	public Integer contaResponsabili() {
+		Integer numeroResponsabili=0;
+		try {
+			connessioneDB = istanzaDB.ConnectToDB();
+			Statement st = connessioneDB.createStatement();
+			ResultSet rs=st.executeQuery("SELECT COUNT(*) FROM RESPONSABILE");	
+			rs.next();
+			numeroResponsabili=rs.getInt(1);
+			
+			st.close();
+			rs.close();
+			istanzaDB.closeDbConnection();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return numeroResponsabili;
+	}
+	
+	
+	
+	public String[] salvaResponsabili(int numeroResponsabili) {
+		String[] responsabili= new String[numeroResponsabili];
+		int i=0;
+		try {
+			connessioneDB = istanzaDB.ConnectToDB();
+			Statement st = connessioneDB.createStatement();
+			ResultSet rs = st.executeQuery("SELECT * FROM RESPONSABILE ORDER BY codiceresponsabile");	
+		
+			while(rs.next()) {
+				responsabili[i]=rs.getString("cognome");
+				i++;
+			}
+			
+			st.close();
+			rs.close();
+			istanzaDB.closeDbConnection();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return responsabili;
+	}
+	
+	
+	public String recuperaCodiceResponsabile(String cognomeResponsabile) {
+		String codiceResponsabile="";
+		try {
+			connessioneDB = istanzaDB.ConnectToDB();
+			Statement st = connessioneDB.createStatement();
+			ResultSet rs = st.executeQuery("SELECT * FROM RESPONSABILE WHERE cognome='"+cognomeResponsabile+"'");	
+		
+			while(rs.next()) {
+				codiceResponsabile=rs.getString("codiceresponsabile");
+			}
+			
+			st.close();
+			rs.close();
+			istanzaDB.closeDbConnection();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return codiceResponsabile;
+	}
 }

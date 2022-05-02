@@ -14,7 +14,7 @@ public class AreaTematicaDAO {
 		try {
 			connessioneDB = istanzaDB.ConnectToDB();
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs=st.executeQuery("SELECT COUNT(*) FROM area_tematica");	
+			ResultSet rs=st.executeQuery("SELECT COUNT(*) FROM AREA_TEMATICA");	
 			rs.next();
 			numeroCategorie=rs.getInt(1);
 			
