@@ -101,6 +101,7 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 				}
 				else {
 					c.aggiungiAreaTematica(areaTematicaTF.getText().toUpperCase());
+//					c.getModificaFrame()
 					JOptionPane.showMessageDialog(contentPane, "L'area tematica '"+areaTematicaTF.getText().toUpperCase()+"' è stata aggiunta correttamente","",JOptionPane.CLOSED_OPTION);
 					areaTematicaTF.setText("");
 				}

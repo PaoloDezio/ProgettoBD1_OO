@@ -29,10 +29,10 @@ public class CorsoDAO {
 				Vector<String> vettore = new Vector<String>();
 				vettore.add(rs.getString("codiceCorso"));
 				vettore.add(rs.getString("nome"));
-				vettore.add(rs.getString("cognome"));
+				vettore.add(rs.getString("descrizione"));
 				vettore.add(rs.getString("datainizio"));
 				vettore.add(rs.getString("categoria"));
-				vettore.add(rs.getString("descrizione"));
+				vettore.add(rs.getString("cognome"));
 				corsi.add(vettore);
 			}
 			st.close();
@@ -68,10 +68,10 @@ public class CorsoDAO {
 				Vector<String> vettore = new Vector<String>();
 				vettore.add(rs.getString("codiceCorso"));
 				vettore.add(rs.getString("nome"));
-				vettore.add(rs.getString("cognome"));
+				vettore.add(rs.getString("descrizione"));
 				vettore.add(rs.getString("datainizio"));
 				vettore.add(rs.getString("categoria"));
-				vettore.add(rs.getString("descrizione"));
+				vettore.add(rs.getString("cognome"));
 				corsiPerNome.add(vettore);
 			}
 
@@ -109,10 +109,10 @@ public class CorsoDAO {
 				Vector<String> vettore = new Vector<String>();
 				vettore.add(rs.getString("codiceCorso"));
 				vettore.add(rs.getString("nome"));
-				vettore.add(rs.getString("cognome"));
+				vettore.add(rs.getString("descrizione"));
 				vettore.add(rs.getString("datainizio"));
 				vettore.add(rs.getString("categoria"));
-				vettore.add(rs.getString("descrizione"));
+				vettore.add(rs.getString("cognome"));
 				corsiPerData.add(vettore);
 			}
 
@@ -146,10 +146,10 @@ public class CorsoDAO {
 				Vector<String> vettore = new Vector<String>();
 				vettore.add(rs.getString("codiceCorso"));
 				vettore.add(rs.getString("nome"));
-				vettore.add(rs.getString("cognome"));
+				vettore.add(rs.getString("descrizione"));
 				vettore.add(rs.getString("datainizio"));
 				vettore.add(rs.getString("categoria"));
-				vettore.add(rs.getString("descrizione"));
+				vettore.add(rs.getString("cognome"));
 				corsiPerCategoria.add(vettore);
 			}
 

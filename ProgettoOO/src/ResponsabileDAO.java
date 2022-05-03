@@ -60,7 +60,7 @@ public class ResponsabileDAO {
 		try {
 			connessioneDB = istanzaDB.ConnectToDB();
 			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM RESPONSABILE ORDER BY codiceresponsabile");	
+			ResultSet rs = st.executeQuery("SELECT * FROM RESPONSABILE ORDER BY cognome");	
 		
 			while(rs.next()) {
 				responsabili[i]=rs.getString("cognome");

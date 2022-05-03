@@ -98,7 +98,6 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_ricercaCorsoLabel.gridx = 0;
 		gbc_ricercaCorsoLabel.gridy = 0;
 		contentPane.add(ricercaCorsoLabel, gbc_ricercaCorsoLabel);
-		
 				
 		JLabel selezionareUnCampoLabel = new JLabel("Selezionare un campo");
 		selezionareUnCampoLabel.setFont(new Font("Century", Font.PLAIN, 18));
@@ -109,7 +108,6 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_selezionareUnCampoLabel.gridy = 1;
 		contentPane.add(selezionareUnCampoLabel, gbc_selezionareUnCampoLabel);
 		
-				
 		JButton tornaHomeButton = new JButton("Torna alla Home");
 		tornaHomeButton.setFont(new Font("Century", Font.PLAIN, 16));
 		tornaHomeButton.addActionListener(new ActionListener() {
@@ -118,7 +116,11 @@ public class RicercaCorsoFrame extends JFrame {
 				c.getRicercaCorsoFrame().setVisible(false);
 			}
 		});
-						
+		GridBagConstraints gbc_tornaHomeButton = new GridBagConstraints();
+		gbc_tornaHomeButton.insets = new Insets(0, 0, 5, 5);
+		gbc_tornaHomeButton.gridx = 3;
+		gbc_tornaHomeButton.gridy = 3;
+		contentPane.add(tornaHomeButton, gbc_tornaHomeButton);
 
 		String[] campi= {"Nome","Categoria","Data","Parola Chiave"};
 		
@@ -149,13 +151,6 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_campoTF.gridy = 2;
 		contentPane.add(campoTF, gbc_campoTF);
 		campoTF.setColumns(10);
-
-
-		GridBagConstraints gbc_tornaHomeButton = new GridBagConstraints();
-		gbc_tornaHomeButton.insets = new Insets(0, 0, 5, 5);
-		gbc_tornaHomeButton.gridx = 3;
-		gbc_tornaHomeButton.gridy = 3;
-		contentPane.add(tornaHomeButton, gbc_tornaHomeButton);
 		
 		JLabel selezionaUnCorsoLabel = new JLabel("Selezionare un corso:");
 		selezionaUnCorsoLabel.setFont(new Font("Century", Font.PLAIN, 18));
@@ -181,26 +176,33 @@ public class RicercaCorsoFrame extends JFrame {
 		corsiDTM = new DefaultTableModel();
 		corsiDTM.addColumn("Codice");
 		corsiDTM.addColumn("Nome");
-		corsiDTM.addColumn("Responsabile");
+		corsiDTM.addColumn("Descrizione");
 		corsiDTM.addColumn("Data");
 		corsiDTM.addColumn("Categoria");
-		corsiDTM.addColumn("Descrizione");
+		corsiDTM.addColumn("Responsabile");
 		corsiDTM=resettaDefaultTableModel(corsiDTM);
 		
 		corsiTable = new JTable();
 		corsiTable.setModel(corsiDTM);
 		corsiTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
 		corsiTable.getColumnModel().getColumn(0).setResizable(false);
-		corsiTable.getColumnModel().getColumn(0).setPreferredWidth(43);
+		corsiTable.getColumnModel().getColumn(0).setPreferredWidth(5);
+		
 		corsiTable.getColumnModel().getColumn(1).setResizable(false);
-		corsiTable.getColumnModel().getColumn(1).setPreferredWidth(156);
+		corsiTable.getColumnModel().getColumn(1).setPreferredWidth(145);
+		
 		corsiTable.getColumnModel().getColumn(2).setResizable(false);
+		corsiTable.getColumnModel().getColumn(2).setPreferredWidth(310);
+		
 		corsiTable.getColumnModel().getColumn(3).setResizable(false);
-		corsiTable.getColumnModel().getColumn(3).setPreferredWidth(110);
+		
 		corsiTable.getColumnModel().getColumn(4).setResizable(false);
-		corsiTable.getColumnModel().getColumn(4).setPreferredWidth(192);
+		corsiTable.getColumnModel().getColumn(4).setPreferredWidth(160);
+		
 		corsiTable.getColumnModel().getColumn(5).setResizable(false);
-		corsiTable.getColumnModel().getColumn(5).setPreferredWidth(192);
+		corsiTable.getColumnModel().getColumn(5).setPreferredWidth(160);
+		
 		corsiTable.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		scrollPane.setViewportView(corsiTable);
 		
@@ -248,27 +250,6 @@ public class RicercaCorsoFrame extends JFrame {
 		contentPane.add(cercaButton, gbc_cercaButton);
 		
 		
-		JButton StatisticheButton = new JButton("Statistische");
-		StatisticheButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(corsiTable.getSelectedRow()==-1) {
-					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
-				}
-				else {
-					c.getStatisticheFrame().setVisible(true);
-					c.getStatisticheFrame().getCorsoTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
-				}
-			}
-		});
-		StatisticheButton.setFont(new Font("Century", Font.PLAIN, 16));
-		GridBagConstraints gbc_StatisticheButton = new GridBagConstraints();
-		gbc_StatisticheButton.insets = new Insets(0, 0, 5, 0);
-		gbc_StatisticheButton.anchor = GridBagConstraints.NORTHWEST;
-		gbc_StatisticheButton.gridx = 4;
-		gbc_StatisticheButton.gridy = 5;
-		contentPane.add(StatisticheButton, gbc_StatisticheButton);
-		
-		
 		JButton ModificaButton = new JButton("Modifica");
 		ModificaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -279,11 +260,26 @@ public class RicercaCorsoFrame extends JFrame {
 					c.getModificaFrame().setVisible(true);
 					c.getModificaFrame().setCodiceCorso(corsiTable.getValueAt(corsiTable.getSelectedRow(),0));
 					c.getModificaFrame().getNomeTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
+					c.getModificaFrame().getDescrizioneTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),2).toString());
 					c.getModificaFrame().getDataTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),3).toString());
-					c.getModificaFrame().getDescrizioneTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),5).toString());
+					c.getModificaFrame().getCategoriaCB().setSelectedItem(c.getRicercaCorsoFrame().getCorsiTable().getValueAt(c.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(),4));
+					c.getModificaFrame().getResponsabileCB().setSelectedItem(c.getRicercaCorsoFrame().getCorsiTable().getValueAt(c.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(),5));
 				}
 			}			
 		});
+		
+		JButton AggiungiButton = new JButton("Aggiungi");
+		AggiungiButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		AggiungiButton.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_AggiungiButton = new GridBagConstraints();
+		gbc_AggiungiButton.insets = new Insets(0, 0, 5, 0);
+		gbc_AggiungiButton.gridx = 4;
+		gbc_AggiungiButton.gridy = 5;
+		contentPane.add(AggiungiButton, gbc_AggiungiButton);
+		
 		ModificaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_ModificaButton = new GridBagConstraints();
 		gbc_ModificaButton.anchor = GridBagConstraints.NORTHWEST;
@@ -291,7 +287,6 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_ModificaButton.gridx = 4;
 		gbc_ModificaButton.gridy = 6;
 		contentPane.add(ModificaButton, gbc_ModificaButton);
-		
 		
 		JButton EliminaButton = new JButton("Elimina");
 		EliminaButton.addActionListener(new ActionListener() {
@@ -315,6 +310,27 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_EliminaButton.gridx = 4;
 		gbc_EliminaButton.gridy = 7;
 		contentPane.add(EliminaButton, gbc_EliminaButton);
+		
+		
+		JButton StatisticheButton = new JButton("Statistische");
+		StatisticheButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(corsiTable.getSelectedRow()==-1) {
+					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
+				}
+				else {
+					c.getStatisticheFrame().setVisible(true);
+					c.getStatisticheFrame().getCorsoTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
+				}
+			}
+		});
+		StatisticheButton.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_StatisticheButton = new GridBagConstraints();
+		gbc_StatisticheButton.anchor = GridBagConstraints.NORTHWEST;
+		gbc_StatisticheButton.gridx = 4;
+		gbc_StatisticheButton.gridy = 8;
+		contentPane.add(StatisticheButton, gbc_StatisticheButton);
+	
 	}
 	
 	

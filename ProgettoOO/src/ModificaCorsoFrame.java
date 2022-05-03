@@ -12,6 +12,7 @@ import java.awt.Font;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.ComboBoxEditor;
 import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -48,8 +49,6 @@ public class ModificaCorsoFrame extends JFrame {
 		return nomeTF;
 	}
 
-
-
 	public JTextField getDataTF() {
 		return dataTF;
 	}
@@ -57,6 +56,16 @@ public class ModificaCorsoFrame extends JFrame {
 
 	public JTextField getDescrizioneTF() {
 		return descrizioneTF;
+	}
+
+
+	public JComboBox getCategoriaCB() {
+		return categoriaCB;
+	}
+
+
+	public JComboBox getResponsabileCB() {
+		return responsabileCB;
 	}
 
 
@@ -107,22 +116,6 @@ public class ModificaCorsoFrame extends JFrame {
 		contentPane.add(nomeTF, gbc_nomeTF);
 		nomeTF.setColumns(10);
 		
-		JButton salvaModificheButton = new JButton("Salva Modifiche");
-		salvaModificheButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				codiceCorso= c.getModificaFrame().getCodiceCorso();
-				String nomecorso=nomeTF.getText();
-				String responsabile=c.recuperaCodiceResponsabile(responsabileCB.getSelectedItem().toString());
-				String data=dataTF.getText();
-				String categoria=categoriaCB.getSelectedItem().toString();
-				String descrizione =descrizioneTF.getText();
-				c.modificaCorso(codiceCorso,nomecorso,responsabile,data,categoria,descrizione);
-				c.getModificaFrame().setVisible(false);
-				c.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
-				c.getRicercaCorsoFrame().getCorsiTable().setModel(c.getRicercaCorsoFrame().resettaDefaultTableModel(c.getRicercaCorsoFrame().getCorsiDTM()));
-			}
-		});
-		
 		JLabel descrizioneLabel = new JLabel("Descrizione");
 		descrizioneLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_descrizioneLabel = new GridBagConstraints();
@@ -169,8 +162,7 @@ public class ModificaCorsoFrame extends JFrame {
 		gbc_categoriaLabel.gridx = 1;
 		gbc_categoriaLabel.gridy = 5;
 		contentPane.add(categoriaLabel, gbc_categoriaLabel);
-				
-		
+					
 		int numeroCategorie=c.contaCategorie();
 		String[] categorie = c.salvaAreeTematiche(numeroCategorie);
 		
@@ -219,12 +211,34 @@ public class ModificaCorsoFrame extends JFrame {
 		contentPane.add(responsabileCB, gbc_responsabileCB);
 		
 		JButton indietroButton = new JButton("Indietro");
+		indietroButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				c.getModificaFrame().setVisible(false);
+			}
+		});
 		indietroButton.setFont(new Font("Century", Font.PLAIN, 18));
 		GridBagConstraints gbc_indietroButton = new GridBagConstraints();
 		gbc_indietroButton.insets = new Insets(0, 0, 0, 5);
 		gbc_indietroButton.gridx = 1;
 		gbc_indietroButton.gridy = 9;
 		contentPane.add(indietroButton, gbc_indietroButton);
+		
+
+		JButton salvaModificheButton = new JButton("Salva Modifiche");
+		salvaModificheButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				codiceCorso= c.getModificaFrame().getCodiceCorso();
+				String nomecorso=nomeTF.getText();
+				String responsabile=c.recuperaCodiceResponsabile(responsabileCB.getSelectedItem().toString());
+				String data=dataTF.getText();
+				String categoria=categoriaCB.getSelectedItem().toString();
+				String descrizione =descrizioneTF.getText();
+				c.modificaCorso(codiceCorso,nomecorso,responsabile,data,categoria,descrizione);
+				c.getModificaFrame().setVisible(false);
+				c.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
+				c.getRicercaCorsoFrame().getCorsiTable().setModel(c.getRicercaCorsoFrame().resettaDefaultTableModel(c.getRicercaCorsoFrame().getCorsiDTM()));
+			}
+		});
 		salvaModificheButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_salvaButton = new GridBagConstraints();
 		gbc_salvaButton.insets = new Insets(0, 0, 0, 5);
