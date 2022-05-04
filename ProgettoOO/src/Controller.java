@@ -13,7 +13,8 @@ public class Controller {
 	private StatisticheFrame statisticheFrame;
 	private IdoneiFrame idoneiFrame;
 	private AggiungiAreaTematicaFrame aggiungiAreaTematicaFrame;
-	private ModificaCorsoFrame modificaFrame;
+	private ModificaCorsoFrame modificaCorsoFrame;
+	private AggiungiCorsoFrame aggiungiCorsoFrame;
 	private ResponsabileDAO responsabileDAO;
 	private CorsoDAO corsoDAO;
 	private AreaTematicaDAO areaTematicaDAO;
@@ -48,6 +49,7 @@ public class Controller {
 		setIdoneiFrame(new IdoneiFrame(this));
 		setAggiungiAreaTematicaFrame(new AggiungiAreaTematicaFrame(this)); 
 		setModificaFrame(new ModificaCorsoFrame(this));
+		setAggiungiCorsoFrame(new AggiungiCorsoFrame(this));
 		
 	}
 	
@@ -109,14 +111,29 @@ public class Controller {
 	}
 			
 	public ModificaCorsoFrame getModificaFrame() {
-		return modificaFrame;
+		return modificaCorsoFrame;
 	}
 
 	public void setModificaFrame(ModificaCorsoFrame modificaFrame) {
-		this.modificaFrame = modificaFrame;
+		this.modificaCorsoFrame = modificaFrame;
+	}
+	
+	public ModificaCorsoFrame getModificaCorsoFrame() {
+		return modificaCorsoFrame;
 	}
 
-	
+	public void setModificaCorsoFrame(ModificaCorsoFrame modificaCorsoFrame) {
+		this.modificaCorsoFrame = modificaCorsoFrame;
+	}
+
+	public AggiungiCorsoFrame getAggiungiCorsoFrame() {
+		return aggiungiCorsoFrame;
+	}
+
+	public void setAggiungiCorsoFrame(AggiungiCorsoFrame aggiungiCorsoFrame) {
+		this.aggiungiCorsoFrame = aggiungiCorsoFrame;
+	}
+
 	//METODI ResponsabileDAO
 	public boolean checkResponsabile(String username,String password) {
 		return responsabileDAO.checkResponsabile(username, password);
@@ -139,8 +156,8 @@ public class Controller {
 		studenteDAO.salvaStudente(nome, cognome, luogo, data);
 	}
 	
-	public String recuperaCodStudente(String nome,String cognome,String luogo,Date dataDiNascita) {
-		return studenteDAO.recuperaCodStudente(nome, cognome, luogo, dataDiNascita);
+	public String recuperaCodiceStudente(String nome,String cognome,String luogo,Date dataDiNascita) {
+		return studenteDAO.recuperaCodiceStudente(nome, cognome, luogo, dataDiNascita);
 	}
 	
 	public boolean iscriviStudente(String codiceCorso,String codStudente) {
@@ -148,25 +165,35 @@ public class Controller {
 	}
 
 	//METODI AreaTematicaDAO
-	public boolean AreaTematicaIsPresentInDB(String areaTematica) {
-		return areaTematicaDAO.AreaTematicaIsPresentInDB(areaTematica);
+	public boolean IsAreaTematicaInDB(String areaTematica) {
+		return areaTematicaDAO.IsAreaTematicaInDB(areaTematica);
 	}
 	
 	public void aggiungiAreaTematica(String areaTematica) {
 		areaTematicaDAO.aggiungiAreaTematica(areaTematica);
 	}
 	
-	public String[] salvaAreeTematiche(Integer numeroCategorie) {
-		return areaTematicaDAO.salvaAreeTematiche(numeroCategorie);
-	}
-	
-	public Integer contaCategorie() {
+	public int contaCategorie() {
 		return areaTematicaDAO.contaCategorie();
 	}
 	
+	public String[] recuperaAreeTematiche(Integer numeroCategorie) {
+		return areaTematicaDAO.recuperaAreeTematiche(numeroCategorie);
+	}
+	
+	
+	
 	//METODI CorsoDAO
-	public Vector<Vector<String>> recuperaTuttiICorsi(){
-		return corsoDAO.recuperaTuttiICorsi();
+	public Vector<Vector<String>> recuperaCorsi(){
+		return corsoDAO.recuperaCorsi();
+	}
+	
+	public int contaCorsi() {
+		return corsoDAO.contaCorsi();
+	}
+	
+	public String[] recuperaCorsi(int numeroCorsi) {
+		return corsoDAO.recuperaCorsi(numeroCorsi);
 	}
 	
 	public Vector<Vector<String>> ricercaCorsoPerNome(String nome){
@@ -186,7 +213,7 @@ public class Controller {
 	}
 	
 	public void eliminaCorsoSelezionato(Object codiceCorso) {
-		corsoDAO.eliminaCorsoSelezionato(codiceCorso);
+		corsoDAO.eliminaCorso(codiceCorso);
 	}
 	
 	public void modificaCorso(Object codiceCorso,String nome,String docente,String data,String categoria,String descrizione) {

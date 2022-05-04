@@ -11,7 +11,7 @@ public class CorsoDAO {
 	}
 	
 	
-	public Vector<Vector<String>> recuperaTuttiICorsi(){
+	public Vector<Vector<String>> recuperaCorsi(){
 		Vector<Vector<String>> corsi = new Vector<Vector<String>>();
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
@@ -45,8 +45,47 @@ public class CorsoDAO {
 		return corsi;
 	}
 	
+	public int contaCorsi() {
+		Integer numeroCorsi=0;
+		try {
+			connessioneDB = istanzaDB.ConnectToDB();
+			Statement st = connessioneDB.createStatement();
+			ResultSet rs=st.executeQuery("SELECT COUNT(*) FROM CORSO");	
+			rs.next();
+			numeroCorsi=rs.getInt(1);
+			
+			st.close();
+			rs.close();
+			istanzaDB.closeDbConnection();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return numeroCorsi;
+	}
 	
-	
+	public String[] recuperaCorsi(int numeroCorsi) {
+		String[] corsi = new String[numeroCorsi]; 
+		int i=0;
+		try {
+			connessioneDB = istanzaDB.ConnectToDB();
+			Statement st = connessioneDB.createStatement();
+			ResultSet rs = st.executeQuery("SELECT * FROM CORSO ORDER BY codiceCorso");	
+		
+			while(rs.next()) {
+				corsi[i]=rs.getString("nome");
+				i++;
+			}
+			
+			st.close();
+			rs.close();
+			istanzaDB.closeDbConnection();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return corsi;
+	}
 	
 	public Vector<Vector<String>> ricercaCorsoPerNome(String nome){
 		Vector<Vector<String>> corsiPerNome = new Vector<Vector<String>>();
@@ -78,16 +117,12 @@ public class CorsoDAO {
 			st.close();
 			rs.close();
 			istanzaDB.closeDbConnection();
-
 		}
-
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return corsiPerNome;
 	}
-	
-	
 	
 	public Vector<Vector<String>> ricercaCorsoPerData (String data){
 		Vector<Vector<String>> corsiPerData = new Vector<Vector<String>>();
@@ -125,6 +160,7 @@ public class CorsoDAO {
 		}
 		return corsiPerData;
 	}
+
 	public Vector<Vector<String>> ricercaCorsoPerCategoria(String categoria){
 		Vector<Vector<String>> corsiPerCategoria = new Vector<Vector<String>>();
 		try {
@@ -201,7 +237,7 @@ public class CorsoDAO {
 	}
 
 
-	public void eliminaCorsoSelezionato(Object codiceCorso) {
+	public void eliminaCorso(Object codiceCorso) {
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();
 			Statement st = connessioneDB.createStatement();
@@ -243,7 +279,6 @@ public class CorsoDAO {
 				nomeCorso=rs.getString("nome");
 			}
 				
-			
 			st.close();
 			rs.close();
 			istanzaDB.closeDbConnection();

@@ -73,9 +73,11 @@ public class RicercaCorsoFrame extends JFrame {
 	}
 
 	public RicercaCorsoFrame(Controller c){
-		setTitle("Ricerca Corso");
+		
 		controller = c;
 
+		
+		setTitle("Ricerca Corso");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(35, 50, 1300, 635);
 		contentPane = new JPanel();
@@ -112,8 +114,8 @@ public class RicercaCorsoFrame extends JFrame {
 		tornaHomeButton.setFont(new Font("Century", Font.PLAIN, 16));
 		tornaHomeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.getHomeFrame().setVisible(true);
-				c.getRicercaCorsoFrame().setVisible(false);
+				controller.getHomeFrame().setVisible(true);
+				controller.getRicercaCorsoFrame().setVisible(false);
 			}
 		});
 		GridBagConstraints gbc_tornaHomeButton = new GridBagConstraints();
@@ -180,7 +182,7 @@ public class RicercaCorsoFrame extends JFrame {
 		corsiDTM.addColumn("Data");
 		corsiDTM.addColumn("Categoria");
 		corsiDTM.addColumn("Responsabile");
-		corsiDTM=resettaDefaultTableModel(corsiDTM);
+		corsiDTM=setDefaultTableModel(corsiDTM);
 		
 		corsiTable = new JTable();
 		corsiTable.setModel(corsiDTM);
@@ -215,25 +217,25 @@ public class RicercaCorsoFrame extends JFrame {
 				String campo = new String(campoCB.getSelectedItem().toString());
 				switch(campo) {
 				case "Nome":
-					corsi=c.ricercaCorsoPerNome(campoTF.getText().toUpperCase());
+					corsi=controller.ricercaCorsoPerNome(campoTF.getText().toUpperCase());
 					for (Vector<String> vettore : corsi) {
 						corsiDTM.addRow(vettore);
 					}
 					break;
 				case "Categoria":
-					corsi=c.ricercaCorsoPerCategoria(campoTF.getText().toUpperCase());
+					corsi=controller.ricercaCorsoPerCategoria(campoTF.getText().toUpperCase());
 					for (Vector<String> vettore : corsi) {
 						corsiDTM.addRow(vettore);
 					}
 					break;
 				case "Data":
-					corsi=c.ricercaCorsoPerData(campoTF.getText());
+					corsi=controller.ricercaCorsoPerData(campoTF.getText());
 					for (Vector<String> vettore : corsi) {
 						corsiDTM.addRow(vettore);
 					}
 					break;
 				case "Parola Chiave":
-					corsi=c.ricercaCorsoPerParolaChiave(campoTF.getText().toUpperCase());
+					corsi=controller.ricercaCorsoPerParolaChiave(campoTF.getText().toUpperCase());
 					for (Vector<String> vettore : corsi) {
 						corsiDTM.addRow(vettore);
 					}
@@ -257,13 +259,13 @@ public class RicercaCorsoFrame extends JFrame {
 					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
-					c.getModificaFrame().setVisible(true);
-					c.getModificaFrame().setCodiceCorso(corsiTable.getValueAt(corsiTable.getSelectedRow(),0));
-					c.getModificaFrame().getNomeTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
-					c.getModificaFrame().getDescrizioneTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),2).toString());
-					c.getModificaFrame().getDataTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),3).toString());
-					c.getModificaFrame().getCategoriaCB().setSelectedItem(c.getRicercaCorsoFrame().getCorsiTable().getValueAt(c.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(),4));
-					c.getModificaFrame().getResponsabileCB().setSelectedItem(c.getRicercaCorsoFrame().getCorsiTable().getValueAt(c.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(),5));
+					controller.getModificaFrame().setVisible(true);
+					controller.getModificaFrame().setCodiceCorso(corsiTable.getValueAt(corsiTable.getSelectedRow(),0));
+					controller.getModificaFrame().getNomeTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
+					controller.getModificaFrame().getDescrizioneTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),2).toString());
+					controller.getModificaFrame().getDataTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),3).toString());
+					controller.getModificaFrame().getCategoriaCB().setSelectedItem(c.getRicercaCorsoFrame().getCorsiTable().getValueAt(c.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(),4));
+					controller.getModificaFrame().getResponsabileCB().setSelectedItem(c.getRicercaCorsoFrame().getCorsiTable().getValueAt(c.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(),5));
 				}
 			}			
 		});
@@ -297,9 +299,9 @@ public class RicercaCorsoFrame extends JFrame {
 				else {
 					Object codiceCorsoSelezionato;
 					codiceCorsoSelezionato = corsiTable.getValueAt(corsiTable.getSelectedRow(),0);
-					c.eliminaCorsoSelezionato(codiceCorsoSelezionato);
+					controller.eliminaCorsoSelezionato(codiceCorsoSelezionato);
 					corsiDTM.getDataVector().removeAllElements();
-					corsiTable.setModel(resettaDefaultTableModel(corsiDTM));
+					corsiTable.setModel(setDefaultTableModel(corsiDTM));
 				}
 			}
 		});
@@ -319,8 +321,8 @@ public class RicercaCorsoFrame extends JFrame {
 					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
-					c.getStatisticheFrame().setVisible(true);
-					c.getStatisticheFrame().getCorsoTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
+					controller.getStatisticheFrame().setVisible(true);
+					controller.getStatisticheFrame().getCorsoTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
 				}
 			}
 		});
@@ -334,10 +336,10 @@ public class RicercaCorsoFrame extends JFrame {
 	}
 	
 	
-	public DefaultTableModel resettaDefaultTableModel(DefaultTableModel defaultTableModel){
+	public DefaultTableModel setDefaultTableModel(DefaultTableModel defaultTableModel){
 		Vector<Vector<String>> corsi = new Vector<Vector<String>>();
 		
-		corsi=controller.recuperaTuttiICorsi();
+		corsi=controller.recuperaCorsi();
 		for (Vector<String> vettore : corsi) {
 			defaultTableModel.addRow(vettore);
 		}

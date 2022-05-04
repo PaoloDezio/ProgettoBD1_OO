@@ -41,8 +41,6 @@ public class IdoneiFrame extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		
-		
 		JLabel IdoneiLabel = new JLabel("Studenti Idonei");
 		IdoneiLabel.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		GridBagConstraints gbc_IdoneiLabel = new GridBagConstraints();

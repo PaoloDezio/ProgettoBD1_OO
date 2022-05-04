@@ -3,10 +3,9 @@ public class Corso {
 	
 	private String nome;
 	private String descrizione;
-	private Integer capienza;
+	private Integer numeroMassimoIscritti;
 	private Integer numeroLezioni; 
-	private Double presenzeMinime;
-	private String dataInizioCorso;
+	private String dataInizio;
 	private Integer codiceCorso;
 	
 	
@@ -18,14 +17,12 @@ public class Corso {
 		this.nome = nome;
 	}
 	
-	
 	public String getDescrizione() {
 		return descrizione;
 	}
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
-	
 	
 	public Integer getCodiceCorso() {
 		return codiceCorso;
@@ -34,7 +31,6 @@ public class Corso {
 		this.codiceCorso = codiceCorso;
 	}
 	
-	
 	public Integer getNumeroLezioni() {
 		return numeroLezioni;
 	}
@@ -42,28 +38,18 @@ public class Corso {
 		this.numeroLezioni = numeroLezioni;
 	}
 	
-	
-	public String getDataInizioCorso() {
-		return dataInizioCorso;
+	public String getDataInizio() {
+		return dataInizio;
 	}
-	public void setDataInizioCorso(String dataInizioCorso) {
-		this.dataInizioCorso = dataInizioCorso;
-	}
-	
-	
-	public Double getPresenzeMinime() {
-		return presenzeMinime;
-	}
-	public void setPresenzeMinime(Double presenzeMinime) {
-		this.presenzeMinime = presenzeMinime;
+	public void setDataInizio(String dataInizioCorso) {
+		this.dataInizio = dataInizioCorso;
 	}
 	
-	
-	public Integer getCapienza() {
-		return capienza;
+	public Integer getNumeroMassimoIscritti() {
+		return numeroMassimoIscritti;
 	}
-	public void setCapienza(Integer capienza) {
-		this.capienza = capienza;
+	public void setNumeroMassimoIscritti(Integer numeroMassimoIscritti) {
+		this.numeroMassimoIscritti = numeroMassimoIscritti;
 	}
 	
 }

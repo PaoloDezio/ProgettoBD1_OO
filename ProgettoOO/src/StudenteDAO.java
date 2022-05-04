@@ -29,7 +29,7 @@ public class StudenteDAO {
 		}
 	}
 	
-	public String recuperaCodStudente(String nome,String cognome,String luogoN,Date dataDiNascita) {
+	public String recuperaCodiceStudente(String nome,String cognome,String luogoN,Date dataDiNascita) {
 		String codiceStudente="";
 		try {
 			connessioneDB=istanzaDB.ConnectToDB();

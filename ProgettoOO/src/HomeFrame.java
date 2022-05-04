@@ -40,12 +40,12 @@ public class HomeFrame extends JFrame {
 		JButton ricercaCorsoButton = new JButton("Ricerca Corso");
 		ricercaCorsoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.getRicercaCorsoFrame().setVisible(true);
-				c.getHomeFrame().setVisible(false);
-				c.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
-				c.getRicercaCorsoFrame().getCorsiTable().setModel(c.getRicercaCorsoFrame().resettaDefaultTableModel(c.getRicercaCorsoFrame().getCorsiDTM()));
-				c.getRicercaCorsoFrame().getCampoTF().setText("");
-				c.getRicercaCorsoFrame().getCampoCB().setSelectedItem("Nome");
+				controller.getRicercaCorsoFrame().setVisible(true);
+				controller.getHomeFrame().setVisible(false);
+				controller.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
+				controller.getRicercaCorsoFrame().getCorsiTable().setModel(controller.getRicercaCorsoFrame().setDefaultTableModel(controller.getRicercaCorsoFrame().getCorsiDTM()));
+				controller.getRicercaCorsoFrame().getCampoTF().setText("");
+				controller.getRicercaCorsoFrame().getCampoCB().setSelectedItem("Nome");
 			}});
 		
 		JLabel homeLabel = new JLabel("Home");
@@ -69,8 +69,8 @@ public class HomeFrame extends JFrame {
 		JButton iscriviStudenteButton = new JButton("Iscrivi Studente");
 		iscriviStudenteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.getIscriviStudenteFrame().setVisible(true);
-				c.getHomeFrame().setVisible(false);			
+				controller.getIscriviStudenteFrame().setVisible(true);
+				controller.getHomeFrame().setVisible(false);			
 				}
 		});
 		iscriviStudenteButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -84,8 +84,8 @@ public class HomeFrame extends JFrame {
 		JButton tornaAlLoginButton = new JButton("Torna al Login");
 		tornaAlLoginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.getHomeFrame().setVisible(false);	
-				c.getLoginFrame().setVisible(true);
+				controller.getHomeFrame().setVisible(false);	
+				controller.getLoginFrame().setVisible(true);
 			}
 		});
 		

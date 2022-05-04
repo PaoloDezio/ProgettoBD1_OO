@@ -168,35 +168,35 @@ public class StatisticheFrame extends JFrame {
 		contentPane.add(mediaPercentualeTF, gbc_MediaPercentualeTF);
 		mediaPercentualeTF.setColumns(10);
 				
-				JButton idoneiButton = new JButton("Idonei");
-				idoneiButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						c.getIdoneiFrame().setVisible(true);
-					}
-				});
-				
-				JButton indietroButton = new JButton("Indietro");
-				indietroButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						c.getStatisticheFrame().setVisible(false);
-						c.getIdoneiFrame().setVisible(false);
-						c.getRicercaCorsoFrame().setVisible(true);
-					}
-				});
-				
-						indietroButton.setFont(new Font("Century", Font.PLAIN, 18));
-						GridBagConstraints gbc_indietroButton = new GridBagConstraints();
-						gbc_indietroButton.insets = new Insets(0, 0, 5, 5);
-						gbc_indietroButton.gridx = 1;
-						gbc_indietroButton.gridy = 9;
-						contentPane.add(indietroButton, gbc_indietroButton);
-				
-				idoneiButton.setFont(new Font("Century", Font.PLAIN, 18));
-				GridBagConstraints gbc_idoneiButton = new GridBagConstraints();
-				gbc_idoneiButton.insets = new Insets(0, 0, 5, 5);
-				gbc_idoneiButton.gridx = 2;
-				gbc_idoneiButton.gridy = 9;
-				contentPane.add(idoneiButton, gbc_idoneiButton);
+		JButton idoneiButton = new JButton("Idonei");
+		idoneiButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.getIdoneiFrame().setVisible(true);
+			}
+		});
+
+		JButton indietroButton = new JButton("Indietro");
+		indietroButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.getStatisticheFrame().setVisible(false);
+				controller.getIdoneiFrame().setVisible(false);
+				controller.getRicercaCorsoFrame().setVisible(true);
+			}
+		});
+		indietroButton.setFont(new Font("Century", Font.PLAIN, 18));
+		GridBagConstraints gbc_indietroButton = new GridBagConstraints();
+		gbc_indietroButton.insets = new Insets(0, 0, 5, 5);
+		gbc_indietroButton.gridx = 1;
+		gbc_indietroButton.gridy = 9;
+		contentPane.add(indietroButton, gbc_indietroButton);
+
+		idoneiButton.setFont(new Font("Century", Font.PLAIN, 18));
+		GridBagConstraints gbc_idoneiButton = new GridBagConstraints();
+		gbc_idoneiButton.insets = new Insets(0, 0, 5, 5);
+		gbc_idoneiButton.gridx = 2;
+		gbc_idoneiButton.gridy = 9;
+		contentPane.add(idoneiButton, gbc_idoneiButton);
+		
 	}
 
 

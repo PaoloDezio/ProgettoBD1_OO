@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -34,9 +36,10 @@ public class IscriviStudenteFrame extends JFrame {
 	private JTextField cognomeTF;
 	private JTextField dataDiNascitaTF;
 	private JTextField luogoDiNascitaTF;
-	private JTextField codiceCorsoTF;
+	private JTextField corsoTF;
+	private JComboBox corsoCB;
+	private DefaultComboBoxModel corsoCBM;
 	
-
 	public IscriviStudenteFrame(Controller c) {
 		setTitle("Iscrizione");
 		controller = c;
@@ -48,9 +51,9 @@ public class IscriviStudenteFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{34, 0, 100, 100, 100, 0, 0};
+		gbl_contentPane.columnWidths = new int[]{34, 0, 100, 100, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 49, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
@@ -140,74 +143,97 @@ public class IscriviStudenteFrame extends JFrame {
 		contentPane.add(luogoDiNascitaTF, gbc_luogoDiNascitaTF);
 		luogoDiNascitaTF.setColumns(10);
 		
-		JLabel codiceDelCorsoLabel = new JLabel("Codice del Corso");
-		codiceDelCorsoLabel.setFont(new Font("Century", Font.PLAIN, 16));
-		GridBagConstraints gbc_codiceDelCorsoLabel = new GridBagConstraints();
-		gbc_codiceDelCorsoLabel.anchor = GridBagConstraints.EAST;
-		gbc_codiceDelCorsoLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_codiceDelCorsoLabel.gridx = 1;
-		gbc_codiceDelCorsoLabel.gridy = 7;
-		contentPane.add(codiceDelCorsoLabel, gbc_codiceDelCorsoLabel);
-	
+		JLabel corsoLabel = new JLabel("Corso");
+		corsoLabel.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_corsoLabel = new GridBagConstraints();
+		gbc_corsoLabel.anchor = GridBagConstraints.EAST;
+		gbc_corsoLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_corsoLabel.gridx = 1;
+		gbc_corsoLabel.gridy = 7;
+		contentPane.add(corsoLabel, gbc_corsoLabel);
+
+		corsoTF = new JTextField();
+		corsoTF.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_corsoTF = new GridBagConstraints();
+		gbc_corsoTF.insets = new Insets(0, 0, 5, 5);
+		gbc_corsoTF.fill = GridBagConstraints.BOTH;
+		gbc_corsoTF.gridx = 2;
+		gbc_corsoTF.gridy = 7;
+		contentPane.add(corsoTF, gbc_corsoTF);
+		corsoTF.setColumns(10);
 		
 		JButton tornaHomeButton = new JButton("Indietro");
 		tornaHomeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.getHomeFrame().setVisible(true);	
-				c.getIscriviStudenteFrame().setVisible(false);
+				controller.getHomeFrame().setVisible(true);	
+				controller.getIscriviStudenteFrame().setVisible(false);
 			}
 		});
 		tornaHomeButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_tornaHomeButton = new GridBagConstraints();
 		gbc_tornaHomeButton.insets = new Insets(0, 0, 5, 5);
-		gbc_tornaHomeButton.gridx = 3;
+		gbc_tornaHomeButton.gridx = 1;
 		gbc_tornaHomeButton.gridy = 9;
 		contentPane.add(tornaHomeButton, gbc_tornaHomeButton);
-
-		codiceCorsoTF = new JTextField();
-		codiceCorsoTF.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_codiceCorsoTF = new GridBagConstraints();
-		gbc_codiceCorsoTF.insets = new Insets(0, 0, 5, 5);
-		gbc_codiceCorsoTF.fill = GridBagConstraints.BOTH;
-		gbc_codiceCorsoTF.gridx = 2;
-		gbc_codiceCorsoTF.gridy = 7;
-		contentPane.add(codiceCorsoTF, gbc_codiceCorsoTF);
-		codiceCorsoTF.setColumns(10);
-
+		
+		
+		
+		corsoCBM = new DefaultComboBoxModel();
+		corsoCBM = setDefaultComboBoxModelPerCorso(corsoCBM);
+		
+		corsoCB = new JComboBox();
+		corsoCB.setModel(corsoCBM);
+		corsoCB.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_corsoCB = new GridBagConstraints();
+		gbc_corsoCB.insets = new Insets(0, 0, 5, 5);
+		gbc_corsoCB.fill = GridBagConstraints.HORIZONTAL;
+		gbc_corsoCB.gridx = 2;
+		gbc_corsoCB.gridy = 8;
+		contentPane.add(corsoCB, gbc_corsoCB);
+		
 
 		JButton confermaButton = new JButton("Conferma");
 		confermaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					String nome = nomeTF.getText();
-					String cognome = cognomeTF.getText();
-					Date dataDiNascita = new Date(0);
-					dataDiNascita = dataDiNascita.valueOf(dataDiNascitaTF.getText());
-					String luogo = luogoDiNascitaTF.getText();
-					String codiceCorso= codiceCorsoTF.getText();
-					String codiceStudente;
-					
-					c.salvaStudente(nome, cognome, luogo, dataDiNascita);
-					codiceStudente=c.recuperaCodStudente(nome, cognome, luogo, dataDiNascita);
-					if(c.iscriviStudente(codiceCorso,codiceStudente)) {
-						JOptionPane.showMessageDialog(null,"Iscrizione avvenuta con successo");
-						nomeTF.setText("");
-						cognomeTF.setText("");
-						dataDiNascitaTF.setText("");
-						luogoDiNascitaTF.setText("");
-						codiceCorsoTF.setText("");
-						c.getIscriviStudenteFrame().setVisible(false);
-						c.getHomeFrame().setVisible(true);
-					}
+				String nome = nomeTF.getText();
+				String cognome = cognomeTF.getText();
+				Date dataDiNascita = new Date(0);
+				dataDiNascita = dataDiNascita.valueOf(dataDiNascitaTF.getText());
+				String luogo = luogoDiNascitaTF.getText();
+				String codiceCorso= corsoTF.getText();
+				controller.salvaStudente(nome, cognome, luogo, dataDiNascita);
+				String codiceStudente=controller.recuperaCodiceStudente(nome, cognome, luogo, dataDiNascita);
+				if(controller.iscriviStudente(codiceCorso,codiceStudente)) {
+					JOptionPane.showMessageDialog(null,"Iscrizione avvenuta con successo");
+					nomeTF.setText("");
+					cognomeTF.setText("");
+					dataDiNascitaTF.setText("");
+					luogoDiNascitaTF.setText("");
+					corsoTF.setText("");
+					controller.getIscriviStudenteFrame().setVisible(false);
+					controller.getHomeFrame().setVisible(true);
 				}
+			}
 		});
 		confermaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_confermaButton = new GridBagConstraints();
 		gbc_confermaButton.insets = new Insets(0, 0, 5, 5);
-		gbc_confermaButton.gridx = 4;
+		gbc_confermaButton.gridx = 3;
 		gbc_confermaButton.gridy = 9;
 		contentPane.add(confermaButton, gbc_confermaButton);
-		
-		
+
+
 	}
 
+	
+	public DefaultComboBoxModel setDefaultComboBoxModelPerCorso(DefaultComboBoxModel defaultComboBoxModel) {
+		int numeroCorsi=controller.contaCorsi();
+		String[] corsi = controller.recuperaCorsi(numeroCorsi);
+		
+		for(String stringa: corsi) {
+			defaultComboBoxModel.addElement(stringa);
+		}
+		
+		return defaultComboBoxModel;
+	}
 }

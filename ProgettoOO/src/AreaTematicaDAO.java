@@ -9,7 +9,7 @@ public class AreaTematicaDAO {
 		istanzaDB= ConnessioneDB.getIstanza();
 	}
 	
-	public Integer contaCategorie() {
+	public int contaCategorie() {
 		Integer numeroCategorie=0;
 		try {
 			connessioneDB = istanzaDB.ConnectToDB();
@@ -28,7 +28,7 @@ public class AreaTematicaDAO {
 		return numeroCategorie;
 	}
 	
-	public String[] salvaAreeTematiche(Integer numeroCategorie) {
+	public String[] recuperaAreeTematiche(Integer numeroCategorie) {
 		String[] areeTematiche = new String[numeroCategorie]; 
 		int i=0;
 		try {
@@ -51,7 +51,7 @@ public class AreaTematicaDAO {
 		return areeTematiche;
 	}
 	
-	public boolean AreaTematicaIsPresentInDB(String areaTematica) {
+	public boolean IsAreaTematicaInDB(String areaTematica) {
 		try{
 			connessioneDB = istanzaDB.ConnectToDB();
 			Statement st = connessioneDB.createStatement();

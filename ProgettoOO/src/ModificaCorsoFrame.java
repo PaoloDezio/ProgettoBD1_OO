@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.ComboBoxEditor;
 import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -33,7 +34,7 @@ public class ModificaCorsoFrame extends JFrame {
 	private JComboBox categoriaCB;
 	private JTextField dataTF;
 	private JComboBox responsabileCB ;
-
+	private DefaultComboBoxModel categoriaCBM;
 
 	public Object getCodiceCorso() {
 		return codiceCorso;
@@ -69,13 +70,18 @@ public class ModificaCorsoFrame extends JFrame {
 	}
 
 
+	public DefaultComboBoxModel getCategoriaCBM() {
+		return categoriaCBM;
+	}
+
+
 	public ModificaCorsoFrame(Controller c) {
 		
 		controller = c;
 		
 		setTitle("ModificaCorsoFrame");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 640, 365);
+		setBounds(100, 100, 680, 365);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -84,7 +90,7 @@ public class ModificaCorsoFrame extends JFrame {
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel modificaCorsoLabel = new JLabel("Modifica Corso");
@@ -162,11 +168,12 @@ public class ModificaCorsoFrame extends JFrame {
 		gbc_categoriaLabel.gridx = 1;
 		gbc_categoriaLabel.gridy = 5;
 		contentPane.add(categoriaLabel, gbc_categoriaLabel);
-					
-		int numeroCategorie=c.contaCategorie();
-		String[] categorie = c.salvaAreeTematiche(numeroCategorie);
 		
-		categoriaCB = new JComboBox(categorie);
+		categoriaCBM = new DefaultComboBoxModel();
+		categoriaCBM = setDefaultComboBoxModelPerCategoria(categoriaCBM);
+		
+		categoriaCB = new JComboBox();
+		categoriaCB.setModel(categoriaCBM);
 		categoriaCB.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_categoriaCB = new GridBagConstraints();		
 		gbc_categoriaCB.insets = new Insets(0, 0, 5, 5);
@@ -178,7 +185,7 @@ public class ModificaCorsoFrame extends JFrame {
 		JButton aggiungiAreaTematicaButton = new JButton("Aggiungi Area Tematica");
 		aggiungiAreaTematicaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.getAggiungiAreaTematicaFrame().setVisible(true);
+				controller.getAggiungiAreaTematicaFrame().setVisible(true);
 			}
 		});
 		aggiungiAreaTematicaButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -198,6 +205,7 @@ public class ModificaCorsoFrame extends JFrame {
 		contentPane.add(responsabileLabel, gbc_responsabileLabel);
 		
 		
+
 		int numeroResponsabili=c.contaResponsabili();
 		String[] responsabili=c.salvaResponsabili(numeroResponsabili);
 		
@@ -213,7 +221,7 @@ public class ModificaCorsoFrame extends JFrame {
 		JButton indietroButton = new JButton("Indietro");
 		indietroButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.getModificaFrame().setVisible(false);
+				controller.getModificaFrame().setVisible(false);
 			}
 		});
 		indietroButton.setFont(new Font("Century", Font.PLAIN, 18));
@@ -223,20 +231,33 @@ public class ModificaCorsoFrame extends JFrame {
 		gbc_indietroButton.gridy = 9;
 		contentPane.add(indietroButton, gbc_indietroButton);
 		
+		
+//		PROVA DI UNA JTEXTAREA
+//		JTextArea textArea = new JTextArea();
+//		textArea.setFont(new Font("Century", Font.PLAIN, 16));
+//		GridBagConstraints gbc_textArea = new GridBagConstraints();
+//		gbc_textArea.gridheight = 2;
+//		gbc_textArea.insets = new Insets(0, 0, 5, 5);
+//		gbc_textArea.fill = GridBagConstraints.BOTH;
+//		gbc_textArea.gridx = 2;
+//		gbc_textArea.gridy = 7;
+//		contentPane.add(textArea, gbc_textArea);
+//		
+		
 
 		JButton salvaModificheButton = new JButton("Salva Modifiche");
 		salvaModificheButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				codiceCorso= c.getModificaFrame().getCodiceCorso();
+				codiceCorso= controller.getModificaFrame().getCodiceCorso();
 				String nomecorso=nomeTF.getText();
 				String responsabile=c.recuperaCodiceResponsabile(responsabileCB.getSelectedItem().toString());
 				String data=dataTF.getText();
 				String categoria=categoriaCB.getSelectedItem().toString();
 				String descrizione =descrizioneTF.getText();
-				c.modificaCorso(codiceCorso,nomecorso,responsabile,data,categoria,descrizione);
-				c.getModificaFrame().setVisible(false);
-				c.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
-				c.getRicercaCorsoFrame().getCorsiTable().setModel(c.getRicercaCorsoFrame().resettaDefaultTableModel(c.getRicercaCorsoFrame().getCorsiDTM()));
+				controller.modificaCorso(codiceCorso,nomecorso,responsabile,data,categoria,descrizione);
+				controller.getModificaFrame().setVisible(false);
+				controller.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
+				controller.getRicercaCorsoFrame().getCorsiTable().setModel(controller.getRicercaCorsoFrame().setDefaultTableModel(controller.getRicercaCorsoFrame().getCorsiDTM()));
 			}
 		});
 		salvaModificheButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -248,4 +269,15 @@ public class ModificaCorsoFrame extends JFrame {
 		contentPane.add(salvaModificheButton, gbc_salvaButton);
 	}
 	
+	
+	public DefaultComboBoxModel setDefaultComboBoxModelPerCategoria(DefaultComboBoxModel defaultComboBoxModel) {
+		int numeroCategorie=controller.contaCategorie();
+		String[] categorie = controller.recuperaAreeTematiche(numeroCategorie);
+		
+		for(String stringa: categorie) {
+			defaultComboBoxModel.addElement(stringa);
+		}
+		
+		return defaultComboBoxModel;
+	}
 }

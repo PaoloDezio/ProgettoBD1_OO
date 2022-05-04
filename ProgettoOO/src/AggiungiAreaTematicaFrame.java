@@ -14,6 +14,8 @@ import java.awt.Font;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
@@ -78,7 +80,7 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 		JButton indietroButton = new JButton("Indietro");
 		indietroButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.getAggiungiAreaTematicaFrame().setVisible(false);
+				controller.getAggiungiAreaTematicaFrame().setVisible(false);
 			}
 		});
 		indietroButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -95,13 +97,14 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 				if(areaTematicaTF.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(contentPane, "Inserire un'area tematica","",JOptionPane.INFORMATION_MESSAGE);
 				}
-				else if(c.AreaTematicaIsPresentInDB(areaTematicaTF.getText().toUpperCase())) {
+				else if(c.IsAreaTematicaInDB(areaTematicaTF.getText().toUpperCase())) {
 					JOptionPane.showMessageDialog(contentPane, "L'area tematica '"+areaTematicaTF.getText().toUpperCase()+ "' è già presente nel database.\nInserirne una nuova.","",JOptionPane.WARNING_MESSAGE);
 					areaTematicaTF.setText("");
 				}
 				else {
-					c.aggiungiAreaTematica(areaTematicaTF.getText().toUpperCase());
-//					c.getModificaFrame()
+					controller.aggiungiAreaTematica(areaTematicaTF.getText().toUpperCase());
+					controller.getModificaFrame().getCategoriaCB().removeAllItems();
+					controller.getModificaFrame().getCategoriaCB().setModel(c.getModificaFrame().setDefaultComboBoxModelPerCategoria(c.getModificaFrame().getCategoriaCBM()));
 					JOptionPane.showMessageDialog(contentPane, "L'area tematica '"+areaTematicaTF.getText().toUpperCase()+"' è stata aggiunta correttamente","",JOptionPane.CLOSED_OPTION);
 					areaTematicaTF.setText("");
 				}
