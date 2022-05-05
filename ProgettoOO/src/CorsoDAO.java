@@ -10,6 +10,27 @@ public class CorsoDAO {
 		istanzaDB=ConnessioneDB.getIstanza();
 	}
 	
+	public String recuperaCodiceCorso(String nome) {
+		String codiceCorso="";
+		try {
+			connessioneDB=istanzaDB.ConnectToDB();
+
+			Statement st= connessioneDB.createStatement();
+			ResultSet rs= st.executeQuery("SELECT codicecorso FROM CORSO WHERE nome ='"+nome+"'");
+			
+			while(rs.next()) {
+				codiceCorso=rs.getString("codicecorso");
+			}
+			
+			st.close();
+			rs.close();
+			istanzaDB.closeDbConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return codiceCorso;
+	}
 	
 	public Vector<Vector<String>> recuperaCorsi(){
 		Vector<Vector<String>> corsi = new Vector<Vector<String>>();

@@ -13,19 +13,23 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
+import java.awt.SystemColor;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.CompoundBorder;
 
-public class HomeFrame extends JFrame {
+public class HomepageFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Controller controller;
 	
 
-	public HomeFrame(Controller c) {
-		setTitle("Home");
+	public HomepageFrame(Controller c) {
+		setTitle("HomepageFrame");
 		controller = c;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(375, 175, 592, 279);
+		setBounds(375, 175, 515, 279);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -48,7 +52,7 @@ public class HomeFrame extends JFrame {
 				controller.getRicercaCorsoFrame().getCampoCB().setSelectedItem("Nome");
 			}});
 		
-		JLabel homeLabel = new JLabel("Home");
+		JLabel homeLabel = new JLabel("Homepage");
 		homeLabel.setFont(new Font("Century", Font.BOLD, 25));
 		GridBagConstraints gbc_homeLabel = new GridBagConstraints();
 		gbc_homeLabel.anchor = GridBagConstraints.NORTH;
@@ -91,10 +95,10 @@ public class HomeFrame extends JFrame {
 		
 		tornaAlLoginButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_tornaAlLoginButton = new GridBagConstraints();
+		gbc_tornaAlLoginButton.anchor = GridBagConstraints.WEST;
 		gbc_tornaAlLoginButton.gridwidth = 2;
 		gbc_tornaAlLoginButton.insets = new Insets(0, 0, 5, 5);
-		gbc_tornaAlLoginButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tornaAlLoginButton.gridx = 4;
+		gbc_tornaAlLoginButton.gridx = 1;
 		gbc_tornaAlLoginButton.gridy = 3;
 		contentPane.add(tornaAlLoginButton, gbc_tornaAlLoginButton);
 	}

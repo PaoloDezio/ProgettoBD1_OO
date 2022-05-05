@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 
 public class Controller {
 	private LoginFrame loginFrame;
-	private HomeFrame homeFrame;
+	private HomepageFrame homeFrame;
 	private RicercaCorsoFrame ricercaCorsoFrame;
 	private IscriviStudenteFrame iscriviStudenteFrame;
 	private StatisticheFrame statisticheFrame;
@@ -42,7 +42,7 @@ public class Controller {
 
 		setLoginFrame(new LoginFrame(this));
 		getLoginFrame().setVisible(true);
-		setHomeFrame(new HomeFrame(this));
+		setHomeFrame(new HomepageFrame(this));
 		setRicercaCorsoFrame(new RicercaCorsoFrame(this));
 		setIscriviStudenteFrame(new IscriviStudenteFrame(this));
 		setStatisticheFrame(new StatisticheFrame(this));
@@ -62,11 +62,11 @@ public class Controller {
 		this.loginFrame = loginFrame;
 	}
 
-	public HomeFrame getHomeFrame() {
+	public HomepageFrame getHomeFrame() {
 		return homeFrame;
 	}
 
-	public void setHomeFrame(HomeFrame homeFrame) {
+	public void setHomeFrame(HomepageFrame homeFrame) {
 		this.homeFrame = homeFrame;
 	}
 
@@ -152,16 +152,23 @@ public class Controller {
 	}
 	
 	//METODI StudenteDAO
-	public void salvaStudente(String nome,String cognome,String luogo,Date data) {
-		studenteDAO.salvaStudente(nome, cognome, luogo, data);
+	public boolean isStudenteInDb(String nome,String cognome,Date dataDiNascita,String luogoDiNascita) {
+		return studenteDAO.IsStudenteInDB(nome,cognome,dataDiNascita,luogoDiNascita);
+	}
+	public void salvaStudente(String nome,String cognome,Date dataDiNascita,String luogo) {
+		studenteDAO.salvaStudente(nome,cognome,dataDiNascita,luogo);
 	}
 	
-	public String recuperaCodiceStudente(String nome,String cognome,String luogo,Date dataDiNascita) {
-		return studenteDAO.recuperaCodiceStudente(nome, cognome, luogo, dataDiNascita);
+	public String recuperaCodiceStudente(String nome,String cognome,Date dataDiNascita,String luogoDiNascita) {
+		return studenteDAO.recuperaCodiceStudente(nome,cognome,dataDiNascita,luogoDiNascita);
 	}
 	
-	public boolean iscriviStudente(String codiceCorso,String codStudente) {
-		return studenteDAO.iscriviStudente(codiceCorso,codStudente);
+	public boolean isStudenteIscrittoAdUnCorso(String codiceStudente,String codiceCorso) {
+		return studenteDAO.isStudenteIscrittoAdUnCorso(codiceStudente,codiceCorso);
+	}
+	
+	public void iscriviStudente(String codiceStudente,String codiceCorso) {
+		studenteDAO.iscriviStudente(codiceStudente,codiceCorso);
 	}
 
 	//METODI AreaTematicaDAO
@@ -184,6 +191,11 @@ public class Controller {
 	
 	
 	//METODI CorsoDAO
+	
+	public String recuperaCodiceCorso(String nome) {
+		return corsoDAO.recuperaCodiceCorso(nome);
+	}
+	
 	public Vector<Vector<String>> recuperaCorsi(){
 		return corsoDAO.recuperaCorsi();
 	}
