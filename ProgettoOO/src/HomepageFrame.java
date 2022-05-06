@@ -29,7 +29,7 @@ public class HomepageFrame extends JFrame {
 		controller = c;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(375, 175, 515, 279);
+		setBounds(375, 175, 515, 240);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -41,8 +41,8 @@ public class HomepageFrame extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		JButton ricercaCorsoButton = new JButton("Ricerca Corso");
-		ricercaCorsoButton.addActionListener(new ActionListener() {
+		JButton gestioneCorsiButton = new JButton("Gestione Corsi");
+		gestioneCorsiButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.getRicercaCorsoFrame().setVisible(true);
 				controller.getHomeFrame().setVisible(false);
@@ -61,29 +61,29 @@ public class HomepageFrame extends JFrame {
 		gbc_homeLabel.gridx = 1;
 		gbc_homeLabel.gridy = 0;
 		contentPane.add(homeLabel, gbc_homeLabel);
-		ricercaCorsoButton.setFont(new Font("Century", Font.PLAIN, 16));
-		GridBagConstraints gbc_ricercaCorsoButton = new GridBagConstraints();
-		gbc_ricercaCorsoButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_ricercaCorsoButton.gridwidth = 2;
-		gbc_ricercaCorsoButton.insets = new Insets(0, 0, 5, 5);
-		gbc_ricercaCorsoButton.gridx = 1;
-		gbc_ricercaCorsoButton.gridy = 1;
-		contentPane.add(ricercaCorsoButton, gbc_ricercaCorsoButton);
+		gestioneCorsiButton.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_gestioneCorsiButton = new GridBagConstraints();
+		gbc_gestioneCorsiButton.fill = GridBagConstraints.HORIZONTAL;
+		gbc_gestioneCorsiButton.gridwidth = 2;
+		gbc_gestioneCorsiButton.insets = new Insets(0, 0, 5, 5);
+		gbc_gestioneCorsiButton.gridx = 1;
+		gbc_gestioneCorsiButton.gridy = 1;
+		contentPane.add(gestioneCorsiButton, gbc_gestioneCorsiButton);
 		
-		JButton iscriviStudenteButton = new JButton("Iscrivi Studente");
-		iscriviStudenteButton.addActionListener(new ActionListener() {
+		JButton iscrizioniStudentiButton = new JButton("Iscrizioni Studenti");
+		iscrizioniStudentiButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.getIscriviStudenteFrame().setVisible(true);
 				controller.getHomeFrame().setVisible(false);			
 				}
 		});
-		iscriviStudenteButton.setFont(new Font("Century", Font.PLAIN, 16));
-		GridBagConstraints gbc_iscriviStudenteButton = new GridBagConstraints();
-		gbc_iscriviStudenteButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_iscriviStudenteButton.insets = new Insets(0, 0, 5, 5);
-		gbc_iscriviStudenteButton.gridx = 3;
-		gbc_iscriviStudenteButton.gridy = 1;
-		contentPane.add(iscriviStudenteButton, gbc_iscriviStudenteButton);
+		iscrizioniStudentiButton.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_iscrizioniStudentiButton = new GridBagConstraints();
+		gbc_iscrizioniStudentiButton.fill = GridBagConstraints.HORIZONTAL;
+		gbc_iscrizioniStudentiButton.insets = new Insets(0, 0, 5, 5);
+		gbc_iscrizioniStudentiButton.gridx = 3;
+		gbc_iscrizioniStudentiButton.gridy = 1;
+		contentPane.add(iscrizioniStudentiButton, gbc_iscrizioniStudentiButton);
 		
 		JButton tornaAlLoginButton = new JButton("Torna al Login");
 		tornaAlLoginButton.addActionListener(new ActionListener() {

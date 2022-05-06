@@ -88,9 +88,9 @@ public class ModificaCorsoFrame extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 18, 19, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel modificaCorsoLabel = new JLabel("Modifica Corso");
@@ -151,6 +151,7 @@ public class ModificaCorsoFrame extends JFrame {
 		contentPane.add(dataLabel, gbc_dataLabel);
 		
 		dataTF = new JTextField();
+		dataTF.setToolTipText("YYYY-MM-DD");
 		dataTF.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_dataTF = new GridBagConstraints();
 		gbc_dataTF.insets = new Insets(0, 0, 5, 5);
@@ -228,7 +229,7 @@ public class ModificaCorsoFrame extends JFrame {
 		GridBagConstraints gbc_indietroButton = new GridBagConstraints();
 		gbc_indietroButton.insets = new Insets(0, 0, 0, 5);
 		gbc_indietroButton.gridx = 1;
-		gbc_indietroButton.gridy = 9;
+		gbc_indietroButton.gridy = 8;
 		contentPane.add(indietroButton, gbc_indietroButton);
 		
 		
@@ -265,7 +266,7 @@ public class ModificaCorsoFrame extends JFrame {
 		gbc_salvaButton.insets = new Insets(0, 0, 0, 5);
 		gbc_salvaButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_salvaButton.gridx = 3;
-		gbc_salvaButton.gridy = 9;
+		gbc_salvaButton.gridy = 8;
 		contentPane.add(salvaModificheButton, gbc_salvaButton);
 	}
 	

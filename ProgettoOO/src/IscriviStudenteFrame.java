@@ -45,16 +45,16 @@ public class IscriviStudenteFrame extends JFrame {
 		
 		setTitle("IscriviStudente");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(375, 175, 600, 400);
+		setBounds(375, 175, 600, 365);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{26, 0, 100, 100, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 24, 0, 0, 0, 0, 0, 15, 0, 0};
+		gbl_contentPane.columnWidths = new int[]{21, 122, 100, 100, 40, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 24, 0, 0, 0, 0, 0, 15, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel iscrizioneLabel = new JLabel("Iscrizione ");
@@ -64,7 +64,7 @@ public class IscriviStudenteFrame extends JFrame {
 		gbc_iscrizioneLabel.gridwidth = 2;
 		gbc_iscrizioneLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_iscrizioneLabel.gridx = 1;
-		gbc_iscrizioneLabel.gridy = 1;
+		gbc_iscrizioneLabel.gridy = 0;
 		contentPane.add(iscrizioneLabel, gbc_iscrizioneLabel);
 		
 		JLabel nomeLabel = new JLabel("Nome");
@@ -73,7 +73,7 @@ public class IscriviStudenteFrame extends JFrame {
 		gbc_nomeLabel.anchor = GridBagConstraints.EAST;
 		gbc_nomeLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_nomeLabel.gridx = 1;
-		gbc_nomeLabel.gridy = 3;
+		gbc_nomeLabel.gridy = 2;
 		contentPane.add(nomeLabel, gbc_nomeLabel);
 		
 		nomeTF = new JTextField();
@@ -82,7 +82,7 @@ public class IscriviStudenteFrame extends JFrame {
 		gbc_nomeTF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_nomeTF.insets = new Insets(0, 0, 5, 5);
 		gbc_nomeTF.gridx = 2;
-		gbc_nomeTF.gridy = 3;
+		gbc_nomeTF.gridy = 2;
 		contentPane.add(nomeTF, gbc_nomeTF);
 		nomeTF.setColumns(10);
 		
@@ -92,7 +92,7 @@ public class IscriviStudenteFrame extends JFrame {
 		gbc_cognomeLabel.anchor = GridBagConstraints.EAST;
 		gbc_cognomeLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_cognomeLabel.gridx = 1;
-		gbc_cognomeLabel.gridy = 4;
+		gbc_cognomeLabel.gridy = 3;
 		contentPane.add(cognomeLabel, gbc_cognomeLabel);
 		
 		cognomeTF = new JTextField();
@@ -101,7 +101,7 @@ public class IscriviStudenteFrame extends JFrame {
 		gbc_cognomeTF.insets = new Insets(0, 0, 5, 5);
 		gbc_cognomeTF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cognomeTF.gridx = 2;
-		gbc_cognomeTF.gridy = 4;
+		gbc_cognomeTF.gridy = 3;
 		contentPane.add(cognomeTF, gbc_cognomeTF);
 		cognomeTF.setColumns(10);
 		
@@ -111,7 +111,7 @@ public class IscriviStudenteFrame extends JFrame {
 		gbc_dataDiNascitaLabel.anchor = GridBagConstraints.EAST;
 		gbc_dataDiNascitaLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_dataDiNascitaLabel.gridx = 1;
-		gbc_dataDiNascitaLabel.gridy = 5;
+		gbc_dataDiNascitaLabel.gridy = 4;
 		contentPane.add(dataDiNascitaLabel, gbc_dataDiNascitaLabel);
 		
 		dataDiNascitaTF = new JTextField();
@@ -120,7 +120,7 @@ public class IscriviStudenteFrame extends JFrame {
 		gbc_dataDiNascitaTF.insets = new Insets(0, 0, 5, 5);
 		gbc_dataDiNascitaTF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_dataDiNascitaTF.gridx = 2;
-		gbc_dataDiNascitaTF.gridy = 5;
+		gbc_dataDiNascitaTF.gridy = 4;
 		contentPane.add(dataDiNascitaTF, gbc_dataDiNascitaTF);
 		dataDiNascitaTF.setColumns(10);
 		
@@ -130,7 +130,7 @@ public class IscriviStudenteFrame extends JFrame {
 		gbc_luogoDiNascitaLabel.anchor = GridBagConstraints.EAST;
 		gbc_luogoDiNascitaLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_luogoDiNascitaLabel.gridx = 1;
-		gbc_luogoDiNascitaLabel.gridy = 6;
+		gbc_luogoDiNascitaLabel.gridy = 5;
 		contentPane.add(luogoDiNascitaLabel, gbc_luogoDiNascitaLabel);
 		
 		luogoDiNascitaTF = new JTextField();
@@ -139,7 +139,7 @@ public class IscriviStudenteFrame extends JFrame {
 		gbc_luogoDiNascitaTF.insets = new Insets(0, 0, 5, 5);
 		gbc_luogoDiNascitaTF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_luogoDiNascitaTF.gridx = 2;
-		gbc_luogoDiNascitaTF.gridy = 6;
+		gbc_luogoDiNascitaTF.gridy = 5;
 		contentPane.add(luogoDiNascitaTF, gbc_luogoDiNascitaTF);
 		luogoDiNascitaTF.setColumns(10);
 		
@@ -149,7 +149,7 @@ public class IscriviStudenteFrame extends JFrame {
 		gbc_corsoLabel.anchor = GridBagConstraints.EAST;
 		gbc_corsoLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_corsoLabel.gridx = 1;
-		gbc_corsoLabel.gridy = 7;
+		gbc_corsoLabel.gridy = 6;
 		contentPane.add(corsoLabel, gbc_corsoLabel);
 		
 
@@ -163,7 +163,7 @@ public class IscriviStudenteFrame extends JFrame {
 		gbc_corsoCB.insets = new Insets(0, 0, 5, 5);
 		gbc_corsoCB.fill = GridBagConstraints.HORIZONTAL;
 		gbc_corsoCB.gridx = 2;
-		gbc_corsoCB.gridy = 7;
+		gbc_corsoCB.gridy = 6;
 		contentPane.add(corsoCB, gbc_corsoCB);
 		
 		JButton indietroButton = new JButton("Indietro");
@@ -183,7 +183,7 @@ public class IscriviStudenteFrame extends JFrame {
 		GridBagConstraints gbc_indietroButton = new GridBagConstraints();
 		gbc_indietroButton.insets = new Insets(0, 0, 0, 5);
 		gbc_indietroButton.gridx = 1;
-		gbc_indietroButton.gridy = 9;
+		gbc_indietroButton.gridy = 8;
 		contentPane.add(indietroButton, gbc_indietroButton);
 		
 
@@ -225,7 +225,7 @@ public class IscriviStudenteFrame extends JFrame {
 		GridBagConstraints gbc_confermaButton = new GridBagConstraints();
 		gbc_confermaButton.gridwidth = 2;
 		gbc_confermaButton.gridx = 3;
-		gbc_confermaButton.gridy = 9;
+		gbc_confermaButton.gridy = 8;
 		contentPane.add(confermaButton, gbc_confermaButton);
 
 
