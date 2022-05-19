@@ -11,6 +11,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.Insets;
 import javax.swing.JTextField;
+import javax.swing.JComboBox;
 
 public class AggiungiCorsoFrame extends JFrame {
 
@@ -18,12 +19,14 @@ public class AggiungiCorsoFrame extends JFrame {
 	private Controller controller;
 	private JTextField nomeTF;
 	private JTextField descrizioneTF;
-	private JTextField numeroMassimoIscrittiTF;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField numeroMassimoPartecipantiTF;
+	private JTextField numeroDiLezioniTF;
+	private JTextField dataDiInizioTF;
 	private JLabel numeroMassimoPartecipantiLabel;
 	private JLabel numeroDiLezioniLabel;
 	private JLabel dataDiInizio;
+	private JLabel responsabileLabel;
+	private JComboBox responsabileCB;
 
 	
 	public AggiungiCorsoFrame(Controller c) {
@@ -33,16 +36,16 @@ public class AggiungiCorsoFrame extends JFrame {
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 410);
+		setBounds(100, 100, 560, 410);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[]{0, 0, 67, 80, 77, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel aggiungiCorsoLabel = new JLabel("Aggiungi Corso");
@@ -65,7 +68,8 @@ public class AggiungiCorsoFrame extends JFrame {
 		nomeTF = new JTextField();
 		nomeTF.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_nomeTF = new GridBagConstraints();
-		gbc_nomeTF.insets = new Insets(0, 0, 5, 0);
+		gbc_nomeTF.gridwidth = 3;
+		gbc_nomeTF.insets = new Insets(0, 0, 5, 5);
 		gbc_nomeTF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_nomeTF.gridx = 2;
 		gbc_nomeTF.gridy = 2;
@@ -85,7 +89,8 @@ public class AggiungiCorsoFrame extends JFrame {
 		descrizioneTF.setFont(new Font("Century", Font.PLAIN, 16));
 		descrizioneTF.setColumns(10);
 		GridBagConstraints gbc_descrizioneTF = new GridBagConstraints();
-		gbc_descrizioneTF.insets = new Insets(0, 0, 5, 0);
+		gbc_descrizioneTF.gridwidth = 3;
+		gbc_descrizioneTF.insets = new Insets(0, 0, 5, 5);
 		gbc_descrizioneTF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_descrizioneTF.gridx = 2;
 		gbc_descrizioneTF.gridy = 3;
@@ -100,15 +105,16 @@ public class AggiungiCorsoFrame extends JFrame {
 		gbc_numeroMassimoPartecipantiLabel.gridy = 4;
 		contentPane.add(numeroMassimoPartecipantiLabel, gbc_numeroMassimoPartecipantiLabel);
 		
-		numeroMassimoIscrittiTF = new JTextField();
-		numeroMassimoIscrittiTF.setFont(new Font("Century", Font.PLAIN, 16));
-		numeroMassimoIscrittiTF.setColumns(10);
-		GridBagConstraints gbc_numeroMassimoIscrittiTF = new GridBagConstraints();
-		gbc_numeroMassimoIscrittiTF.insets = new Insets(0, 0, 5, 0);
-		gbc_numeroMassimoIscrittiTF.fill = GridBagConstraints.HORIZONTAL;
-		gbc_numeroMassimoIscrittiTF.gridx = 2;
-		gbc_numeroMassimoIscrittiTF.gridy = 4;
-		contentPane.add(numeroMassimoIscrittiTF, gbc_numeroMassimoIscrittiTF);
+		numeroMassimoPartecipantiTF = new JTextField();
+		numeroMassimoPartecipantiTF.setFont(new Font("Century", Font.PLAIN, 16));
+		numeroMassimoPartecipantiTF.setColumns(10);
+		GridBagConstraints gbc_numeroMassimoPartecipantiTF = new GridBagConstraints();
+		gbc_numeroMassimoPartecipantiTF.gridwidth = 3;
+		gbc_numeroMassimoPartecipantiTF.insets = new Insets(0, 0, 5, 5);
+		gbc_numeroMassimoPartecipantiTF.fill = GridBagConstraints.HORIZONTAL;
+		gbc_numeroMassimoPartecipantiTF.gridx = 2;
+		gbc_numeroMassimoPartecipantiTF.gridy = 4;
+		contentPane.add(numeroMassimoPartecipantiTF, gbc_numeroMassimoPartecipantiTF);
 		
 		numeroDiLezioniLabel = new JLabel("N\u00B0 di lezioni");
 		numeroDiLezioniLabel.setFont(new Font("Century", Font.PLAIN, 16));
@@ -119,33 +125,55 @@ public class AggiungiCorsoFrame extends JFrame {
 		gbc_numeroDiLezioniLabel.gridy = 5;
 		contentPane.add(numeroDiLezioniLabel, gbc_numeroDiLezioniLabel);
 		
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Century", Font.PLAIN, 16));
-		textField_2.setColumns(10);
-		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_2.gridx = 2;
-		gbc_textField_2.gridy = 5;
-		contentPane.add(textField_2, gbc_textField_2);
+		numeroDiLezioniTF = new JTextField();
+		numeroDiLezioniTF.setFont(new Font("Century", Font.PLAIN, 16));
+		numeroDiLezioniTF.setColumns(10);
+		GridBagConstraints gbc_numeroDiLezioniTF = new GridBagConstraints();
+		gbc_numeroDiLezioniTF.gridwidth = 3;
+		gbc_numeroDiLezioniTF.insets = new Insets(0, 0, 5, 5);
+		gbc_numeroDiLezioniTF.fill = GridBagConstraints.HORIZONTAL;
+		gbc_numeroDiLezioniTF.gridx = 2;
+		gbc_numeroDiLezioniTF.gridy = 5;
+		contentPane.add(numeroDiLezioniTF, gbc_numeroDiLezioniTF);
 		
-		dataDiInizio = new JLabel("N\u00B0 di lezioni");
+		dataDiInizio = new JLabel("Data di inizio");
 		dataDiInizio.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_dataDiInizio = new GridBagConstraints();
-		gbc_dataDiInizio.insets = new Insets(0, 0, 0, 5);
+		gbc_dataDiInizio.insets = new Insets(0, 0, 5, 5);
 		gbc_dataDiInizio.anchor = GridBagConstraints.EAST;
 		gbc_dataDiInizio.gridx = 1;
 		gbc_dataDiInizio.gridy = 6;
 		contentPane.add(dataDiInizio, gbc_dataDiInizio);
 		
-		textField_3 = new JTextField();
-		textField_3.setFont(new Font("Century", Font.PLAIN, 16));
-		textField_3.setColumns(10);
-		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_3.gridx = 2;
-		gbc_textField_3.gridy = 6;
-		contentPane.add(textField_3, gbc_textField_3);
+		dataDiInizioTF = new JTextField();
+		dataDiInizioTF.setFont(new Font("Century", Font.PLAIN, 16));
+		dataDiInizioTF.setColumns(10);
+		GridBagConstraints gbc_dataDiInizioTF = new GridBagConstraints();
+		gbc_dataDiInizioTF.gridwidth = 3;
+		gbc_dataDiInizioTF.insets = new Insets(0, 0, 5, 5);
+		gbc_dataDiInizioTF.fill = GridBagConstraints.HORIZONTAL;
+		gbc_dataDiInizioTF.gridx = 2;
+		gbc_dataDiInizioTF.gridy = 6;
+		contentPane.add(dataDiInizioTF, gbc_dataDiInizioTF);
+		
+		responsabileLabel = new JLabel("Responsabile");
+		responsabileLabel.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_responsabileLabel = new GridBagConstraints();
+		gbc_responsabileLabel.anchor = GridBagConstraints.EAST;
+		gbc_responsabileLabel.insets = new Insets(0, 0, 0, 5);
+		gbc_responsabileLabel.gridx = 1;
+		gbc_responsabileLabel.gridy = 7;
+		contentPane.add(responsabileLabel, gbc_responsabileLabel);
+		
+		responsabileCB = new JComboBox();
+		responsabileCB.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_responsabileCB = new GridBagConstraints();
+		gbc_responsabileCB.gridwidth = 3;
+		gbc_responsabileCB.insets = new Insets(0, 0, 0, 5);
+		gbc_responsabileCB.fill = GridBagConstraints.HORIZONTAL;
+		gbc_responsabileCB.gridx = 2;
+		gbc_responsabileCB.gridy = 7;
+		contentPane.add(responsabileCB, gbc_responsabileCB);
 	}
 
 }

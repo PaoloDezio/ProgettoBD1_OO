@@ -13,7 +13,7 @@ public class ConnessioneDB {
 	}
 	
 	
-	public Connection ConnectToDB() {	
+	public Connection connectToDB() {	
 		if(connessioneDB==null) {
 			try {
 				Class.forName("org.postgresql.Driver");
@@ -44,7 +44,7 @@ public class ConnessioneDB {
 	
 	
 	
-	public boolean closeDbConnection() {
+	public boolean closeConnectionToDB() {
 		try {
 			connessioneDB.close();
 			connessioneDB = null;

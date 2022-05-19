@@ -10,21 +10,37 @@ public class CorsoDAO {
 		istanzaDB=ConnessioneDB.getIstanza();
 	}
 	
+	
+	
+	
+	public void inserisciCorso(String nome,String descrizione,String numeroMassimoPartecipanti,String numeroLezioni,Date dataDiInizio,String codiceResponsabile) {
+		try {
+			connessioneDB=istanzaDB.connectToDB();	
+			Statement statement = connessioneDB.createStatement();
+			statement.executeUpdate("INSERT INTO CORSO(");
+			
+			}
+		catch(SQLException e) {
+			
+		}
+	}
+	
+	
 	public String recuperaCodiceCorso(String nome) {
 		String codiceCorso="";
 		try {
-			connessioneDB=istanzaDB.ConnectToDB();
+			connessioneDB=istanzaDB.connectToDB();
 
-			Statement st= connessioneDB.createStatement();
-			ResultSet rs= st.executeQuery("SELECT codicecorso FROM CORSO WHERE nome ='"+nome+"'");
+			Statement statetement= connessioneDB.createStatement();
+			ResultSet resultSet= statetement.executeQuery("SELECT codicecorso FROM CORSO WHERE nome ='"+nome+"'");
 			
-			while(rs.next()) {
-				codiceCorso=rs.getString("codicecorso");
+			while(resultSet.next()) {
+				codiceCorso=resultSet.getString("codicecorso");
 			}
 			
-			st.close();
-			rs.close();
-			istanzaDB.closeDbConnection();
+			statetement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -35,9 +51,9 @@ public class CorsoDAO {
 	public Vector<Vector<String>> recuperaCorsi(){
 		Vector<Vector<String>> corsi = new Vector<Vector<String>>();
 		try {
-			connessioneDB=istanzaDB.ConnectToDB();
-			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
+			connessioneDB=istanzaDB.connectToDB();
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
 					+ "							   c.descrizione,c.categoria,r.cognome,r.codiceresponsabile\r\n"
 					+ "						FROM RESPONSABILE AS r JOIN (SELECT tc.codicecorso,tc.categoria,c.nome,\r\n"
 					+ "															c.descrizione,c.codiceresponsabile,"
@@ -46,19 +62,19 @@ public class CorsoDAO {
 					+ "					        						 AS c ON r.codiceresponsabile=c.codiceresponsabile\r\n"
 					+ "						ORDER BY codicecorso");
 
-			while(rs.next()) {
+			while(resultSet.next()) {
 				Vector<String> vettore = new Vector<String>();
-				vettore.add(rs.getString("codiceCorso"));
-				vettore.add(rs.getString("nome"));
-				vettore.add(rs.getString("descrizione"));
-				vettore.add(rs.getString("datainizio"));
-				vettore.add(rs.getString("categoria"));
-				vettore.add(rs.getString("cognome"));
+				vettore.add(resultSet.getString("codiceCorso"));
+				vettore.add(resultSet.getString("nome"));
+				vettore.add(resultSet.getString("descrizione"));
+				vettore.add(resultSet.getString("datainizio"));
+				vettore.add(resultSet.getString("categoria"));
+				vettore.add(resultSet.getString("cognome"));
 				corsi.add(vettore);
 			}
-			st.close();
-			rs.close();
-			istanzaDB.closeDbConnection();
+			statement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -69,15 +85,15 @@ public class CorsoDAO {
 	public int contaCorsi() {
 		Integer numeroCorsi=0;
 		try {
-			connessioneDB = istanzaDB.ConnectToDB();
-			Statement st = connessioneDB.createStatement();
-			ResultSet rs=st.executeQuery("SELECT COUNT(*) FROM CORSO");	
-			rs.next();
-			numeroCorsi=rs.getInt(1);
+			connessioneDB = istanzaDB.connectToDB();
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM CORSO");	
+			resultSet.next();
+			numeroCorsi=resultSet.getInt(1);
 			
-			st.close();
-			rs.close();
-			istanzaDB.closeDbConnection();
+			statement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -89,18 +105,18 @@ public class CorsoDAO {
 		String[] corsi = new String[numeroCorsi]; 
 		int i=0;
 		try {
-			connessioneDB = istanzaDB.ConnectToDB();
-			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM CORSO ORDER BY codiceCorso");	
+			connessioneDB = istanzaDB.connectToDB();
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM CORSO ORDER BY codiceCorso");	
 		
-			while(rs.next()) {
-				corsi[i]=rs.getString("nome");
+			while(resultSet.next()) {
+				corsi[i]=resultSet.getString("nome");
 				i++;
 			}
 			
-			st.close();
-			rs.close();
-			istanzaDB.closeDbConnection();
+			statement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -111,10 +127,10 @@ public class CorsoDAO {
 	public Vector<Vector<String>> ricercaCorsoPerNome(String nome){
 		Vector<Vector<String>> corsiPerNome = new Vector<Vector<String>>();
 		try {
-			connessioneDB=istanzaDB.ConnectToDB();
+			connessioneDB=istanzaDB.connectToDB();
 
-			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
 					+ "							   c.descrizione,c.categoria,r.cognome,r.codiceresponsabile\r\n"
 					+ "						FROM RESPONSABILE AS r JOIN (SELECT tc.codicecorso,tc.categoria,c.nome,\r\n"
 					+ "															c.descrizione,c.codiceresponsabile,"
@@ -124,20 +140,20 @@ public class CorsoDAO {
 					+ "						WHERE Nome LIKE '%"+nome+"%'"
 					+ "						ORDER BY codiceCorso");
 
-			while(rs.next()) {
+			while(resultSet.next()) {
 				Vector<String> vettore = new Vector<String>();
-				vettore.add(rs.getString("codiceCorso"));
-				vettore.add(rs.getString("nome"));
-				vettore.add(rs.getString("descrizione"));
-				vettore.add(rs.getString("datainizio"));
-				vettore.add(rs.getString("categoria"));
-				vettore.add(rs.getString("cognome"));
+				vettore.add(resultSet.getString("codiceCorso"));
+				vettore.add(resultSet.getString("nome"));
+				vettore.add(resultSet.getString("descrizione"));
+				vettore.add(resultSet.getString("datainizio"));
+				vettore.add(resultSet.getString("categoria"));
+				vettore.add(resultSet.getString("cognome"));
 				corsiPerNome.add(vettore);
 			}
 
-			st.close();
-			rs.close();
-			istanzaDB.closeDbConnection();
+			statement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -148,10 +164,10 @@ public class CorsoDAO {
 	public Vector<Vector<String>> ricercaCorsoPerData (String data){
 		Vector<Vector<String>> corsiPerData = new Vector<Vector<String>>();
 		try {
-			connessioneDB=istanzaDB.ConnectToDB();
+			connessioneDB=istanzaDB.connectToDB();
 
-			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
 					+ "							   c.descrizione,c.categoria,r.cognome,r.codiceresponsabile\r\n"
 					+ "						FROM RESPONSABILE AS r JOIN (SELECT tc.codicecorso,tc.categoria,c.nome,\r\n"
 					+ "															c.descrizione,c.codiceresponsabile,"
@@ -161,20 +177,20 @@ public class CorsoDAO {
 					+ "						WHERE CAST(C.datainizio AS VARCHAR(25)) LIKE '%"+data+"%' "
 							+ "				ORDER BY codiceCorso");
 
-			while(rs.next()) {
+			while(resultSet.next()) {
 				Vector<String> vettore = new Vector<String>();
-				vettore.add(rs.getString("codiceCorso"));
-				vettore.add(rs.getString("nome"));
-				vettore.add(rs.getString("descrizione"));
-				vettore.add(rs.getString("datainizio"));
-				vettore.add(rs.getString("categoria"));
-				vettore.add(rs.getString("cognome"));
+				vettore.add(resultSet.getString("codiceCorso"));
+				vettore.add(resultSet.getString("nome"));
+				vettore.add(resultSet.getString("descrizione"));
+				vettore.add(resultSet.getString("datainizio"));
+				vettore.add(resultSet.getString("categoria"));
+				vettore.add(resultSet.getString("cognome"));
 				corsiPerData.add(vettore);
 			}
 
-			st.close();
-			rs.close();
-			istanzaDB.closeDbConnection();
+			statement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -185,10 +201,10 @@ public class CorsoDAO {
 	public Vector<Vector<String>> ricercaCorsoPerCategoria(String categoria){
 		Vector<Vector<String>> corsiPerCategoria = new Vector<Vector<String>>();
 		try {
-			connessioneDB=istanzaDB.ConnectToDB();
+			connessioneDB=istanzaDB.connectToDB();
 
-			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
 					+ "							   c.descrizione,c.categoria,r.cognome,r.codiceresponsabile\r\n"
 					+ "						FROM RESPONSABILE AS r JOIN (SELECT tc.codicecorso,tc.categoria,c.nome,\r\n"
 					+ "															c.descrizione,c.codiceresponsabile,"
@@ -199,20 +215,20 @@ public class CorsoDAO {
 					+ "						ORDER BY codiceCorso");
 
 
-			while(rs.next()) {
+			while(resultSet.next()) {
 				Vector<String> vettore = new Vector<String>();
-				vettore.add(rs.getString("codiceCorso"));
-				vettore.add(rs.getString("nome"));
-				vettore.add(rs.getString("descrizione"));
-				vettore.add(rs.getString("datainizio"));
-				vettore.add(rs.getString("categoria"));
-				vettore.add(rs.getString("cognome"));
+				vettore.add(resultSet.getString("codiceCorso"));
+				vettore.add(resultSet.getString("nome"));
+				vettore.add(resultSet.getString("descrizione"));
+				vettore.add(resultSet.getString("datainizio"));
+				vettore.add(resultSet.getString("categoria"));
+				vettore.add(resultSet.getString("cognome"));
 				corsiPerCategoria.add(vettore);
 			}
 
-			st.close();
-			rs.close();
-			istanzaDB.closeDbConnection();
+			statement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -223,10 +239,10 @@ public class CorsoDAO {
 	public Vector<Vector<String>> ricercaCorsoPerParolaChiave(String parolaChiave){
 		Vector<Vector<String>> corsiPerParolaChiave = new Vector<Vector<String>>();
 		try {
-			connessioneDB=istanzaDB.ConnectToDB();
+			connessioneDB=istanzaDB.connectToDB();
 
-			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
 					+ "							   c.descrizione,c.categoria,r.cognome,r.codiceresponsabile\r\n"
 					+ "						FROM RESPONSABILE AS r JOIN (SELECT tc.codicecorso,tc.categoria,c.nome,\r\n"
 					+ "															c.descrizione,c.codiceresponsabile,"
@@ -236,20 +252,20 @@ public class CorsoDAO {
 					+ "						WHERE C.descrizione LIKE '%"+parolaChiave+"%' "
 					+ "						ORDER BY codiceCorso");
 
-			while(rs.next()) {
+			while(resultSet.next()) {
 				Vector<String> vettore = new Vector<String>();
-				vettore.add(rs.getString("codiceCorso"));
-				vettore.add(rs.getString("nome"));
-				vettore.add(rs.getString("cognome"));
-				vettore.add(rs.getString("datainizio"));
-				vettore.add(rs.getString("categoria"));
-				vettore.add(rs.getString("descrizione"));
+				vettore.add(resultSet.getString("codiceCorso"));
+				vettore.add(resultSet.getString("nome"));
+				vettore.add(resultSet.getString("cognome"));
+				vettore.add(resultSet.getString("datainizio"));
+				vettore.add(resultSet.getString("categoria"));
+				vettore.add(resultSet.getString("descrizione"));
 				corsiPerParolaChiave.add(vettore);
 			}
 
-			st.close();
-			rs.close();
-			istanzaDB.closeDbConnection();
+			statement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -260,12 +276,12 @@ public class CorsoDAO {
 
 	public void eliminaCorso(Object codiceCorso) {
 		try {
-			connessioneDB=istanzaDB.ConnectToDB();
-			Statement st = connessioneDB.createStatement();
-			st.executeUpdate("DELETE FROM CORSO WHERE CODICECORSO="+codiceCorso);
+			connessioneDB=istanzaDB.connectToDB();
+			Statement statement = connessioneDB.createStatement();
+			statement.executeUpdate("DELETE FROM CORSO WHERE CODICECORSO="+codiceCorso);
 		
-			st.close();
-			istanzaDB.closeDbConnection();
+			statement.close();
+			istanzaDB.closeConnectionToDB();
 		} 
 		
 		catch (SQLException e) {
@@ -276,13 +292,13 @@ public class CorsoDAO {
 	
 	public void modificaCorso(Object codiceCorso,String nome,String codiceresponsabile,String data,String descrizione,String categoria) {
 		try {
-			connessioneDB=istanzaDB.ConnectToDB();
-			Statement st = connessioneDB.createStatement();
-			st.executeUpdate("UPDATE CORSO SET nome='"+nome+"',datainizio='"+data+"',descrizione='"+descrizione+"',codiceresponsabile='"+codiceresponsabile+"' WHERE codicecorso="+codiceCorso);
-			st.executeUpdate("UPDATE TEMATICA_CORSO SET categoria='"+categoria+"' WHERE CODICECORSO= "+codiceCorso);
+			connessioneDB=istanzaDB.connectToDB();
+			Statement statement = connessioneDB.createStatement();
+			statement.executeUpdate("UPDATE CORSO SET nome='"+nome+"',datainizio='"+data+"',descrizione='"+descrizione+"',codiceresponsabile='"+codiceresponsabile+"' WHERE codicecorso="+codiceCorso);
+			statement.executeUpdate("UPDATE TEMATICA_CORSO SET categoria='"+categoria+"' WHERE CODICECORSO= "+codiceCorso);
 			
-			st.close();
-			istanzaDB.closeDbConnection();
+			statement.close();
+			istanzaDB.closeConnectionToDB();
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -292,17 +308,17 @@ public class CorsoDAO {
 	public String recuperaNomeCorso(String codiceCorso) {
 		String nomeCorso="";
 		try {
-			connessioneDB=istanzaDB.ConnectToDB();
-			Statement st = connessioneDB.createStatement();
-			ResultSet rs=st.executeQuery("SELECT C.nome FROM CORSO AS C WHERE CODICECORSO="+codiceCorso);
+			connessioneDB=istanzaDB.connectToDB();
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT C.nome FROM CORSO AS C WHERE CODICECORSO="+codiceCorso);
 			
-			while(rs.next()) {
-				nomeCorso=rs.getString("nome");
+			while(resultSet.next()) {
+				nomeCorso=resultSet.getString("nome");
 			}
 				
-			st.close();
-			rs.close();
-			istanzaDB.closeDbConnection();
+			statement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();

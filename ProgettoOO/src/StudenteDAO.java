@@ -16,14 +16,14 @@ public class StudenteDAO {
 	
 	public void salvaStudente(String nome,String cognome,Date dataDiNascita,String luogoDiNascita)  {
 		try {
-			connessioneDB=istanzaDB.ConnectToDB();
+			connessioneDB=istanzaDB.connectToDB();
 			
 			Statement st = connessioneDB.createStatement();
 			st.executeUpdate("INSERT INTO studente(nome,cognome,luogonascita,datanascita) "
 							 +"VALUES('"+nome+"','"+cognome+"','"+luogoDiNascita+"','"+dataDiNascita+"')");
 			
 			st.close();
-			istanzaDB.closeDbConnection();
+			istanzaDB.closeConnectionToDB();
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -32,7 +32,7 @@ public class StudenteDAO {
 	
 	public boolean IsStudenteInDB(String nome,String cognome,Date dataDiNascita,String luogoDiNascita) {
 		try {
-			connessioneDB=istanzaDB.ConnectToDB();
+			connessioneDB=istanzaDB.connectToDB();
 
 			Statement st= connessioneDB.createStatement();
 			ResultSet rs= st.executeQuery("SELECT * "
@@ -47,7 +47,7 @@ public class StudenteDAO {
 			
 			st.close();
 			rs.close();
-			istanzaDB.closeDbConnection();
+			istanzaDB.closeConnectionToDB();
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -58,7 +58,7 @@ public class StudenteDAO {
 	public String recuperaCodiceStudente(String nome,String cognome,Date dataDiNascita,String luogoDiNascita) {
 		String codiceStudente="";
 		try {
-			connessioneDB=istanzaDB.ConnectToDB();
+			connessioneDB=istanzaDB.connectToDB();
 
 			Statement st= connessioneDB.createStatement();
 			ResultSet rs= st.executeQuery("SELECT codicestudente "
@@ -73,7 +73,7 @@ public class StudenteDAO {
 			
 			st.close();
 			rs.close();
-			istanzaDB.closeDbConnection();
+			istanzaDB.closeConnectionToDB();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -83,7 +83,7 @@ public class StudenteDAO {
 	
 	public boolean isStudenteIscrittoAdUnCorso(String codiceStudente,String codiceCorso) {
 		try {
-			connessioneDB=istanzaDB.ConnectToDB();
+			connessioneDB=istanzaDB.connectToDB();
 			
 			Statement st = connessioneDB.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * "
@@ -104,13 +104,13 @@ public class StudenteDAO {
 	
 	public void iscriviStudente(String codiceStudente,String codiceCorso) {
 		try {
-			connessioneDB=istanzaDB.ConnectToDB();
+			connessioneDB=istanzaDB.connectToDB();
 
 			Statement st= connessioneDB.createStatement();
 			st.executeUpdate("INSERT INTO ISCRIZIONE VALUES("+codiceCorso+","+codiceStudente+");");	
 			
 			st.close();
-			istanzaDB.closeDbConnection();
+			istanzaDB.closeConnectionToDB();
 
 		} catch (SQLException e) {
 			e.printStackTrace();

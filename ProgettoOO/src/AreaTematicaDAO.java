@@ -12,7 +12,7 @@ public class AreaTematicaDAO {
 	public int contaCategorie() {
 		Integer numeroCategorie=0;
 		try {
-			connessioneDB = istanzaDB.ConnectToDB();
+			connessioneDB = istanzaDB.connectToDB();
 			Statement st = connessioneDB.createStatement();
 			ResultSet rs=st.executeQuery("SELECT COUNT(*) FROM AREA_TEMATICA");	
 			rs.next();
@@ -20,7 +20,7 @@ public class AreaTematicaDAO {
 			
 			st.close();
 			rs.close();
-			istanzaDB.closeDbConnection();
+			istanzaDB.closeConnectionToDB();
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -32,7 +32,7 @@ public class AreaTematicaDAO {
 		String[] areeTematiche = new String[numeroCategorie]; 
 		int i=0;
 		try {
-			connessioneDB = istanzaDB.ConnectToDB();
+			connessioneDB = istanzaDB.connectToDB();
 			Statement st = connessioneDB.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM area_tematica ORDER BY categoria");	
 		
@@ -43,7 +43,7 @@ public class AreaTematicaDAO {
 			
 			st.close();
 			rs.close();
-			istanzaDB.closeDbConnection();
+			istanzaDB.closeConnectionToDB();
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -53,7 +53,7 @@ public class AreaTematicaDAO {
 	
 	public boolean IsAreaTematicaInDB(String areaTematica) {
 		try{
-			connessioneDB = istanzaDB.ConnectToDB();
+			connessioneDB = istanzaDB.connectToDB();
 			Statement st = connessioneDB.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM area_tematica");	
 			
@@ -64,7 +64,7 @@ public class AreaTematicaDAO {
 			
 			st.close();
 			rs.close();
-			istanzaDB.closeDbConnection();
+			istanzaDB.closeConnectionToDB();
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -74,12 +74,12 @@ public class AreaTematicaDAO {
 	
 	public void aggiungiAreaTematica(String areaTematica) {
 		try {
-			connessioneDB = istanzaDB.ConnectToDB();
+			connessioneDB = istanzaDB.connectToDB();
 			Statement st = connessioneDB.createStatement();
 			st.executeUpdate("INSERT INTO area_tematica(categoria) VALUES('"+areaTematica+"');");	
 				
 			st.close();
-			istanzaDB.closeDbConnection();
+			istanzaDB.closeConnectionToDB();
 		}
 		catch (SQLException e) {
 			e.printStackTrace();

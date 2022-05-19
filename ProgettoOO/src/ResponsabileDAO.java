@@ -12,7 +12,7 @@ public class ResponsabileDAO {
 	
 	public boolean checkResponsabile(String username,String password)  {
 		try {
-			connessioneDB=istanzaDB.ConnectToDB();
+			connessioneDB=istanzaDB.connectToDB();
 			
 			Statement st = connessioneDB.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM responsabile");
@@ -24,7 +24,7 @@ public class ResponsabileDAO {
 			
 			st.close();
 			rs.close();
-			istanzaDB.closeDbConnection();
+			istanzaDB.closeConnectionToDB();
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -36,7 +36,7 @@ public class ResponsabileDAO {
 	public Integer contaResponsabili() {
 		Integer numeroResponsabili=0;
 		try {
-			connessioneDB = istanzaDB.ConnectToDB();
+			connessioneDB = istanzaDB.connectToDB();
 			Statement st = connessioneDB.createStatement();
 			ResultSet rs=st.executeQuery("SELECT COUNT(*) FROM RESPONSABILE");	
 			rs.next();
@@ -44,7 +44,7 @@ public class ResponsabileDAO {
 			
 			st.close();
 			rs.close();
-			istanzaDB.closeDbConnection();
+			istanzaDB.closeConnectionToDB();
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -58,7 +58,7 @@ public class ResponsabileDAO {
 		String[] responsabili= new String[numeroResponsabili];
 		int i=0;
 		try {
-			connessioneDB = istanzaDB.ConnectToDB();
+			connessioneDB = istanzaDB.connectToDB();
 			Statement st = connessioneDB.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM RESPONSABILE ORDER BY cognome");	
 		
@@ -69,7 +69,7 @@ public class ResponsabileDAO {
 			
 			st.close();
 			rs.close();
-			istanzaDB.closeDbConnection();
+			istanzaDB.closeConnectionToDB();
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -81,7 +81,7 @@ public class ResponsabileDAO {
 	public String recuperaCodiceResponsabile(String cognomeResponsabile) {
 		String codiceResponsabile="";
 		try {
-			connessioneDB = istanzaDB.ConnectToDB();
+			connessioneDB = istanzaDB.connectToDB();
 			Statement st = connessioneDB.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM RESPONSABILE WHERE cognome='"+cognomeResponsabile+"'");	
 		
@@ -91,7 +91,7 @@ public class ResponsabileDAO {
 			
 			st.close();
 			rs.close();
-			istanzaDB.closeDbConnection();
+			istanzaDB.closeConnectionToDB();
 		}
 		catch(SQLException e) {
 			e.printStackTrace();

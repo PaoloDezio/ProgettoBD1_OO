@@ -19,7 +19,7 @@ public class StatisticheDAO {
 	public void OttieniStatistiche() throws SQLException {
 		
 		try {
-			connessioneDB=istanzaDB.ConnectToDB();
+			connessioneDB=istanzaDB.connectToDB();
 			Statement st;
 			
 			st = connessioneDB.createStatement();
@@ -27,7 +27,7 @@ public class StatisticheDAO {
 			//INSERIRE CODICE CHE MOSTRA A SCHERMO I DATI
 			
 			st.close();
-			istanzaDB.closeDbConnection();
+			istanzaDB.closeConnectionToDB();
 			}
 		catch (SQLException e) {
 			e.printStackTrace();
