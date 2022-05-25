@@ -133,6 +133,68 @@ public class Controller {
 	public void setAggiungiCorsoFrame(AggiungiCorsoFrame aggiungiCorsoFrame) {
 		this.aggiungiCorsoFrame = aggiungiCorsoFrame;
 	}
+	
+	//METODI CorsoDAO
+	public void inserisciCorso(String nome,String descrizione,String numeroMassimoPartecipanti,String numeroLezioni,String dataDiInizio,String codiceResponsabile) {
+		corsoDAO.inserisciCorso(nome, descrizione, numeroMassimoPartecipanti, numeroLezioni, dataDiInizio, codiceResponsabile);
+	}
+
+	public String recuperaCodiceCorso(String nome) {
+		return corsoDAO.recuperaCodiceCorso(nome);
+	}
+
+	public Vector<Vector<String>> recuperaCorsi(){
+		return corsoDAO.recuperaCorsi();
+	}
+
+	public int contaCorsi() {
+		return corsoDAO.contaCorsi();
+	}
+
+	public String[] recuperaCorsi(int numeroCorsi) {
+		return corsoDAO.recuperaCorsi(numeroCorsi);
+	}
+	
+	public Vector<Vector<String>> recuperaCorsiOrdinatiPerCodiceCorso (){
+		return corsoDAO.recuperaCorsiOrdinatiPerCodiceCorso();
+	}
+
+	public Vector<Vector<String>> ricercaCorsoPerNome(String nome){
+		return corsoDAO.ricercaCorsoPerNome(nome);
+	}
+	
+	public Vector<Vector<String>> recuperaCorsiOrdinatiPerNome (){
+		return corsoDAO.recuperaCorsiOrdinatiPerNome();
+	}
+
+	public Vector<Vector<String>> ricercaCorsoPerData (String data){
+		return corsoDAO.ricercaCorsoPerData(data);
+	}
+	
+	public Vector<Vector<String>> recuperaCorsiOrdinatiPerData (){
+		return corsoDAO.recuperaCorsiOrdinatiPerData();
+	}
+
+	public Vector<Vector<String>> ricercaCorsoPerParolaChiave (String parolaChiave){
+		return corsoDAO.ricercaCorsoPerParolaChiave(parolaChiave);
+	}
+
+	public Vector<Vector<String>> ricercaCorsoPerCategoria (String categoria){
+		return corsoDAO.ricercaCorsoPerCategoria(categoria);
+	}
+
+	public void eliminaCorsoSelezionato(Object codiceCorso) {
+		corsoDAO.eliminaCorso(codiceCorso);
+	}
+
+	public void modificaCorso(String codiceCorso,String nome,String descrizione,String data,String categoria,String codiceResponsabile) {
+		corsoDAO.modificaCorso(codiceCorso,nome,descrizione,data,categoria,codiceResponsabile);
+	}
+
+	public String recuperaNomeCorso(String codiceCorso) {
+		return corsoDAO.recuperaNomeCorso(codiceCorso);
+	}
+
 
 	//METODI ResponsabileDAO
 	public boolean checkResponsabile(String username,String password) {
@@ -172,6 +234,10 @@ public class Controller {
 	}
 
 	//METODI AreaTematicaDAO
+	public void assegnaAreaTematicaAdUnCorso(String areaTematica,String codiceCorso) {
+		areaTematicaDAO.assegnaAreaTematicaAdUnCorso(areaTematica, codiceCorso);
+	}
+	
 	public boolean IsAreaTematicaInDB(String areaTematica) {
 		return areaTematicaDAO.IsAreaTematicaInDB(areaTematica);
 	}
@@ -187,55 +253,6 @@ public class Controller {
 	public String[] recuperaAreeTematiche(Integer numeroCategorie) {
 		return areaTematicaDAO.recuperaAreeTematiche(numeroCategorie);
 	}
-	
-	
-	
-	//METODI CorsoDAO
-	
-	public String recuperaCodiceCorso(String nome) {
-		return corsoDAO.recuperaCodiceCorso(nome);
-	}
-	
-	public Vector<Vector<String>> recuperaCorsi(){
-		return corsoDAO.recuperaCorsi();
-	}
-	
-	public int contaCorsi() {
-		return corsoDAO.contaCorsi();
-	}
-	
-	public String[] recuperaCorsi(int numeroCorsi) {
-		return corsoDAO.recuperaCorsi(numeroCorsi);
-	}
-	
-	public Vector<Vector<String>> ricercaCorsoPerNome(String nome){
-		return corsoDAO.ricercaCorsoPerNome(nome);
-	}
-	
-	public Vector<Vector<String>> ricercaCorsoPerData (String data){
-		return corsoDAO.ricercaCorsoPerData(data);
-	}
-	
-	public Vector<Vector<String>> ricercaCorsoPerParolaChiave (String parolaChiave){
-		return corsoDAO.ricercaCorsoPerParolaChiave(parolaChiave);
-	}
-	
-	public Vector<Vector<String>> ricercaCorsoPerCategoria (String categoria){
-		return corsoDAO.ricercaCorsoPerCategoria(categoria);
-	}
-	
-	public void eliminaCorsoSelezionato(Object codiceCorso) {
-		corsoDAO.eliminaCorso(codiceCorso);
-	}
-	
-	public void modificaCorso(Object codiceCorso,String nome,String docente,String data,String categoria,String descrizione) {
-		corsoDAO.modificaCorso(codiceCorso, nome, docente, data, descrizione, categoria);
-	}
-	
-	public String recuperaNomeCorso(String codiceCorso) {
-		return corsoDAO.recuperaNomeCorso(codiceCorso);
-	}
-
 	
 
 

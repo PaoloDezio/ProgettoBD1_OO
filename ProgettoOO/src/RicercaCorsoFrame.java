@@ -42,6 +42,11 @@ import java.awt.event.MouseEvent;
 import java.awt.Component;
 import java.awt.Rectangle;
 import java.awt.Point;
+import java.awt.Choice;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JRadioButton;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class RicercaCorsoFrame extends JFrame {
 
@@ -54,6 +59,10 @@ public class RicercaCorsoFrame extends JFrame {
 	private JTable corsiTable;
 	private Vector<Vector<String>> corsi;
 	private DefaultTableModel corsiDTM;
+	private JRadioButton codiceCorsoRadioButton;
+	private JRadioButton nomeRadioButton;
+	private JRadioButton dataRadioButton;
+	
 	
 	public JComboBox getCampoCB() {
 		return campoCB;
@@ -84,9 +93,9 @@ public class RicercaCorsoFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 156, 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.columnWidths = new int[]{0, 156, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{21, 0, 0, 0, 0, 19, 0, 0, 0, 0, 40, 40, 26, 84, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
@@ -106,7 +115,7 @@ public class RicercaCorsoFrame extends JFrame {
 		GridBagConstraints gbc_selezionareUnCampoLabel = new GridBagConstraints();
 		gbc_selezionareUnCampoLabel.anchor = GridBagConstraints.EAST;
 		gbc_selezionareUnCampoLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_selezionareUnCampoLabel.gridx = 5;
+		gbc_selezionareUnCampoLabel.gridx = 6;
 		gbc_selezionareUnCampoLabel.gridy = 3;
 		contentPane.add(selezionareUnCampoLabel, gbc_selezionareUnCampoLabel);
 		
@@ -116,7 +125,7 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_campoCB.gridwidth = 9;
 		gbc_campoCB.fill = GridBagConstraints.HORIZONTAL;
 		gbc_campoCB.insets = new Insets(0, 0, 5, 5);
-		gbc_campoCB.gridx = 6;
+		gbc_campoCB.gridx = 7;
 		gbc_campoCB.gridy = 3;
 		contentPane.add(campoCB, gbc_campoCB);
 		
@@ -125,17 +134,18 @@ public class RicercaCorsoFrame extends JFrame {
 		GridBagConstraints gbc_ricercareLabel = new GridBagConstraints();
 		gbc_ricercareLabel.anchor = GridBagConstraints.EAST;
 		gbc_ricercareLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_ricercareLabel.gridx = 5;
+		gbc_ricercareLabel.gridx = 6;
 		gbc_ricercareLabel.gridy = 4;
 		contentPane.add(ricercareLabel, gbc_ricercareLabel);
 		
 		campoTF = new JTextField();
+		campoTF.setName("");
 		campoTF.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_campoTF = new GridBagConstraints();
 		gbc_campoTF.gridwidth = 9;
 		gbc_campoTF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_campoTF.insets = new Insets(0, 0, 5, 5);
-		gbc_campoTF.gridx = 6;
+		gbc_campoTF.gridx = 7;
 		gbc_campoTF.gridy = 4;
 		contentPane.add(campoTF, gbc_campoTF);
 		campoTF.setColumns(10);
@@ -144,7 +154,6 @@ public class RicercaCorsoFrame extends JFrame {
 		cercaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				corsiDTM.getDataVector().removeAllElements();
-				corsiDTM.fireTableDataChanged();
 
 				String campo = new String(campoCB.getSelectedItem().toString());
 				switch(campo) {
@@ -187,31 +196,94 @@ public class RicercaCorsoFrame extends JFrame {
 		GridBagConstraints gbc_tornaHomeButton = new GridBagConstraints();
 		gbc_tornaHomeButton.anchor = GridBagConstraints.EAST;
 		gbc_tornaHomeButton.insets = new Insets(0, 0, 5, 5);
-		gbc_tornaHomeButton.gridx = 5;
+		gbc_tornaHomeButton.gridx = 6;
 		gbc_tornaHomeButton.gridy = 6;
 		contentPane.add(tornaHomeButton, gbc_tornaHomeButton);
 		cercaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_cercaButton = new GridBagConstraints();
 		gbc_cercaButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cercaButton.insets = new Insets(0, 0, 5, 5);
-		gbc_cercaButton.gridx = 15;
+		gbc_cercaButton.gridx = 16;
 		gbc_cercaButton.gridy = 6;
 		contentPane.add(cercaButton, gbc_cercaButton);
 		
-		JLabel selezionaUnCorsoLabel = new JLabel("Selezionare un corso:");
-		selezionaUnCorsoLabel.setFont(new Font("Century", Font.PLAIN, 18));
-		GridBagConstraints gbc_selezionaUnCorsoLabel = new GridBagConstraints();
-		gbc_selezionaUnCorsoLabel.anchor = GridBagConstraints.WEST;
-		gbc_selezionaUnCorsoLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_selezionaUnCorsoLabel.gridx = 1;
-		gbc_selezionaUnCorsoLabel.gridy = 8;
-		contentPane.add(selezionaUnCorsoLabel, gbc_selezionaUnCorsoLabel);
+		JLabel ordinaPerLabel = new JLabel("Ordina per");
+		ordinaPerLabel.setFont(new Font("Century", Font.PLAIN, 18));
+		GridBagConstraints gbc_ordinaPerLabel = new GridBagConstraints();
+		gbc_ordinaPerLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_ordinaPerLabel.gridx = 1;
+		gbc_ordinaPerLabel.gridy = 8;
+		contentPane.add(ordinaPerLabel, gbc_ordinaPerLabel);
+		
+		codiceCorsoRadioButton = new JRadioButton("Codice Corso");
+		codiceCorsoRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				corsiDTM.getDataVector().removeAllElements();
+				corsi=controller.recuperaCorsiOrdinatiPerCodiceCorso();
+				for (Vector<String> vettore : corsi) {
+					corsiDTM.addRow(vettore);
+				}
+				corsiTable.setModel(corsiDTM);				
+				nomeRadioButton.setSelected(false);
+				dataRadioButton.setSelected(false);
+			}
+		});
+		codiceCorsoRadioButton.setFont(new Font("Century", Font.PLAIN, 16));
+		codiceCorsoRadioButton.setBackground(new Color(30, 144, 255));
+		GridBagConstraints gbc_codiceCorsoRadioButton = new GridBagConstraints();
+		gbc_codiceCorsoRadioButton.insets = new Insets(0, 0, 5, 5);
+		gbc_codiceCorsoRadioButton.gridx = 2;
+		gbc_codiceCorsoRadioButton.gridy = 8;
+		contentPane.add(codiceCorsoRadioButton, gbc_codiceCorsoRadioButton);
+		
+		nomeRadioButton = new JRadioButton("Nome");
+		nomeRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				corsiDTM.getDataVector().removeAllElements();
+				corsi=controller.recuperaCorsiOrdinatiPerNome();
+				for (Vector<String> vettore : corsi) {
+					corsiDTM.addRow(vettore);
+				}
+				corsiTable.setModel(corsiDTM);
+				codiceCorsoRadioButton.setSelected(false);
+				dataRadioButton.setSelected(false);
+			}
+		});
+		nomeRadioButton.setBackground(new Color(30, 144, 255));
+		nomeRadioButton.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_nomeRadioButton = new GridBagConstraints();
+		gbc_nomeRadioButton.insets = new Insets(0, 0, 5, 5);
+		gbc_nomeRadioButton.gridx = 3;
+		gbc_nomeRadioButton.gridy = 8;
+		contentPane.add(nomeRadioButton, gbc_nomeRadioButton);
+		
+		dataRadioButton = new JRadioButton("Data");
+		dataRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				corsiDTM.getDataVector().removeAllElements();
+				corsi=controller.recuperaCorsiOrdinatiPerData();
+				for (Vector<String> vettore : corsi) {
+					corsiDTM.addRow(vettore);
+				}
+				corsiTable.setModel(corsiDTM);
+				nomeRadioButton.setSelected(false);
+				codiceCorsoRadioButton.setSelected(false);
+			}
+		});
+		dataRadioButton.setFont(new Font("Century", Font.PLAIN, 16));
+		dataRadioButton.setBackground(new Color(30, 144, 255));
+		GridBagConstraints gbc_dataRadioButton = new GridBagConstraints();
+		gbc_dataRadioButton.insets = new Insets(0, 0, 5, 5);
+		gbc_dataRadioButton.gridx = 4;
+		gbc_dataRadioButton.gridy = 8;
+		contentPane.add(dataRadioButton, gbc_dataRadioButton);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridheight = 5;
-		gbc_scrollPane.gridwidth = 16;
+		gbc_scrollPane.gridwidth = 17;
 		gbc_scrollPane.insets = new Insets(0, 0, 0, 5);
 		gbc_scrollPane.gridx = 1;
 		gbc_scrollPane.gridy = 9;
@@ -254,6 +326,7 @@ public class RicercaCorsoFrame extends JFrame {
 		JButton AggiungiButton = new JButton("Aggiungi");
 		AggiungiButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				controller.getAggiungiCorsoFrame().setVisible(true);
 			}
 		});
 		AggiungiButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -261,7 +334,7 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_AggiungiButton.anchor = GridBagConstraints.WEST;
 		gbc_AggiungiButton.gridwidth = 2;
 		gbc_AggiungiButton.insets = new Insets(0, 0, 5, 5);
-		gbc_AggiungiButton.gridx = 17;
+		gbc_AggiungiButton.gridx = 18;
 		gbc_AggiungiButton.gridy = 9;
 		contentPane.add(AggiungiButton, gbc_AggiungiButton);
 
@@ -273,7 +346,6 @@ public class RicercaCorsoFrame extends JFrame {
 				}
 				else {
 					controller.getModificaFrame().setVisible(true);
-					controller.getModificaFrame().setCodiceCorso(corsiTable.getValueAt(corsiTable.getSelectedRow(),0));
 					controller.getModificaFrame().getNomeTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
 					controller.getModificaFrame().getDescrizioneTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),2).toString());
 					controller.getModificaFrame().getDataTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),3).toString());
@@ -287,7 +359,7 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_ModificaButton.gridwidth = 2;
 		gbc_ModificaButton.anchor = GridBagConstraints.WEST;
 		gbc_ModificaButton.insets = new Insets(0, 0, 5, 5);
-		gbc_ModificaButton.gridx = 17;
+		gbc_ModificaButton.gridx = 18;
 		gbc_ModificaButton.gridy = 10;
 		contentPane.add(ModificaButton, gbc_ModificaButton);
 		
@@ -311,7 +383,7 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_EliminaButton.gridwidth = 2;
 		gbc_EliminaButton.insets = new Insets(0, 0, 5, 5);
 		gbc_EliminaButton.anchor = GridBagConstraints.WEST;
-		gbc_EliminaButton.gridx = 17;
+		gbc_EliminaButton.gridx = 18;
 		gbc_EliminaButton.gridy = 11;
 		contentPane.add(EliminaButton, gbc_EliminaButton);
 		
@@ -332,7 +404,7 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_StatisticheButton.gridwidth = 2;
 		gbc_StatisticheButton.insets = new Insets(0, 0, 5, 5);
 		gbc_StatisticheButton.anchor = GridBagConstraints.WEST;
-		gbc_StatisticheButton.gridx = 17;
+		gbc_StatisticheButton.gridx = 18;
 		gbc_StatisticheButton.gridy = 12;
 		contentPane.add(StatisticheButton, gbc_StatisticheButton);
 	

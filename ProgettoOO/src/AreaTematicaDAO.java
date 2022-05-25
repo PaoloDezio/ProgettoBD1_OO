@@ -13,13 +13,13 @@ public class AreaTematicaDAO {
 		Integer numeroCategorie=0;
 		try {
 			connessioneDB = istanzaDB.connectToDB();
-			Statement st = connessioneDB.createStatement();
-			ResultSet rs=st.executeQuery("SELECT COUNT(*) FROM AREA_TEMATICA");	
-			rs.next();
-			numeroCategorie=rs.getInt(1);
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM AREA_TEMATICA");	
+			resultSet.next();
+			numeroCategorie=resultSet.getInt(1);
 			
-			st.close();
-			rs.close();
+			statement.close();
+			resultSet.close();
 			istanzaDB.closeConnectionToDB();
 		}
 		catch(SQLException e) {
@@ -33,16 +33,16 @@ public class AreaTematicaDAO {
 		int i=0;
 		try {
 			connessioneDB = istanzaDB.connectToDB();
-			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM area_tematica ORDER BY categoria");	
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM area_tematica ORDER BY categoria");	
 		
-			while(rs.next()) {
-				areeTematiche[i]=rs.getString("categoria");
+			while(resultSet.next()) {
+				areeTematiche[i]=resultSet.getString("categoria");
 				i++;
 			}
 			
-			st.close();
-			rs.close();
+			statement.close();
+			resultSet.close();
 			istanzaDB.closeConnectionToDB();
 		}
 		catch(SQLException e) {
@@ -54,16 +54,16 @@ public class AreaTematicaDAO {
 	public boolean IsAreaTematicaInDB(String areaTematica) {
 		try{
 			connessioneDB = istanzaDB.connectToDB();
-			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM area_tematica");	
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM area_tematica");	
 			
-			while(rs.next()) {
-				if(rs.getString("categoria").equals(areaTematica))
+			while(resultSet.next()) {
+				if(resultSet.getString("categoria").equals(areaTematica))
 					return true;
 			}
 			
-			st.close();
-			rs.close();
+			statement.close();
+			resultSet.close();
 			istanzaDB.closeConnectionToDB();
 		}
 		catch(SQLException e) {
@@ -75,10 +75,10 @@ public class AreaTematicaDAO {
 	public void aggiungiAreaTematica(String areaTematica) {
 		try {
 			connessioneDB = istanzaDB.connectToDB();
-			Statement st = connessioneDB.createStatement();
-			st.executeUpdate("INSERT INTO area_tematica(categoria) VALUES('"+areaTematica+"');");	
+			Statement statement = connessioneDB.createStatement();
+			statement.executeUpdate("INSERT INTO area_tematica(categoria) VALUES('"+areaTematica+"');");	
 				
-			st.close();
+			statement.close();
 			istanzaDB.closeConnectionToDB();
 		}
 		catch (SQLException e) {
@@ -86,5 +86,19 @@ public class AreaTematicaDAO {
 		}		
 	}
 	
+	public void assegnaAreaTematicaAdUnCorso(String areaTematica,String codiceCorso) {
+		try {
+			connessioneDB = istanzaDB.connectToDB();
+			Statement statement = connessioneDB.createStatement();
+			statement.executeUpdate("INSERT INTO TEMATICA_CORSO(categoria,codicecorso) "
+					+ 		 		"VALUES('"+areaTematica+"',"+codiceCorso+")");	
+				
+			statement.close();
+			istanzaDB.closeConnectionToDB();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}		
+	}
 	
 }

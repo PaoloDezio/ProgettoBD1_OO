@@ -27,7 +27,6 @@ import java.awt.SystemColor;
 public class ModificaCorsoFrame extends JFrame {
 
 	private JPanel contentPane;
-	private Object codiceCorso;
 	private JTextField nomeTF;
 	private JTextField descrizioneTF;
 	private Controller controller;
@@ -35,15 +34,6 @@ public class ModificaCorsoFrame extends JFrame {
 	private JTextField dataTF;
 	private JComboBox responsabileCB ;
 	private DefaultComboBoxModel categoriaCBM;
-
-	public Object getCodiceCorso() {
-		return codiceCorso;
-	}
-
-
-	public void setCodiceCorso(Object codiceCorso) {
-		this.codiceCorso = codiceCorso;
-	}
 
 
 	public JTextField getNomeTF() {
@@ -232,30 +222,18 @@ public class ModificaCorsoFrame extends JFrame {
 		gbc_indietroButton.gridy = 8;
 		contentPane.add(indietroButton, gbc_indietroButton);
 		
-		
-//		PROVA DI UNA JTEXTAREA
-//		JTextArea textArea = new JTextArea();
-//		textArea.setFont(new Font("Century", Font.PLAIN, 16));
-//		GridBagConstraints gbc_textArea = new GridBagConstraints();
-//		gbc_textArea.gridheight = 2;
-//		gbc_textArea.insets = new Insets(0, 0, 5, 5);
-//		gbc_textArea.fill = GridBagConstraints.BOTH;
-//		gbc_textArea.gridx = 2;
-//		gbc_textArea.gridy = 7;
-//		contentPane.add(textArea, gbc_textArea);
-//		
-		
-
 		JButton salvaModificheButton = new JButton("Salva Modifiche");
 		salvaModificheButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				codiceCorso= controller.getModificaFrame().getCodiceCorso();
-				String nomecorso=nomeTF.getText();
-				String responsabile=c.recuperaCodiceResponsabile(responsabileCB.getSelectedItem().toString());
-				String data=dataTF.getText();
-				String categoria=categoriaCB.getSelectedItem().toString();
-				String descrizione =descrizioneTF.getText();
-				controller.modificaCorso(codiceCorso,nomecorso,responsabile,data,categoria,descrizione);
+				
+				String nomecorso = nomeTF.getText().toUpperCase();
+				String codiceCorso = controller.recuperaCodiceCorso(nomecorso);
+				String descrizione = descrizioneTF.getText().toUpperCase();
+				String codiceResponsabile = controller.recuperaCodiceResponsabile(responsabileCB.getSelectedItem().toString());
+				String data = dataTF.getText();
+				String categoria = categoriaCB.getSelectedItem().toString();
+				
+				controller.modificaCorso(codiceCorso,nomecorso,descrizione,data,categoria,codiceResponsabile);
 				controller.getModificaFrame().setVisible(false);
 				controller.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
 				controller.getRicercaCorsoFrame().getCorsiTable().setModel(controller.getRicercaCorsoFrame().setDefaultTableModel(controller.getRicercaCorsoFrame().getCorsiDTM()));

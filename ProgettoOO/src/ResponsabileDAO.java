@@ -14,16 +14,16 @@ public class ResponsabileDAO {
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 			
-			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM responsabile");
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM responsabile");
 			
-			while(rs.next()) {
-				if(rs.getString("username").equals(username) && rs.getString("password").equals(password))
+			while(resultSet.next()) {
+				if(resultSet.getString("username").equals(username) && resultSet.getString("password").equals(password))
 					return true;
 			}
 			
-			st.close();
-			rs.close();
+			statement.close();
+			resultSet.close();
 			istanzaDB.closeConnectionToDB();
 		} 
 		catch (SQLException e) {
@@ -37,13 +37,13 @@ public class ResponsabileDAO {
 		Integer numeroResponsabili=0;
 		try {
 			connessioneDB = istanzaDB.connectToDB();
-			Statement st = connessioneDB.createStatement();
-			ResultSet rs=st.executeQuery("SELECT COUNT(*) FROM RESPONSABILE");	
-			rs.next();
-			numeroResponsabili=rs.getInt(1);
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet=statement.executeQuery("SELECT COUNT(*) FROM RESPONSABILE");	
+			resultSet.next();
+			numeroResponsabili=resultSet.getInt(1);
 			
-			st.close();
-			rs.close();
+			statement.close();
+			resultSet.close();
 			istanzaDB.closeConnectionToDB();
 		}
 		catch(SQLException e) {
@@ -59,16 +59,16 @@ public class ResponsabileDAO {
 		int i=0;
 		try {
 			connessioneDB = istanzaDB.connectToDB();
-			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM RESPONSABILE ORDER BY cognome");	
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM RESPONSABILE ORDER BY cognome");	
 		
-			while(rs.next()) {
-				responsabili[i]=rs.getString("cognome");
+			while(resultSet.next()) {
+				responsabili[i]=resultSet.getString("cognome");
 				i++;
 			}
 			
-			st.close();
-			rs.close();
+			statement.close();
+			resultSet.close();
 			istanzaDB.closeConnectionToDB();
 		}
 		catch(SQLException e) {
@@ -82,15 +82,15 @@ public class ResponsabileDAO {
 		String codiceResponsabile="";
 		try {
 			connessioneDB = istanzaDB.connectToDB();
-			Statement st = connessioneDB.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM RESPONSABILE WHERE cognome='"+cognomeResponsabile+"'");	
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM RESPONSABILE WHERE cognome='"+cognomeResponsabile+"'");	
 		
-			while(rs.next()) {
-				codiceResponsabile=rs.getString("codiceresponsabile");
+			while(resultSet.next()) {
+				codiceResponsabile=resultSet.getString("codiceresponsabile");
 			}
 			
-			st.close();
-			rs.close();
+			statement.close();
+			resultSet.close();
 			istanzaDB.closeConnectionToDB();
 		}
 		catch(SQLException e) {
