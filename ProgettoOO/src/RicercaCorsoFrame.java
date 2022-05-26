@@ -53,8 +53,6 @@ public class RicercaCorsoFrame extends JFrame {
 	private JPanel contentPane;
 	private Controller controller;
 	private JComboBox campoCB;
-	private JTextField nomeTF;
-	private JLabel nomeLabel;
 	private JTextField campoTF;
 	private JTable corsiTable;
 	private Vector<Vector<String>> corsi;
@@ -62,6 +60,9 @@ public class RicercaCorsoFrame extends JFrame {
 	private JRadioButton codiceCorsoRadioButton;
 	private JRadioButton nomeRadioButton;
 	private JRadioButton dataRadioButton;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
 	
 	
 	public JComboBox getCampoCB() {
@@ -94,9 +95,9 @@ public class RicercaCorsoFrame extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 156, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{21, 0, 0, 0, 0, 19, 0, 0, 0, 0, 40, 40, 26, 84, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowHeights = new int[]{21, 0, 0, 0, 0, 19, 0, 0, 0, 0, 40, 40, 26, 0, 0};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel gestioneCorsiLabel = new JLabel("Gestione Corsi");
@@ -109,6 +110,25 @@ public class RicercaCorsoFrame extends JFrame {
 		contentPane.add(gestioneCorsiLabel, gbc_gestioneCorsiLabel);
 
 		String[] campi= {"Nome","Categoria","Data","Parola Chiave"};
+		
+		JLabel nomeLabel = new JLabel("Nome");
+		nomeLabel.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_nomeLabel = new GridBagConstraints();
+		gbc_nomeLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_nomeLabel.anchor = GridBagConstraints.EAST;
+		gbc_nomeLabel.gridx = 1;
+		gbc_nomeLabel.gridy = 3;
+		contentPane.add(nomeLabel, gbc_nomeLabel);
+		
+		textField = new JTextField();
+		textField.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.insets = new Insets(0, 0, 5, 5);
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridx = 2;
+		gbc_textField.gridy = 3;
+		contentPane.add(textField, gbc_textField);
+		textField.setColumns(10);
 		
 		JLabel selezionareUnCampoLabel = new JLabel("Selezionare un campo");
 		selezionareUnCampoLabel.setFont(new Font("Century", Font.PLAIN, 18));
@@ -128,6 +148,25 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_campoCB.gridx = 7;
 		gbc_campoCB.gridy = 3;
 		contentPane.add(campoCB, gbc_campoCB);
+		
+		JLabel dataLabel = new JLabel("Data");
+		dataLabel.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_dataLabel = new GridBagConstraints();
+		gbc_dataLabel.anchor = GridBagConstraints.EAST;
+		gbc_dataLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_dataLabel.gridx = 1;
+		gbc_dataLabel.gridy = 4;
+		contentPane.add(dataLabel, gbc_dataLabel);
+		
+		textField_1 = new JTextField();
+		textField_1.setFont(new Font("Century", Font.PLAIN, 16));
+		textField_1.setColumns(10);
+		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_1.gridx = 2;
+		gbc_textField_1.gridy = 4;
+		contentPane.add(textField_1, gbc_textField_1);
 		
 		JLabel ricercareLabel = new JLabel("Ricercare");
 		ricercareLabel.setFont(new Font("Century", Font.PLAIN, 18));
@@ -193,6 +232,25 @@ public class RicercaCorsoFrame extends JFrame {
 				controller.getRicercaCorsoFrame().setVisible(false);
 			}
 		});
+		
+		JLabel parolaChiaveLabel = new JLabel("Parola Chiave");
+		parolaChiaveLabel.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_parolaChiaveLabel = new GridBagConstraints();
+		gbc_parolaChiaveLabel.anchor = GridBagConstraints.EAST;
+		gbc_parolaChiaveLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_parolaChiaveLabel.gridx = 1;
+		gbc_parolaChiaveLabel.gridy = 5;
+		contentPane.add(parolaChiaveLabel, gbc_parolaChiaveLabel);
+		
+		textField_2 = new JTextField();
+		textField_2.setFont(new Font("Century", Font.PLAIN, 16));
+		textField_2.setColumns(10);
+		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
+		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_2.gridx = 2;
+		gbc_textField_2.gridy = 5;
+		contentPane.add(textField_2, gbc_textField_2);
 		GridBagConstraints gbc_tornaHomeButton = new GridBagConstraints();
 		gbc_tornaHomeButton.anchor = GridBagConstraints.EAST;
 		gbc_tornaHomeButton.insets = new Insets(0, 0, 5, 5);
@@ -206,88 +264,6 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_cercaButton.gridx = 16;
 		gbc_cercaButton.gridy = 6;
 		contentPane.add(cercaButton, gbc_cercaButton);
-		
-		JLabel ordinaPerLabel = new JLabel("Ordina per");
-		ordinaPerLabel.setFont(new Font("Century", Font.PLAIN, 18));
-		GridBagConstraints gbc_ordinaPerLabel = new GridBagConstraints();
-		gbc_ordinaPerLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_ordinaPerLabel.gridx = 1;
-		gbc_ordinaPerLabel.gridy = 8;
-		contentPane.add(ordinaPerLabel, gbc_ordinaPerLabel);
-		
-		codiceCorsoRadioButton = new JRadioButton("Codice Corso");
-		codiceCorsoRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				corsiDTM.getDataVector().removeAllElements();
-				corsi=controller.recuperaCorsiOrdinatiPerCodiceCorso();
-				for (Vector<String> vettore : corsi) {
-					corsiDTM.addRow(vettore);
-				}
-				corsiTable.setModel(corsiDTM);				
-				nomeRadioButton.setSelected(false);
-				dataRadioButton.setSelected(false);
-			}
-		});
-		codiceCorsoRadioButton.setFont(new Font("Century", Font.PLAIN, 16));
-		codiceCorsoRadioButton.setBackground(new Color(30, 144, 255));
-		GridBagConstraints gbc_codiceCorsoRadioButton = new GridBagConstraints();
-		gbc_codiceCorsoRadioButton.insets = new Insets(0, 0, 5, 5);
-		gbc_codiceCorsoRadioButton.gridx = 2;
-		gbc_codiceCorsoRadioButton.gridy = 8;
-		contentPane.add(codiceCorsoRadioButton, gbc_codiceCorsoRadioButton);
-		
-		nomeRadioButton = new JRadioButton("Nome");
-		nomeRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				corsiDTM.getDataVector().removeAllElements();
-				corsi=controller.recuperaCorsiOrdinatiPerNome();
-				for (Vector<String> vettore : corsi) {
-					corsiDTM.addRow(vettore);
-				}
-				corsiTable.setModel(corsiDTM);
-				codiceCorsoRadioButton.setSelected(false);
-				dataRadioButton.setSelected(false);
-			}
-		});
-		nomeRadioButton.setBackground(new Color(30, 144, 255));
-		nomeRadioButton.setFont(new Font("Century", Font.PLAIN, 16));
-		GridBagConstraints gbc_nomeRadioButton = new GridBagConstraints();
-		gbc_nomeRadioButton.insets = new Insets(0, 0, 5, 5);
-		gbc_nomeRadioButton.gridx = 3;
-		gbc_nomeRadioButton.gridy = 8;
-		contentPane.add(nomeRadioButton, gbc_nomeRadioButton);
-		
-		dataRadioButton = new JRadioButton("Data");
-		dataRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				corsiDTM.getDataVector().removeAllElements();
-				corsi=controller.recuperaCorsiOrdinatiPerData();
-				for (Vector<String> vettore : corsi) {
-					corsiDTM.addRow(vettore);
-				}
-				corsiTable.setModel(corsiDTM);
-				nomeRadioButton.setSelected(false);
-				codiceCorsoRadioButton.setSelected(false);
-			}
-		});
-		dataRadioButton.setFont(new Font("Century", Font.PLAIN, 16));
-		dataRadioButton.setBackground(new Color(30, 144, 255));
-		GridBagConstraints gbc_dataRadioButton = new GridBagConstraints();
-		gbc_dataRadioButton.insets = new Insets(0, 0, 5, 5);
-		gbc_dataRadioButton.gridx = 4;
-		gbc_dataRadioButton.gridy = 8;
-		contentPane.add(dataRadioButton, gbc_dataRadioButton);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridheight = 5;
-		gbc_scrollPane.gridwidth = 17;
-		gbc_scrollPane.insets = new Insets(0, 0, 0, 5);
-		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 9;
-		contentPane.add(scrollPane, gbc_scrollPane);
 		  
 		
 		corsiDTM = new DefaultTableModel();
@@ -298,6 +274,106 @@ public class RicercaCorsoFrame extends JFrame {
 		corsiDTM.addColumn("Categoria");
 		corsiDTM.addColumn("Responsabile");
 		corsiDTM=setDefaultTableModel(corsiDTM);
+		
+		JLabel ordinaPerLabel = new JLabel("Ordina per");
+		ordinaPerLabel.setFont(new Font("Century", Font.PLAIN, 18));
+		GridBagConstraints gbc_ordinaPerLabel = new GridBagConstraints();
+		gbc_ordinaPerLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_ordinaPerLabel.gridx = 1;
+		gbc_ordinaPerLabel.gridy = 12;
+		contentPane.add(ordinaPerLabel, gbc_ordinaPerLabel);
+		
+		codiceCorsoRadioButton = new JRadioButton("Codice Corso");
+		codiceCorsoRadioButton.setSelected(true);
+		codiceCorsoRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(codiceCorsoRadioButton.isSelected()) {	
+					corsiDTM.getDataVector().removeAllElements();
+					corsi=controller.recuperaCorsiOrdinatiPerCodiceCorso();
+					for (Vector<String> vettore : corsi) {
+						corsiDTM.addRow(vettore);
+					}
+					corsiTable.setModel(corsiDTM);				
+					nomeRadioButton.setSelected(false);
+					dataRadioButton.setSelected(false);
+				}
+				else {
+					codiceCorsoRadioButton.setSelected(true);
+				}
+			}
+		});
+		codiceCorsoRadioButton.setFont(new Font("Century", Font.PLAIN, 16));
+		codiceCorsoRadioButton.setBackground(new Color(30, 144, 255));
+		GridBagConstraints gbc_codiceCorsoRadioButton = new GridBagConstraints();
+		gbc_codiceCorsoRadioButton.insets = new Insets(0, 0, 5, 5);
+		gbc_codiceCorsoRadioButton.gridx = 2;
+		gbc_codiceCorsoRadioButton.gridy = 12;
+		contentPane.add(codiceCorsoRadioButton, gbc_codiceCorsoRadioButton);
+		
+		nomeRadioButton = new JRadioButton("Nome");
+		nomeRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(nomeRadioButton.isSelected()) {
+					corsiDTM.getDataVector().removeAllElements();
+					corsi=controller.recuperaCorsiOrdinatiPerNome();
+					for (Vector<String> vettore : corsi) {
+						corsiDTM.addRow(vettore);
+					}
+					corsiTable.setModel(corsiDTM);
+					codiceCorsoRadioButton.setSelected(false);
+					dataRadioButton.setSelected(false);
+				}
+				else {
+					nomeRadioButton.setSelected(true);
+				}
+				
+			}
+		});
+		nomeRadioButton.setBackground(new Color(30, 144, 255));
+		nomeRadioButton.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_nomeRadioButton = new GridBagConstraints();
+		gbc_nomeRadioButton.insets = new Insets(0, 0, 5, 5);
+		gbc_nomeRadioButton.gridx = 3;
+		gbc_nomeRadioButton.gridy = 12;
+		contentPane.add(nomeRadioButton, gbc_nomeRadioButton);
+		
+		dataRadioButton = new JRadioButton("Data");
+		dataRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(dataRadioButton.isSelected()) {
+					corsiDTM.getDataVector().removeAllElements();
+					corsi=controller.recuperaCorsiOrdinatiPerData();
+					for (Vector<String> vettore : corsi) {
+						corsiDTM.addRow(vettore);
+					}
+					corsiTable.setModel(corsiDTM);
+					nomeRadioButton.setSelected(false);
+					codiceCorsoRadioButton.setSelected(false);
+				}
+				else {
+					dataRadioButton.setSelected(true);
+				}
+				
+			}
+		});
+		dataRadioButton.setFont(new Font("Century", Font.PLAIN, 16));
+		dataRadioButton.setBackground(new Color(30, 144, 255));
+		GridBagConstraints gbc_dataRadioButton = new GridBagConstraints();
+		gbc_dataRadioButton.insets = new Insets(0, 0, 5, 5);
+		gbc_dataRadioButton.gridx = 4;
+		gbc_dataRadioButton.gridy = 12;
+		contentPane.add(dataRadioButton, gbc_dataRadioButton);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridheight = 5;
+		gbc_scrollPane.gridwidth = 17;
+		gbc_scrollPane.insets = new Insets(0, 0, 0, 5);
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 13;
+		contentPane.add(scrollPane, gbc_scrollPane);
 		
 		corsiTable = new JTable();
 		corsiTable.setModel(corsiDTM);
@@ -322,46 +398,46 @@ public class RicercaCorsoFrame extends JFrame {
 		
 		corsiTable.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		scrollPane.setViewportView(corsiTable);
+				
+				JButton AggiungiButton = new JButton("Aggiungi");
+				AggiungiButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						controller.getAggiungiCorsoFrame().setVisible(true);
+					}
+				});
+				AggiungiButton.setFont(new Font("Century", Font.PLAIN, 16));
+				GridBagConstraints gbc_AggiungiButton = new GridBagConstraints();
+				gbc_AggiungiButton.anchor = GridBagConstraints.WEST;
+				gbc_AggiungiButton.gridwidth = 2;
+				gbc_AggiungiButton.insets = new Insets(0, 0, 5, 5);
+				gbc_AggiungiButton.gridx = 18;
+				gbc_AggiungiButton.gridy = 13;
+				contentPane.add(AggiungiButton, gbc_AggiungiButton);
 		
-		JButton AggiungiButton = new JButton("Aggiungi");
-		AggiungiButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.getAggiungiCorsoFrame().setVisible(true);
-			}
-		});
-		AggiungiButton.setFont(new Font("Century", Font.PLAIN, 16));
-		GridBagConstraints gbc_AggiungiButton = new GridBagConstraints();
-		gbc_AggiungiButton.anchor = GridBagConstraints.WEST;
-		gbc_AggiungiButton.gridwidth = 2;
-		gbc_AggiungiButton.insets = new Insets(0, 0, 5, 5);
-		gbc_AggiungiButton.gridx = 18;
-		gbc_AggiungiButton.gridy = 9;
-		contentPane.add(AggiungiButton, gbc_AggiungiButton);
-
-		JButton ModificaButton = new JButton("Modifica");
-		ModificaButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(corsiTable.getSelectedRow()==-1) {
-					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
-				}
-				else {
-					controller.getModificaFrame().setVisible(true);
-					controller.getModificaFrame().getNomeTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
-					controller.getModificaFrame().getDescrizioneTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),2).toString());
-					controller.getModificaFrame().getDataTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),3).toString());
-					controller.getModificaFrame().getCategoriaCB().setSelectedItem(c.getRicercaCorsoFrame().getCorsiTable().getValueAt(c.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(),4));
-					controller.getModificaFrame().getResponsabileCB().setSelectedItem(c.getRicercaCorsoFrame().getCorsiTable().getValueAt(c.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(),5));
-				}
-			}			
-		});
-		ModificaButton.setFont(new Font("Century", Font.PLAIN, 16));
-		GridBagConstraints gbc_ModificaButton = new GridBagConstraints();
-		gbc_ModificaButton.gridwidth = 2;
-		gbc_ModificaButton.anchor = GridBagConstraints.WEST;
-		gbc_ModificaButton.insets = new Insets(0, 0, 5, 5);
-		gbc_ModificaButton.gridx = 18;
-		gbc_ModificaButton.gridy = 10;
-		contentPane.add(ModificaButton, gbc_ModificaButton);
+				JButton ModificaButton = new JButton("Modifica");
+				ModificaButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(corsiTable.getSelectedRow()==-1) {
+							JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
+						}
+						else {
+							controller.getModificaFrame().setVisible(true);
+							controller.getModificaFrame().getNomeTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
+							controller.getModificaFrame().getDescrizioneTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),2).toString());
+							controller.getModificaFrame().getDataTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),3).toString());
+							controller.getModificaFrame().getCategoriaCB().setSelectedItem(c.getRicercaCorsoFrame().getCorsiTable().getValueAt(c.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(),4));
+							controller.getModificaFrame().getResponsabileCB().setSelectedItem(c.getRicercaCorsoFrame().getCorsiTable().getValueAt(c.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(),5));
+						}
+					}			
+				});
+				ModificaButton.setFont(new Font("Century", Font.PLAIN, 16));
+				GridBagConstraints gbc_ModificaButton = new GridBagConstraints();
+				gbc_ModificaButton.gridwidth = 2;
+				gbc_ModificaButton.anchor = GridBagConstraints.WEST;
+				gbc_ModificaButton.insets = new Insets(0, 0, 5, 5);
+				gbc_ModificaButton.gridx = 18;
+				gbc_ModificaButton.gridy = 14;
+				contentPane.add(ModificaButton, gbc_ModificaButton);
 		
 		JButton EliminaButton = new JButton("Elimina");
 		EliminaButton.addActionListener(new ActionListener() {
@@ -384,7 +460,7 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_EliminaButton.insets = new Insets(0, 0, 5, 5);
 		gbc_EliminaButton.anchor = GridBagConstraints.WEST;
 		gbc_EliminaButton.gridx = 18;
-		gbc_EliminaButton.gridy = 11;
+		gbc_EliminaButton.gridy = 15;
 		contentPane.add(EliminaButton, gbc_EliminaButton);
 		
 		JButton StatisticheButton = new JButton("Statistische");
@@ -405,7 +481,7 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_StatisticheButton.insets = new Insets(0, 0, 5, 5);
 		gbc_StatisticheButton.anchor = GridBagConstraints.WEST;
 		gbc_StatisticheButton.gridx = 18;
-		gbc_StatisticheButton.gridy = 12;
+		gbc_StatisticheButton.gridy = 16;
 		contentPane.add(StatisticheButton, gbc_StatisticheButton);
 	
 	}
