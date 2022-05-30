@@ -63,6 +63,7 @@ public class IdoneiFrame extends JFrame {
 		
 		
 		StudentiIdoneiTable = new JTable();
+		StudentiIdoneiTable.setFont(new Font("Century", Font.PLAIN, 16));
 		DefaultTableModel myModel = new DefaultTableModel();
 		scrollPane.setViewportView(StudentiIdoneiTable);
 		myModel.addColumn("Codice Studente");

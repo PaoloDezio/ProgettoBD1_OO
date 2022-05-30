@@ -57,12 +57,14 @@ public class RicercaCorsoFrame extends JFrame {
 	private JTable corsiTable;
 	private Vector<Vector<String>> corsi;
 	private DefaultTableModel corsiDTM;
-	private DefaultListModel categorieDLM;
 	private JRadioButton codiceCorsoRadioButton;
 	private JRadioButton nomeRadioButton;
 	private JRadioButton dataRadioButton;
 	private JComboBox campoCB;
-	private JTextField campoTF;
+	private JTable categorieTable;
+	private DefaultTableModel categorieDTM;
+	private Vector<Vector<String>> categorie;
+
 	
 	public JComboBox getCampoCB() {
 		return campoCB;
@@ -76,9 +78,8 @@ public class RicercaCorsoFrame extends JFrame {
 		return corsiTable;
 	}
 
-
-	public JTextField getCampoTF() {
-		return campoTF;
+	public Vector<Vector<String>> getCorsi() {
+		return corsi;
 	}
 
 	public RicercaCorsoFrame(Controller c){
@@ -149,53 +150,24 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_scrollPane_1.gridy = 1;
 		contentPane.add(scrollPane_1, gbc_scrollPane_1);
 		
-		JList categorieList = new JList();
-		categorieList.setFont(new Font("Century", Font.PLAIN, 14));
-		categorieDLM = new DefaultListModel();
-		int numeroCategorie = controller.contaCategorie();
-		String[] listaCategorie = new String[numeroCategorie];
-		listaCategorie = controller.recuperaAreeTematiche(numeroCategorie);
-		for(int a=0;a<numeroCategorie;a++) {
-			categorieDLM.addElement(listaCategorie[a]);
-		}
-		categorieList.setModel(categorieDLM);
 		
-		//ESISTE UN METODO CHIAMATO GETSELECTEDVALUES CHE FA ESATTAMENTE QUELLO CHE MI SERVE SOLO CHE TRA POCO LO TOGLIERANNO
-		//QUESTO è IL METODO CHE HO TROVATO CHE MI SERVE categorieList.getSelectedIndex();
-		scrollPane_1.setViewportView(categorieList);
+		categorieDTM = new DefaultTableModel();
+		categorieDTM.addColumn("Categoria");
+
+		categorie=controller.recuperaAreeTematiche2(controller.contaCategorie());
+		categorieDTM=setDefaultTableModel(categorieDTM,categorie);
+		
+		categorieTable = new JTable();
+		categorieTable.setFont(new Font("Century", Font.PLAIN, 16));
+		categorieTable.setModel(categorieDTM);
+		scrollPane_1.setViewportView(categorieTable);
+		
 		
 		JButton cercaButton = new JButton("Cerca");
 		cercaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				corsiDTM.getDataVector().removeAllElements();
 
-				String campo = new String(campoCB.getSelectedItem().toString());
-				switch(campo) {
-				case "Nome":
-					corsi=controller.ricercaCorsoPerNome(campoTF.getText().toUpperCase());
-					for (Vector<String> vettore : corsi) {
-						corsiDTM.addRow(vettore);
-					}
-					break;
-				case "Categoria":
-					corsi=controller.ricercaCorsoPerCategoria(campoTF.getText().toUpperCase());
-					for (Vector<String> vettore : corsi) {
-						corsiDTM.addRow(vettore);
-					}
-					break;
-				case "Data":
-					corsi=controller.ricercaCorsoPerData(campoTF.getText());
-					for (Vector<String> vettore : corsi) {
-						corsiDTM.addRow(vettore);
-					}
-					break;
-				case "Parola Chiave":
-					corsi=controller.ricercaCorsoPerParolaChiave(campoTF.getText().toUpperCase());
-					for (Vector<String> vettore : corsi) {
-						corsiDTM.addRow(vettore);
-					}
-					break;
-				}	
 			}
 		});
 		cercaButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -245,16 +217,7 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_parolaChiaveTF.gridx = 2;
 		gbc_parolaChiaveTF.gridy = 3;
 		contentPane.add(parolaChiaveTF, gbc_parolaChiaveTF);
-		
-		corsiDTM = new DefaultTableModel();
-		corsiDTM.addColumn("Codice");
-		corsiDTM.addColumn("Nome");
-		corsiDTM.addColumn("Descrizione");
-		corsiDTM.addColumn("Data");
-		corsiDTM.addColumn("Categoria");
-		corsiDTM.addColumn("Responsabile");
-		corsiDTM=setDefaultTableModel(corsiDTM);
-		
+	
 		JLabel ordinaPerLabel = new JLabel("Ordina per");
 		ordinaPerLabel.setFont(new Font("Century", Font.PLAIN, 18));
 		GridBagConstraints gbc_ordinaPerLabel = new GridBagConstraints();
@@ -353,6 +316,16 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_scrollPane.gridx = 1;
 		gbc_scrollPane.gridy = 6;
 		contentPane.add(scrollPane, gbc_scrollPane);
+
+		corsiDTM = new DefaultTableModel();
+		corsiDTM.addColumn("Codice");
+		corsiDTM.addColumn("Nome");
+		corsiDTM.addColumn("Descrizione");
+		corsiDTM.addColumn("Data");
+		corsiDTM.addColumn("Categoria");
+		corsiDTM.addColumn("Responsabile");
+		corsi=controller.recuperaCorsi();
+		corsiDTM=setDefaultTableModel(corsiDTM,corsi);
 		
 		corsiTable = new JTable();
 		corsiTable.setModel(corsiDTM);
@@ -427,7 +400,7 @@ public class RicercaCorsoFrame extends JFrame {
 					codiceCorsoSelezionato = corsiTable.getValueAt(corsiTable.getSelectedRow(),0);
 					controller.eliminaCorsoSelezionato(codiceCorsoSelezionato);
 					corsiDTM.getDataVector().removeAllElements();
-					corsiTable.setModel(setDefaultTableModel(corsiDTM));
+					corsiTable.setModel(setDefaultTableModel(corsiDTM,corsi));
 				}
 			}
 		});
@@ -448,6 +421,10 @@ public class RicercaCorsoFrame extends JFrame {
 				else {
 					controller.getStatisticheFrame().setVisible(true);
 					controller.getStatisticheFrame().getCorsoTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
+					controller.getStatisticheFrame().getPresenzeMinimeTF().setText("10");
+					controller.getStatisticheFrame().getPresenzeMassimeTF().setText("45");
+					controller.getStatisticheFrame().getFrequenzaMediaTF().setText("25");
+					controller.getStatisticheFrame().getFrequenzaMediaInPercentualeTF().setText("10%");
 				}
 			}
 		});
@@ -479,11 +456,11 @@ public class RicercaCorsoFrame extends JFrame {
 	}
 	
 	
-	public DefaultTableModel setDefaultTableModel(DefaultTableModel defaultTableModel){
-		Vector<Vector<String>> corsi = new Vector<Vector<String>>();
+	public DefaultTableModel setDefaultTableModel(DefaultTableModel defaultTableModel,Vector<Vector<String>> vector){
+//		Vector<Vector<String>> corsi = new Vector<Vector<String>>();
 		
-		corsi=controller.recuperaCorsi();
-		for (Vector<String> vettore : corsi) {
+//		corsi=controller.recuperaCorsi();
+		for (Vector<String> vettore : vector) {
 			defaultTableModel.addRow(vettore);
 		}
 		

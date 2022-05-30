@@ -236,7 +236,7 @@ public class ModificaCorsoFrame extends JFrame {
 				controller.modificaCorso(codiceCorso,nomecorso,descrizione,data,categoria,codiceResponsabile);
 				controller.getModificaFrame().setVisible(false);
 				controller.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
-				controller.getRicercaCorsoFrame().getCorsiTable().setModel(controller.getRicercaCorsoFrame().setDefaultTableModel(controller.getRicercaCorsoFrame().getCorsiDTM()));
+				controller.getRicercaCorsoFrame().getCorsiTable().setModel(controller.getRicercaCorsoFrame().setDefaultTableModel(controller.getRicercaCorsoFrame().getCorsiDTM(),controller.getRicercaCorsoFrame().getCorsi()));
 			}
 		});
 		salvaModificheButton.setFont(new Font("Century", Font.PLAIN, 16));

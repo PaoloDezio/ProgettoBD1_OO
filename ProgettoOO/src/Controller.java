@@ -255,6 +255,10 @@ public class Controller {
 		return areaTematicaDAO.recuperaAreeTematiche(numeroCategorie);
 	}
 	
+	public Vector<Vector<String>> recuperaAreeTematiche2(Integer numeroCategorie) {
+		return areaTematicaDAO.recuperaAreeTematiche2(numeroCategorie);
+	}
+	
 
 
 }

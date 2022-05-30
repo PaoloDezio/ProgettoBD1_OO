@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Vector;
 
 public class AreaTematicaDAO {
 	private ConnessioneDB istanzaDB ;
@@ -39,6 +40,30 @@ public class AreaTematicaDAO {
 			while(resultSet.next()) {
 				areeTematiche[i]=resultSet.getString("categoria");
 				i++;
+			}
+			
+			statement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return areeTematiche;
+	}
+	
+	public Vector<Vector<String>> recuperaAreeTematiche2(Integer numeroCategorie) {
+		Vector<Vector<String>> areeTematiche = new Vector<Vector<String>>();
+		
+		try {
+			connessioneDB = istanzaDB.connectToDB();
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM area_tematica ORDER BY categoria");	
+		
+			while(resultSet.next()) {
+				Vector<String> vettore = new Vector<String>();
+				vettore.add(resultSet.getString("categoria"));
+				areeTematiche.add(vettore);
 			}
 			
 			statement.close();
