@@ -150,34 +150,6 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_scrollPane_1.gridy = 1;
 		contentPane.add(scrollPane_1, gbc_scrollPane_1);
 		
-		
-		categorieDTM = new DefaultTableModel();
-		categorieDTM.addColumn("Categoria");
-
-		categorie=controller.recuperaAreeTematiche2(controller.contaCategorie());
-		categorieDTM=setDefaultTableModel(categorieDTM,categorie);
-		
-		categorieTable = new JTable();
-		categorieTable.setFont(new Font("Century", Font.PLAIN, 16));
-		categorieTable.setModel(categorieDTM);
-		scrollPane_1.setViewportView(categorieTable);
-		
-		
-		JButton cercaButton = new JButton("Cerca");
-		cercaButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				corsiDTM.getDataVector().removeAllElements();
-
-			}
-		});
-		cercaButton.setFont(new Font("Century", Font.PLAIN, 16));
-		GridBagConstraints gbc_cercaButton = new GridBagConstraints();
-		gbc_cercaButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cercaButton.insets = new Insets(0, 0, 5, 5);
-		gbc_cercaButton.gridx = 10;
-		gbc_cercaButton.gridy = 1;
-		contentPane.add(cercaButton, gbc_cercaButton);
-		
 		JLabel dataLabel = new JLabel("Data");
 		dataLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_dataLabel = new GridBagConstraints();
@@ -306,8 +278,46 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_dataRadioButton.gridy = 5;
 		contentPane.add(dataRadioButton, gbc_dataRadioButton);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		
+
+		categorieDTM = new DefaultTableModel();
+		categorieDTM.addColumn("Categoria");
+
+		categorie=controller.recuperaAreeTematiche2(controller.contaCategorie());
+		categorieDTM=setDefaultTableModel(categorieDTM,categorie);
+		
+		categorieTable = new JTable();
+		categorieTable.setFont(new Font("Century", Font.PLAIN, 16));
+		categorieTable.setModel(categorieDTM);
+		scrollPane_1.setViewportView(categorieTable);
+		
+		
+		JButton cercaButton = new JButton("Cerca");
+		cercaButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(nomeTF.getText().isEmpty()==false||dataTF.getText().isEmpty()==false||parolaChiaveTF.getText().isEmpty()==false||categorieTable.getSelectedRow()==-1) {
+					corsiDTM.getDataVector().removeAllElements();
+
+					corsi=controller.ricercaCorsi(nomeTF.getText().toUpperCase(),dataTF.getText(), parolaChiaveTF.getText().toUpperCase());
+					corsiDTM=setDefaultTableModel(corsiDTM,corsi);
+
+					corsiTable.setModel(corsiDTM);
+					
+				}
+
+			}
+		});
+		cercaButton.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_cercaButton = new GridBagConstraints();
+		gbc_cercaButton.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cercaButton.insets = new Insets(0, 0, 5, 5);
+		gbc_cercaButton.gridx = 10;
+		gbc_cercaButton.gridy = 1;
+		contentPane.add(cercaButton, gbc_cercaButton);
+		
+		
+		JScrollPane tableCorsiScrollPane = new JScrollPane();
+		tableCorsiScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridheight = 4;
@@ -315,7 +325,7 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.gridx = 1;
 		gbc_scrollPane.gridy = 6;
-		contentPane.add(scrollPane, gbc_scrollPane);
+		contentPane.add(tableCorsiScrollPane, gbc_scrollPane);
 
 		corsiDTM = new DefaultTableModel();
 		corsiDTM.addColumn("Codice");
@@ -349,7 +359,7 @@ public class RicercaCorsoFrame extends JFrame {
 		corsiTable.getColumnModel().getColumn(5).setPreferredWidth(120);
 		
 		corsiTable.setFont(new Font("Century", Font.PLAIN, 15));
-		scrollPane.setViewportView(corsiTable);
+		tableCorsiScrollPane.setViewportView(corsiTable);
 
 		JButton AggiungiButton = new JButton("Aggiungi");
 		AggiungiButton.addActionListener(new ActionListener() {
@@ -445,6 +455,7 @@ public class RicercaCorsoFrame extends JFrame {
 				nomeTF.setText("");
 				dataTF.setText("");
 				parolaChiaveTF.setText("");
+				categorieTable.clearSelection();
 			}
 		});
 		GridBagConstraints gbc_tornaHomeButton = new GridBagConstraints();
@@ -457,9 +468,6 @@ public class RicercaCorsoFrame extends JFrame {
 	
 	
 	public DefaultTableModel setDefaultTableModel(DefaultTableModel defaultTableModel,Vector<Vector<String>> vector){
-//		Vector<Vector<String>> corsi = new Vector<Vector<String>>();
-		
-//		corsi=controller.recuperaCorsi();
 		for (Vector<String> vettore : vector) {
 			defaultTableModel.addRow(vettore);
 		}

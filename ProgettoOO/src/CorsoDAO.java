@@ -49,6 +49,43 @@ public class CorsoDAO {
 		return codiceCorso;
 	}
 	
+	public Vector<Vector<String>> ricercaCorsi(String nome,String data,String parolaChiave){
+		Vector<Vector<String>> corsi = new Vector<Vector<String>>();
+		try {
+			connessioneDB=istanzaDB.connectToDB();
+			
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT ti.codicecorso,ti.nome,ti.datainizio,ti.descrizione,ti.categoria,r.cognome,r.codiceresponsabile "
+					+ "									  FROM RESPONSABILE AS r JOIN (SELECT tc.codicecorso,tc.categoria,co.nome,co.descrizione,co.codiceresponsabile,co.datainizio "
+					+ "																   FROM tematica_corso AS tc JOIN corso AS co ON tc.codicecorso=co.codicecorso"
+					+ "																  ) AS ti ON r.codiceresponsabile=ti.codiceresponsabile "
+					+ "									  WHERE ti.nome LIKE '%"+nome+"%' AND CAST(ti.datainizio AS VARCHAR(25)) LIKE '%"+data+"%' AND ti.descrizione LIKE '%"+parolaChiave+"%' "
+							+ "							  ORDER BY ti.codiceCorso");
+			
+		while(resultSet.next()) {
+			Vector<String> vettore = new Vector<String>();
+			vettore.add(resultSet.getString("codiceCorso"));
+			vettore.add(resultSet.getString("nome"));
+			vettore.add(resultSet.getString("descrizione"));
+			vettore.add(resultSet.getString("datainizio"));
+			vettore.add(resultSet.getString("categoria"));
+			vettore.add(resultSet.getString("cognome"));
+			corsi.add(vettore);
+		}
+		
+			statement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return corsi;
+	}
+	
 	public Vector<Vector<String>> recuperaCorsi(){
 		Vector<Vector<String>> corsi = new Vector<Vector<String>>();
 		try {
@@ -162,45 +199,6 @@ public class CorsoDAO {
 		return corsiPerCodiceCorso;
 	}
 	
-	
-	public Vector<Vector<String>> ricercaCorsoPerNome(String nome){
-		Vector<Vector<String>> corsiPerNome = new Vector<Vector<String>>();
-		try {
-			connessioneDB=istanzaDB.connectToDB();
-
-			Statement statement = connessioneDB.createStatement();
-			ResultSet resultSet = statement.executeQuery(" SELECT c.codicecorso,c.nome,c.datainizio,"
-					+ 									 "        c.descrizione,c.categoria,r.cognome,"
-					+                                    "        r.codiceresponsabile"
-					+ 									 " FROM RESPONSABILE AS r JOIN (SELECT tc.codicecorso,tc.categoria,c.nome,"
-					+                                    "									   c.descrizione,c.codiceresponsabile,"
-					+                                    "					                   c.datainizio"
-					+                                    "						    	FROM tematica_corso AS tc JOIN corso AS c ON tc.codicecorso=c.codicecorso"
-					+                                    "                             ) AS c ON r.codiceresponsabile=c.codiceresponsabile"
-					+                                    " WHERE c.nome LIKE '%"+nome+"%'"
-					+                                    " ORDER BY codiceCorso");
-
-			while(resultSet.next()) {
-				Vector<String> vettore = new Vector<String>();
-				vettore.add(resultSet.getString("codiceCorso"));
-				vettore.add(resultSet.getString("nome"));
-				vettore.add(resultSet.getString("descrizione"));
-				vettore.add(resultSet.getString("datainizio"));
-				vettore.add(resultSet.getString("categoria"));
-				vettore.add(resultSet.getString("cognome"));
-				corsiPerNome.add(vettore);
-			}
-
-			statement.close();
-			resultSet.close();
-			istanzaDB.closeConnectionToDB();
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return corsiPerNome;
-	}
-	
 	public Vector<Vector<String>> recuperaCorsiOrdinatiPerNome (){
 		Vector<Vector<String>> corsiPerNome = new Vector<Vector<String>>();
 		try {
@@ -236,46 +234,7 @@ public class CorsoDAO {
 		}
 		return corsiPerNome;
 	}
-	
-	
-	public Vector<Vector<String>> ricercaCorsoPerData (String data){
-		Vector<Vector<String>> corsiPerData = new Vector<Vector<String>>();
-		try {
-			connessioneDB=istanzaDB.connectToDB();
-
-			Statement statement = connessioneDB.createStatement();
-			ResultSet resultSet = statement.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
-					+ "							  		 c.descrizione,c.categoria,r.cognome,r.codiceresponsabile"
-					+ "						FROM RESPONSABILE AS r JOIN (SELECT tc.codicecorso,tc.categoria,c.nome,"
-					+ "															c.descrizione,c.codiceresponsabile,"
-					+ "															c.datainizio"
-					+ "						    						 FROM tematica_corso AS tc JOIN corso AS c ON tc.codicecorso=c.codicecorso)"
-					+ "					        						 AS c ON r.codiceresponsabile=c.codiceresponsabile"
-					+ " WHERE CAST(C.datainizio AS VARCHAR(25)) LIKE '%"+data+"%' "
-					+ " ORDER BY c.datainizio");
-
-			while(resultSet.next()) {
-				Vector<String> vettore = new Vector<String>();
-				vettore.add(resultSet.getString("codiceCorso"));
-				vettore.add(resultSet.getString("nome"));
-				vettore.add(resultSet.getString("descrizione"));
-				vettore.add(resultSet.getString("datainizio"));
-				vettore.add(resultSet.getString("categoria"));
-				vettore.add(resultSet.getString("cognome"));
-				corsiPerData.add(vettore);
-			}
-
-			statement.close();
-			resultSet.close();
-			istanzaDB.closeConnectionToDB();
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return corsiPerData;
-	}
-	
-	
+		
 	public Vector<Vector<String>> recuperaCorsiOrdinatiPerData (){
 		Vector<Vector<String>> corsiPerData = new Vector<Vector<String>>();
 		try {
@@ -312,80 +271,157 @@ public class CorsoDAO {
 		return corsiPerData;
 	}
 
-	public Vector<Vector<String>> ricercaCorsoPerCategoria(String categoria){
-		Vector<Vector<String>> corsiPerCategoria = new Vector<Vector<String>>();
-		try {
-			connessioneDB=istanzaDB.connectToDB();
-
-			Statement statement = connessioneDB.createStatement();
-			ResultSet resultSet = statement.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
-					+ "							   c.descrizione,c.categoria,r.cognome,r.codiceresponsabile\r\n"
-					+ "						FROM RESPONSABILE AS r JOIN (SELECT tc.codicecorso,tc.categoria,c.nome,\r\n"
-					+ "															c.descrizione,c.codiceresponsabile,"
-					+ "															c.datainizio\r\n"
-					+ "						    						 FROM tematica_corso AS tc JOIN corso AS c ON tc.codicecorso=c.codicecorso)\r\n"
-					+ "					        						 AS c ON r.codiceresponsabile=c.codiceresponsabile\r\n"
-					+ "						WHERE LDTC.categoria LIKE '%"+categoria+"%'"
-					+ "						ORDER BY codiceCorso");
-
-
-			while(resultSet.next()) {
-				Vector<String> vettore = new Vector<String>();
-				vettore.add(resultSet.getString("codiceCorso"));
-				vettore.add(resultSet.getString("nome"));
-				vettore.add(resultSet.getString("descrizione"));
-				vettore.add(resultSet.getString("datainizio"));
-				vettore.add(resultSet.getString("categoria"));
-				vettore.add(resultSet.getString("cognome"));
-				corsiPerCategoria.add(vettore);
-			}
-
-			statement.close();
-			resultSet.close();
-			istanzaDB.closeConnectionToDB();
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return corsiPerCategoria;
-	}
+//	public Vector<Vector<String>> ricercaCorsoPerCategoria(String categoria){
+//		Vector<Vector<String>> corsiPerCategoria = new Vector<Vector<String>>();
+//		try {
+//			connessioneDB=istanzaDB.connectToDB();
+//
+//			Statement statement = connessioneDB.createStatement();
+//			ResultSet resultSet = statement.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
+//					+ "							   c.descrizione,c.categoria,r.cognome,r.codiceresponsabile\r\n"
+//					+ "						FROM RESPONSABILE AS r JOIN (SELECT tc.codicecorso,tc.categoria,c.nome,\r\n"
+//					+ "															c.descrizione,c.codiceresponsabile,"
+//					+ "															c.datainizio\r\n"
+//					+ "						    						 FROM tematica_corso AS tc JOIN corso AS c ON tc.codicecorso=c.codicecorso)\r\n"
+//					+ "					        						 AS c ON r.codiceresponsabile=c.codiceresponsabile\r\n"
+//					+ "						WHERE LDTC.categoria LIKE '%"+categoria+"%'"
+//					+ "						ORDER BY codiceCorso");
+//
+//
+//			while(resultSet.next()) {
+//				Vector<String> vettore = new Vector<String>();
+//				vettore.add(resultSet.getString("codiceCorso"));
+//				vettore.add(resultSet.getString("nome"));
+//				vettore.add(resultSet.getString("descrizione"));
+//				vettore.add(resultSet.getString("datainizio"));
+//				vettore.add(resultSet.getString("categoria"));
+//				vettore.add(resultSet.getString("cognome"));
+//				corsiPerCategoria.add(vettore);
+//			}
+//
+//			statement.close();
+//			resultSet.close();
+//			istanzaDB.closeConnectionToDB();
+//		}
+//		catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return corsiPerCategoria;
+//	}
 	
-	public Vector<Vector<String>> ricercaCorsoPerParolaChiave(String parolaChiave){
-		Vector<Vector<String>> corsiPerParolaChiave = new Vector<Vector<String>>();
-		try {
-			connessioneDB=istanzaDB.connectToDB();
-
-			Statement statement = connessioneDB.createStatement();
-			ResultSet resultSet = statement.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
-					+ "							   c.descrizione,c.categoria,r.cognome,r.codiceresponsabile\r\n"
-					+ "						FROM RESPONSABILE AS r JOIN (SELECT tc.codicecorso,tc.categoria,c.nome,\r\n"
-					+ "															c.descrizione,c.codiceresponsabile,"
-					+ "															c.datainizio\r\n"
-					+ "						    						 FROM tematica_corso AS tc JOIN corso AS c ON tc.codicecorso=c.codicecorso)\r\n"
-					+ "					        						 AS c ON r.codiceresponsabile=c.codiceresponsabile\r\n"
-					+ "						WHERE C.descrizione LIKE '%"+parolaChiave+"%' "
-					+ "						ORDER BY codiceCorso");
-
-			while(resultSet.next()) {
-				Vector<String> vettore = new Vector<String>();
-				vettore.add(resultSet.getString("codiceCorso"));
-				vettore.add(resultSet.getString("nome"));
-				vettore.add(resultSet.getString("descrizione"));
-				vettore.add(resultSet.getString("datainizio"));
-				vettore.add(resultSet.getString("categoria"));
-				vettore.add(resultSet.getString("cognome"));
-				corsiPerParolaChiave.add(vettore);
-			}
-
-			statement.close();
-			resultSet.close();
-			istanzaDB.closeConnectionToDB();
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return corsiPerParolaChiave;
-	}
+	
+	
+//	public Vector<Vector<String>> ricercaCorsoPerNome(String nome){
+//	Vector<Vector<String>> corsiPerNome = new Vector<Vector<String>>();
+//	try {
+//		connessioneDB=istanzaDB.connectToDB();
+//
+//		Statement statement = connessioneDB.createStatement();
+//		ResultSet resultSet = statement.executeQuery(" SELECT c.codicecorso,c.nome,c.datainizio,"
+//				+ 									 "        c.descrizione,c.categoria,r.cognome,"
+//				+                                    "        r.codiceresponsabile"
+//				+ 									 " FROM RESPONSABILE AS r JOIN (SELECT tc.codicecorso,tc.categoria,c.nome,"
+//				+                                    "									   c.descrizione,c.codiceresponsabile,"
+//				+                                    "					                   c.datainizio"
+//				+                                    "						    	FROM tematica_corso AS tc JOIN corso AS c ON tc.codicecorso=c.codicecorso"
+//				+                                    "                             ) AS c ON r.codiceresponsabile=c.codiceresponsabile"
+//				+                                    " WHERE c.nome LIKE '%"+nome+"%'"
+//				+                                    " ORDER BY codiceCorso");
+//
+//		while(resultSet.next()) {
+//			Vector<String> vettore = new Vector<String>();
+//			vettore.add(resultSet.getString("codiceCorso"));
+//			vettore.add(resultSet.getString("nome"));
+//			vettore.add(resultSet.getString("descrizione"));
+//			vettore.add(resultSet.getString("datainizio"));
+//			vettore.add(resultSet.getString("categoria"));
+//			vettore.add(resultSet.getString("cognome"));
+//			corsiPerNome.add(vettore);
+//		}
+//
+//		statement.close();
+//		resultSet.close();
+//		istanzaDB.closeConnectionToDB();
+//	}
+//	catch (SQLException e) {
+//		e.printStackTrace();
+//	}
+//	return corsiPerNome;
+//}
+	
+//	public Vector<Vector<String>> ricercaCorsoPerData (String data){
+//		Vector<Vector<String>> corsiPerData = new Vector<Vector<String>>();
+//		try {
+//			connessioneDB=istanzaDB.connectToDB();
+//
+//			Statement statement = connessioneDB.createStatement();
+//			ResultSet resultSet = statement.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
+//					+ "							  		 c.descrizione,c.categoria,r.cognome,r.codiceresponsabile"
+//					+ "						FROM RESPONSABILE AS r JOIN (SELECT tc.codicecorso,tc.categoria,c.nome,"
+//					+ "															c.descrizione,c.codiceresponsabile,"
+//					+ "															c.datainizio"
+//					+ "						    						 FROM tematica_corso AS tc JOIN corso AS c ON tc.codicecorso=c.codicecorso)"
+//					+ "					        						 AS c ON r.codiceresponsabile=c.codiceresponsabile"
+//					+ " WHERE CAST(C.datainizio AS VARCHAR(25)) LIKE '%"+data+"%' "
+//					+ " ORDER BY c.datainizio");
+//
+//			while(resultSet.next()) {
+//				Vector<String> vettore = new Vector<String>();
+//				vettore.add(resultSet.getString("codiceCorso"));
+//				vettore.add(resultSet.getString("nome"));
+//				vettore.add(resultSet.getString("descrizione"));
+//				vettore.add(resultSet.getString("datainizio"));
+//				vettore.add(resultSet.getString("categoria"));
+//				vettore.add(resultSet.getString("cognome"));
+//				corsiPerData.add(vettore);
+//			}
+//
+//			statement.close();
+//			resultSet.close();
+//			istanzaDB.closeConnectionToDB();
+//		}
+//		catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return corsiPerData;
+//	}
+	
+//	public Vector<Vector<String>> ricercaCorsoPerParolaChiave(String parolaChiave){
+//		Vector<Vector<String>> corsiPerParolaChiave = new Vector<Vector<String>>();
+//		try {
+//			connessioneDB=istanzaDB.connectToDB();
+//
+//			Statement statement = connessioneDB.createStatement();
+//			ResultSet resultSet = statement.executeQuery("SELECT c.codicecorso,c.nome,c.datainizio,"
+//					+ "							   c.descrizione,c.categoria,r.cognome,r.codiceresponsabile\r\n"
+//					+ "						FROM RESPONSABILE AS r JOIN (SELECT tc.codicecorso,tc.categoria,c.nome,\r\n"
+//					+ "															c.descrizione,c.codiceresponsabile,"
+//					+ "															c.datainizio\r\n"
+//					+ "						    						 FROM tematica_corso AS tc JOIN corso AS c ON tc.codicecorso=c.codicecorso)\r\n"
+//					+ "					        						 AS c ON r.codiceresponsabile=c.codiceresponsabile\r\n"
+//					+ "						WHERE C.descrizione LIKE '%"+parolaChiave+"%' "
+//					+ "						ORDER BY codiceCorso");
+//
+//			while(resultSet.next()) {
+//				Vector<String> vettore = new Vector<String>();
+//				vettore.add(resultSet.getString("codiceCorso"));
+//				vettore.add(resultSet.getString("nome"));
+//				vettore.add(resultSet.getString("descrizione"));
+//				vettore.add(resultSet.getString("datainizio"));
+//				vettore.add(resultSet.getString("categoria"));
+//				vettore.add(resultSet.getString("cognome"));
+//				corsiPerParolaChiave.add(vettore);
+//			}
+//
+//			statement.close();
+//			resultSet.close();
+//			istanzaDB.closeConnectionToDB();
+//		}
+//		catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return corsiPerParolaChiave;
+//	}
 	
 	
 	public void modificaCorso(String codiceCorso,String nome,String descrizione,String data,String categoria,String codiceResponsabile) {

@@ -48,7 +48,7 @@ public class HomepageFrame extends JFrame {
 				controller.getHomeFrame().setVisible(false);
 				controller.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
 				controller.getRicercaCorsoFrame().getCorsiTable().setModel(controller.getRicercaCorsoFrame().setDefaultTableModel(controller.getRicercaCorsoFrame().getCorsiDTM(),controller.getRicercaCorsoFrame().getCorsi()));
-				
+
 			}});
 		
 		JLabel homeLabel = new JLabel("Homepage");
