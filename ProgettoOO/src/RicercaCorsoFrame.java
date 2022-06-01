@@ -288,8 +288,13 @@ public class RicercaCorsoFrame extends JFrame {
 		
 		
 
-		categorieDTM = new DefaultTableModel();
-		categorieDTM.addColumn("Categoria");
+		categorieDTM = new DefaultTableModel(new Object[][] {},new String[] {"Categoria"}) {boolean[] columnEditables = new boolean[] {
+				false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		};;
 
 		categorie=controller.recuperaAreeTematiche2(controller.contaCategorie());
 		categorieDTM=setDefaultTableModel(categorieDTM,categorie);
@@ -333,13 +338,14 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_scrollPane.gridy = 6;
 		contentPane.add(tableCorsiScrollPane, gbc_scrollPane);
 
-		corsiDTM = new DefaultTableModel();
-		corsiDTM.addColumn("Codice");
-		corsiDTM.addColumn("Nome");
-		corsiDTM.addColumn("Descrizione");
-		corsiDTM.addColumn("Data");
-		corsiDTM.addColumn("Categoria");
-		corsiDTM.addColumn("Responsabile");
+		corsiDTM = new DefaultTableModel(new Object[][] {},new String[] {"Codice","Nome","Descrizione","Data","Categoria","Responsabile"}) {
+			boolean[] columnEditables = new boolean[] {
+				false,false,false,false,false,false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			
+		}};
 		corsi=controller.recuperaCorsi();
 		corsiDTM=setDefaultTableModel(corsiDTM,corsi);
 		
