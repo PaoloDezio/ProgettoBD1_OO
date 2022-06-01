@@ -176,8 +176,8 @@ public class Controller {
 		corsoDAO.eliminaCorso(codiceCorso);
 	}
 
-	public void modificaCorso(String codiceCorso,String nome,String descrizione,String data,String categoria,String codiceResponsabile) {
-		corsoDAO.modificaCorso(codiceCorso,nome,descrizione,data,categoria,codiceResponsabile);
+	public void modificaCorso(String codiceCorso,String nome,String descrizione,String data,String codiceResponsabile,String categoria) {
+		corsoDAO.modificaCorso(codiceCorso,nome,descrizione,data,codiceResponsabile,categoria);
 	}
 
 	public String recuperaNomeCorso(String codiceCorso) {

@@ -229,7 +229,10 @@ public class AggiungiCorsoFrame extends JFrame {
 				controller.inserisciCorso(nomeTF.getText().toUpperCase(), descrizioneTF.getText().toUpperCase(), numeroMassimoPartecipantiTF.getText(), numeroDiLezioniTF.getText(), dataDiInizioTF.getText(), controller.recuperaCodiceResponsabile(responsabileCB.getSelectedItem().toString()));
 				controller.assegnaAreaTematicaAdUnCorso(categoriaCB.getSelectedItem().toString(),controller.recuperaCodiceCorso(nomeTF.getText().toString().toUpperCase()));
 				controller.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
-				controller.getRicercaCorsoFrame().getCorsiTable().setModel(controller.getRicercaCorsoFrame().setDefaultTableModel(controller.getRicercaCorsoFrame().getCorsiDTM(),controller.getRicercaCorsoFrame().getCorsi()));
+				controller.getRicercaCorsoFrame().setCorsi(controller.recuperaCorsi());
+				controller.getRicercaCorsoFrame().setCorsiDTM(controller.getRicercaCorsoFrame().setDefaultTableModel(controller.getRicercaCorsoFrame().getCorsiDTM(), controller.getRicercaCorsoFrame().getCorsi()));
+				controller.getRicercaCorsoFrame().getCorsiTable().setModel(controller.getRicercaCorsoFrame().getCorsiDTM());
+
 				controller.getAggiungiCorsoFrame().setVisible(false);
 				resettaAggiungiCorsoFrame();
 			}

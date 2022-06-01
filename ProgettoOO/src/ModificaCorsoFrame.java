@@ -227,17 +227,20 @@ public class ModificaCorsoFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				String nomecorso = nomeTF.getText().toUpperCase();
-				String codiceCorso = controller.recuperaCodiceCorso(nomecorso);
+				String codiceCorso = controller.recuperaCodiceCorso(controller.getRicercaCorsoFrame().getCorsiTable().getValueAt(controller.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(),1).toString());
 				String descrizione = descrizioneTF.getText().toUpperCase();
 				String codiceResponsabile = controller.recuperaCodiceResponsabile(responsabileCB.getSelectedItem().toString());
 				String data = dataTF.getText();
 				String categoria = categoriaCB.getSelectedItem().toString();
 				
-				controller.modificaCorso(codiceCorso,nomecorso,descrizione,data,categoria,codiceResponsabile);
+				controller.modificaCorso(codiceCorso,nomecorso,descrizione,data,codiceResponsabile,categoria);
 				controller.getModificaFrame().setVisible(false);
+				
 				controller.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
-				controller.getRicercaCorsoFrame().getCorsiTable().setModel(controller.getRicercaCorsoFrame().setDefaultTableModel(controller.getRicercaCorsoFrame().getCorsiDTM(),controller.getRicercaCorsoFrame().getCorsi()));
-			}
+				controller.getRicercaCorsoFrame().setCorsi(controller.recuperaCorsi());
+				controller.getRicercaCorsoFrame().setCorsiDTM(controller.getRicercaCorsoFrame().setDefaultTableModel(controller.getRicercaCorsoFrame().getCorsiDTM(), controller.getRicercaCorsoFrame().getCorsi()));
+				controller.getRicercaCorsoFrame().getCorsiTable().setModel(controller.getRicercaCorsoFrame().getCorsiDTM());
+				}
 		});
 		salvaModificheButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_salvaButton = new GridBagConstraints();

@@ -74,12 +74,20 @@ public class RicercaCorsoFrame extends JFrame {
 		return corsiDTM;
 	}
 
+	public void setCorsiDTM(DefaultTableModel corsiDTM) {
+		this.corsiDTM = corsiDTM;
+	}
+
 	public JTable getCorsiTable() {
 		return corsiTable;
 	}
 
 	public Vector<Vector<String>> getCorsi() {
 		return corsi;
+	}
+
+	public void setCorsi(Vector<Vector<String>> corsi) {
+		this.corsi = corsi;
 	}
 
 	public RicercaCorsoFrame(Controller c){
@@ -297,12 +305,10 @@ public class RicercaCorsoFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(nomeTF.getText().isEmpty()==false||dataTF.getText().isEmpty()==false||parolaChiaveTF.getText().isEmpty()==false||categorieTable.getSelectedRow()==-1) {
 					corsiDTM.getDataVector().removeAllElements();
-
 					corsi=controller.ricercaCorsi(nomeTF.getText().toUpperCase(),dataTF.getText(), parolaChiaveTF.getText().toUpperCase());
 					corsiDTM=setDefaultTableModel(corsiDTM,corsi);
-
+					corsiDTM.fireTableDataChanged();
 					corsiTable.setModel(corsiDTM);
-					
 				}
 
 			}
@@ -364,6 +370,7 @@ public class RicercaCorsoFrame extends JFrame {
 		JButton AggiungiButton = new JButton("Aggiungi");
 		AggiungiButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				corsiTable.clearSelection();
 				controller.getAggiungiCorsoFrame().setVisible(true);
 			}
 		});
@@ -409,8 +416,11 @@ public class RicercaCorsoFrame extends JFrame {
 					Object codiceCorsoSelezionato;
 					codiceCorsoSelezionato = corsiTable.getValueAt(corsiTable.getSelectedRow(),0);
 					controller.eliminaCorsoSelezionato(codiceCorsoSelezionato);
-					corsiDTM.getDataVector().removeAllElements();
-					corsiTable.setModel(setDefaultTableModel(corsiDTM,corsi));
+					
+					controller.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
+					controller.getRicercaCorsoFrame().setCorsi(controller.recuperaCorsi());
+					controller.getRicercaCorsoFrame().setCorsiDTM(controller.getRicercaCorsoFrame().setDefaultTableModel(controller.getRicercaCorsoFrame().getCorsiDTM(), controller.getRicercaCorsoFrame().getCorsi()));
+					controller.getRicercaCorsoFrame().getCorsiTable().setModel(controller.getRicercaCorsoFrame().getCorsiDTM());
 				}
 			}
 		});
