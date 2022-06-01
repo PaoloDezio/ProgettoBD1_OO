@@ -22,6 +22,13 @@
 /RicercaCorsoFrame.class
 /Studente.class
 /Utente.class
+/AreaTematicaDAO.class
+/HomepageFrame$1.class
+/HomepageFrame$2.class
+/HomepageFrame$3.class
+/HomepageFrame.class
+/IdoneiFrame$1.class
+/IdoneiFrame.class
 /IscriviStudenteFrame$1.class
 /IscriviStudenteFrame$2.class
 /IscriviStudenteFrame.class
@@ -29,6 +36,8 @@
 /ModificaCorsoFrame$2.class
 /ModificaCorsoFrame$3.class
 /ModificaCorsoFrame.class
+/RicercaCorsoFrame$10.class
+/RicercaCorsoFrame$11.class
 /RicercaCorsoFrame$3.class
 /RicercaCorsoFrame$4.class
 /RicercaCorsoFrame$5.class
@@ -40,5 +49,3 @@
 /StatisticheFrame$2.class
 /StatisticheFrame.class
 /StudenteDAO.class
-/RicercaCorsoFrame$10.class
-/RicercaCorsoFrame$11.class
