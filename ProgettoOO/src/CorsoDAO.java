@@ -271,12 +271,12 @@ public class CorsoDAO {
 		return corsiPerData;
 	}
 	
-	public void modificaCorso(String codiceCorso,String nome,String descrizione,String data,String codiceResponsabile,String categoria) {
+	public void modificaCorso(String codiceCorso,String nome,String descrizione,String data,String codiceResponsabile,String categoria,String oldCategoria) {
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
 			statement.executeUpdate("UPDATE CORSO SET nome='"+nome+"',descrizione='"+descrizione+"',datainizio='"+data+"',codiceresponsabile="+codiceResponsabile+" WHERE codicecorso="+codiceCorso+";");
-			statement.executeUpdate("UPDATE TEMATICA_CORSO SET categoria='"+categoria+"' WHERE codicecorso="+codiceCorso);
+			statement.executeUpdate("UPDATE TEMATICA_CORSO SET categoria='"+categoria+"' WHERE codicecorso="+codiceCorso+" AND categoria='"+oldCategoria+"'");
 			
 			statement.close();
 			istanzaDB.closeConnectionToDB();

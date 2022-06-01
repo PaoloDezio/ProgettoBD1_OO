@@ -288,13 +288,8 @@ public class RicercaCorsoFrame extends JFrame {
 		
 		
 
-		categorieDTM = new DefaultTableModel(new Object[][] {},new String[] {"Categoria"}) {boolean[] columnEditables = new boolean[] {
-				false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		};;
+		categorieDTM = new DefaultTableModel();
+		categorieDTM.addColumn("Categoria");
 
 		categorie=controller.recuperaAreeTematiche2(controller.contaCategorie());
 		categorieDTM=setDefaultTableModel(categorieDTM,categorie);
@@ -338,14 +333,13 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_scrollPane.gridy = 6;
 		contentPane.add(tableCorsiScrollPane, gbc_scrollPane);
 
-		corsiDTM = new DefaultTableModel(new Object[][] {},new String[] {"Codice","Nome","Descrizione","Data","Categoria","Responsabile"}) {
-			boolean[] columnEditables = new boolean[] {
-				false,false,false,false,false,false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			
-		}};
+		corsiDTM = new DefaultTableModel();
+		corsiDTM.addColumn("Codice");
+		corsiDTM.addColumn("Nome");
+		corsiDTM.addColumn("Descrizione");
+		corsiDTM.addColumn("Data");
+		corsiDTM.addColumn("Categoria");
+		corsiDTM.addColumn("Responsabile");
 		corsi=controller.recuperaCorsi();
 		corsiDTM=setDefaultTableModel(corsiDTM,corsi);
 		
@@ -396,8 +390,8 @@ public class RicercaCorsoFrame extends JFrame {
 				}
 				else {
 					controller.getModificaFrame().setVisible(true);
-					controller.getModificaFrame().getNomeTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
-					controller.getModificaFrame().getDescrizioneTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),2).toString());
+					controller.getModificaFrame().getNomeTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString().toLowerCase());
+					controller.getModificaFrame().getDescrizioneTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),2).toString().toLowerCase());
 					controller.getModificaFrame().getDataTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),3).toString());
 					controller.getModificaFrame().getCategoriaCB().setSelectedItem(c.getRicercaCorsoFrame().getCorsiTable().getValueAt(c.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(),4));
 					controller.getModificaFrame().getResponsabileCB().setSelectedItem(c.getRicercaCorsoFrame().getCorsiTable().getValueAt(c.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(),5));

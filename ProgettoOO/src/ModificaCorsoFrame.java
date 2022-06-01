@@ -232,8 +232,9 @@ public class ModificaCorsoFrame extends JFrame {
 				String codiceResponsabile = controller.recuperaCodiceResponsabile(responsabileCB.getSelectedItem().toString());
 				String data = dataTF.getText();
 				String categoria = categoriaCB.getSelectedItem().toString();
+				String oldCategoria= controller.getRicercaCorsoFrame().getCorsiTable().getValueAt(controller.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(),4).toString().toUpperCase();
 				
-				controller.modificaCorso(codiceCorso,nomecorso,descrizione,data,codiceResponsabile,categoria);
+				controller.modificaCorso(codiceCorso,nomecorso,descrizione,data,codiceResponsabile,categoria,oldCategoria);
 				controller.getModificaFrame().setVisible(false);
 				
 				controller.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
