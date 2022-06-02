@@ -64,7 +64,7 @@ public class RicercaCorsoFrame extends JFrame {
 	private JTable categorieTable;
 	private DefaultTableModel categorieDTM;
 	private Vector<Vector<String>> categorie;
-
+	private JScrollPane tableCorsiScrollPane;
 	
 	public JComboBox getCampoCB() {
 		return campoCB;
@@ -104,10 +104,10 @@ public class RicercaCorsoFrame extends JFrame {
 		setContentPane(contentPane);
 		
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 156, 0, 0, 0, 76, 18, 110, 130, 73, 114, 100, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 23, 0, 19, 0, 26, 0, 0, 0, 0, 26, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0};
+		gbl_contentPane.columnWidths = new int[]{0, 156, 0, 0, 0, 0, 0, 76, 18, 110, 130, 44, 114, 100, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 23, 0, 19, 33, 26, 0, 0, 0, 0, 26, 0, 0};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel gestioneCorsiLabel = new JLabel("Gestione Corsi");
@@ -139,22 +139,36 @@ public class RicercaCorsoFrame extends JFrame {
 		contentPane.add(nomeTF, gbc_nomeTF);
 		nomeTF.setColumns(10);
 		
+		JButton clearNomeButton = new JButton("X");
+		clearNomeButton.setToolTipText("Premere per cancella il testo");
+		clearNomeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nomeTF.setText("");
+			}
+		});
+		clearNomeButton.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_clearNomeButton = new GridBagConstraints();
+		gbc_clearNomeButton.insets = new Insets(0, 0, 5, 5);
+		gbc_clearNomeButton.gridx = 5;
+		gbc_clearNomeButton.gridy = 1;
+		contentPane.add(clearNomeButton, gbc_clearNomeButton);
+		
 		JLabel categoriaLabel = new JLabel("Categoria");
 		categoriaLabel.setFont(new Font("Century", Font.PLAIN, 18));
 		GridBagConstraints gbc_categoriaLabel = new GridBagConstraints();
 		gbc_categoriaLabel.anchor = GridBagConstraints.EAST;
 		gbc_categoriaLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_categoriaLabel.gridx = 6;
+		gbc_categoriaLabel.gridx = 8;
 		gbc_categoriaLabel.gridy = 1;
 		contentPane.add(categoriaLabel, gbc_categoriaLabel);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
 		gbc_scrollPane_1.gridwidth = 2;
-		gbc_scrollPane_1.gridheight = 3;
+		gbc_scrollPane_1.gridheight = 4;
 		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane_1.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPane_1.gridx = 7;
+		gbc_scrollPane_1.gridx = 9;
 		gbc_scrollPane_1.gridy = 1;
 		contentPane.add(scrollPane_1, gbc_scrollPane_1);
 		
@@ -168,6 +182,7 @@ public class RicercaCorsoFrame extends JFrame {
 		contentPane.add(dataLabel, gbc_dataLabel);
 		
 		JTextField dataTF = new JTextField();
+		dataTF.setToolTipText("YYYY-MM-DD");
 		dataTF.setFont(new Font("Century", Font.PLAIN, 16));
 		dataTF.setColumns(10);
 		GridBagConstraints gbc_dataTF = new GridBagConstraints();
@@ -177,6 +192,20 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_dataTF.gridx = 2;
 		gbc_dataTF.gridy = 2;
 		contentPane.add(dataTF, gbc_dataTF);
+		
+		JButton clearDataButton = new JButton("X");
+		clearDataButton.setToolTipText("Premere per cancella il testo");
+		clearDataButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dataTF.setText("");
+			}
+		});
+		clearDataButton.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_clearDataButton = new GridBagConstraints();
+		gbc_clearDataButton.insets = new Insets(0, 0, 5, 5);
+		gbc_clearDataButton.gridx = 5;
+		gbc_clearDataButton.gridy = 2;
+		contentPane.add(clearDataButton, gbc_clearDataButton);
 		
 		JLabel parolaChiaveLabel = new JLabel("Parola Chiave");
 		parolaChiaveLabel.setFont(new Font("Century", Font.PLAIN, 16));
@@ -198,95 +227,6 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_parolaChiaveTF.gridy = 3;
 		contentPane.add(parolaChiaveTF, gbc_parolaChiaveTF);
 	
-		JLabel ordinaPerLabel = new JLabel("Ordina per");
-		ordinaPerLabel.setFont(new Font("Century", Font.PLAIN, 18));
-		GridBagConstraints gbc_ordinaPerLabel = new GridBagConstraints();
-		gbc_ordinaPerLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_ordinaPerLabel.gridx = 1;
-		gbc_ordinaPerLabel.gridy = 5;
-		contentPane.add(ordinaPerLabel, gbc_ordinaPerLabel);
-		
-		codiceCorsoRadioButton = new JRadioButton("Codice Corso");
-		codiceCorsoRadioButton.setSelected(true);
-		codiceCorsoRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(codiceCorsoRadioButton.isSelected()) {	
-					corsiDTM.getDataVector().removeAllElements();
-					corsi=controller.recuperaCorsiOrdinatiPerCodiceCorso();
-					for (Vector<String> vettore : corsi) {
-						corsiDTM.addRow(vettore);
-					}
-					corsiTable.setModel(corsiDTM);				
-					nomeRadioButton.setSelected(false);
-					dataRadioButton.setSelected(false);
-				}
-				else {
-					codiceCorsoRadioButton.setSelected(true);
-				}
-			}
-		});
-		codiceCorsoRadioButton.setFont(new Font("Century", Font.PLAIN, 16));
-		codiceCorsoRadioButton.setBackground(new Color(30, 144, 255));
-		GridBagConstraints gbc_codiceCorsoRadioButton = new GridBagConstraints();
-		gbc_codiceCorsoRadioButton.anchor = GridBagConstraints.WEST;
-		gbc_codiceCorsoRadioButton.insets = new Insets(0, 0, 5, 5);
-		gbc_codiceCorsoRadioButton.gridx = 2;
-		gbc_codiceCorsoRadioButton.gridy = 5;
-		contentPane.add(codiceCorsoRadioButton, gbc_codiceCorsoRadioButton);
-		
-		nomeRadioButton = new JRadioButton("Nome");
-		nomeRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(nomeRadioButton.isSelected()) {
-					corsiDTM.getDataVector().removeAllElements();
-					corsi=controller.recuperaCorsiOrdinatiPerNome();
-					for (Vector<String> vettore : corsi) {
-						corsiDTM.addRow(vettore);
-					}
-					corsiTable.setModel(corsiDTM);
-					codiceCorsoRadioButton.setSelected(false);
-					dataRadioButton.setSelected(false);
-				}
-				else {
-					nomeRadioButton.setSelected(true);
-				}
-			}
-		});
-		nomeRadioButton.setBackground(new Color(30, 144, 255));
-		nomeRadioButton.setFont(new Font("Century", Font.PLAIN, 16));
-		GridBagConstraints gbc_nomeRadioButton = new GridBagConstraints();
-		gbc_nomeRadioButton.insets = new Insets(0, 0, 5, 5);
-		gbc_nomeRadioButton.gridx = 3;
-		gbc_nomeRadioButton.gridy = 5;
-		contentPane.add(nomeRadioButton, gbc_nomeRadioButton);
-		
-		dataRadioButton = new JRadioButton("Data");
-		dataRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(dataRadioButton.isSelected()) {
-					corsiDTM.getDataVector().removeAllElements();
-					corsi=controller.recuperaCorsiOrdinatiPerData();
-					for (Vector<String> vettore : corsi) {
-						corsiDTM.addRow(vettore);
-					}
-					corsiTable.setModel(corsiDTM);
-					nomeRadioButton.setSelected(false);
-					codiceCorsoRadioButton.setSelected(false);
-				}
-				else {
-					dataRadioButton.setSelected(true);
-				}
-			}
-		});
-		dataRadioButton.setFont(new Font("Century", Font.PLAIN, 16));
-		dataRadioButton.setBackground(new Color(30, 144, 255));
-		GridBagConstraints gbc_dataRadioButton = new GridBagConstraints();
-		gbc_dataRadioButton.insets = new Insets(0, 0, 5, 5);
-		gbc_dataRadioButton.gridx = 4;
-		gbc_dataRadioButton.gridy = 5;
-		contentPane.add(dataRadioButton, gbc_dataRadioButton);
-		
-		
 
 		categorieDTM = new DefaultTableModel() {
 			@Override
@@ -310,41 +250,205 @@ public class RicercaCorsoFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(categorieTable.getSelectedRow()>-1) {
 					String categorieSelezionate = new String();
-					for (int a : categorieTable.getSelectedRows()) {
-						categorieSelezionate= categorieSelezionate +","+categorieTable.getValueAt(a, 0).toString();
+					for (int indiceCategoria : categorieTable.getSelectedRows()) {
+						categorieSelezionate= categorieSelezionate +","+categorieTable.getValueAt(indiceCategoria, 0).toString();
 					}	
 					categorieSelezionate= categorieSelezionate.substring(1);
+					
 					corsiDTM.getDataVector().removeAllElements();
-					corsi=controller.ricercaPerCategoria(categorieSelezionate);
+					corsi=controller.ricercaCorsiPerCategoria(categorieSelezionate,nomeTF.getText().toUpperCase(),dataTF.getText(),parolaChiaveTF.getText().toUpperCase());
 					corsiDTM=setDefaultTableModel(corsiDTM,corsi);
 					corsiDTM.fireTableDataChanged();
 					corsiTable.setModel(corsiDTM);
-					
-//				if(nomeTF.getText().isEmpty()==false||dataTF.getText().isEmpty()==false||parolaChiaveTF.getText().isEmpty()==false) {
-//					corsiDTM.getDataVector().removeAllElements();
-//					corsi=controller.ricercaCorsi(nomeTF.getText().toUpperCase(),dataTF.getText(), parolaChiaveTF.getText().toUpperCase());
-//					corsiDTM=setDefaultTableModel(corsiDTM,corsi);
-//					corsiDTM.fireTableDataChanged();
-//					corsiTable.setModel(corsiDTM);
-//				}
-
+				}
+				else {
+					if(nomeTF.getText().isEmpty()==false||dataTF.getText().isEmpty()==false||parolaChiaveTF.getText().isEmpty()==false) {
+						corsiDTM.getDataVector().removeAllElements();
+						corsi=controller.ricercaCorsi(nomeTF.getText().toUpperCase(),dataTF.getText(), parolaChiaveTF.getText().toUpperCase());
+						corsiDTM=setDefaultTableModel(corsiDTM,corsi);
+						corsiDTM.fireTableDataChanged();
+						corsiTable.setModel(corsiDTM);
+					}
+				}
+//				categorieTable.clearSelection();
 			}
-		}});
+		});
 		cercaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_cercaButton = new GridBagConstraints();
 		gbc_cercaButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cercaButton.insets = new Insets(0, 0, 5, 5);
-		gbc_cercaButton.gridx = 10;
+		gbc_cercaButton.gridx = 12;
 		gbc_cercaButton.gridy = 1;
 		contentPane.add(cercaButton, gbc_cercaButton);
 		
+		JButton clearParolaChiaveButton = new JButton("X");
+		clearParolaChiaveButton.setToolTipText("Premere per cancella il testo");
+		clearParolaChiaveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				parolaChiaveTF.setText("");
+			}
+		});
+		clearParolaChiaveButton.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_clearParolaChiaveButton = new GridBagConstraints();
+		gbc_clearParolaChiaveButton.insets = new Insets(0, 0, 5, 5);
+		gbc_clearParolaChiaveButton.gridx = 5;
+		gbc_clearParolaChiaveButton.gridy = 3;
+		contentPane.add(clearParolaChiaveButton, gbc_clearParolaChiaveButton);
 		
-		JScrollPane tableCorsiScrollPane = new JScrollPane();
+		JLabel ordinaPerLabel = new JLabel("Ordina per");
+		ordinaPerLabel.setFont(new Font("Century", Font.PLAIN, 18));
+		GridBagConstraints gbc_ordinaPerLabel = new GridBagConstraints();
+		gbc_ordinaPerLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_ordinaPerLabel.gridx = 1;
+		gbc_ordinaPerLabel.gridy = 5;
+		contentPane.add(ordinaPerLabel, gbc_ordinaPerLabel);
+		
+		codiceCorsoRadioButton = new JRadioButton("Codice Corso");
+		codiceCorsoRadioButton.setSelected(true);
+		codiceCorsoRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(codiceCorsoRadioButton.isSelected()) {	
+					tableCorsiScrollPane.getVerticalScrollBar().setValue(tableCorsiScrollPane.getVerticalScrollBar().getMinimum());
+//					if(categorieTable.getSelectedRow()>-1) {
+//						String categorieSelezionate = new String();
+//						for (int indiceCategoria : categorieTable.getSelectedRows()) {
+//							categorieSelezionate= categorieSelezionate +","+categorieTable.getValueAt(indiceCategoria, 0).toString();
+//						}	
+//						categorieSelezionate= categorieSelezionate.substring(1);
+						
+						corsiDTM.getDataVector().removeAllElements();
+						corsi=controller.recuperaCorsiOrdinatiPerCodiceCorso(nomeTF.getText().toUpperCase(),dataTF.getText(),parolaChiaveTF.getText().toUpperCase(),"codicecorso");
+						corsiDTM=setDefaultTableModel(corsiDTM,corsi);
+						corsiDTM.fireTableDataChanged();
+						corsiTable.setModel(corsiDTM);
+//					}
+//					else {
+//						if(nomeTF.getText().isEmpty()==false||dataTF.getText().isEmpty()==false||parolaChiaveTF.getText().isEmpty()==false) {
+//							corsiDTM.getDataVector().removeAllElements();
+//							corsi=controller.ricercaCorsi(nomeTF.getText().toUpperCase(),dataTF.getText(), parolaChiaveTF.getText().toUpperCase());
+//							corsiDTM=setDefaultTableModel(corsiDTM,corsi);
+//							corsiDTM.fireTableDataChanged();
+//							corsiTable.setModel(corsiDTM);
+//						}
+//					}
+					
+					
+					
+					nomeRadioButton.setSelected(false);
+					dataRadioButton.setSelected(false);
+				}
+				else {
+					codiceCorsoRadioButton.setSelected(true);
+				}
+			}
+		});
+		codiceCorsoRadioButton.setFont(new Font("Century", Font.PLAIN, 16));
+		codiceCorsoRadioButton.setBackground(new Color(30, 144, 255));
+		GridBagConstraints gbc_codiceCorsoRadioButton = new GridBagConstraints();
+		gbc_codiceCorsoRadioButton.anchor = GridBagConstraints.WEST;
+		gbc_codiceCorsoRadioButton.insets = new Insets(0, 0, 5, 5);
+		gbc_codiceCorsoRadioButton.gridx = 2;
+		gbc_codiceCorsoRadioButton.gridy = 5;
+		contentPane.add(codiceCorsoRadioButton, gbc_codiceCorsoRadioButton);
+		
+		nomeRadioButton = new JRadioButton("Nome");
+		nomeRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(nomeRadioButton.isSelected()) {
+					tableCorsiScrollPane.getVerticalScrollBar().setValue(tableCorsiScrollPane.getVerticalScrollBar().getMinimum());
+//					if(categorieTable.getSelectedRow()>-1) {
+//						String categorieSelezionate = new String();
+//						for (int indiceCategoria : categorieTable.getSelectedRows()) {
+//							categorieSelezionate= categorieSelezionate +","+categorieTable.getValueAt(indiceCategoria, 0).toString();
+//						}	
+//						categorieSelezionate= categorieSelezionate.substring(1);
+						
+						corsiDTM.getDataVector().removeAllElements();
+						corsi=controller.recuperaCorsiOrdinatiPerNome(nomeTF.getText().toUpperCase(),dataTF.getText(),parolaChiaveTF.getText().toUpperCase(),"nome");
+						corsiDTM=setDefaultTableModel(corsiDTM,corsi);
+						corsiDTM.fireTableDataChanged();
+						corsiTable.setModel(corsiDTM);
+//					}
+//					else {
+//						if(nomeTF.getText().isEmpty()==false||dataTF.getText().isEmpty()==false||parolaChiaveTF.getText().isEmpty()==false) {
+//							corsiDTM.getDataVector().removeAllElements();
+//							corsi=controller.ricercaCorsi(nomeTF.getText().toUpperCase(),dataTF.getText(), parolaChiaveTF.getText().toUpperCase());
+//							corsiDTM=setDefaultTableModel(corsiDTM,corsi);
+//							corsiDTM.fireTableDataChanged();
+//							corsiTable.setModel(corsiDTM);
+//						}
+//					}
+					
+					
+					codiceCorsoRadioButton.setSelected(false);
+					dataRadioButton.setSelected(false);
+				}
+				else {
+					nomeRadioButton.setSelected(true);
+				}
+			}
+		});
+		nomeRadioButton.setBackground(new Color(30, 144, 255));
+		nomeRadioButton.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_nomeRadioButton = new GridBagConstraints();
+		gbc_nomeRadioButton.insets = new Insets(0, 0, 5, 5);
+		gbc_nomeRadioButton.gridx = 3;
+		gbc_nomeRadioButton.gridy = 5;
+		contentPane.add(nomeRadioButton, gbc_nomeRadioButton);
+		
+		dataRadioButton = new JRadioButton("Data");
+		dataRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(dataRadioButton.isSelected()) {
+					tableCorsiScrollPane.getVerticalScrollBar().setValue(tableCorsiScrollPane.getVerticalScrollBar().getMinimum());
+
+					
+//					if(categorieTable.getSelectedRow()>-1) {
+//						String categorieSelezionate = new String();
+//						for (int indiceCategoria : categorieTable.getSelectedRows()) {
+//							categorieSelezionate= categorieSelezionate +","+categorieTable.getValueAt(indiceCategoria, 0).toString();
+//						}	
+//						categorieSelezionate= categorieSelezionate.substring(1);
+						
+						corsiDTM.getDataVector().removeAllElements();
+						corsi=controller.recuperaCorsiOrdinatiPerData(nomeTF.getText().toUpperCase(),dataTF.getText(),parolaChiaveTF.getText().toUpperCase(),"datainizio");
+						corsiDTM=setDefaultTableModel(corsiDTM,corsi);
+						corsiDTM.fireTableDataChanged();
+						corsiTable.setModel(corsiDTM);
+//					}
+//					else {
+//						if(nomeTF.getText().isEmpty()==false||dataTF.getText().isEmpty()==false||parolaChiaveTF.getText().isEmpty()==false) {
+//							corsiDTM.getDataVector().removeAllElements();
+//							corsi=controller.ricercaCorsi(nomeTF.getText().toUpperCase(),dataTF.getText(), parolaChiaveTF.getText().toUpperCase());
+//							corsiDTM=setDefaultTableModel(corsiDTM,corsi);
+//							corsiDTM.fireTableDataChanged();
+//							corsiTable.setModel(corsiDTM);
+//						}
+//					}
+					
+					
+					nomeRadioButton.setSelected(false);
+					codiceCorsoRadioButton.setSelected(false);
+				}
+				else {
+					dataRadioButton.setSelected(true);
+				}
+			}
+		});
+		dataRadioButton.setFont(new Font("Century", Font.PLAIN, 16));
+		dataRadioButton.setBackground(new Color(30, 144, 255));
+		GridBagConstraints gbc_dataRadioButton = new GridBagConstraints();
+		gbc_dataRadioButton.insets = new Insets(0, 0, 5, 5);
+		gbc_dataRadioButton.gridx = 4;
+		gbc_dataRadioButton.gridy = 5;
+		contentPane.add(dataRadioButton, gbc_dataRadioButton);
+		
+		tableCorsiScrollPane = new JScrollPane();
 		tableCorsiScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridheight = 4;
-		gbc_scrollPane.gridwidth = 11;
+		gbc_scrollPane.gridwidth = 13;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.gridx = 1;
 		gbc_scrollPane.gridy = 6;
@@ -362,9 +466,6 @@ public class RicercaCorsoFrame extends JFrame {
 		corsiDTM.addColumn("Data");
 		corsiDTM.addColumn("Categoria");
 		corsiDTM.addColumn("Responsabile");
-		
-		
-		
 		corsi=controller.recuperaCorsi();
 		corsiDTM=setDefaultTableModel(corsiDTM,corsi);
 		
@@ -392,6 +493,7 @@ public class RicercaCorsoFrame extends JFrame {
 		corsiTable.setFont(new Font("Century", Font.PLAIN, 15));
 		tableCorsiScrollPane.setViewportView(corsiTable);
 
+		
 		JButton AggiungiButton = new JButton("Aggiungi");
 		AggiungiButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -403,7 +505,7 @@ public class RicercaCorsoFrame extends JFrame {
 		GridBagConstraints gbc_AggiungiButton = new GridBagConstraints();
 		gbc_AggiungiButton.anchor = GridBagConstraints.WEST;
 		gbc_AggiungiButton.insets = new Insets(0, 0, 5, 0);
-		gbc_AggiungiButton.gridx = 12;
+		gbc_AggiungiButton.gridx = 14;
 		gbc_AggiungiButton.gridy = 6;
 		contentPane.add(AggiungiButton, gbc_AggiungiButton);
 
@@ -427,7 +529,7 @@ public class RicercaCorsoFrame extends JFrame {
 		GridBagConstraints gbc_ModificaButton = new GridBagConstraints();
 		gbc_ModificaButton.anchor = GridBagConstraints.WEST;
 		gbc_ModificaButton.insets = new Insets(0, 0, 5, 0);
-		gbc_ModificaButton.gridx = 12;
+		gbc_ModificaButton.gridx = 14;
 		gbc_ModificaButton.gridy = 7;
 		contentPane.add(ModificaButton, gbc_ModificaButton);
 
@@ -453,7 +555,7 @@ public class RicercaCorsoFrame extends JFrame {
 		GridBagConstraints gbc_EliminaButton = new GridBagConstraints();
 		gbc_EliminaButton.insets = new Insets(0, 0, 5, 0);
 		gbc_EliminaButton.anchor = GridBagConstraints.WEST;
-		gbc_EliminaButton.gridx = 12;
+		gbc_EliminaButton.gridx = 14;
 		gbc_EliminaButton.gridy = 8;
 		contentPane.add(EliminaButton, gbc_EliminaButton);
 		
@@ -477,7 +579,7 @@ public class RicercaCorsoFrame extends JFrame {
 		GridBagConstraints gbc_StatisticheButton = new GridBagConstraints();
 		gbc_StatisticheButton.insets = new Insets(0, 0, 5, 0);
 		gbc_StatisticheButton.anchor = GridBagConstraints.WEST;
-		gbc_StatisticheButton.gridx = 12;
+		gbc_StatisticheButton.gridx = 14;
 		gbc_StatisticheButton.gridy = 9;
 		contentPane.add(StatisticheButton, gbc_StatisticheButton);
 		

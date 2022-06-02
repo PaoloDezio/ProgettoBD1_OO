@@ -148,10 +148,9 @@ public class Controller {
 		return corsoDAO.recuperaCorsi();
 	}
 	
-	public Vector<Vector<String>> ricercaPerCategoria(String categorieSelezionate){
-		return corsoDAO.ricercaPerCategoria(categorieSelezionate);
+	public Vector<Vector<String>> ricercaCorsiPerCategoria(String categorieSelezionate,String nome,String data,String parolaChiave){
+		return corsoDAO.ricercaCorsiPerCategoria(categorieSelezionate,nome,data,parolaChiave);
 	}
-	
 	
 	public Vector<Vector<String>> ricercaCorsi(String nome,String data,String parolaChiave){
 		return corsoDAO.ricercaCorsi(nome, data, parolaChiave);
@@ -165,16 +164,16 @@ public class Controller {
 		return corsoDAO.recuperaCorsi(numeroCorsi);
 	}
 	
-	public Vector<Vector<String>> recuperaCorsiOrdinatiPerCodiceCorso (){
-		return corsoDAO.recuperaCorsiOrdinatiPerCodiceCorso();
+	public Vector<Vector<String>> recuperaCorsiOrdinatiPerCodiceCorso(String nome,String data,String parolaChiave,String ordinamento){
+		return corsoDAO.recuperaCorsiOrdinatiPerCodiceCorso(nome,data,parolaChiave,ordinamento);
 	}
 
-	public Vector<Vector<String>> recuperaCorsiOrdinatiPerNome (){
-		return corsoDAO.recuperaCorsiOrdinatiPerNome();
+	public Vector<Vector<String>> recuperaCorsiOrdinatiPerNome(String nome,String data,String parolaChiave,String ordinamento){
+		return corsoDAO.recuperaCorsiOrdinatiPerNome(nome,data,parolaChiave,ordinamento);
 	}
 
-	public Vector<Vector<String>> recuperaCorsiOrdinatiPerData (){
-		return corsoDAO.recuperaCorsiOrdinatiPerData();
+	public Vector<Vector<String>> recuperaCorsiOrdinatiPerData(String nome,String data,String parolaChiave,String ordinamento){
+		return corsoDAO.recuperaCorsiOrdinatiPerData(nome,data,parolaChiave,ordinamento);
 	}
 
 	public void eliminaCorsoSelezionato(Object codiceCorso) {
