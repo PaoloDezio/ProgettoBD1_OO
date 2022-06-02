@@ -148,10 +148,15 @@ public class Controller {
 		return corsoDAO.recuperaCorsi();
 	}
 	
+	public Vector<Vector<String>> ricercaPerCategoria(String categorieSelezionate){
+		return corsoDAO.ricercaPerCategoria(categorieSelezionate);
+	}
+	
+	
 	public Vector<Vector<String>> ricercaCorsi(String nome,String data,String parolaChiave){
 		return corsoDAO.ricercaCorsi(nome, data, parolaChiave);
 	}
-
+	
 	public int contaCorsi() {
 		return corsoDAO.contaCorsi();
 	}

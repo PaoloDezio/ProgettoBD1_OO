@@ -62,7 +62,7 @@ public class CorsoDAO {
 					+ "									  WHERE ti.nome LIKE '%"+nome+"%' AND CAST(ti.datainizio AS VARCHAR(25)) LIKE '%"+data+"%' AND ti.descrizione LIKE '%"+parolaChiave+"%' "
 							+ "							  ORDER BY ti.codiceCorso");
 			
-		while(resultSet.next()) {
+			while(resultSet.next()) {
 			Vector<String> vettore = new Vector<String>();
 			vettore.add(resultSet.getString("codiceCorso"));
 			vettore.add(resultSet.getString("nome"));
@@ -85,6 +85,43 @@ public class CorsoDAO {
 		
 		return corsi;
 	}
+	
+	
+	public Vector<Vector<String>> ricercaPerCategoria(String categorieSelezionate){
+		Vector<Vector<String>> corsi = new Vector<Vector<String>>();
+		try {
+			connessioneDB=istanzaDB.connectToDB();
+			
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet= statement.executeQuery("SELECT ti.codicecorso,ti.nome,ti.datainizio,ti.descrizione,ti.categoria,r.cognome,r.codiceresponsabile\r\n"
+					+ "FROM RESPONSABILE AS r JOIN\r\n"
+					+ "	 (SELECT tc.codicecorso,tc.categoria,co.nome,co.descrizione,co.codiceresponsabile,co.datainizio\r\n"
+					+ "	  FROM tematica_corso AS tc JOIN (SELECT * FROM ricerca_per_categoria('"+categorieSelezionate+"')) as co ON tc.codicecorso=co.codicecorso\r\n"
+					+ "								      ) AS ti ON r.codiceresponsabile=ti.codiceresponsabile"
+					+ " ORDER BY ti.codicecorso;");
+			
+			while(resultSet.next()) {
+				Vector<String> vettore = new Vector<String>();
+				vettore.add(resultSet.getString("codiceCorso"));
+				vettore.add(resultSet.getString("nome"));
+				vettore.add(resultSet.getString("descrizione"));
+				vettore.add(resultSet.getString("datainizio"));
+				vettore.add(resultSet.getString("categoria"));
+				vettore.add(resultSet.getString("cognome"));
+				corsi.add(vettore);
+			}
+			
+				statement.close();
+				resultSet.close();
+				istanzaDB.closeConnectionToDB();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}return corsi;
+		
+	}
+	
+	
+	
 	
 	public Vector<Vector<String>> recuperaCorsi(){
 		Vector<Vector<String>> corsi = new Vector<Vector<String>>();
@@ -322,5 +359,6 @@ public class CorsoDAO {
 		return nomeCorso;
 	}
 	
+
 	
 }

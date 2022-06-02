@@ -22,6 +22,15 @@
 /RicercaCorsoFrame.class
 /Studente.class
 /Utente.class
+/.classpath
+/.gitignore
+/.project
+/AggiungiAreaTematicaFrame$1.class
+/AggiungiAreaTematicaFrame$2.class
+/AggiungiAreaTematicaFrame.class
+/AggiungiCorsoFrame$1.class
+/AggiungiCorsoFrame$2.class
+/AggiungiCorsoFrame.class
 /AreaTematicaDAO.class
 /HomepageFrame$1.class
 /HomepageFrame$2.class

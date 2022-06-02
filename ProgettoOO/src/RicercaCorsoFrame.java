@@ -308,16 +308,28 @@ public class RicercaCorsoFrame extends JFrame {
 		JButton cercaButton = new JButton("Cerca");
 		cercaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(nomeTF.getText().isEmpty()==false||dataTF.getText().isEmpty()==false||parolaChiaveTF.getText().isEmpty()==false||categorieTable.getSelectedRow()==-1) {
+				if(categorieTable.getSelectedRow()>-1) {
+					String categorieSelezionate = new String();
+					for (int a : categorieTable.getSelectedRows()) {
+						categorieSelezionate= categorieSelezionate +","+categorieTable.getValueAt(a, 0).toString();
+					}	
+					categorieSelezionate= categorieSelezionate.substring(1);
 					corsiDTM.getDataVector().removeAllElements();
-					corsi=controller.ricercaCorsi(nomeTF.getText().toUpperCase(),dataTF.getText(), parolaChiaveTF.getText().toUpperCase());
+					corsi=controller.ricercaPerCategoria(categorieSelezionate);
 					corsiDTM=setDefaultTableModel(corsiDTM,corsi);
 					corsiDTM.fireTableDataChanged();
 					corsiTable.setModel(corsiDTM);
-				}
+					
+//				if(nomeTF.getText().isEmpty()==false||dataTF.getText().isEmpty()==false||parolaChiaveTF.getText().isEmpty()==false) {
+//					corsiDTM.getDataVector().removeAllElements();
+//					corsi=controller.ricercaCorsi(nomeTF.getText().toUpperCase(),dataTF.getText(), parolaChiaveTF.getText().toUpperCase());
+//					corsiDTM=setDefaultTableModel(corsiDTM,corsi);
+//					corsiDTM.fireTableDataChanged();
+//					corsiTable.setModel(corsiDTM);
+//				}
 
 			}
-		});
+		}});
 		cercaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_cercaButton = new GridBagConstraints();
 		gbc_cercaButton.fill = GridBagConstraints.HORIZONTAL;
