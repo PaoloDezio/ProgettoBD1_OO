@@ -161,7 +161,9 @@ public class ModificaCorsoFrame extends JFrame {
 		contentPane.add(categoriaLabel, gbc_categoriaLabel);
 		
 		categoriaCBM = new DefaultComboBoxModel();
-		categoriaCBM = setDefaultComboBoxModelPerCategoria(categoriaCBM);
+		int numeroCategorie=controller.contaCategorie();
+		String[] categorie = controller.recuperaAreeTematicheInArrayDiStringhe(numeroCategorie);
+		categoriaCBM = controller.setDefaultComboBoxModel(categoriaCBM,categorie);
 		
 		categoriaCB = new JComboBox();
 		categoriaCB.setModel(categoriaCBM);
@@ -239,7 +241,7 @@ public class ModificaCorsoFrame extends JFrame {
 				
 				controller.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
 				controller.getRicercaCorsoFrame().setCorsi(controller.recuperaCorsi());
-				controller.getRicercaCorsoFrame().setCorsiDTM(controller.getRicercaCorsoFrame().setDefaultTableModel(controller.getRicercaCorsoFrame().getCorsiDTM(), controller.getRicercaCorsoFrame().getCorsi()));
+				controller.getRicercaCorsoFrame().setCorsiDTM(controller.setDefaultTableModel(controller.getRicercaCorsoFrame().getCorsiDTM(), controller.getRicercaCorsoFrame().getCorsi()));
 				controller.getRicercaCorsoFrame().getCorsiTable().setModel(controller.getRicercaCorsoFrame().getCorsiDTM());
 				}
 		});
@@ -252,15 +254,4 @@ public class ModificaCorsoFrame extends JFrame {
 		contentPane.add(salvaModificheButton, gbc_salvaButton);
 	}
 	
-	
-	public DefaultComboBoxModel setDefaultComboBoxModelPerCategoria(DefaultComboBoxModel defaultComboBoxModel) {
-		int numeroCategorie=controller.contaCategorie();
-		String[] categorie = controller.recuperaAreeTematiche(numeroCategorie);
-		
-		for(String stringa: categorie) {
-			defaultComboBoxModel.addElement(stringa);
-		}
-		
-		return defaultComboBoxModel;
-	}
 }

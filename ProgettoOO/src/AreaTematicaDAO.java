@@ -29,7 +29,7 @@ public class AreaTematicaDAO {
 		return numeroCategorie;
 	}
 	
-	public String[] recuperaAreeTematiche(Integer numeroCategorie) {
+	public String[] recuperaAreeTematicheInArrayDiStringhe(Integer numeroCategorie) {
 		String[] areeTematiche = new String[numeroCategorie]; 
 		int i=0;
 		try {
@@ -52,7 +52,7 @@ public class AreaTematicaDAO {
 		return areeTematiche;
 	}
 	
-	public Vector<Vector<String>> recuperaAreeTematiche2(Integer numeroCategorie) {
+	public Vector<Vector<String>> recuperaAreeTematicheInVettoreDiVettoreDiStringhe(Integer numeroCategorie) {
 		Vector<Vector<String>> areeTematiche = new Vector<Vector<String>>();
 		
 		try {
@@ -111,12 +111,11 @@ public class AreaTematicaDAO {
 		}		
 	}
 	
-	public void assegnaAreaTematicaAdUnCorso(String areaTematica,String codiceCorso) {
+	public void assegnaAreeTematicheAdUnCorso(String areeTematiche,String codiceCorso) {
 		try {
 			connessioneDB = istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
-			statement.executeUpdate("INSERT INTO TEMATICA_CORSO(categoria,codicecorso) "
-					+ 		 		"VALUES('"+areaTematica+"',"+codiceCorso+")");	
+			statement.executeUpdate("CALL associa_categorie("+codiceCorso+",'"+areeTematiche+"')");	
 				
 			statement.close();
 			istanzaDB.closeConnectionToDB();

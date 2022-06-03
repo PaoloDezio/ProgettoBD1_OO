@@ -104,7 +104,8 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 				else {
 					controller.aggiungiAreaTematica(areaTematicaTF.getText().toUpperCase());
 					controller.getModificaFrame().getCategoriaCB().removeAllItems();
-					controller.getModificaFrame().getCategoriaCB().setModel(c.getModificaFrame().setDefaultComboBoxModelPerCategoria(c.getModificaFrame().getCategoriaCBM()));
+					String[] categorie = controller.recuperaAreeTematicheInArrayDiStringhe(controller.contaCategorie());
+					controller.getModificaFrame().getCategoriaCB().setModel(controller.setDefaultComboBoxModel(controller.getModificaFrame().getCategoriaCBM(),categorie));
 					JOptionPane.showMessageDialog(contentPane, "L'area tematica '"+areaTematicaTF.getText().toUpperCase()+"' è stata aggiunta correttamente","",JOptionPane.CLOSED_OPTION);
 					areaTematicaTF.setText("");
 				}

@@ -4,7 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
 public class Controller {
 	private LoginFrame loginFrame;
@@ -136,8 +138,8 @@ public class Controller {
 	}
 	
 	//METODI CorsoDAO
-	public void inserisciCorso(String nome,String descrizione,String numeroMassimoPartecipanti,String numeroLezioni,String dataDiInizio,String codiceResponsabile) {
-		corsoDAO.inserisciCorso(nome, descrizione, numeroMassimoPartecipanti, numeroLezioni, dataDiInizio, codiceResponsabile);
+	public void aggiungiCorso(String nome,String descrizione,String numeroMassimoPartecipanti,String numeroLezioni,String dataDiInizio,String codiceResponsabile) {
+		corsoDAO.aggiungiCorso(nome, descrizione, numeroMassimoPartecipanti, numeroLezioni, dataDiInizio, codiceResponsabile);
 	}
 
 	public String recuperaCodiceCorso(String nome) {
@@ -164,16 +166,12 @@ public class Controller {
 		return corsoDAO.recuperaCorsi(numeroCorsi);
 	}
 	
-	public Vector<Vector<String>> recuperaCorsiOrdinatiPerCodiceCorso(String nome,String data,String parolaChiave,String ordinamento){
-		return corsoDAO.recuperaCorsiOrdinatiPerCodiceCorso(nome,data,parolaChiave,ordinamento);
+	public Vector<Vector<String>> recuperaCorsiOrdinatiPer(String ordinamento,String nome,String data,String parolaChiave){
+		return corsoDAO.recuperaCorsiOrdinatiPer(ordinamento,nome,data,parolaChiave);
 	}
-
-	public Vector<Vector<String>> recuperaCorsiOrdinatiPerNome(String nome,String data,String parolaChiave,String ordinamento){
-		return corsoDAO.recuperaCorsiOrdinatiPerNome(nome,data,parolaChiave,ordinamento);
-	}
-
-	public Vector<Vector<String>> recuperaCorsiOrdinatiPerData(String nome,String data,String parolaChiave,String ordinamento){
-		return corsoDAO.recuperaCorsiOrdinatiPerData(nome,data,parolaChiave,ordinamento);
+	
+	public Vector<Vector<String>> recuperaCorsiPerCategoriaOrdinatiPer(String ordinamento,String categorieSelezionate,String nome,String data,String parolaChiave){
+		return corsoDAO.recuperaCorsiPerCategoriaOrdinatiPer(ordinamento,categorieSelezionate, nome, data, parolaChiave);
 	}
 
 	public void eliminaCorsoSelezionato(Object codiceCorso) {
@@ -227,8 +225,8 @@ public class Controller {
 	}
 
 	//METODI AreaTematicaDAO
-	public void assegnaAreaTematicaAdUnCorso(String areaTematica,String codiceCorso) {
-		areaTematicaDAO.assegnaAreaTematicaAdUnCorso(areaTematica, codiceCorso);
+	public void assegnaAreeTematicheAdUnCorso(String areaTematica,String codiceCorso) {
+		areaTematicaDAO.assegnaAreeTematicheAdUnCorso(areaTematica, codiceCorso);
 	}
 	
 	public boolean IsAreaTematicaInDB(String areaTematica) {
@@ -243,15 +241,34 @@ public class Controller {
 		return areaTematicaDAO.contaCategorie();
 	}
 	
-	public String[] recuperaAreeTematiche(Integer numeroCategorie) {
-		return areaTematicaDAO.recuperaAreeTematiche(numeroCategorie);
+	public String[] recuperaAreeTematicheInArrayDiStringhe(Integer numeroCategorie) {
+		return areaTematicaDAO.recuperaAreeTematicheInArrayDiStringhe(numeroCategorie);
 	}
 	
-	public Vector<Vector<String>> recuperaAreeTematiche2(Integer numeroCategorie) {
-		return areaTematicaDAO.recuperaAreeTematiche2(numeroCategorie);
+	public Vector<Vector<String>> recuperaAreeTematicheInVettoreDiVettoreDiStringhe(Integer numeroCategorie) {
+		return areaTematicaDAO.recuperaAreeTematicheInVettoreDiVettoreDiStringhe(numeroCategorie);
 	}
 	
 
+	
+	
+	public DefaultTableModel setDefaultTableModel(DefaultTableModel defaultTableModel,Vector<Vector<String>> vettoreDiVettoreDiStringhe){
+		for (Vector<String> vettoreDiStringhe : vettoreDiVettoreDiStringhe) {
+			defaultTableModel.addRow(vettoreDiStringhe);
+		}
+		
+		return defaultTableModel;
+	}
+	
+	
+	
+	public DefaultComboBoxModel setDefaultComboBoxModel(DefaultComboBoxModel defaultComboBoxModel,String[] arrayDiStringhe) {
+		for(String stringa: arrayDiStringhe) {
+			defaultComboBoxModel.addElement(stringa);
+		}
+		
+		return defaultComboBoxModel;
+	}
 
 }
 
