@@ -1,0 +1,2 @@
+per far funzionare la procedura devi scrivere
+call nome_procedura(parametri)

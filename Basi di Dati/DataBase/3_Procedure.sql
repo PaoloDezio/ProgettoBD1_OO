@@ -140,3 +140,25 @@ END;
 $BODY$;
 ALTER PROCEDURE public.registra_studente(character varying, character varying, character varying, date, character)
     OWNER TO postgres;
+	
+	
+-- PROCEDURE: public.associa_categorie(integer, character varying)
+
+-- DROP PROCEDURE IF EXISTS public.associa_categorie(integer, character varying);
+
+CREATE OR REPLACE PROCEDURE public.associa_categorie(
+	IN _codicecorso integer,
+	IN _categorie character varying)
+LANGUAGE 'plpgsql'
+AS $BODY$
+declare f varchar;
+	BEGIN
+	for f in (select UNNEST (STRING_TO_ARRAY(_categorie,',')))
+	loop
+	insert into tematica_corso (codicecorso, categoria)
+	values(_codicecorso,f);
+	end loop;
+END;
+$BODY$;
+ALTER PROCEDURE public.associa_categorie(integer, character varying)
+    OWNER TO postgres;
