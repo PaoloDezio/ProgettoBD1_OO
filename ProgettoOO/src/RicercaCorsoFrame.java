@@ -67,6 +67,10 @@ public class RicercaCorsoFrame extends JFrame {
 	private Vector<Vector<String>> categorie;
 	private JScrollPane corsiTableScrollPane;
 	private JScrollPane categorieTableScrollPane;
+	private String nome;
+	private String data;
+	private String parolaChiave;
+	private String categorieSelezionate="";
 
 	
 	public JComboBox getCampoCB() {
@@ -252,28 +256,39 @@ public class RicercaCorsoFrame extends JFrame {
 		cercaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(categorieTable.getSelectedRow()>-1) {
-					String categorieSelezionate = new String();
+					categorieSelezionate="";
 					for (int indiceCategoria : categorieTable.getSelectedRows()) {
-						categorieSelezionate= categorieSelezionate +","+categorieTable.getValueAt(indiceCategoria, 0).toString();
-					}	
+						categorieSelezionate = categorieSelezionate +","+categorieTable.getValueAt(indiceCategoria, 0).toString();
+						
+					}
+					if(categorieTable.getSelectedRows().length==1) {
+//			if da testare			
+					}
 					categorieSelezionate= categorieSelezionate.substring(1);
-					
+	
 					corsiDTM.getDataVector().removeAllElements();
-					corsi=controller.ricercaCorsiPerCategoria(categorieSelezionate,nomeTF.getText().toUpperCase(),dataTF.getText(),parolaChiaveTF.getText().toUpperCase());
-					corsiBackup=corsi;
+					nome=nomeTF.getText().toUpperCase();
+					data=dataTF.getText();
+					parolaChiave=parolaChiaveTF.getText().toUpperCase();
+					corsi=controller.recuperaCorsiPerCategoriaOrdinatiPer("codiceCorso",categorieSelezionate,nome,data,parolaChiave);
 					corsiDTM=controller.setDefaultTableModel(corsiDTM,corsi);
 					corsiDTM.fireTableDataChanged();
 					corsiTable.setModel(corsiDTM);
+					categorieTable.clearSelection();
 				}
 				else {
-					if(nomeTF.getText().isEmpty()==false||dataTF.getText().isEmpty()==false||parolaChiaveTF.getText().isEmpty()==false) {
-						corsiDTM.getDataVector().removeAllElements();
-						corsi=controller.ricercaCorsi(nomeTF.getText().toUpperCase(),dataTF.getText(), parolaChiaveTF.getText().toUpperCase());
-						corsiDTM=controller.setDefaultTableModel(corsiDTM,corsi);
-						corsiDTM.fireTableDataChanged();
-						corsiTable.setModel(corsiDTM);
-					}
+					categorieSelezionate="";
+					nome=nomeTF.getText().toUpperCase();
+					data=dataTF.getText();
+					parolaChiave=parolaChiaveTF.getText().toUpperCase();			
+					corsiDTM.getDataVector().removeAllElements();
+					corsi=controller.ricercaCorsi(nome,data,parolaChiave);
+					corsiDTM=controller.setDefaultTableModel(corsiDTM,corsi);
+					corsiDTM.fireTableDataChanged();
+					corsiTable.setModel(corsiDTM);
+					
 				}
+
 //				categorieTable.clearSelection();
 			}
 		});
@@ -311,24 +326,19 @@ public class RicercaCorsoFrame extends JFrame {
 		codiceCorsoRadioButton.setSelected(true);
 		codiceCorsoRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(codiceCorsoRadioButton.isSelected()) {	
+				if(codiceCorsoRadioButton.isSelected()) {
 					corsiTableScrollPane.getVerticalScrollBar().setValue(corsiTableScrollPane.getVerticalScrollBar().getMinimum());
-					if(categorieTable.getSelectedRow()>-1) {
-						String categorieSelezionate = new String();
-						for (int indiceCategoria : categorieTable.getSelectedRows()) {
-							categorieSelezionate= categorieSelezionate +","+categorieTable.getValueAt(indiceCategoria, 0).toString();
-						}	
-						categorieSelezionate= categorieSelezionate.substring(1);
-						
+					if(categorieSelezionate.isEmpty()==false) {
+					
 						corsiDTM.getDataVector().removeAllElements();
-						corsi=controller.recuperaCorsiPerCategoriaOrdinatiPer("codicecorso",categorieSelezionate,nomeTF.getText().toUpperCase(),dataTF.getText(),parolaChiaveTF.getText().toUpperCase());
+						corsi=controller.recuperaCorsiPerCategoriaOrdinatiPer("codicecorso",categorieSelezionate,nome,data,parolaChiave);
 						corsiDTM=controller.setDefaultTableModel(corsiDTM,corsi);
 						corsiDTM.fireTableDataChanged();
 						corsiTable.setModel(corsiDTM);
 					}
 					else {
 						corsiDTM.getDataVector().removeAllElements();
-						corsi=controller.recuperaCorsiOrdinatiPer("codicecorso",nomeTF.getText().toUpperCase(),dataTF.getText(),parolaChiaveTF.getText().toUpperCase());
+						corsi=controller.recuperaCorsiOrdinatiPer("codicecorso",nome,data,parolaChiave);
 						corsiDTM=controller.setDefaultTableModel(corsiDTM,corsi);
 						corsiDTM.fireTableDataChanged();
 						corsiTable.setModel(corsiDTM);
@@ -359,22 +369,16 @@ public class RicercaCorsoFrame extends JFrame {
 				if(nomeRadioButton.isSelected()) {
 					corsiTableScrollPane.getVerticalScrollBar().setValue(corsiTableScrollPane.getVerticalScrollBar().getMinimum());
 					
-					if(categorieTable.getSelectedRow()>-1) {
-						String categorieSelezionate = new String();
-						for (int indiceCategoria : categorieTable.getSelectedRows()) {
-							categorieSelezionate= categorieSelezionate +","+categorieTable.getValueAt(indiceCategoria, 0).toString();
-						}	
-						categorieSelezionate= categorieSelezionate.substring(1);
-						
+					if(categorieSelezionate.isEmpty()==false) {	
 						corsiDTM.getDataVector().removeAllElements();
-						corsi=controller.recuperaCorsiPerCategoriaOrdinatiPer("codicecorso",categorieSelezionate,nomeTF.getText().toUpperCase(),dataTF.getText(),parolaChiaveTF.getText().toUpperCase());
+						corsi=controller.recuperaCorsiPerCategoriaOrdinatiPer("nome",categorieSelezionate,nome,data,parolaChiave);
 						corsiDTM=controller.setDefaultTableModel(corsiDTM,corsi);
 						corsiDTM.fireTableDataChanged();
 						corsiTable.setModel(corsiDTM);
 					}
 					else {
 						corsiDTM.getDataVector().removeAllElements();
-						corsi=controller.recuperaCorsiOrdinatiPer("nome",nomeTF.getText().toUpperCase(),dataTF.getText(),parolaChiaveTF.getText().toUpperCase());
+						corsi=controller.recuperaCorsiOrdinatiPer("nome",nome,data,parolaChiave);
 						corsiDTM=controller.setDefaultTableModel(corsiDTM,corsi);
 						corsiDTM.fireTableDataChanged();
 						corsiTable.setModel(corsiDTM);
@@ -403,22 +407,17 @@ public class RicercaCorsoFrame extends JFrame {
 				if(dataRadioButton.isSelected()) {
 					corsiTableScrollPane.getVerticalScrollBar().setValue(corsiTableScrollPane.getVerticalScrollBar().getMinimum());
 
-					if(categorieTable.getSelectedRow()>-1) {
-						String categorieSelezionate = new String();
-						for (int indiceCategoria : categorieTable.getSelectedRows()) {
-							categorieSelezionate= categorieSelezionate +","+categorieTable.getValueAt(indiceCategoria, 0).toString();
-						}	
-						categorieSelezionate= categorieSelezionate.substring(1);
+					if(categorieSelezionate.isEmpty()==false) {
 						
 						corsiDTM.getDataVector().removeAllElements();
-						corsi=controller.recuperaCorsiPerCategoriaOrdinatiPer("datainizio",categorieSelezionate,nomeTF.getText().toUpperCase(),dataTF.getText(),parolaChiaveTF.getText().toUpperCase());
+						corsi=controller.recuperaCorsiPerCategoriaOrdinatiPer("datainizio",categorieSelezionate,nome,data,parolaChiave);
 						corsiDTM=controller.setDefaultTableModel(corsiDTM,corsi);
 						corsiDTM.fireTableDataChanged();
 						corsiTable.setModel(corsiDTM);
 					}
 					else {
 						corsiDTM.getDataVector().removeAllElements();
-						corsi=controller.recuperaCorsiOrdinatiPer("codicecorso",nomeTF.getText().toUpperCase(),dataTF.getText(),parolaChiaveTF.getText().toUpperCase());
+						corsi=controller.recuperaCorsiOrdinatiPer("datainizio",nome,data,parolaChiave);
 						corsiDTM=controller.setDefaultTableModel(corsiDTM,corsi);
 						corsiDTM.fireTableDataChanged();
 						corsiTable.setModel(corsiDTM);

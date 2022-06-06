@@ -17,7 +17,7 @@ public class ConnessioneDB {
 		if(connessioneDB==null) {
 			try {
 				Class.forName("org.postgresql.Driver");
-				String url = "jdbc:postgresql://localhost:5432/BasiDiDati2";
+				String url = "jdbc:postgresql://localhost:5432/BasiDiDati";
 				connessioneDB = DriverManager.getConnection(url,"postgres","admin");
 
 			} catch (ClassNotFoundException e) {

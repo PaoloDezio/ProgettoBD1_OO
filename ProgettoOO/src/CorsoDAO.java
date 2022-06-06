@@ -239,7 +239,7 @@ public class CorsoDAO {
 			connessioneDB=istanzaDB.connectToDB();
 			
 			Statement statement = connessioneDB.createStatement();
-			ResultSet resultSet= statement.executeQuery("SELECT ti.codicecorso,ti.nome,ti.datainizio,ti.descrizione,ti.categoria,r.cognome,r.codiceresponsabile\r\n"
+			ResultSet resultSet= statement.executeQuery("SELECT ti.codicecorso,ti.nome,ti.datainizio,ti.descrizione,ti.categoria,r.cognome,\r\n"
 					+ "FROM RESPONSABILE AS r JOIN\r\n"
 					+ "					(SELECT tc.codicecorso,tc.categoria,co.nome,co.descrizione,co.codiceresponsabile,co.datainizio\r\n"
 					+ "						  FROM tematica_corso AS tc JOIN (SELECT * FROM ricerca_per_categoria('"+categorieSelezionate+"')) as co ON tc.codicecorso=co.codicecorso\r\n"
