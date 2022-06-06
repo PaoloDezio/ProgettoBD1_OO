@@ -240,7 +240,7 @@ public class ModificaCorsoFrame extends JFrame {
 				controller.getModificaFrame().setVisible(false);
 				
 				controller.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
-				controller.getRicercaCorsoFrame().setCorsi(controller.recuperaCorsi());
+				controller.getRicercaCorsoFrame().setCorsi(controller.recuperaCorsiOrdinatiPer("codicecorso","","",""));
 				controller.getRicercaCorsoFrame().setCorsiDTM(controller.setDefaultTableModel(controller.getRicercaCorsoFrame().getCorsiDTM(), controller.getRicercaCorsoFrame().getCorsi()));
 				controller.getRicercaCorsoFrame().getCorsiTable().setModel(controller.getRicercaCorsoFrame().getCorsiDTM());
 				}

@@ -146,17 +146,9 @@ public class Controller {
 		return corsoDAO.recuperaCodiceCorso(nome);
 	}
 
-	public Vector<Vector<String>> recuperaCorsi(){
-		return corsoDAO.recuperaCorsi();
-	}
-	
-	public Vector<Vector<String>> ricercaCorsiPerCategoria(String categorieSelezionate,String nome,String data,String parolaChiave){
-		return corsoDAO.ricercaCorsiPerCategoria(categorieSelezionate,nome,data,parolaChiave);
-	}
-	
-	public Vector<Vector<String>> ricercaCorsi(String nome,String data,String parolaChiave){
-		return corsoDAO.ricercaCorsi(nome, data, parolaChiave);
-	}
+//	public Vector<Vector<String>> recuperaCorsi(){
+//		return corsoDAO.recuperaCorsi();
+//	}
 	
 	public int contaCorsi() {
 		return corsoDAO.contaCorsi();
@@ -170,11 +162,15 @@ public class Controller {
 		return corsoDAO.recuperaCorsiOrdinatiPer(ordinamento,nome,data,parolaChiave);
 	}
 	
-	public Vector<Vector<String>> recuperaCorsiPerCategoriaOrdinatiPer(String ordinamento,String categorieSelezionate,String nome,String data,String parolaChiave){
-		return corsoDAO.recuperaCorsiPerCategoriaOrdinatiPer(ordinamento,categorieSelezionate, nome, data, parolaChiave);
+	public Vector<Vector<String>> recuperaCorsiPerCategorieOrdinatiPer(String ordinamento,String categorieSelezionate,String nome,String data,String parolaChiave){
+		return corsoDAO.recuperaCorsiPerCategorieOrdinatiPer(ordinamento,categorieSelezionate, nome, data, parolaChiave);
+	}
+	
+	public Vector<Vector<String>> recuperaCorsiPerUnaCategoriaOrdinatiPer(String ordinamento,String categorieSelezionate,String nome,String data,String parolaChiave){
+		return corsoDAO.recuperaCorsiPerUnaCategoriaOrdinatiPer(ordinamento,categorieSelezionate, nome, data, parolaChiave);
 	}
 
-	public void eliminaCorsoSelezionato(Object codiceCorso) {
+	public void eliminaCorsoSelezionato(String codiceCorso) {
 		corsoDAO.eliminaCorso(codiceCorso);
 	}
 

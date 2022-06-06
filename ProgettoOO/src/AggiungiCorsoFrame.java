@@ -256,7 +256,7 @@ public class AggiungiCorsoFrame extends JFrame {
 				
 				controller.assegnaAreeTematicheAdUnCorso(categorieSelezionate,controller.recuperaCodiceCorso(nomeTF.getText().toString().toUpperCase()));
 				controller.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
-				controller.getRicercaCorsoFrame().setCorsi(controller.recuperaCorsi());
+				controller.getRicercaCorsoFrame().setCorsi(controller.recuperaCorsiOrdinatiPer("codicecorso","","",""));
 				controller.getRicercaCorsoFrame().setCorsiDTM(controller.setDefaultTableModel(controller.getRicercaCorsoFrame().getCorsiDTM(), controller.getRicercaCorsoFrame().getCorsi()));
 				controller.getRicercaCorsoFrame().getCorsiTable().setModel(controller.getRicercaCorsoFrame().getCorsiDTM());
 
@@ -279,6 +279,7 @@ public class AggiungiCorsoFrame extends JFrame {
 		numeroMassimoPartecipantiTF.setText("");
 		numeroDiLezioniTF.setText("");
 		dataDiInizioTF.setText("");
+		categorieTable.clearSelection();
 		responsabileCB.setSelectedItem("Bianchi");
 	}
 
