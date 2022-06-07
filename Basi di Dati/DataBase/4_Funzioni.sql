@@ -80,4 +80,54 @@ $BODY$;
 
 ALTER FUNCTION public.ricerca_per_parola(character varying)
     OWNER TO postgres;
+-- FUNCTION: public.presenze_ad_un_corso(integer)
 
+-- DROP FUNCTION IF EXISTS public.presenze_ad_un_corso(integer);
+
+CREATE OR REPLACE FUNCTION public.presenze_ad_un_corso(
+	_codicecorso integer)
+    RETURNS TABLE(codicestudente integer, presenze bigint) 
+    LANGUAGE 'sql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
+select lp.codicestudente,count(lp.codicestudente)as presenze
+from corso as c join (select l.codicelezione,l.codicecorso,p.codicestudente
+					  from lezione as l join partecipare as p
+					  on l.codicelezione=p.codicelezione
+					 ) as lp on lp.codicecorso=c.codicecorso
+where c.codicecorso=_codicecorso
+group by lp.codicestudente
+$BODY$;
+
+ALTER FUNCTION public.presenze_ad_un_corso(integer)
+    OWNER TO postgres;
+	
+	-- FUNCTION: public.studenti_idonei(integer)
+
+-- DROP FUNCTION IF EXISTS public.studenti_idonei(integer);
+
+CREATE OR REPLACE FUNCTION public.studenti_idonei(
+	_codicecorso integer)
+    RETURNS TABLE(codicestudente integer, cognome character varying, nome character varying) 
+    LANGUAGE 'sql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
+
+select s.codicestudente,s.cognome,s.nome
+from studente as s join (select * from presenze_ad_un_corso(33)) as n
+					 on s.codicestudente=n.codicestudente
+group by s.codicestudente,n.presenze
+having n.presenze>= (select c.numerolezioni
+								from corso as c where c.codicecorso=33)*80/100::float
+								
+
+$BODY$;
+
+ALTER FUNCTION public.studenti_idonei(integer)
+    OWNER TO postgres;

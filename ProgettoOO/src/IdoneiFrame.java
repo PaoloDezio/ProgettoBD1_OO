@@ -13,6 +13,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
@@ -22,7 +23,8 @@ public class IdoneiFrame extends JFrame {
 	private JPanel contentPane;
 	private Controller controller;
 	private JTable StudentiIdoneiTable;
-	
+	private Vector<Vector<String>> studenti;
+	private DefaultTableModel studentiDTM;
 	
 	public IdoneiFrame(Controller c) {
 		setResizable(false);
@@ -61,15 +63,16 @@ public class IdoneiFrame extends JFrame {
 		contentPane.add(scrollPane, gbc_scrollPane);
 		
 		
+		studentiDTM = new DefaultTableModel();
+		studentiDTM.addColumn("Codice Studente");
+		studentiDTM.addColumn("Cognome");
+		studentiDTM.addColumn("Nome");
 		
 		StudentiIdoneiTable = new JTable();
 		StudentiIdoneiTable.setFont(new Font("Century", Font.PLAIN, 16));
-		DefaultTableModel myModel = new DefaultTableModel();
 		scrollPane.setViewportView(StudentiIdoneiTable);
-		myModel.addColumn("Codice Studente");
-		myModel.addColumn("Cognome");
-		myModel.addColumn("Nome");
-		StudentiIdoneiTable.setModel(myModel);
+		
+		StudentiIdoneiTable.setModel(studentiDTM);
 		StudentiIdoneiTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		StudentiIdoneiTable.getColumnModel().getColumn(0).setPreferredWidth(55);
 		StudentiIdoneiTable.getColumnModel().getColumn(1).setPreferredWidth(190);

@@ -219,6 +219,10 @@ public class Controller {
 	public void iscriviStudente(String codiceStudente,String codiceCorso) {
 		studenteDAO.iscriviStudente(codiceStudente,codiceCorso);
 	}
+	
+	public Vector<Vector<String>> recuperaStudentiIdonei(String codiceCorso){
+		return studenteDAO.recuperaStudentiIdonei(codiceCorso);
+	}
 
 	//METODI AreaTematicaDAO
 	public void assegnaAreeTematicheAdUnCorso(String areaTematica,String codiceCorso) {

@@ -280,7 +280,7 @@ public class AggiungiCorsoFrame extends JFrame {
 		numeroDiLezioniTF.setText("");
 		dataDiInizioTF.setText("");
 		categorieTable.clearSelection();
-		responsabileCB.setSelectedItem("Bianchi");
+		responsabileCB.setSelectedItem(responsabileCB.getItemAt(0));
 	}
 
 }

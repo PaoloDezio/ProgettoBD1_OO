@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.Vector;
 
 public class StudenteDAO {
 	private ConnessioneDB istanzaDB;
@@ -117,6 +118,32 @@ public class StudenteDAO {
 		}
 		
 	}
+	
+	public Vector<Vector<String>> recuperaStudentiIdonei(String codiceCorso){
+	Vector<Vector<String>> studentiIdonei = new Vector<Vector<String>>();
+	try {
+		connessioneDB=istanzaDB.connectToDB();
+
+		Statement statement = connessioneDB.createStatement();
+		ResultSet resultSet = statement.executeQuery("SELECT * FROM studenti_idonei("+codiceCorso+")");
+
+		while(resultSet.next()) {
+			Vector<String> vettore = new Vector<String>();
+			vettore.add(resultSet.getString("codicestudente"));
+			vettore.add(resultSet.getString("cognome"));
+			vettore.add(resultSet.getString("nome"));
+			studentiIdonei.add(vettore);
+		}
+
+		statement.close();
+		resultSet.close();
+		istanzaDB.closeConnectionToDB();
+	}
+	catch (SQLException e) {
+		e.printStackTrace();
+	}
+	return studentiIdonei;
+};
 
 
 }

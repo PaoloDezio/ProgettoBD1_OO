@@ -213,6 +213,9 @@ public class StatisticheFrame extends JFrame {
 				idoneiButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						controller.getIdoneiFrame().setVisible(true);
+						
+						
+						
 					}
 				});
 				
