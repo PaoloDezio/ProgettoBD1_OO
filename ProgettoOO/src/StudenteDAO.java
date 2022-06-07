@@ -88,7 +88,7 @@ public class StudenteDAO {
 			
 			Statement st = connessioneDB.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * "
-					+ "					    FROM ISCRIZIONE "
+					+ "					    FROM iscrivere "
 					+ "					    WHERE codiceCorso="+codiceCorso+" "
 					+ "						AND codiceStudente="+codiceStudente);
 			
@@ -108,7 +108,7 @@ public class StudenteDAO {
 			connessioneDB=istanzaDB.connectToDB();
 
 			Statement st= connessioneDB.createStatement();
-			st.executeUpdate("INSERT INTO ISCRIZIONE VALUES("+codiceCorso+","+codiceStudente+");");	
+			st.executeUpdate("INSERT INTO iscrivere VALUES("+codiceCorso+","+codiceStudente+");");	
 			
 			st.close();
 			istanzaDB.closeConnectionToDB();
@@ -119,31 +119,61 @@ public class StudenteDAO {
 		
 	}
 	
-	public Vector<Vector<String>> recuperaStudentiIdonei(String codiceCorso){
-	Vector<Vector<String>> studentiIdonei = new Vector<Vector<String>>();
-	try {
-		connessioneDB=istanzaDB.connectToDB();
+	
+	public Vector<Vector<String>> recuperaIscrittiAdUnCorso(String codiceCorso){
+		Vector<Vector<String>> iscritti = new Vector<Vector<String>>();
+		try {
+			connessioneDB=istanzaDB.connectToDB();
 
-		Statement statement = connessioneDB.createStatement();
-		ResultSet resultSet = statement.executeQuery("SELECT * FROM studenti_idonei("+codiceCorso+")");
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT s.codicestudente,s.cognome,s.nome "
+					+ 									 "FROM studente AS s JOIN iscrivere AS i ON s.codicestudente=i.codicestudente "
+					+ 									 "WHERE i.codicecorso="+codiceCorso);
 
-		while(resultSet.next()) {
-			Vector<String> vettore = new Vector<String>();
-			vettore.add(resultSet.getString("codicestudente"));
-			vettore.add(resultSet.getString("cognome"));
-			vettore.add(resultSet.getString("nome"));
-			studentiIdonei.add(vettore);
+			while(resultSet.next()) {
+				Vector<String> vettore = new Vector<String>();
+				vettore.add(resultSet.getString("codicestudente"));
+				vettore.add(resultSet.getString("cognome"));
+				vettore.add(resultSet.getString("nome"));
+				iscritti.add(vettore);
+			}
+
+			statement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
 		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return iscritti;
+	};
+	
+	
+	public Vector<Vector<String>> recuperaStudentiIdonei(String codiceCorso){
+		Vector<Vector<String>> studentiIdonei = new Vector<Vector<String>>();
+		try {
+			connessioneDB=istanzaDB.connectToDB();
 
-		statement.close();
-		resultSet.close();
-		istanzaDB.closeConnectionToDB();
-	}
-	catch (SQLException e) {
-		e.printStackTrace();
-	}
-	return studentiIdonei;
-};
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM studenti_idonei("+codiceCorso+")");
+
+			while(resultSet.next()) {
+				Vector<String> vettore = new Vector<String>();
+				vettore.add(resultSet.getString("codicestudente"));
+				vettore.add(resultSet.getString("cognome"));
+				vettore.add(resultSet.getString("nome"));
+				studentiIdonei.add(vettore);
+			}
+
+			statement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return studentiIdonei;
+	};
 
 
 }

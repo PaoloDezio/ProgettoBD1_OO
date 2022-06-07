@@ -146,10 +146,6 @@ public class Controller {
 		return corsoDAO.recuperaCodiceCorso(nome);
 	}
 
-//	public Vector<Vector<String>> recuperaCorsi(){
-//		return corsoDAO.recuperaCorsi();
-//	}
-	
 	public int contaCorsi() {
 		return corsoDAO.contaCorsi();
 	}
@@ -220,9 +216,15 @@ public class Controller {
 		studenteDAO.iscriviStudente(codiceStudente,codiceCorso);
 	}
 	
+	public Vector<Vector<String>> recuperaIscrittiAdUnCorso(String codiceCorso){
+		return studenteDAO.recuperaIscrittiAdUnCorso(codiceCorso);
+	}
+	
 	public Vector<Vector<String>> recuperaStudentiIdonei(String codiceCorso){
 		return studenteDAO.recuperaStudentiIdonei(codiceCorso);
 	}
+	
+	
 
 	//METODI AreaTematicaDAO
 	public void assegnaAreeTematicheAdUnCorso(String areaTematica,String codiceCorso) {

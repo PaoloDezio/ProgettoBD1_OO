@@ -559,16 +559,22 @@ public class RicercaCorsoFrame extends JFrame {
 		JButton StatisticheButton = new JButton("Statistische");
 		StatisticheButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(corsiTable.getSelectedRow()==-1) {
+				if(corsiTable.getSelectedRow()<=-1) {
 					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
 					controller.getStatisticheFrame().setVisible(true);
-					controller.getStatisticheFrame().getCorsoTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
+					controller.getStatisticheFrame().getNomeCorsoTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
 					controller.getStatisticheFrame().getPresenzeMinimeTF().setText("10");
 					controller.getStatisticheFrame().getPresenzeMassimeTF().setText("45");
 					controller.getStatisticheFrame().getFrequenzaMediaTF().setText("25");
 					controller.getStatisticheFrame().getFrequenzaMediaInPercentualeTF().setText("10%");
+					
+					controller.getStatisticheFrame().getIscrittiDTM().getDataVector().removeAllElements();
+					controller.getStatisticheFrame().setIscritti(controller.recuperaIscrittiAdUnCorso(corsiTable.getValueAt(corsiTable.getSelectedRow(), 0).toString()));
+					controller.getStatisticheFrame().setIscrittiDTM(controller.setDefaultTableModel(controller.getStatisticheFrame().getIscrittiDTM(), controller.getStatisticheFrame().getIscritti()));
+					controller.getStatisticheFrame().getIscrittiDTM().fireTableDataChanged();
+					controller.getStatisticheFrame().getIscrittiTable().setModel(controller.getStatisticheFrame().getIscrittiDTM());
 				}
 			}
 		});
