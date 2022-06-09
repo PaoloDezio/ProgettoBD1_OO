@@ -232,7 +232,7 @@ public class CorsoDAO {
 	}
 	
 	public String recuperaNomeCorso(String codiceCorso) {
-		String nomeCorso="";
+		String nomeCorso = new String();
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
@@ -252,6 +252,71 @@ public class CorsoDAO {
 		return nomeCorso;
 	}
 	
-
+	public String calcolaPresenzeMinime(String codiceCorso) {
+		String numerooPresenzeMinime = new String();
+		try {
+			connessioneDB=istanzaDB.connectToDB();
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM calcola_presenze_minime_per_lezione("+codiceCorso+")");
+			
+			while(resultSet.next()) {
+				numerooPresenzeMinime=resultSet.getString("numerostudenti");
+			}
+				
+			statement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return numerooPresenzeMinime;
+	}
+	
+	
+	public String calcolaPresenzeMassime(String codiceCorso) {
+		String numeroPresenzeMassime = new String();
+		try {
+			connessioneDB=istanzaDB.connectToDB();
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM calcola_presenze_massime_per_lezione("+codiceCorso+")");
+			
+			while(resultSet.next()) {
+				numeroPresenzeMassime=resultSet.getString("numerostudenti");
+			}
+				
+			statement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return numeroPresenzeMassime;
+	}
+	
+	
+	public String calcolaFrequenzaMedia(String codiceCorso) {
+		String frequenzaMedia = new String();
+		try {
+			connessioneDB=istanzaDB.connectToDB();
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT media "
+					+ 									 "FROM media_studenti"
+					+ 									 "WHERE codicecorso="+codiceCorso);
+			
+			while(resultSet.next()) {
+				frequenzaMedia=resultSet.getString("media");
+			}
+				
+			statement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return frequenzaMedia;
+	}
 	
 }

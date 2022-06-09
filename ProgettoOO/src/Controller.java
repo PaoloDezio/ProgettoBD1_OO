@@ -177,6 +177,18 @@ public class Controller {
 	public String recuperaNomeCorso(String codiceCorso) {
 		return corsoDAO.recuperaNomeCorso(codiceCorso);
 	}
+	
+	public String calcolaPresenzeMinime(String codiceCorso) {
+		return corsoDAO.calcolaPresenzeMinime(codiceCorso);
+	}
+	
+	public String calcolaPresenzeMassime(String codiceCorso) {
+		return corsoDAO.calcolaPresenzeMassime(codiceCorso);
+	}
+	
+	public String calcolaFrequenzaMedia(String codiceCorso) {
+		return corsoDAO.calcolaFrequenzaMedia(codiceCorso);
+	}
 
 
 	//METODI ResponsabileDAO

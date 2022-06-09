@@ -260,22 +260,22 @@ public class StatisticheFrame extends JFrame {
 		gbc_indietroButton.gridy = 8;
 		contentPane.add(indietroButton, gbc_indietroButton);
 				
-				JButton idoneiButton = new JButton("Idonei");
-				idoneiButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						controller.getIdoneiFrame().setVisible(true);
+		JButton idoneiButton = new JButton("Idonei");
+		idoneiButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.getIdoneiFrame().setVisible(true);
 
 
 
-					}
-				});
-				
-						idoneiButton.setFont(new Font("Century", Font.PLAIN, 16));
-						GridBagConstraints gbc_idoneiButton = new GridBagConstraints();
-						gbc_idoneiButton.insets = new Insets(0, 0, 5, 0);
-						gbc_idoneiButton.gridx = 5;
-						gbc_idoneiButton.gridy = 8;
-						contentPane.add(idoneiButton, gbc_idoneiButton);
+			}
+		});
+
+		idoneiButton.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_idoneiButton = new GridBagConstraints();
+		gbc_idoneiButton.insets = new Insets(0, 0, 5, 0);
+		gbc_idoneiButton.gridx = 5;
+		gbc_idoneiButton.gridy = 8;
+		contentPane.add(idoneiButton, gbc_idoneiButton);
 
 	}
 

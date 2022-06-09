@@ -565,10 +565,10 @@ public class RicercaCorsoFrame extends JFrame {
 				else {
 					controller.getStatisticheFrame().setVisible(true);
 					controller.getStatisticheFrame().getNomeCorsoTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
-					controller.getStatisticheFrame().getPresenzeMinimeTF().setText("10");
-					controller.getStatisticheFrame().getPresenzeMassimeTF().setText("45");
-					controller.getStatisticheFrame().getFrequenzaMediaTF().setText("25");
-					controller.getStatisticheFrame().getFrequenzaMediaInPercentualeTF().setText("10%");
+					controller.getStatisticheFrame().getPresenzeMinimeTF().setText(controller.calcolaPresenzeMinime(corsiTable.getValueAt(corsiTable.getSelectedRow(),0).toString()));
+					controller.getStatisticheFrame().getPresenzeMassimeTF().setText(controller.calcolaPresenzeMassime(corsiTable.getValueAt(corsiTable.getSelectedRow(),0).toString()));
+					controller.getStatisticheFrame().getFrequenzaMediaTF().setText(controller.calcolaFrequenzaMedia(corsiTable.getValueAt(corsiTable.getSelectedRow(),0).toString()));
+					controller.getStatisticheFrame().getFrequenzaMediaInPercentualeTF().setText("media/numeroMassimoPartecipanti*100");
 					
 					controller.getStatisticheFrame().getIscrittiDTM().getDataVector().removeAllElements();
 					controller.getStatisticheFrame().setIscritti(controller.recuperaIscrittiAdUnCorso(corsiTable.getValueAt(corsiTable.getSelectedRow(), 0).toString()));
