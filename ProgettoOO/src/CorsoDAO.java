@@ -302,7 +302,7 @@ public class CorsoDAO {
 			connessioneDB=istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
 			ResultSet resultSet = statement.executeQuery("SELECT media "
-					+ 									 "FROM media_studenti"
+					+ 									 "FROM media_studenti "
 					+ 									 "WHERE codicecorso="+codiceCorso);
 			
 			while(resultSet.next()) {
@@ -318,5 +318,30 @@ public class CorsoDAO {
 		}
 		return frequenzaMedia;
 	}
+	
+	
+	public String calcolaPercentualeRiempimentoMedia(String codiceCorso) {
+		String percentualeRiempimentoMedia = new String();
+		try {
+			connessioneDB=istanzaDB.connectToDB();
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT (ms.media*100/c.numeromaxpartecipanti)::decimal(10,1) AS percentualeriempimento "
+					+ 									 "FROM media_studenti AS ms JOIN corso AS c ON ms.codicecorso=c.codicecorso "
+					+                                    "WHERE c.codicecorso="+codiceCorso);
+			
+			while(resultSet.next()) {
+				percentualeRiempimentoMedia=resultSet.getString("percentualeriempimento");
+			}
+				
+			statement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return percentualeRiempimentoMedia;
+	}
+	
 	
 }

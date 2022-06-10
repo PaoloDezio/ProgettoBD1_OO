@@ -25,7 +25,7 @@ public class HomepageFrame extends JFrame {
 	
 
 	public HomepageFrame(Controller c) {
-		setTitle("HomepageFrame");
+		setTitle("Homepage");
 		controller = c;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

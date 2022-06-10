@@ -22,25 +22,46 @@ public class IdoneiFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Controller controller;
-	private JTable StudentiIdoneiTable;
+	private JTable studentiIdoneiTable;
 	private Vector<Vector<String>> studenti;
 	private DefaultTableModel studentiDTM;
 	
+	public Vector<Vector<String>> getStudenti() {
+		return studenti;
+	}
+
+	public void setStudenti(Vector<Vector<String>> studenti) {
+		this.studenti = studenti;
+	}
+
+	public DefaultTableModel getStudentiDTM() {
+		return studentiDTM;
+	}
+
+	public void setStudentiDTM(DefaultTableModel studentiDTM) {
+		this.studentiDTM = studentiDTM;
+	}
+
+	public JTable getStudentiIdoneiTable() {
+		return studentiIdoneiTable;
+	}
+
 	public IdoneiFrame(Controller c) {
+		setTitle("Idonei");
 		setResizable(false);
 		controller = c;
 		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 470, 350);
+		setBounds(100, 100, 600, 330);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 147, 131, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{29, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowHeights = new int[]{29, 0, 0, 0, 0, 0, 0, 20, 0, 35, 0};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel IdoneiLabel = new JLabel("Studenti Idonei");
@@ -52,7 +73,7 @@ public class IdoneiFrame extends JFrame {
 		gbc_IdoneiLabel.gridy = 0;
 		contentPane.add(IdoneiLabel, gbc_IdoneiLabel);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		JScrollPane studentiTableScrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridheight = 6;
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
@@ -60,26 +81,36 @@ public class IdoneiFrame extends JFrame {
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.gridx = 1;
 		gbc_scrollPane.gridy = 1;
-		contentPane.add(scrollPane, gbc_scrollPane);
+		contentPane.add(studentiTableScrollPane, gbc_scrollPane);	
 		
 		
-		studentiDTM = new DefaultTableModel();
+		studentiDTM = new DefaultTableModel(){
+			@Override
+			public boolean isCellEditable(int row,int column) {
+				return false;
+			}
+		};
 		studentiDTM.addColumn("Codice Studente");
 		studentiDTM.addColumn("Cognome");
 		studentiDTM.addColumn("Nome");
 		
-		StudentiIdoneiTable = new JTable();
-		StudentiIdoneiTable.setFont(new Font("Century", Font.PLAIN, 16));
-		scrollPane.setViewportView(StudentiIdoneiTable);
 		
-		StudentiIdoneiTable.setModel(studentiDTM);
-		StudentiIdoneiTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		StudentiIdoneiTable.getColumnModel().getColumn(0).setPreferredWidth(55);
-		StudentiIdoneiTable.getColumnModel().getColumn(1).setPreferredWidth(190);
-		StudentiIdoneiTable.getColumnModel().getColumn(2).setPreferredWidth(190);
-		StudentiIdoneiTable.getColumnModel().getColumn(0).setResizable(false);
-		StudentiIdoneiTable.getColumnModel().getColumn(1).setResizable(false);
-		StudentiIdoneiTable.getColumnModel().getColumn(2).setResizable(false);
+		studentiIdoneiTable = new JTable();
+		studentiIdoneiTable.setModel(studentiDTM);
+		studentiIdoneiTable.setRowSelectionAllowed(false);
+		studentiIdoneiTable.setFont(new Font("Century", Font.PLAIN, 14));
+		studentiTableScrollPane.setViewportView(studentiIdoneiTable);
+		
+		studentiIdoneiTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		studentiIdoneiTable.getColumnModel().getColumn(0).setPreferredWidth(106);
+		studentiIdoneiTable.getColumnModel().getColumn(0).setResizable(false);
+
+		studentiIdoneiTable.getColumnModel().getColumn(1).setPreferredWidth(230);
+		studentiIdoneiTable.getColumnModel().getColumn(1).setResizable(false);
+
+		studentiIdoneiTable.getColumnModel().getColumn(2).setPreferredWidth(230);
+		studentiIdoneiTable.getColumnModel().getColumn(2).setResizable(false);
+		
 		
 		
 		JButton IndietroButton = new JButton("Indietro");
@@ -90,11 +121,11 @@ public class IdoneiFrame extends JFrame {
 			controller.getRicercaCorsoFrame().setVisible(true);
 			}
 		});
-						
+		
 		GridBagConstraints gbc_IndietroButton = new GridBagConstraints();
-		gbc_IndietroButton.insets = new Insets(0, 0, 0, 5);
-		gbc_IndietroButton.anchor = GridBagConstraints.EAST;
-		gbc_IndietroButton.gridx = 2;
+		gbc_IndietroButton.insets = new Insets(0, 0, 5, 5);
+		gbc_IndietroButton.anchor = GridBagConstraints.WEST;
+		gbc_IndietroButton.gridx = 1;
 		gbc_IndietroButton.gridy = 8;
 		contentPane.add(IndietroButton, gbc_IndietroButton);
 	}

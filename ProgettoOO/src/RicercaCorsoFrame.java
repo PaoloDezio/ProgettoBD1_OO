@@ -99,7 +99,6 @@ public class RicercaCorsoFrame extends JFrame {
 	}
 
 	public RicercaCorsoFrame(Controller c){
-		setName("");
 		
 		controller = c;
 		
@@ -568,7 +567,7 @@ public class RicercaCorsoFrame extends JFrame {
 					controller.getStatisticheFrame().getPresenzeMinimeTF().setText(controller.calcolaPresenzeMinime(corsiTable.getValueAt(corsiTable.getSelectedRow(),0).toString()));
 					controller.getStatisticheFrame().getPresenzeMassimeTF().setText(controller.calcolaPresenzeMassime(corsiTable.getValueAt(corsiTable.getSelectedRow(),0).toString()));
 					controller.getStatisticheFrame().getFrequenzaMediaTF().setText(controller.calcolaFrequenzaMedia(corsiTable.getValueAt(corsiTable.getSelectedRow(),0).toString()));
-					controller.getStatisticheFrame().getFrequenzaMediaInPercentualeTF().setText("media/numeroMassimoPartecipanti*100");
+					controller.getStatisticheFrame().getFrequenzaMediaInPercentualeTF().setText(controller.calcolaPercentualeRiempimentoMedia(corsiTable.getValueAt(corsiTable.getSelectedRow(),0).toString())+"%");
 					
 					controller.getStatisticheFrame().getIscrittiDTM().getDataVector().removeAllElements();
 					controller.getStatisticheFrame().setIscritti(controller.recuperaIscrittiAdUnCorso(corsiTable.getValueAt(corsiTable.getSelectedRow(), 0).toString()));

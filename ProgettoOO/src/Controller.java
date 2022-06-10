@@ -22,15 +22,7 @@ public class Controller {
 	private CorsoDAO corsoDAO;
 	private AreaTematicaDAO areaTematicaDAO;
 	private StudenteDAO studenteDAO;
-
-	
-	public void setCorsoDAO(CorsoDAO corsoDAO) {
-		this.corsoDAO = corsoDAO;
-	}
-	
-	public CorsoDAO getCorsoDAO() {
-		return corsoDAO;
-	}
+	private LezioneDAO lezioneDAO;
 
 
 	public static void main(String[] args) {
@@ -42,6 +34,7 @@ public class Controller {
 		studenteDAO= new StudenteDAO();
 		corsoDAO = new CorsoDAO();
 		areaTematicaDAO = new AreaTematicaDAO();
+		lezioneDAO = new LezioneDAO();
 
 		setLoginFrame(new LoginFrame(this));
 		getLoginFrame().setVisible(true);
@@ -56,7 +49,7 @@ public class Controller {
 		
 	}
 	
-	//Getters e Setters dei Frame
+	//Getters e Setters of Frame
 	public LoginFrame getLoginFrame() {
 		return loginFrame;
 	}
@@ -188,6 +181,10 @@ public class Controller {
 	
 	public String calcolaFrequenzaMedia(String codiceCorso) {
 		return corsoDAO.calcolaFrequenzaMedia(codiceCorso);
+	}
+	
+	public String calcolaPercentualeRiempimentoMedia(String codiceCorso) {
+		return corsoDAO.calcolaPercentualeRiempimentoMedia(codiceCorso);
 	}
 
 
