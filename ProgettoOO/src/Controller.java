@@ -9,6 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 public class Controller {
+	private ModificaLezioneFrame modificaLezioneFrame;
+	private AggiungiLezioneFrame aggiungiLezioneFrame;
+	private PresenzeFrame presenzeFrame;
 	private LoginFrame loginFrame;
 	private HomepageFrame homeFrame;
 	private RicercaCorsoFrame ricercaCorsoFrame;
@@ -18,6 +21,7 @@ public class Controller {
 	private AggiungiAreaTematicaFrame aggiungiAreaTematicaFrame;
 	private ModificaCorsoFrame modificaCorsoFrame;
 	private AggiungiCorsoFrame aggiungiCorsoFrame;
+	private LezioniFrame lezioniFrame;
 	private ResponsabileDAO responsabileDAO;
 	private CorsoDAO corsoDAO;
 	private AreaTematicaDAO areaTematicaDAO;
@@ -35,7 +39,10 @@ public class Controller {
 		corsoDAO = new CorsoDAO();
 		areaTematicaDAO = new AreaTematicaDAO();
 		lezioneDAO = new LezioneDAO();
-
+		
+		setModificaLezioneFrame(new ModificaLezioneFrame(this));
+		setAggiungiLezioneFrame(new AggiungiLezioneFrame(this));
+		setPresenzeFrame(new PresenzeFrame(this));
 		setLoginFrame(new LoginFrame(this));
 		getLoginFrame().setVisible(true);
 		setHomeFrame(new HomepageFrame(this));
@@ -46,6 +53,7 @@ public class Controller {
 		setAggiungiAreaTematicaFrame(new AggiungiAreaTematicaFrame(this)); 
 		setModificaFrame(new ModificaCorsoFrame(this));
 		setAggiungiCorsoFrame(new AggiungiCorsoFrame(this));
+		setLezioniFrame(new LezioniFrame(this));
 		
 	}
 	
@@ -130,6 +138,38 @@ public class Controller {
 		this.aggiungiCorsoFrame = aggiungiCorsoFrame;
 	}
 	
+	public LezioniFrame getLezioniFrame() {
+		return lezioniFrame;
+	}
+
+	public void setLezioniFrame(LezioniFrame lezioniFrame) {
+		this.lezioniFrame = lezioniFrame;
+	}
+
+	public PresenzeFrame getPresenzeFrame() {
+		return presenzeFrame;
+	}
+
+	public void setPresenzeFrame(PresenzeFrame presenzeFrame) {
+		this.presenzeFrame = presenzeFrame;
+	}
+
+	public AggiungiLezioneFrame getAggiungiLezioneFrame() {
+		return aggiungiLezioneFrame;
+	}
+
+	public void setAggiungiLezioneFrame(AggiungiLezioneFrame aggiungiLezioneFrame) {
+		this.aggiungiLezioneFrame = aggiungiLezioneFrame;
+	}
+
+	public ModificaLezioneFrame getModificaLezioneFrame() {
+		return modificaLezioneFrame;
+	}
+
+	public void setModificaLezioneFrame(ModificaLezioneFrame modificaLezioneFrame) {
+		this.modificaLezioneFrame = modificaLezioneFrame;
+	}
+
 	//METODI CorsoDAO
 	public void aggiungiCorso(String nome,String descrizione,String numeroMassimoPartecipanti,String numeroLezioni,String dataDiInizio,String codiceResponsabile) {
 		corsoDAO.aggiungiCorso(nome, descrizione, numeroMassimoPartecipanti, numeroLezioni, dataDiInizio, codiceResponsabile);
@@ -260,6 +300,13 @@ public class Controller {
 		return areaTematicaDAO.recuperaAreeTematicheInVettoreDiVettoreDiStringhe(numeroCategorie);
 	}
 	
+	//METODI LezioneDAO
+	public Vector<Vector<String>> recuperaLezioni(String codiceCorso) {
+		return lezioneDAO.recuperaLezioni(codiceCorso);
+	}
+	public void eliminaLezione(String codiceLezione) {
+		lezioneDAO.eliminaLezione(codiceLezione);
+	}
 
 	
 	

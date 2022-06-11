@@ -56,12 +56,11 @@ public class RicercaCorsoFrame extends JFrame {
 	private Controller controller;
 	private JTable corsiTable;
 	private Vector<Vector<String>> corsi;
-	private Vector<Vector<String>> corsiBackup;
 	private DefaultTableModel corsiDTM;
 	private JRadioButton codiceCorsoRadioButton;
 	private JRadioButton nomeRadioButton;
 	private JRadioButton dataRadioButton;
-	private JComboBox campoCB;
+
 	private JTable categorieTable;
 	private DefaultTableModel categorieDTM;
 	private Vector<Vector<String>> categorie;
@@ -74,9 +73,7 @@ public class RicercaCorsoFrame extends JFrame {
 	private int numeroCategorieSelezionate;
 
 	
-	public JComboBox getCampoCB() {
-		return campoCB;
-	}
+
 
 	public DefaultTableModel getCorsiDTM() {
 		return corsiDTM;
@@ -597,6 +594,25 @@ public class RicercaCorsoFrame extends JFrame {
 				categorieTable.clearSelection();
 			}
 		});
+		
+		JButton LezioniButton = new JButton("Lezioni");
+		LezioniButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(corsiTable.getSelectedRow()<=-1) {
+					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
+				}else {
+			controller.getLezioniFrame().setVisible(true);
+			controller.getLezioniFrame().getLezioniDTM().getDataVector().removeAllElements();
+			controller.getLezioniFrame().setListaLezioni(controller.recuperaLezioni(corsiTable.getValueAt(corsiTable.getSelectedRow(), 0).toString()));
+			controller.setDefaultTableModel(controller.getLezioniFrame().getLezioniDTM(), controller.getLezioniFrame().getListaLezioni());
+			controller.getLezioniFrame().getLezioniDTM().fireTableDataChanged();
+			}
+		}});
+		GridBagConstraints gbc_LezioniButton = new GridBagConstraints();
+		gbc_LezioniButton.insets = new Insets(0, 0, 5, 0);
+		gbc_LezioniButton.gridx = 14;
+		gbc_LezioniButton.gridy = 10;
+		contentPane.add(LezioniButton, gbc_LezioniButton);
 		GridBagConstraints gbc_tornaHomeButton = new GridBagConstraints();
 		gbc_tornaHomeButton.insets = new Insets(0, 0, 5, 5);
 		gbc_tornaHomeButton.gridx = 1;
