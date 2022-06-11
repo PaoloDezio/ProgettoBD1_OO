@@ -51,7 +51,23 @@ public void eliminaLezione(String codiceLezione) {
 	
 	}catch (SQLException e) {
 	e.printStackTrace();
-	}
+	}}
+	
+	
+public void inserisciLezione(String codiceCorso,String titolo,String descrizione,String durata,String dataOraInizio,String online,String aula,String sede,String piattaforma ) {	
+try {
+	connessioneDB=istanzaDB.connectToDB();
+	
+	Statement statement = connessioneDB.createStatement();
+	statement.executeUpdate("INSERT INTO lezione (Titolo,descrizione,durata,dataorainizio,codicecorso,online,aula,sede,piattaforma)"
+			+ "				VALUES('"+titolo+"','"+descrizione+"','"+durata+"','"+dataOraInizio+"','"+codiceCorso+"','"+online+"','"+aula+"','"+sede+"','"+piattaforma);
+	statement.close();
+	istanzaDB.closeConnectionToDB();
+
+}catch (SQLException e) {
+e.printStackTrace();
+}
+	
 
 }
 
@@ -74,5 +90,5 @@ public void eliminaLezione(String codiceLezione) {
 
 
 
-}
 
+}
