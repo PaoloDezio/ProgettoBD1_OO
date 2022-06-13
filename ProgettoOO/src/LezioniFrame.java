@@ -15,6 +15,8 @@ import javax.swing.JButton;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 public class LezioniFrame extends JFrame {
 
@@ -27,6 +29,7 @@ public class LezioniFrame extends JFrame {
 	private JButton AggiungiButton;
 	private JButton modificaButton;
 	private JButton presenzeButton;
+	private JLabel LezioniLabel;
 	
 	public JTable getLezioniTable() {
 		return lezioniTable;
@@ -62,16 +65,16 @@ public class LezioniFrame extends JFrame {
 		setTitle("Lezioni");
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 481, 380);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{265, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{38, 0, 251, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[]{47, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{38, 0, 0, 39, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		lezioniDTM = new DefaultTableModel(){
@@ -87,6 +90,54 @@ public class LezioniFrame extends JFrame {
 		lezioniDTM.addColumn("Sede");
 		lezioniDTM.addColumn("Aula");
 		
+		LezioniLabel = new JLabel("Lezioni");
+		LezioniLabel.setFont(new Font("Century", Font.PLAIN, 25));
+		GridBagConstraints gbc_LezioniLabel = new GridBagConstraints();
+		gbc_LezioniLabel.gridwidth = 2;
+		gbc_LezioniLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_LezioniLabel.gridx = 0;
+		gbc_LezioniLabel.gridy = 0;
+		contentPane.add(LezioniLabel, gbc_LezioniLabel);
+		
+		presenzeButton = new JButton("presenze");
+		presenzeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.getPresenzeFrame().setVisible(true);
+			}
+		});
+		
+		AggiungiButton = new JButton("Aggiungi");
+		AggiungiButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.getAggiungiLezioneFrame().setVisible(true);
+			}
+		});
+		
+		JScrollPane lezioniScrollPane = new JScrollPane();
+		GridBagConstraints gbc_lezioniScrollPane = new GridBagConstraints();
+		gbc_lezioniScrollPane.gridheight = 5;
+		gbc_lezioniScrollPane.gridwidth = 6;
+		gbc_lezioniScrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_lezioniScrollPane.fill = GridBagConstraints.BOTH;
+		gbc_lezioniScrollPane.gridx = 1;
+		gbc_lezioniScrollPane.gridy = 2;
+		contentPane.add(lezioniScrollPane, gbc_lezioniScrollPane);
+		
+		lezioniTable = new JTable();
+		lezioniScrollPane.setViewportView(lezioniTable);
+		
+		lezioniTable.setModel(lezioniDTM);
+		GridBagConstraints gbc_AggiungiButton = new GridBagConstraints();
+		gbc_AggiungiButton.insets = new Insets(0, 0, 5, 5);
+		gbc_AggiungiButton.gridx = 7;
+		gbc_AggiungiButton.gridy = 3;
+		contentPane.add(AggiungiButton, gbc_AggiungiButton);
+		GridBagConstraints gbc_presenzeButton = new GridBagConstraints();
+		gbc_presenzeButton.insets = new Insets(0, 0, 5, 0);
+		gbc_presenzeButton.gridx = 8;
+		gbc_presenzeButton.gridy = 3;
+		contentPane.add(presenzeButton, gbc_presenzeButton);
+		
 		EliminaButton = new JButton("Elimina");
 		EliminaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -99,23 +150,6 @@ public class LezioniFrame extends JFrame {
 				lezioniTable.setModel(lezioniDTM);
 			}
 		});
-		GridBagConstraints gbc_EliminaButton = new GridBagConstraints();
-		gbc_EliminaButton.insets = new Insets(0, 0, 5, 5);
-		gbc_EliminaButton.gridx = 0;
-		gbc_EliminaButton.gridy = 1;
-		contentPane.add(EliminaButton, gbc_EliminaButton);
-		
-		AggiungiButton = new JButton("Aggiungi");
-		AggiungiButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.getAggiungiLezioneFrame().setVisible(true);
-			}
-		});
-		GridBagConstraints gbc_AggiungiButton = new GridBagConstraints();
-		gbc_AggiungiButton.insets = new Insets(0, 0, 5, 5);
-		gbc_AggiungiButton.gridx = 1;
-		gbc_AggiungiButton.gridy = 1;
-		contentPane.add(AggiungiButton, gbc_AggiungiButton);
 		
 		modificaButton = new JButton("Modifica");
 		modificaButton.addActionListener(new ActionListener() {
@@ -124,34 +158,15 @@ public class LezioniFrame extends JFrame {
 			}
 		});
 		GridBagConstraints gbc_modificaButton = new GridBagConstraints();
-		gbc_modificaButton.insets = new Insets(0, 0, 5, 0);
-		gbc_modificaButton.gridx = 2;
-		gbc_modificaButton.gridy = 1;
+		gbc_modificaButton.insets = new Insets(0, 0, 5, 5);
+		gbc_modificaButton.gridx = 7;
+		gbc_modificaButton.gridy = 4;
 		contentPane.add(modificaButton, gbc_modificaButton);
-		
-		JScrollPane lezioniScrollPane = new JScrollPane();
-		GridBagConstraints gbc_lezioniScrollPane = new GridBagConstraints();
-		gbc_lezioniScrollPane.insets = new Insets(0, 0, 0, 5);
-		gbc_lezioniScrollPane.fill = GridBagConstraints.BOTH;
-		gbc_lezioniScrollPane.gridx = 0;
-		gbc_lezioniScrollPane.gridy = 2;
-		contentPane.add(lezioniScrollPane, gbc_lezioniScrollPane);
-		
-		lezioniTable = new JTable();
-		lezioniScrollPane.setViewportView(lezioniTable);
-		
-		lezioniTable.setModel(lezioniDTM);
-		
-		presenzeButton = new JButton("presenze");
-		presenzeButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.getPresenzeFrame().setVisible(true);
-			}
-		});
-		GridBagConstraints gbc_presenzeButton = new GridBagConstraints();
-		gbc_presenzeButton.gridx = 2;
-		gbc_presenzeButton.gridy = 2;
-		contentPane.add(presenzeButton, gbc_presenzeButton);
+		GridBagConstraints gbc_EliminaButton = new GridBagConstraints();
+		gbc_EliminaButton.insets = new Insets(0, 0, 5, 5);
+		gbc_EliminaButton.gridx = 7;
+		gbc_EliminaButton.gridy = 5;
+		contentPane.add(EliminaButton, gbc_EliminaButton);
 		
 		
 		

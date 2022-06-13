@@ -109,9 +109,9 @@ public class RicercaCorsoFrame extends JFrame {
 		
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 156, 0, 0, 0, 0, 0, 76, 18, 110, 130, 44, 114, 100, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 23, 0, 19, 33, 26, 0, 0, 0, 0, 26, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 23, 0, 19, 33, 26, 0, 0, 0, 0, 26, 20, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel gestioneCorsiLabel = new JLabel("Gestione Corsi");
@@ -441,7 +441,7 @@ public class RicercaCorsoFrame extends JFrame {
 		corsiTableScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridheight = 4;
+		gbc_scrollPane.gridheight = 5;
 		gbc_scrollPane.gridwidth = 13;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.gridx = 1;
@@ -552,6 +552,27 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_EliminaButton.gridy = 8;
 		contentPane.add(EliminaButton, gbc_EliminaButton);
 		
+		JButton LezioniButton = new JButton("Lezioni");
+		LezioniButton.setFont(new Font("Century", Font.PLAIN, 16));
+		LezioniButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(corsiTable.getSelectedRow()<=-1) {
+					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
+				}else {
+			controller.getLezioniFrame().setVisible(true);
+			controller.getLezioniFrame().getLezioniDTM().getDataVector().removeAllElements();
+			controller.getLezioniFrame().setListaLezioni(controller.recuperaLezioni(corsiTable.getValueAt(corsiTable.getSelectedRow(), 0).toString()));
+			controller.setDefaultTableModel(controller.getLezioniFrame().getLezioniDTM(), controller.getLezioniFrame().getListaLezioni());
+			controller.getLezioniFrame().getLezioniDTM().fireTableDataChanged();
+			}
+		}});
+		GridBagConstraints gbc_LezioniButton = new GridBagConstraints();
+		gbc_LezioniButton.anchor = GridBagConstraints.WEST;
+		gbc_LezioniButton.insets = new Insets(0, 0, 5, 0);
+		gbc_LezioniButton.gridx = 14;
+		gbc_LezioniButton.gridy = 9;
+		contentPane.add(LezioniButton, gbc_LezioniButton);
+		
 		JButton StatisticheButton = new JButton("Statistische");
 		StatisticheButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -579,7 +600,7 @@ public class RicercaCorsoFrame extends JFrame {
 		gbc_StatisticheButton.insets = new Insets(0, 0, 5, 0);
 		gbc_StatisticheButton.anchor = GridBagConstraints.WEST;
 		gbc_StatisticheButton.gridx = 14;
-		gbc_StatisticheButton.gridy = 9;
+		gbc_StatisticheButton.gridy = 10;
 		contentPane.add(StatisticheButton, gbc_StatisticheButton);
 		
 		JButton tornaHomeButton = new JButton("Torna alla HomePage");
@@ -594,29 +615,10 @@ public class RicercaCorsoFrame extends JFrame {
 				categorieTable.clearSelection();
 			}
 		});
-		
-		JButton LezioniButton = new JButton("Lezioni");
-		LezioniButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(corsiTable.getSelectedRow()<=-1) {
-					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
-				}else {
-			controller.getLezioniFrame().setVisible(true);
-			controller.getLezioniFrame().getLezioniDTM().getDataVector().removeAllElements();
-			controller.getLezioniFrame().setListaLezioni(controller.recuperaLezioni(corsiTable.getValueAt(corsiTable.getSelectedRow(), 0).toString()));
-			controller.setDefaultTableModel(controller.getLezioniFrame().getLezioniDTM(), controller.getLezioniFrame().getListaLezioni());
-			controller.getLezioniFrame().getLezioniDTM().fireTableDataChanged();
-			}
-		}});
-		GridBagConstraints gbc_LezioniButton = new GridBagConstraints();
-		gbc_LezioniButton.insets = new Insets(0, 0, 5, 0);
-		gbc_LezioniButton.gridx = 14;
-		gbc_LezioniButton.gridy = 10;
-		contentPane.add(LezioniButton, gbc_LezioniButton);
 		GridBagConstraints gbc_tornaHomeButton = new GridBagConstraints();
 		gbc_tornaHomeButton.insets = new Insets(0, 0, 5, 5);
 		gbc_tornaHomeButton.gridx = 1;
-		gbc_tornaHomeButton.gridy = 11;
+		gbc_tornaHomeButton.gridy = 12;
 		contentPane.add(tornaHomeButton, gbc_tornaHomeButton);
 	
 	}
