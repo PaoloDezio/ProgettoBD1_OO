@@ -44,6 +44,30 @@ public class AggiungiCorsoFrame extends JFrame {
 	private JScrollPane categorieTableScrollPane;
 	private JButton aggiungiAreaTematicaButton;
 	
+	public Vector<Vector<String>> getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(Vector<Vector<String>> categorie) {
+		this.categorie = categorie;
+	}
+
+	public DefaultTableModel getCategorieDTM() {
+		return categorieDTM;
+	}
+
+	public void setCategorieDTM(DefaultTableModel categorieDTM) {
+		this.categorieDTM = categorieDTM;
+	}
+
+	public JTable getCategorieTable() {
+		return categorieTable;
+	}
+
+	public void setCategorieTable(JTable categorieTable) {
+		this.categorieTable = categorieTable;
+	}
+
 	public AggiungiCorsoFrame(Controller c) {
 		setTitle("AggiungiCorsoFrame");
 	
@@ -51,7 +75,7 @@ public class AggiungiCorsoFrame extends JFrame {
 		
 		
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, 640, 440);
+		setBounds(100, 100, 700, 440);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -59,7 +83,7 @@ public class AggiungiCorsoFrame extends JFrame {
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 67, 80, 77, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 30, 33, 29, 20, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		

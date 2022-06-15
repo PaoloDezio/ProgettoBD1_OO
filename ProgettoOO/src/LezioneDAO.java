@@ -15,9 +15,9 @@ public class LezioneDAO {
 			connessioneDB=istanzaDB.connectToDB();
 
 			Statement statement = connessioneDB.createStatement();
-			ResultSet resultSet = statement.executeQuery("SELECT l.codicelezione,l.titolo, l.descrizione,l.dataorainizio,l.sede,l.aula "
-					+ 									 "FROM lezione as l "
-					+ 									 "WHERE l.codiceCorso = "+codiceCorso);
+			ResultSet resultSet = statement.executeQuery("SELECT codicelezione,titolo,descrizione,to_char (dataorainizio,'YYYY-MM-DD HH24:MI') as dataorainizio,sede,aula "
+					+ 									 "FROM lezione  "
+					+ 									 "WHERE codiceCorso = "+codiceCorso);
 
 			while(resultSet.next()) {
 				Vector<String> vettore = new Vector<String>();

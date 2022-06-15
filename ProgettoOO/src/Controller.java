@@ -9,7 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 public class Controller {
-	private PresenzeFrame presenzeFrame;
 	private LoginFrame loginFrame;
 	private HomepageFrame homeFrame;
 	private RicercaCorsoFrame ricercaCorsoFrame;
@@ -22,6 +21,8 @@ public class Controller {
 	private LezioniFrame lezioniFrame;
 	private ModificaLezioneFrame modificaLezioneFrame;
 	private AggiungiLezioneFrame aggiungiLezioneFrame;
+	private PresenzeFrame presenzeFrame;
+
 	private ResponsabileDAO responsabileDAO;
 	private CorsoDAO corsoDAO;
 	private AreaTematicaDAO areaTematicaDAO;
@@ -40,9 +41,7 @@ public class Controller {
 		areaTematicaDAO = new AreaTematicaDAO();
 		lezioneDAO = new LezioneDAO();
 		
-		setModificaLezioneFrame(new ModificaLezioneFrame(this));
-		setAggiungiLezioneFrame(new AggiungiLezioneFrame(this));
-		setPresenzeFrame(new PresenzeFrame(this));
+		
 		setLoginFrame(new LoginFrame(this));
 		getLoginFrame().setVisible(true);
 		setHomeFrame(new HomepageFrame(this));
@@ -54,6 +53,9 @@ public class Controller {
 		setModificaFrame(new ModificaCorsoFrame(this));
 		setAggiungiCorsoFrame(new AggiungiCorsoFrame(this));
 		setLezioniFrame(new LezioniFrame(this));
+		setModificaLezioneFrame(new ModificaLezioneFrame(this));
+		setAggiungiLezioneFrame(new AggiungiLezioneFrame(this));
+		setPresenzeFrame(new PresenzeFrame(this));
 		
 	}
 	
