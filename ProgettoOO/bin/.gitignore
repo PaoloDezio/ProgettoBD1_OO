@@ -22,9 +22,6 @@
 /RicercaCorsoFrame.class
 /Studente.class
 /Utente.class
-/.classpath
-/.gitignore
-/.project
 /AggiungiAreaTematicaFrame$1.class
 /AggiungiAreaTematicaFrame$2.class
 /AggiungiAreaTematicaFrame.class
@@ -77,3 +74,4 @@
 /StatisticheFrame$3.class
 /StatisticheFrame.class
 /StudenteDAO.class
+/AggiungiCorsoFrame$4.class

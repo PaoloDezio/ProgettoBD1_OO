@@ -42,6 +42,7 @@ public class AggiungiCorsoFrame extends JFrame {
 	private DefaultTableModel categorieDTM;
 	private JTable categorieTable;
 	private JScrollPane categorieTableScrollPane;
+	private JButton aggiungiAreaTematicaButton;
 	
 	public AggiungiCorsoFrame(Controller c) {
 		setTitle("AggiungiCorsoFrame");
@@ -50,7 +51,7 @@ public class AggiungiCorsoFrame extends JFrame {
 		
 		
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, 590, 440);
+		setBounds(100, 100, 640, 440);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -58,7 +59,7 @@ public class AggiungiCorsoFrame extends JFrame {
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 67, 80, 77, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 30, 33, 29, 20, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
@@ -210,6 +211,19 @@ public class AggiungiCorsoFrame extends JFrame {
 		
 		int numeroResponsabili=c.contaResponsabili();
 		String[] responsabili=c.salvaResponsabili(numeroResponsabili);
+		
+		aggiungiAreaTematicaButton = new JButton("Aggiungi Area Tematica");
+		aggiungiAreaTematicaButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.getAggiungiAreaTematicaFrame().setVisible(true);
+			}
+		});
+		aggiungiAreaTematicaButton.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_aggiungiAreaTematicaButton = new GridBagConstraints();
+		gbc_aggiungiAreaTematicaButton.insets = new Insets(0, 0, 5, 5);
+		gbc_aggiungiAreaTematicaButton.gridx = 5;
+		gbc_aggiungiAreaTematicaButton.gridy = 6;
+		contentPane.add(aggiungiAreaTematicaButton, gbc_aggiungiAreaTematicaButton);
 		
 		JLabel responsabileLabel = new JLabel("Responsabile");
 		responsabileLabel.setFont(new Font("Century", Font.PLAIN, 16));

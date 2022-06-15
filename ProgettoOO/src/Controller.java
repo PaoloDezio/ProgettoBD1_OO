@@ -9,8 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 public class Controller {
-	private ModificaLezioneFrame modificaLezioneFrame;
-	private AggiungiLezioneFrame aggiungiLezioneFrame;
 	private PresenzeFrame presenzeFrame;
 	private LoginFrame loginFrame;
 	private HomepageFrame homeFrame;
@@ -22,6 +20,8 @@ public class Controller {
 	private ModificaCorsoFrame modificaCorsoFrame;
 	private AggiungiCorsoFrame aggiungiCorsoFrame;
 	private LezioniFrame lezioniFrame;
+	private ModificaLezioneFrame modificaLezioneFrame;
+	private AggiungiLezioneFrame aggiungiLezioneFrame;
 	private ResponsabileDAO responsabileDAO;
 	private CorsoDAO corsoDAO;
 	private AreaTematicaDAO areaTematicaDAO;

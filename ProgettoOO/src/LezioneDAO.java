@@ -15,8 +15,8 @@ public class LezioneDAO {
 			connessioneDB=istanzaDB.connectToDB();
 
 			Statement statement = connessioneDB.createStatement();
-			ResultSet resultSet = statement.executeQuery("SELECT l.codicelezione,l.titolo, l.descrizione,l.dataorainizio,l.sede,l.aula"
-					+ 									 "FROM lezione as l"
+			ResultSet resultSet = statement.executeQuery("SELECT l.codicelezione,l.titolo, l.descrizione,l.dataorainizio,l.sede,l.aula "
+					+ 									 "FROM lezione as l "
 					+ 									 "WHERE l.codiceCorso = "+codiceCorso);
 
 			while(resultSet.next()) {
