@@ -29,7 +29,7 @@ public class LezioniFrame extends JFrame {
 	private JButton aggiungiButton;
 	private JButton modificaButton;
 	private JButton presenzeButton;
-	private JLabel LezioniLabel;
+	private JLabel lezioniLabel;
 	private JButton indietroButton;
 	
 	public JTable getLezioniTable() {
@@ -101,15 +101,15 @@ public class LezioniFrame extends JFrame {
 		gbc_aggiungiButton.gridy = 2;
 		contentPane.add(aggiungiButton, gbc_aggiungiButton);
 		
-		LezioniLabel = new JLabel("Lezioni");
-		LezioniLabel.setFont(new Font("Century", Font.PLAIN, 25));
+		lezioniLabel = new JLabel("Lezioni");
+		lezioniLabel.setFont(new Font("Century", Font.PLAIN, 25));
 		GridBagConstraints gbc_LezioniLabel = new GridBagConstraints();
 		gbc_LezioniLabel.anchor = GridBagConstraints.WEST;
 		gbc_LezioniLabel.gridwidth = 3;
 		gbc_LezioniLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_LezioniLabel.gridx = 1;
 		gbc_LezioniLabel.gridy = 1;
-		contentPane.add(LezioniLabel, gbc_LezioniLabel);
+		contentPane.add(lezioniLabel, gbc_LezioniLabel);
 		
 		JScrollPane lezioniScrollPane = new JScrollPane();
 		GridBagConstraints gbc_lezioniScrollPane = new GridBagConstraints();
@@ -195,9 +195,7 @@ public class LezioniFrame extends JFrame {
 		gbc_indietroButton.gridx = 1;
 		gbc_indietroButton.gridy = 8;
 		contentPane.add(indietroButton, gbc_indietroButton);
-		
-		
-		
+	
 	}
 
 

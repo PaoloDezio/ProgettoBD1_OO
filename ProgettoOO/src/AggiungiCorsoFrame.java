@@ -33,11 +33,11 @@ public class AggiungiCorsoFrame extends JFrame {
 	private JTextField numeroMassimoPartecipantiTF;
 	private JTextField numeroDiLezioniTF;
 	private JTextField dataDiInizioTF;
-	private JComboBox responsabileCB;
+	private JComboBox<String> responsabiliCB;
 	private JButton confermaButton;
 	private JButton indietroButton;
-	private JComboBox categoriaCB;
-	private DefaultComboBoxModel categoriaCBM;
+	private JComboBox<String> categorieCB;
+	private DefaultComboBoxModel<String> categorieCBM;
 	private Vector<Vector<String>> categorie;
 	private DefaultTableModel categorieDTM;
 	private JTable categorieTable;
@@ -258,15 +258,17 @@ public class AggiungiCorsoFrame extends JFrame {
 		gbc_responsabileLabel.gridy = 9;
 		contentPane.add(responsabileLabel, gbc_responsabileLabel);
 		
-		responsabileCB = new JComboBox(responsabili);
-		responsabileCB.setFont(new Font("Century", Font.PLAIN, 16));
+		
+//		Correggere responsabiliCB
+		responsabiliCB = new JComboBox<String>(responsabili);
+		responsabiliCB.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_responsabileCB = new GridBagConstraints();
 		gbc_responsabileCB.gridwidth = 3;
 		gbc_responsabileCB.insets = new Insets(0, 0, 5, 5);
 		gbc_responsabileCB.fill = GridBagConstraints.HORIZONTAL;
 		gbc_responsabileCB.gridx = 2;
 		gbc_responsabileCB.gridy = 9;
-		contentPane.add(responsabileCB, gbc_responsabileCB);
+		contentPane.add(responsabiliCB, gbc_responsabileCB);
 		
 		indietroButton = new JButton("Indietro");
 		indietroButton.addActionListener(new ActionListener() {
@@ -285,7 +287,7 @@ public class AggiungiCorsoFrame extends JFrame {
 		confermaButton = new JButton("Conferma");
 		confermaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.aggiungiCorso(nomeTF.getText().toUpperCase(), descrizioneTF.getText().toUpperCase(), numeroMassimoPartecipantiTF.getText(), numeroDiLezioniTF.getText(), dataDiInizioTF.getText(), controller.recuperaCodiceResponsabile(responsabileCB.getSelectedItem().toString()));
+				controller.aggiungiCorso(nomeTF.getText().toUpperCase(), descrizioneTF.getText().toUpperCase(), numeroMassimoPartecipantiTF.getText(), numeroDiLezioniTF.getText(), dataDiInizioTF.getText(), controller.recuperaCodiceResponsabile(responsabiliCB.getSelectedItem().toString()));
 				String categorieSelezionate = new String();
 				for (int indiceCategoria : categorieTable.getSelectedRows()) {
 					categorieSelezionate= categorieSelezionate +","+categorieTable.getValueAt(indiceCategoria, 0).toString();
@@ -318,7 +320,7 @@ public class AggiungiCorsoFrame extends JFrame {
 		numeroDiLezioniTF.setText("");
 		dataDiInizioTF.setText("");
 		categorieTable.clearSelection();
-		responsabileCB.setSelectedItem(responsabileCB.getItemAt(0));
+		responsabiliCB.setSelectedItem(responsabiliCB.getItemAt(0));
 	}
 
 }

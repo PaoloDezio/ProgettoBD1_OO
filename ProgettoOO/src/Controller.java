@@ -185,8 +185,8 @@ public class Controller {
 		return corsoDAO.contaCorsi();
 	}
 
-	public String[] recuperaCorsi(int numeroCorsi) {
-		return corsoDAO.recuperaCorsi(numeroCorsi);
+	public String[] recuperaCorsiInArrayDiStringhe(int numeroCorsi) {
+		return corsoDAO.recuperaCorsiInArrayDiStringhe(numeroCorsi);
 	}
 	
 	public Vector<Vector<String>> recuperaCorsiOrdinatiPer(String ordinamento,String nome,String data,String parolaChiave){
@@ -322,7 +322,7 @@ public class Controller {
 	
 	
 	
-	public DefaultComboBoxModel setDefaultComboBoxModel(DefaultComboBoxModel defaultComboBoxModel,String[] arrayDiStringhe) {
+	public DefaultComboBoxModel<String> setDefaultComboBoxModel(DefaultComboBoxModel<String> defaultComboBoxModel,String[] arrayDiStringhe) {
 		for(String stringa: arrayDiStringhe) {
 			defaultComboBoxModel.addElement(stringa);
 		}

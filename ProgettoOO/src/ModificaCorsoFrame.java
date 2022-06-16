@@ -30,10 +30,12 @@ public class ModificaCorsoFrame extends JFrame {
 	private JTextField nomeTF;
 	private JTextField descrizioneTF;
 	private Controller controller;
-	private JComboBox categoriaCB;
+	private JComboBox<String> categorieCB;
 	private JTextField dataTF;
-	private JComboBox responsabileCB ;
-	private DefaultComboBoxModel categoriaCBM;
+	private JComboBox<String> responsabiliCB ;
+	private DefaultComboBoxModel<String> responsabiliCBM;
+	private DefaultComboBoxModel<String> categorieCBM;
+	
 
 
 	public JTextField getNomeTF() {
@@ -50,18 +52,18 @@ public class ModificaCorsoFrame extends JFrame {
 	}
 
 
-	public JComboBox getCategoriaCB() {
-		return categoriaCB;
+	public JComboBox<String> getCategoriaCB() {
+		return categorieCB;
 	}
 
 
-	public JComboBox getResponsabileCB() {
-		return responsabileCB;
+	public JComboBox<String> getResponsabileCB() {
+		return responsabiliCB;
 	}
 
 
-	public DefaultComboBoxModel getCategoriaCBM() {
-		return categoriaCBM;
+	public DefaultComboBoxModel<String> getCategoriaCBM() {
+		return categorieCBM;
 	}
 
 
@@ -160,20 +162,20 @@ public class ModificaCorsoFrame extends JFrame {
 		gbc_categoriaLabel.gridy = 5;
 		contentPane.add(categoriaLabel, gbc_categoriaLabel);
 		
-		categoriaCBM = new DefaultComboBoxModel();
+		categorieCBM = new DefaultComboBoxModel<String>();
 		int numeroCategorie=controller.contaCategorie();
 		String[] categorie = controller.recuperaAreeTematicheInArrayDiStringhe(numeroCategorie);
-		categoriaCBM = controller.setDefaultComboBoxModel(categoriaCBM,categorie);
+		categorieCBM = controller.setDefaultComboBoxModel(categorieCBM,categorie);
 		
-		categoriaCB = new JComboBox();
-		categoriaCB.setModel(categoriaCBM);
-		categoriaCB.setFont(new Font("Century", Font.PLAIN, 16));
+		categorieCB = new JComboBox<String>();
+		categorieCB.setModel(categorieCBM);
+		categorieCB.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_categoriaCB = new GridBagConstraints();		
 		gbc_categoriaCB.insets = new Insets(0, 0, 5, 5);
 		gbc_categoriaCB.fill = GridBagConstraints.HORIZONTAL;
 		gbc_categoriaCB.gridx = 2;
 		gbc_categoriaCB.gridy = 5;
-		contentPane.add(categoriaCB, gbc_categoriaCB);
+		contentPane.add(categorieCB, gbc_categoriaCB);
 		
 		JButton aggiungiAreaTematicaButton = new JButton("Aggiungi Area Tematica");
 		aggiungiAreaTematicaButton.addActionListener(new ActionListener() {
@@ -198,18 +200,19 @@ public class ModificaCorsoFrame extends JFrame {
 		contentPane.add(responsabileLabel, gbc_responsabileLabel);
 		
 		
-
-		int numeroResponsabili=c.contaResponsabili();
-		String[] responsabili=c.salvaResponsabili(numeroResponsabili);
+		responsabiliCBM = new DefaultComboBoxModel<String>();
+		int numeroResponsabili = controller.contaResponsabili();
+		String[] responsabili= controller.salvaResponsabili(numeroResponsabili);
+		responsabiliCBM = controller.setDefaultComboBoxModel(responsabiliCBM, responsabili);
 		
-		responsabileCB = new JComboBox(responsabili);
-		responsabileCB.setFont(new Font("Century", Font.PLAIN, 16));
+		responsabiliCB = new JComboBox<String>(responsabili);
+		responsabiliCB.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_responsabileCB = new GridBagConstraints();
 		gbc_responsabileCB.insets = new Insets(0, 0, 5, 5);
 		gbc_responsabileCB.fill = GridBagConstraints.HORIZONTAL;
 		gbc_responsabileCB.gridx = 2;
 		gbc_responsabileCB.gridy = 6;
-		contentPane.add(responsabileCB, gbc_responsabileCB);
+		contentPane.add(responsabiliCB, gbc_responsabileCB);
 		
 		JButton indietroButton = new JButton("Indietro");
 		indietroButton.addActionListener(new ActionListener() {
@@ -231,9 +234,9 @@ public class ModificaCorsoFrame extends JFrame {
 				String nomecorso = nomeTF.getText().toUpperCase();
 				String codiceCorso = controller.recuperaCodiceCorso(controller.getRicercaCorsoFrame().getCorsiTable().getValueAt(controller.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(),1).toString());
 				String descrizione = descrizioneTF.getText().toUpperCase();
-				String codiceResponsabile = controller.recuperaCodiceResponsabile(responsabileCB.getSelectedItem().toString());
+				String codiceResponsabile = controller.recuperaCodiceResponsabile(responsabiliCB.getSelectedItem().toString());
 				String data = dataTF.getText();
-				String categoria = categoriaCB.getSelectedItem().toString();
+				String categoria = categorieCB.getSelectedItem().toString();
 				String oldCategoria= controller.getRicercaCorsoFrame().getCorsiTable().getValueAt(controller.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(),4).toString().toUpperCase();
 				
 				controller.modificaCorso(codiceCorso,nomecorso,descrizione,data,codiceResponsabile,categoria,oldCategoria);

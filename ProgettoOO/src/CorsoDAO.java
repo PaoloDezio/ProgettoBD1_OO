@@ -69,7 +69,7 @@ public class CorsoDAO {
 		return numeroCorsi;
 	}
 	
-	public String[] recuperaCorsi(int numeroCorsi) {
+	public String[] recuperaCorsiInArrayDiStringhe(int numeroCorsi) {
 		String[] corsi = new String[numeroCorsi]; 
 		int i=0;
 		try {
