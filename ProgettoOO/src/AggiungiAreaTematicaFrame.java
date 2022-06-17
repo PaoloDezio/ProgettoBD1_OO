@@ -106,7 +106,7 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 					controller.aggiungiAreaTematica(areaTematicaTF.getText().toUpperCase());
 					
 					controller.getModificaFrame().getCategoriaCB().removeAllItems();
-					String[] categorie = controller.recuperaAreeTematicheInArrayDiStringhe(controller.contaCategorie());
+					String[] categorie = controller.recuperaAreeTematiche(controller.contaCategorie());
 					controller.getModificaFrame().getCategoriaCB().setModel(controller.setDefaultComboBoxModel(controller.getModificaFrame().getCategoriaCBM(),categorie));
 					
 					controller.getAggiungiCorsoFrame().getCategorieDTM().getDataVector().removeAllElements();

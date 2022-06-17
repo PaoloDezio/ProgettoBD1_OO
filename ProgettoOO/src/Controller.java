@@ -28,6 +28,7 @@ public class Controller {
 	private AreaTematicaDAO areaTematicaDAO;
 	private StudenteDAO studenteDAO;
 	private LezioneDAO lezioneDAO;
+	private DocenteDAO docenteDAO;
 
 
 	public static void main(String[] args) {
@@ -40,6 +41,7 @@ public class Controller {
 		corsoDAO = new CorsoDAO();
 		areaTematicaDAO = new AreaTematicaDAO();
 		lezioneDAO = new LezioneDAO();
+		docenteDAO = new DocenteDAO();
 		
 		
 		setLoginFrame(new LoginFrame(this));
@@ -185,8 +187,8 @@ public class Controller {
 		return corsoDAO.contaCorsi();
 	}
 
-	public String[] recuperaCorsiInArrayDiStringhe(int numeroCorsi) {
-		return corsoDAO.recuperaCorsiInArrayDiStringhe(numeroCorsi);
+	public String[] recuperaCorsi(int numeroCorsi) {
+		return corsoDAO.recuperaCorsi(numeroCorsi);
 	}
 	
 	public Vector<Vector<String>> recuperaCorsiOrdinatiPer(String ordinamento,String nome,String data,String parolaChiave){
@@ -294,8 +296,8 @@ public class Controller {
 		return areaTematicaDAO.contaCategorie();
 	}
 	
-	public String[] recuperaAreeTematicheInArrayDiStringhe(Integer numeroCategorie) {
-		return areaTematicaDAO.recuperaAreeTematicheInArrayDiStringhe(numeroCategorie);
+	public String[] recuperaAreeTematiche(Integer numeroCategorie) {
+		return areaTematicaDAO.recuperaAreeTematiche(numeroCategorie);
 	}
 	
 	public Vector<Vector<String>> recuperaAreeTematicheInVettoreDiVettoreDiStringhe(Integer numeroCategorie) {
@@ -309,6 +311,30 @@ public class Controller {
 	public void eliminaLezione(String codiceLezione) {
 		lezioneDAO.eliminaLezione(codiceLezione);
 	}
+	
+	public void aggiungiLezione(String titolo,String descrizione,String durata,String dataEOraInizio,String codiceCorso,String codiceDocente,String sede,String aula) {
+		lezioneDAO.aggiungiLezione(titolo, descrizione, durata, dataEOraInizio, codiceCorso, codiceDocente, sede, aula);
+	}
+	
+	
+	//METODI DocenteDAO
+	public int contaDocenti() {
+		return docenteDAO.contaDocenti();
+	}
+	
+	public String[] recuperaDocenti(int numeroDocenti) {
+		return docenteDAO.recuperaDocenti(numeroDocenti);
+	}
+	
+	
+	public String recuperaCodiceDocente(String cognome) {
+		return docenteDAO.recuperaCodiceDocente(cognome);
+	}
+	
+	
+	
+	
+	
 
 	
 	

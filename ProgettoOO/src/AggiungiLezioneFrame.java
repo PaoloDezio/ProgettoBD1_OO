@@ -21,18 +21,21 @@ import javax.swing.JCheckBox;
 public class AggiungiLezioneFrame extends JFrame {
 	private Controller controller;
 	private JPanel contentPane;
+	private DefaultComboBoxModel<String> corsiCBM;
+	private JComboBox<String> corsiCB;	
 	private JTextField titoloTF;
 	private JTextField descrizioneTF;
 	private JComboBox<String> durataCB;
-	private JTextField piattaformaTF;
 	private JTextField dataTF;
+	private DefaultComboBoxModel<String> oraCBM;
+	private JComboBox<String> oraCB;
+	private DefaultComboBoxModel<String> docentiCBM;
+	private JComboBox<String> docentiCB;
 	private JTextField sedeTF;
 	private JTextField aulaTF;
 	private JLabel piattaformaLabel;
-	private DefaultComboBoxModel<String> corsiCBM;
-	private JComboBox<String> corsiCB;
-	private JComboBox<String> docentiCB;
-	private JComboBox<String> oraCB;
+	private JTextField piattaformaTF;
+	private JButton confermaButton;
 
 	public DefaultComboBoxModel<String> getCorsiCBM() {
 		return corsiCBM;
@@ -60,9 +63,9 @@ public class AggiungiLezioneFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{37, 72, 0, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 16, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[]{37, 72, 0, 0, 47, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 24, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
@@ -71,7 +74,7 @@ public class AggiungiLezioneFrame extends JFrame {
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.gridheight = 2;
 		gbc_lblNewLabel_1.gridwidth = 2;
-		gbc_lblNewLabel_1.anchor = GridBagConstraints.NORTHWEST;
+		gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_1.gridx = 1;
 		gbc_lblNewLabel_1.gridy = 0;
@@ -90,7 +93,7 @@ public class AggiungiLezioneFrame extends JFrame {
 		
 		corsiCBM = new DefaultComboBoxModel<String>();
 		int numeroCorsi= controller.contaCorsi();
-		String[] corsi = controller.recuperaCorsiInArrayDiStringhe(numeroCorsi);
+		String[] corsi = controller.recuperaCorsi(numeroCorsi);
 		corsiCBM = controller.setDefaultComboBoxModel(corsiCBM, corsi);
 		
 		corsiCB = new JComboBox<String>();
@@ -153,7 +156,16 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_durataLabel.gridy = 5;
 		contentPane.add(durataLabel, gbc_durataLabel);
 		
+		
+		oraCBM = new DefaultComboBoxModel<String>();
+		oraCBM.addElement("60 minuti");
+		oraCBM.addElement("90 minuti");
+		oraCBM.addElement("120 minuti");
+		oraCBM.addElement("150 minuti");
+		oraCBM.addElement("180 minuti");
+		
 		durataCB = new JComboBox<String>();
+		durataCB.setModel(oraCBM);
 		durataCB.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_durataCB = new GridBagConstraints();
 		gbc_durataCB.insets = new Insets(0, 0, 5, 5);
@@ -182,7 +194,33 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_dataLabel.gridy = 6;
 		contentPane.add(dataTF, gbc_dataLabel);
 		
+		
+		oraCBM = new DefaultComboBoxModel<String>();
+		oraCBM.addElement("8:00");
+		oraCBM.addElement("8:30");
+		oraCBM.addElement("9:00");
+		oraCBM.addElement("9:30");
+		oraCBM.addElement("10:00");
+		oraCBM.addElement("10:30");
+		oraCBM.addElement("11:00");
+		oraCBM.addElement("11:30");
+		oraCBM.addElement("12:00");
+		oraCBM.addElement("12:30");
+		oraCBM.addElement("13:00");
+		oraCBM.addElement("13:30");
+		oraCBM.addElement("14:00");
+		oraCBM.addElement("14:30");
+		oraCBM.addElement("15:00");
+		oraCBM.addElement("15:30");
+		oraCBM.addElement("16:00");
+		oraCBM.addElement("16:30");
+		oraCBM.addElement("17:00");
+		oraCBM.addElement("17:30");
+		oraCBM.addElement("18:00");
+		
+		
 		oraCB = new JComboBox<String>();
+		oraCB.setModel(oraCBM);
 		oraCB.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_oraCB = new GridBagConstraints();
 		gbc_oraCB.insets = new Insets(0, 0, 5, 5);
@@ -201,7 +239,14 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_docenteLabel.gridy = 7;
 		contentPane.add(docenteLabel, gbc_docenteLabel);
 		
+		
+		docentiCBM = new DefaultComboBoxModel<String>();
+		int numeroDocenti=controller.contaDocenti();
+		String[] docenti = controller.recuperaDocenti(numeroDocenti);
+		docentiCBM = controller.setDefaultComboBoxModel(docentiCBM, docenti);
+				
 		docentiCB = new JComboBox<String>();
+		docentiCB.setModel(docentiCBM);
 		docentiCB.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_docentiCB = new GridBagConstraints();
 		gbc_docentiCB.insets = new Insets(0, 0, 5, 5);
@@ -319,6 +364,8 @@ public class AggiungiLezioneFrame extends JFrame {
 				sedeTF.setText("");
 				aulaTF.setText("");
 				onlineCheckBox.setSelected(false);
+				piattaformaLabel.setVisible(false);
+				piattaformaTF.setVisible(false);
 				piattaformaTF.setText("");
 			}
 		});
@@ -328,6 +375,28 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_indietroButton.gridx = 1;
 		gbc_indietroButton.gridy = 13;
 		contentPane.add(indietroButton, gbc_indietroButton);
+		
+		confermaButton = new JButton("Conferma");
+		confermaButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String durata = durataCB.getSelectedItem().toString();
+				String dataEOra = dataTF.getText()+" "+oraCB.getSelectedItem();
+				String codiceCorso = controller.recuperaCodiceCorso(corsiCB.getSelectedItem().toString());
+				String codiceDocente = controller.recuperaCodiceDocente(docentiCB.getSelectedItem().toString());
+				System.out.println("durata:"+durata+" dataEOra:"+dataEOra +" codiceCorso:"+codiceCorso+ " codiceDocente:"+codiceDocente);
+				controller.aggiungiLezione(titoloTF.getText(),descrizioneTF.getText(), durata.substring(0, 2), dataEOra, codiceCorso, codiceDocente, sedeTF.getText(),aulaTF.getText());
+				
+				controller.getAggiungiLezioneFrame().setVisible(false);
+				
+			}
+		});
+		confermaButton.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_confermaButton = new GridBagConstraints();
+		gbc_confermaButton.anchor = GridBagConstraints.EAST;
+		gbc_confermaButton.insets = new Insets(0, 0, 0, 5);
+		gbc_confermaButton.gridx = 3;
+		gbc_confermaButton.gridy = 13;
+		contentPane.add(confermaButton, gbc_confermaButton);
 		
 	
 	}

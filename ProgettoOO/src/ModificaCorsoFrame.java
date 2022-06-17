@@ -164,7 +164,7 @@ public class ModificaCorsoFrame extends JFrame {
 		
 		categorieCBM = new DefaultComboBoxModel<String>();
 		int numeroCategorie=controller.contaCategorie();
-		String[] categorie = controller.recuperaAreeTematicheInArrayDiStringhe(numeroCategorie);
+		String[] categorie = controller.recuperaAreeTematiche(numeroCategorie);
 		categorieCBM = controller.setDefaultComboBoxModel(categorieCBM,categorie);
 		
 		categorieCB = new JComboBox<String>();

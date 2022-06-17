@@ -155,7 +155,7 @@ public class IscriviStudenteFrame extends JFrame {
 
 		corsoCBM = new DefaultComboBoxModel<String>();
 		int numeroCorsi=controller.contaCorsi();
-		String[] corsi = controller.recuperaCorsiInArrayDiStringhe(numeroCorsi);
+		String[] corsi = controller.recuperaCorsi(numeroCorsi);
 		corsoCBM = controller.setDefaultComboBoxModel(corsoCBM,corsi);
 		
 		corsoCB = new JComboBox<String>();
@@ -179,7 +179,7 @@ public class IscriviStudenteFrame extends JFrame {
 				luogoDiNascitaTF.setText("");
 				corsoCBM.removeAllElements();
 				int numeroCorsi=controller.contaCorsi();
-				String[] corsi = controller.recuperaCorsiInArrayDiStringhe(numeroCorsi);
+				String[] corsi = controller.recuperaCorsi(numeroCorsi);
 				corsoCBM=controller.setDefaultComboBoxModel(corsoCBM,corsi);
 			}
 		});
@@ -217,7 +217,7 @@ public class IscriviStudenteFrame extends JFrame {
 					luogoDiNascitaTF.setText("");
 					corsoCBM.removeAllElements();
 					int numeroCorsi=controller.contaCorsi();
-					String[] corsi = controller.recuperaCorsiInArrayDiStringhe(numeroCorsi);
+					String[] corsi = controller.recuperaCorsi(numeroCorsi);
 					corsoCBM= controller.setDefaultComboBoxModel(corsoCBM,corsi);
 					controller.getIscriviStudenteFrame().setVisible(false);
 					controller.getHomeFrame().setVisible(true);

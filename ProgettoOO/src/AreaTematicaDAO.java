@@ -29,7 +29,7 @@ public class AreaTematicaDAO {
 		return numeroCategorie;
 	}
 	
-	public String[] recuperaAreeTematicheInArrayDiStringhe(Integer numeroCategorie) {
+	public String[] recuperaAreeTematiche(Integer numeroCategorie) {
 		String[] areeTematiche = new String[numeroCategorie]; 
 		int i=0;
 		try {

@@ -51,7 +51,7 @@ public class CorsoDAO {
 	
 	
 	public int contaCorsi() {
-		Integer numeroCorsi=0;
+		int numeroCorsi=0;
 		try {
 			connessioneDB = istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
@@ -69,17 +69,17 @@ public class CorsoDAO {
 		return numeroCorsi;
 	}
 	
-	public String[] recuperaCorsiInArrayDiStringhe(int numeroCorsi) {
+	public String[] recuperaCorsi(int numeroCorsi) {
 		String[] corsi = new String[numeroCorsi]; 
-		int i=0;
+		int indice=0;
 		try {
 			connessioneDB = istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM CORSO ORDER BY codiceCorso");	
 		
 			while(resultSet.next()) {
-				corsi[i]=resultSet.getString("nome");
-				i++;
+				corsi[indice]=resultSet.getString("nome");
+				indice++;
 			}
 			
 			statement.close();
