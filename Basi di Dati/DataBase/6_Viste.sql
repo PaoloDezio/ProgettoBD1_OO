@@ -1,49 +1,3 @@
-CREATE OR REPLACE VIEW public.num_studenti_per_lezione
- AS
- SELECT l.codicecorso,
-    l.codicelezione,
-    count(p.codicestudente) AS numero_studenti
-   FROM lezione l
-     JOIN partecipare p ON l.codicelezione = p.codicelezione
-  GROUP BY l.codicelezione
-  ORDER BY l.codicecorso, l.codicelezione;
-
-ALTER TABLE public.num_studenti_per_lezione
-    OWNER TO postgres;
-	
-	
--- View: public.studenti_per_corso
-
--- DROP VIEW public.studenti_per_corso;
-
-CREATE OR REPLACE VIEW public.studenti_per_corso
- AS
- SELECT c.codicecorso,
-    count(lp.codicestudente) AS numero_partecipanti
-   FROM corso c
-     JOIN ( SELECT l.codicecorso,
-            p.codicestudente
-           FROM lezione l
-             JOIN partecipare p ON l.codicelezione = p.codicelezione) lp ON c.codicecorso = lp.codicecorso
-  GROUP BY c.codicecorso;
-
-ALTER TABLE public.studenti_per_corso
-    OWNER TO postgres;
-
--- View: public.numero_lezioni_per_corso
-
--- DROP VIEW public.numero_lezioni_per_corso;
-
-CREATE OR REPLACE VIEW public.numero_lezioni_per_corso
- AS
- SELECT l.codicecorso,
-    count(l.codicelezione) AS numero_lezioni
-   FROM lezione l
-  GROUP BY l.codicecorso;
-
-ALTER TABLE public.numero_lezioni_per_corso
-    OWNER TO postgres;
-
 -- View: public.lezione_con_presenze_massime
 
 -- DROP VIEW public.lezione_con_presenze_massime;
@@ -58,8 +12,10 @@ CREATE OR REPLACE VIEW public.lezione_con_presenze_massime
 
 ALTER TABLE public.lezione_con_presenze_massime
     OWNER TO postgres;
-
--- View: public.lezione_con_presenze_minime
+	
+	
+	
+	-- View: public.lezione_con_presenze_minime
 
 -- DROP VIEW public.lezione_con_presenze_minime;
 
@@ -79,11 +35,11 @@ ALTER TABLE public.lezione_con_presenze_minime
 
 CREATE OR REPLACE VIEW public.media_studenti
  AS
- SELECT l.codicecorso,
-    s.numero_partecipanti::double precision / l.numero_lezioni::double precision AS media
-   FROM studenti_per_corso s
-     JOIN numero_lezioni_per_corso l ON s.codicecorso = l.codicecorso
-  GROUP BY l.codicecorso, s.numero_partecipanti, l.numero_lezioni;
+ SELECT (sum(sl.num_studenti) / c.numerolezioni::numeric)::numeric(10,2) AS media,
+    c.codicecorso
+   FROM studenti_per_lezione sl
+     JOIN corso c ON sl.codicecorso = c.codicecorso
+  GROUP BY c.codicecorso, c.numerolezioni;
 
 ALTER TABLE public.media_studenti
     OWNER TO postgres;
@@ -92,8 +48,19 @@ ALTER TABLE public.media_studenti
 
 -- DROP VIEW public.num_studenti_per_lezione;
 
+CREATE OR REPLACE VIEW public.num_studenti_per_lezione
+ AS
+ SELECT l.codicecorso,
+    l.codicelezione,
+    count(p.codicestudente) AS numero_studenti
+   FROM lezione l
+     JOIN partecipare p ON l.codicelezione = p.codicelezione
+  GROUP BY l.codicelezione
+  ORDER BY l.codicecorso, l.codicelezione;
 
-	
+ALTER TABLE public.num_studenti_per_lezione
+    OWNER TO postgres;
+
 -- View: public.numero_iscritti
 
 -- DROP VIEW public.numero_iscritti;
@@ -109,6 +76,53 @@ CREATE OR REPLACE VIEW public.numero_iscritti
 ALTER TABLE public.numero_iscritti
     OWNER TO postgres;
 
+-- View: public.numero_lezioni_per_corso
+
+-- DROP VIEW public.numero_lezioni_per_corso;
+
+CREATE OR REPLACE VIEW public.numero_lezioni_per_corso
+ AS
+ SELECT l.codicecorso,
+    count(l.codicelezione) AS numero_lezioni
+   FROM lezione l
+  GROUP BY l.codicecorso;
+
+ALTER TABLE public.numero_lezioni_per_corso
+    OWNER TO postgres;
+
+-- View: public.studenti_per_corso
+
+-- DROP VIEW public.studenti_per_corso;
+
+CREATE OR REPLACE VIEW public.studenti_per_corso
+ AS
+ SELECT c.codicecorso,
+    count(lp.codicestudente) AS numero_partecipanti
+   FROM corso c
+     JOIN ( SELECT l.codicecorso,
+            p.codicestudente
+           FROM lezione l
+             JOIN partecipare p ON l.codicelezione = p.codicelezione) lp ON c.codicecorso = lp.codicecorso
+  GROUP BY c.codicecorso;
+
+ALTER TABLE public.studenti_per_corso
+    OWNER TO postgres;
+
+-- View: public.studenti_per_lezione
+
+-- DROP VIEW public.studenti_per_lezione;
+
+CREATE OR REPLACE VIEW public.studenti_per_lezione
+ AS
+ SELECT l.codicecorso,
+    l.codicelezione,
+    count(p.codicestudente) AS num_studenti
+   FROM lezione l
+     JOIN partecipare p ON l.codicelezione = p.codicelezione
+  GROUP BY l.codicelezione;
+
+ALTER TABLE public.studenti_per_lezione
+    OWNER TO postgres;
 
 
 
