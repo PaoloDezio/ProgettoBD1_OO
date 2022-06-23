@@ -1,88 +1,94 @@
--- FUNCTION: public.ricerca_per_categoria(character varying)
+-- FUNCTION: public.calcola_presenze_massime_per_corso(integer)
 
--- DROP FUNCTION IF EXISTS public.ricerca_per_categoria(character varying);
+-- DROP FUNCTION public.calcola_presenze_massime_per_corso(integer);
 
-CREATE OR REPLACE FUNCTION public.ricerca_per_categoria(
-	_categoria character varying)
-    RETURNS SETOF corso 
+CREATE OR REPLACE FUNCTION public.calcola_presenze_massime_per_corso(
+	_codicecorso integer)
+    RETURNS TABLE(numerostudenti integer) 
     LANGUAGE 'sql'
     COST 100
     VOLATILE PARALLEL UNSAFE
     ROWS 1000
 
 AS $BODY$
-select distinct c.* from corso as c inner join tematica_corso as tc on c.codicecorso=tc.codicecorso
-where tc.categoria in (select UNNEST (STRING_TO_ARRAY(_categoria,',')))
-group by c.codicecorso		
-having count (tc.categoria) = (SELECT COUNT(*) FROM (select UNNEST (STRING_TO_ARRAY(_categoria,','))) Y)
-						
+SELECT max(nums.numero_studenti) AS numero_massimo_studenti
+FROM corso c JOIN num_studenti_per_lezione nums ON c.codicecorso = nums.codicecorso
+WHERE c.codicecorso=_codicecorso 
+GROUP BY c.codicecorso
 $BODY$;
 
-ALTER FUNCTION public.ricerca_per_categoria(character varying)
+ALTER FUNCTION public.calcola_presenze_massime_per_corso(integer)
     OWNER TO postgres;
-	
--- FUNCTION: public.ricerca_per_data(date)
 
--- DROP FUNCTION IF EXISTS public.ricerca_per_data(date);
+-- FUNCTION: public.calcola_presenze_massime_per_lezione(integer)
 
-CREATE OR REPLACE FUNCTION public.ricerca_per_data(
-	_data date)
-    RETURNS SETOF corso 
+-- DROP FUNCTION public.calcola_presenze_massime_per_lezione(integer);
+
+CREATE OR REPLACE FUNCTION public.calcola_presenze_massime_per_lezione(
+	_codicecorso integer)
+    RETURNS TABLE(numerostudenti integer) 
     LANGUAGE 'sql'
     COST 100
     VOLATILE PARALLEL UNSAFE
     ROWS 1000
 
 AS $BODY$
-select * from corso as c
-where c.datainizio = _data
+SELECT max(nums.numero_studenti) AS numero_massimo_studenti
+FROM corso c JOIN num_studenti_per_lezione nums ON c.codicecorso = nums.codicecorso
+WHERE c.codicecorso=_codicecorso 
+GROUP BY c.codicecorso
 $BODY$;
 
-ALTER FUNCTION public.ricerca_per_data(date)
+ALTER FUNCTION public.calcola_presenze_massime_per_lezione(integer)
     OWNER TO postgres;
-	
--- FUNCTION: public.ricerca_per_nome(character varying)
 
--- DROP FUNCTION IF EXISTS public.ricerca_per_nome(character varying);
+-- FUNCTION: public.calcola_presenze_minime_per_corso(integer)
 
-CREATE OR REPLACE FUNCTION public.ricerca_per_nome(
-	_nome character varying)
-    RETURNS SETOF corso 
+-- DROP FUNCTION public.calcola_presenze_minime_per_corso(integer);
+
+CREATE OR REPLACE FUNCTION public.calcola_presenze_minime_per_corso(
+	_codicecorso integer)
+    RETURNS TABLE(numerostudenti integer) 
     LANGUAGE 'sql'
     COST 100
     VOLATILE PARALLEL UNSAFE
     ROWS 1000
 
 AS $BODY$
-select * from corso as c
-where c.nome LIKE '%'||_nome||'%'
+SELECT max(nums.numero_studenti) AS numero_minimo_studenti
+FROM corso c JOIN num_studenti_per_lezione nums ON c.codicecorso = nums.codicecorso
+WHERE c.codicecorso=_codicecorso 
+GROUP BY c.codicecorso
 $BODY$;
 
-ALTER FUNCTION public.ricerca_per_nome(character varying)
+ALTER FUNCTION public.calcola_presenze_minime_per_corso(integer)
     OWNER TO postgres;
 
--- FUNCTION: public.ricerca_per_parola(character varying)
+-- FUNCTION: public.calcola_presenze_minime_per_lezione(integer)
 
--- DROP FUNCTION IF EXISTS public.ricerca_per_parola(character varying);
+-- DROP FUNCTION public.calcola_presenze_minime_per_lezione(integer);
 
-CREATE OR REPLACE FUNCTION public.ricerca_per_parola(
-	_parolachiave character varying)
-    RETURNS SETOF corso 
+CREATE OR REPLACE FUNCTION public.calcola_presenze_minime_per_lezione(
+	_codicecorso integer)
+    RETURNS TABLE(numerostudenti integer) 
     LANGUAGE 'sql'
     COST 100
     VOLATILE PARALLEL UNSAFE
     ROWS 1000
 
 AS $BODY$
-select * from corso as c
-where c.descrizione LIKE '%'||_parolachiave||'%'
+SELECT min(nums.numero_studenti) AS numero_minimo_studenti
+FROM corso c JOIN num_studenti_per_lezione nums ON c.codicecorso = nums.codicecorso
+WHERE c.codicecorso=_codicecorso 
+GROUP BY c.codicecorso
 $BODY$;
 
-ALTER FUNCTION public.ricerca_per_parola(character varying)
+ALTER FUNCTION public.calcola_presenze_minime_per_lezione(integer)
     OWNER TO postgres;
+
 -- FUNCTION: public.presenze_ad_un_corso(integer)
 
--- DROP FUNCTION IF EXISTS public.presenze_ad_un_corso(integer);
+-- DROP FUNCTION public.presenze_ad_un_corso(integer);
 
 CREATE OR REPLACE FUNCTION public.presenze_ad_un_corso(
 	_codicecorso integer)
@@ -104,10 +110,93 @@ $BODY$;
 
 ALTER FUNCTION public.presenze_ad_un_corso(integer)
     OWNER TO postgres;
-	
-	-- FUNCTION: public.studenti_idonei(integer)
 
--- DROP FUNCTION IF EXISTS public.studenti_idonei(integer);
+-- FUNCTION: public.ricerca_per_categoria(character varying)
+
+-- DROP FUNCTION public.ricerca_per_categoria(character varying);
+
+CREATE OR REPLACE FUNCTION public.ricerca_per_categoria(
+	_categoria character varying)
+    RETURNS SETOF corso 
+    LANGUAGE 'sql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
+select distinct c.* from corso as c inner join tematica_corso as tc on c.codicecorso=tc.codicecorso
+where tc.categoria in (select UNNEST (STRING_TO_ARRAY(_categoria,',')))
+group by c.codicecorso		
+having count (tc.categoria) = (SELECT COUNT(*) FROM (select UNNEST (STRING_TO_ARRAY(_categoria,','))) Y)
+						
+$BODY$;
+
+ALTER FUNCTION public.ricerca_per_categoria(character varying)
+    OWNER TO postgres;
+
+-- FUNCTION: public.ricerca_per_data(date)
+
+-- DROP FUNCTION public.ricerca_per_data(date);
+
+CREATE OR REPLACE FUNCTION public.ricerca_per_data(
+	_data date)
+    RETURNS SETOF corso 
+    LANGUAGE 'sql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
+select * from corso as c
+where c.datainizio = _data
+$BODY$;
+
+ALTER FUNCTION public.ricerca_per_data(date)
+    OWNER TO postgres;
+
+-- FUNCTION: public.ricerca_per_nome(character varying)
+
+-- DROP FUNCTION public.ricerca_per_nome(character varying);
+
+CREATE OR REPLACE FUNCTION public.ricerca_per_nome(
+	_nome character varying)
+    RETURNS SETOF corso 
+    LANGUAGE 'sql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
+select * from corso as c
+where c.nome LIKE '%'||_nome||'%'
+$BODY$;
+
+ALTER FUNCTION public.ricerca_per_nome(character varying)
+    OWNER TO postgres;
+
+-- FUNCTION: public.ricerca_per_parola(character varying)
+
+-- DROP FUNCTION public.ricerca_per_parola(character varying);
+
+CREATE OR REPLACE FUNCTION public.ricerca_per_parola(
+	_parolachiave character varying)
+    RETURNS SETOF corso 
+    LANGUAGE 'sql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
+select * from corso as c
+where c.descrizione LIKE '%'||_parolachiave||'%'
+$BODY$;
+
+ALTER FUNCTION public.ricerca_per_parola(character varying)
+    OWNER TO postgres;
+
+-- FUNCTION: public.studenti_idonei(integer)
+
+-- DROP FUNCTION public.studenti_idonei(integer);
 
 CREATE OR REPLACE FUNCTION public.studenti_idonei(
 	_codicecorso integer)
@@ -120,11 +209,11 @@ CREATE OR REPLACE FUNCTION public.studenti_idonei(
 AS $BODY$
 
 select s.codicestudente,s.cognome,s.nome
-from studente as s join (select * from presenze_ad_un_corso(33)) as n
+from studente as s join (select * from presenze_ad_un_corso(_codicecorso)) as n
 					 on s.codicestudente=n.codicestudente
 group by s.codicestudente,n.presenze
 having n.presenze>= (select c.numerolezioni
-								from corso as c where c.codicecorso=33)*80/100::float
+								from corso as c where c.codicecorso=_codicecorso)*80/100::float
 								
 
 $BODY$;
