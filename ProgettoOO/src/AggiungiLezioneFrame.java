@@ -21,8 +21,6 @@ import javax.swing.JCheckBox;
 public class AggiungiLezioneFrame extends JFrame {
 	private Controller controller;
 	private JPanel contentPane;
-	private DefaultComboBoxModel<String> corsiCBM;
-	private JComboBox<String> corsiCB;	
 	private JTextField titoloTF;
 	private JTextField descrizioneTF;
 	private JComboBox<String> durataCB;
@@ -36,21 +34,15 @@ public class AggiungiLezioneFrame extends JFrame {
 	private JLabel piattaformaLabel;
 	private JTextField piattaformaTF;
 	private JButton confermaButton;
+	private JLabel nomeCorsoLabel;
 
-	public DefaultComboBoxModel<String> getCorsiCBM() {
-		return corsiCBM;
+
+	public JLabel getNomeCorsoLabel() {
+		return nomeCorsoLabel;
 	}
 
-	public void setCorsiCBM(DefaultComboBoxModel<String> corsiCBM) {
-		this.corsiCBM = corsiCBM;
-	}
-
-	public JComboBox<String> getCorsiCB() {
-		return corsiCB;
-	}
-
-	public void setCorsiCB(JComboBox<String> corsiCB) {
-		this.corsiCB = corsiCB;
+	public void setNomeCorsoLabel(JLabel nomeCorsoLabel) {
+		this.nomeCorsoLabel = nomeCorsoLabel;
 	}
 
 	public AggiungiLezioneFrame(Controller c) {
@@ -69,8 +61,8 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		JLabel lblNewLabel_1 = new JLabel("Aggiungi Lezione");
-		lblNewLabel_1.setFont(new Font("Century", Font.PLAIN, 25));
+		JLabel aggiungiLezioneLabel = new JLabel("Aggiungi Lezione");
+		aggiungiLezioneLabel.setFont(new Font("Century", Font.PLAIN, 25));
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.gridheight = 2;
 		gbc_lblNewLabel_1.gridwidth = 2;
@@ -78,33 +70,27 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_1.gridx = 1;
 		gbc_lblNewLabel_1.gridy = 0;
-		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		contentPane.add(aggiungiLezioneLabel, gbc_lblNewLabel_1);
 		
-		JLabel nomeCorsoLabel = new JLabel("Corso");
+		JLabel CorsoLabel = new JLabel("Corso");
+		CorsoLabel.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_CorsoLabel = new GridBagConstraints();
+		gbc_CorsoLabel.gridwidth = 2;
+		gbc_CorsoLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_CorsoLabel.anchor = GridBagConstraints.EAST;
+		gbc_CorsoLabel.gridx = 0;
+		gbc_CorsoLabel.gridy = 2;
+		contentPane.add(CorsoLabel, gbc_CorsoLabel);
+		
+		nomeCorsoLabel = new JLabel("");
 		nomeCorsoLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_nomeCorsoLabel = new GridBagConstraints();
-		gbc_nomeCorsoLabel.gridwidth = 2;
+		gbc_nomeCorsoLabel.anchor = GridBagConstraints.WEST;
 		gbc_nomeCorsoLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_nomeCorsoLabel.anchor = GridBagConstraints.EAST;
-		gbc_nomeCorsoLabel.gridx = 0;
+		gbc_nomeCorsoLabel.gridx = 2;
 		gbc_nomeCorsoLabel.gridy = 2;
 		contentPane.add(nomeCorsoLabel, gbc_nomeCorsoLabel);
 		
-		
-		corsiCBM = new DefaultComboBoxModel<String>();
-		int numeroCorsi= controller.contaCorsi();
-		String[] corsi = controller.recuperaCorsi(numeroCorsi);
-		corsiCBM = controller.setDefaultComboBoxModel(corsiCBM, corsi);
-		
-		corsiCB = new JComboBox<String>();
-		corsiCB.setModel(corsiCBM);
-		corsiCB.setFont(new Font("Century", Font.PLAIN, 16));
-		GridBagConstraints gbc_corsiCB = new GridBagConstraints();
-		gbc_corsiCB.insets = new Insets(0, 0, 5, 5);
-		gbc_corsiCB.fill = GridBagConstraints.HORIZONTAL;
-		gbc_corsiCB.gridx = 2;
-		gbc_corsiCB.gridy = 2;
-		contentPane.add(corsiCB, gbc_corsiCB);
 		
 		JLabel titoloLabel = new JLabel("Titolo");
 		titoloLabel.setFont(new Font("Century", Font.PLAIN, 16));
@@ -354,7 +340,6 @@ public class AggiungiLezioneFrame extends JFrame {
 		indietroButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.getAggiungiLezioneFrame().setVisible(false);
-				corsiCB.setSelectedIndex(0);
 				titoloTF.setText("");
 				descrizioneTF.setText("");
 				durataCB.setSelectedIndex(0);
@@ -381,7 +366,7 @@ public class AggiungiLezioneFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String durata = durataCB.getSelectedItem().toString();
 				String dataEOra = dataTF.getText()+" "+oraCB.getSelectedItem();
-				String codiceCorso = controller.recuperaCodiceCorso(corsiCB.getSelectedItem().toString());
+				String codiceCorso = controller.recuperaCodiceCorso(nomeCorsoLabel.getText());
 				String codiceDocente = controller.recuperaCodiceDocente(docentiCB.getSelectedItem().toString());
 				System.out.println("durata:"+durata+" dataEOra:"+dataEOra +" codiceCorso:"+codiceCorso+ " codiceDocente:"+codiceDocente);
 				controller.aggiungiLezione(titoloTF.getText(),descrizioneTF.getText(), durata.substring(0, 2), dataEOra, codiceCorso, codiceDocente, sedeTF.getText(),aulaTF.getText());

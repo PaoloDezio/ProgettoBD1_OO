@@ -584,6 +584,7 @@ public class RicercaCorsoFrame extends JFrame {
 				}else {
 			controller.getLezioniFrame().setVisible(true);
 			controller.getLezioniFrame().getLezioniDTM().getDataVector().removeAllElements();
+			controller.getLezioniFrame().getNomeCorsoLabel().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(), 1).toString());
 			controller.getLezioniFrame().setListaLezioni(controller.recuperaLezioni(corsiTable.getValueAt(corsiTable.getSelectedRow(), 0).toString()));
 			controller.setDefaultTableModel(controller.getLezioniFrame().getLezioniDTM(), controller.getLezioniFrame().getListaLezioni());
 			controller.getLezioniFrame().getLezioniDTM().fireTableDataChanged();
