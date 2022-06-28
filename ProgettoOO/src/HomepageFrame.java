@@ -1,7 +1,6 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -11,12 +10,8 @@ import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
-import java.util.Vector;
 import java.awt.event.ActionEvent;
-import java.awt.SystemColor;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.CompoundBorder;
+
 
 public class HomepageFrame extends JFrame {
 
@@ -24,9 +19,9 @@ public class HomepageFrame extends JFrame {
 	private Controller controller;
 	
 
-	public HomepageFrame(Controller c) {
+	public HomepageFrame(Controller mainController) {
 		setTitle("Homepage");
-		controller = c;
+		controller = mainController;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(375, 175, 515, 240);

@@ -10,45 +10,20 @@ import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.Insets;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JScrollPane;
-import javax.swing.JScrollBar;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.SwingConstants;
-import java.awt.Dimension;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.Component;
-import java.awt.Rectangle;
-import java.awt.Point;
-import java.awt.Choice;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JRadioButton;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.JList;
+
 
 public class RicercaCorsoFrame extends JFrame {
 
@@ -118,9 +93,9 @@ public class RicercaCorsoFrame extends JFrame {
 		this.categorie = categorie;
 	}
 
-	public RicercaCorsoFrame(Controller c){
+	public RicercaCorsoFrame(Controller mainController){
 		
-		controller = c;
+		controller = mainController;
 		
 		setTitle("Gestione Corsi");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

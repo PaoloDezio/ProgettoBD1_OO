@@ -1,11 +1,7 @@
 import java.sql.Date;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 public class Controller {

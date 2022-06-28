@@ -1,11 +1,10 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,20 +16,7 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.SystemColor;
 import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Window.Type;
-import java.awt.Rectangle;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import javax.swing.UIManager;
-import javax.swing.JToggleButton;
-import javax.swing.JCheckBox;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
@@ -47,8 +33,8 @@ public class LoginFrame extends JFrame {
 	private JCheckBox mostraPasswordCheckBox;
 	
 
-	public LoginFrame(Controller controller) {
-		this.controller=controller;
+	public LoginFrame(Controller mainController) {
+		controller=mainController;
 		
 		setTitle("Login");
 		setBackground(new Color(240, 240, 240));
@@ -145,9 +131,9 @@ public class LoginFrame extends JFrame {
 					JOptionPane.showMessageDialog(contentPane,"Inserire un Username e una Password","",JOptionPane.WARNING_MESSAGE);
 				}
 				else {
-					if(controller.checkResponsabile(username,password)==true) {
-						controller.getLoginFrame().setVisible(false);
-						controller.getHomeFrame().setVisible(true);
+					if(mainController.checkResponsabile(username,password)==true) {
+						mainController.getLoginFrame().setVisible(false);
+						mainController.getHomeFrame().setVisible(true);
 						usernameTF.setText("");
 						passwordTF.setText("");
 					}

@@ -1,6 +1,3 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -14,11 +11,8 @@ import java.awt.Font;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.Vector;
 import java.awt.event.ActionEvent;
 
 public class AggiungiAreaTematicaFrame extends JFrame {
@@ -27,8 +21,8 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 	private JTextField areaTematicaTF;
 	private Controller controller;
 
-	public AggiungiAreaTematicaFrame(Controller c) {
-		controller = c;
+	public AggiungiAreaTematicaFrame(Controller mainController) {
+		controller = mainController;
 
 
 		setTitle("Aggiungi Area Tematica");
@@ -98,7 +92,7 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 				if(areaTematicaTF.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(contentPane, "Inserire un'area tematica","",JOptionPane.INFORMATION_MESSAGE);
 				}
-				else if(c.IsAreaTematicaInDB(areaTematicaTF.getText().toUpperCase())) {
+				else if(mainController.IsAreaTematicaInDB(areaTematicaTF.getText().toUpperCase())) {
 					JOptionPane.showMessageDialog(contentPane, "L'area tematica '"+areaTematicaTF.getText().toUpperCase()+ "' è già presente nel database.\nInserirne una nuova.","",JOptionPane.WARNING_MESSAGE);
 					areaTematicaTF.setText("");
 				}

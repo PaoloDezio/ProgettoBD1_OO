@@ -1,6 +1,3 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -11,7 +8,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.GridBagLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import java.awt.GridBagConstraints;
 import java.awt.Font;
@@ -68,10 +64,10 @@ public class AggiungiCorsoFrame extends JFrame {
 		this.categorieTable = categorieTable;
 	}
 
-	public AggiungiCorsoFrame(Controller c) {
+	public AggiungiCorsoFrame(Controller mainController) {
 		setTitle("AggiungiCorsoFrame");
 	
-		controller = c;
+		controller = mainController;
 		
 		
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -233,8 +229,8 @@ public class AggiungiCorsoFrame extends JFrame {
 		categorieTable.setFont(new Font("Century", Font.PLAIN, 16));
 		categorieTableScrollPane.setViewportView(categorieTable);
 		
-		int numeroResponsabili=c.contaResponsabili();
-		String[] responsabili=c.salvaResponsabili(numeroResponsabili);
+		int numeroResponsabili=mainController.contaResponsabili();
+		String[] responsabili=mainController.salvaResponsabili(numeroResponsabili);
 		
 		aggiungiAreaTematicaButton = new JButton("Aggiungi Area Tematica");
 		aggiungiAreaTematicaButton.addActionListener(new ActionListener() {

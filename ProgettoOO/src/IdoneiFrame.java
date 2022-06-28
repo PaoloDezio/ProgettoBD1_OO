@@ -1,6 +1,4 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -46,10 +44,10 @@ public class IdoneiFrame extends JFrame {
 		return studentiIdoneiTable;
 	}
 
-	public IdoneiFrame(Controller c) {
+	public IdoneiFrame(Controller mainController) {
 		setTitle("Idonei");
 		setResizable(false);
-		controller = c;
+		controller = mainController;
 		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 600, 330);

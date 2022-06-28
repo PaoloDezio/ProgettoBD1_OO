@@ -1,6 +1,3 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -11,7 +8,6 @@ import javax.swing.JLabel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Font;
-import javax.swing.SwingConstants;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -79,8 +75,8 @@ public class StatisticheFrame extends JFrame {
 		return riempimentoMedioTF;
 	}
 	
-	public StatisticheFrame(Controller c) {
-		controller = c;
+	public StatisticheFrame(Controller mainController) {
+		controller = mainController;
 		
 		setTitle("Statistiche");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

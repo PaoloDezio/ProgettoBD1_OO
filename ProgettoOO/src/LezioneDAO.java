@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.util.Vector;
+
 public class LezioneDAO {
 
 	private ConnessioneDB istanzaDB;

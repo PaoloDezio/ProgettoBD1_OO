@@ -1,6 +1,3 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -45,9 +42,9 @@ public class AggiungiLezioneFrame extends JFrame {
 		this.nomeCorsoLabel = nomeCorsoLabel;
 	}
 
-	public AggiungiLezioneFrame(Controller c) {
+	public AggiungiLezioneFrame(Controller mainController) {
 		setTitle("AggiungiLezione");
-		controller=c;
+		controller=mainController;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 560, 490);
 		contentPane = new JPanel();
@@ -368,7 +365,6 @@ public class AggiungiLezioneFrame extends JFrame {
 				String dataEOra = dataTF.getText()+" "+oraCB.getSelectedItem();
 				String codiceCorso = controller.recuperaCodiceCorso(nomeCorsoLabel.getText());
 				String codiceDocente = controller.recuperaCodiceDocente(docentiCB.getSelectedItem().toString());
-				System.out.println("durata:"+durata+" dataEOra:"+dataEOra +" codiceCorso:"+codiceCorso+ " codiceDocente:"+codiceDocente);
 				controller.aggiungiLezione(titoloTF.getText(),descrizioneTF.getText(), durata.substring(0, 2), dataEOra, codiceCorso, codiceDocente, sedeTF.getText(),aulaTF.getText());
 				
 				controller.getAggiungiLezioneFrame().setVisible(false);

@@ -1,6 +1,3 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,17 +9,11 @@ import java.awt.Font;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
-import javax.swing.ComboBoxEditor;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
-import java.awt.SystemColor;
+
 
 public class ModificaCorsoFrame extends JFrame {
 
@@ -67,9 +58,9 @@ public class ModificaCorsoFrame extends JFrame {
 	}
 
 
-	public ModificaCorsoFrame(Controller c) {
+	public ModificaCorsoFrame(Controller mainController) {
 		
-		controller = c;
+		controller = mainController;
 		
 		setTitle("ModificaCorsoFrame");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

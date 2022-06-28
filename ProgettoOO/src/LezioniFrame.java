@@ -1,6 +1,4 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.util.Vector;
 
 import javax.swing.JFrame;
@@ -68,8 +66,8 @@ public class LezioniFrame extends JFrame {
 		this.nomeCorsoLabel = nomeCorsoLabel;
 	}
 
-	public LezioniFrame(Controller c) {
-		controller=c;
+	public LezioniFrame(Controller mainController) {
+		controller=mainController;
 		setTitle("Lezioni");
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -163,9 +161,22 @@ public class LezioniFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(lezioniTable.getSelectedRow()>-1) {
 					controller.getModificaLezioneFrame().setVisible(true);
+					controller.getModificaLezioneFrame().getTitoloTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),1).toString());
+					controller.getModificaLezioneFrame().getDescrizioneTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),2).toString());
+//DURATA?			controller.getModificaLezioneFrame().getDurataCB().setSelectedItem();
+					controller.getModificaLezioneFrame().getDataTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),3).toString().substring(0,10));
+					controller.getModificaLezioneFrame().getOraCB().setSelectedItem(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),3).toString().substring(11));
+//DOCENTE?			controller.getModificaLezioneFrame().getDocenteCB().setSelectedItem();
+					controller.getModificaLezioneFrame().getSedeTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),4).toString());
+					controller.getModificaLezioneFrame().getAulaTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),5).toString());
+
+					
+					
+					
+					
 				}
 				else {
-					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane,"Selezionare una lezione","",JOptionPane.INFORMATION_MESSAGE);
 				}
 				
 			}
@@ -190,7 +201,7 @@ public class LezioniFrame extends JFrame {
 					lezioniTable.setModel(lezioniDTM);
 				}
 				else {
-					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane,"Selezionare una lezione","",JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
@@ -209,7 +220,7 @@ public class LezioniFrame extends JFrame {
 					controller.getPresenzeFrame().setVisible(true);
 				}
 				else {
-					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane,"Selezionare una lezione","",JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});

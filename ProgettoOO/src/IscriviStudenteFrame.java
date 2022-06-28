@@ -1,7 +1,3 @@
-import java.awt.BorderLayout;
-import java.util.ArrayList;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -11,22 +7,15 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.FlowLayout;
 import java.awt.Insets;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 public class IscriviStudenteFrame extends JFrame {
 
@@ -39,9 +28,9 @@ public class IscriviStudenteFrame extends JFrame {
 	private JComboBox<String> corsoCB;
 	private DefaultComboBoxModel<String> corsoCBM;
 	
-	public IscriviStudenteFrame(Controller c) {
+	public IscriviStudenteFrame(Controller mainController) {
 		
-		controller = c;
+		controller = mainController;
 		
 		setTitle("IscriviStudente");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
