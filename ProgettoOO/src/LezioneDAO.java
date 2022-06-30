@@ -10,12 +10,28 @@ public class LezioneDAO {
 		istanzaDB=ConnessioneDB.getIstanza();
 	}
 
-	public void aggiungiLezione(String titolo,String descrizione,String durata,String dataEOraInizio,String codiceCorso,String codiceDocente,String sede,String aula) {
+	public void aggiungiLezioneInPresenza(String titolo,String descrizione,String durata,String dataEOraInizio,String codiceCorso,String codiceDocente,String sede,String aula) {
 		try {
 			connessioneDB=istanzaDB.connectToDB();	
 			Statement statement = connessioneDB.createStatement();
-			statement.executeUpdate("INSERT INTO lezione(titolo,descrizione,durata,dataorainizio,codicecorso,codicedocente,online,aula,sede) "
-				+					"VALUES ('"+titolo+"','"+descrizione+"','"+durata+"','"+dataEOraInizio+"',"+codiceCorso+","+codiceDocente+",'"+sede+"','"+aula+"')");
+			statement.executeUpdate("INSERT INTO lezione(titolo,descrizione,durata,dataorainizio,codicecorso,codicedocente,online,sede,aula) "
+				+					"VALUES ('"+titolo+"','"+descrizione+"','"+durata+"','"+dataEOraInizio+"',"+codiceCorso+","+codiceDocente+",''FALSE','"+sede+"','"+aula+"')");
+			statement.close();
+			istanzaDB.closeConnectionToDB();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	public void aggiungiLezioneInPresenzaEDaRemoto(String titolo,String descrizione,String durata,String dataEOraInizio,String codiceCorso,String codiceDocente,String sede,String aula,String piattaforma) {
+		try {
+			connessioneDB=istanzaDB.connectToDB();	
+			Statement statement = connessioneDB.createStatement();
+			statement.executeUpdate("INSERT INTO lezione(titolo,descrizione,durata,dataorainizio,codicecorso,codicedocente,online,sede,aula,piattaforma) "
+				+					"VALUES ('"+titolo+"','"+descrizione+"','"+durata+"','"+dataEOraInizio+"',"+codiceCorso+","+codiceDocente+",'TRUE','"+sede+"','"+aula+"','"+piattaforma+"')");
 			statement.close();
 			istanzaDB.closeConnectionToDB();
 		}

@@ -169,7 +169,7 @@ public class LezioniFrame extends JFrame {
 //DOCENTE?			controller.getModificaLezioneFrame().getDocenteCB().setSelectedItem();
 					controller.getModificaLezioneFrame().getSedeTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),4).toString());
 					controller.getModificaLezioneFrame().getAulaTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),5).toString());
-					if()
+//					if()
 					
 //					controller.getModificaLezioneFrame().
 					

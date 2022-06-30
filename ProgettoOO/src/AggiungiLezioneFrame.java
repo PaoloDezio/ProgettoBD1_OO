@@ -10,6 +10,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -365,10 +367,20 @@ public class AggiungiLezioneFrame extends JFrame {
 				String dataEOra = dataTF.getText()+" "+oraCB.getSelectedItem();
 				String codiceCorso = controller.recuperaCodiceCorso(nomeCorsoLabel.getText());
 				String codiceDocente = controller.recuperaCodiceDocente(docentiCB.getSelectedItem().toString());
-				controller.aggiungiLezione(titoloTF.getText(),descrizioneTF.getText(), durata.substring(0, 2), dataEOra, codiceCorso, codiceDocente, sedeTF.getText(),aulaTF.getText());
+			
+				if(onlineCheckBox.isSelected()) {
+					if(piattaformaTF.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(contentPane,"Inserire una piattaforma!","",JOptionPane.ERROR_MESSAGE);
+					}
+					else {
+						controller.aggiungiLezioneInPresenzaEDaRemoto(titoloTF.getText().toUpperCase(),descrizioneTF.getText().toUpperCase(), durata.substring(0, 2), dataEOra, codiceCorso, codiceDocente, sedeTF.getText().toUpperCase(),aulaTF.getText().toUpperCase(),piattaformaTF.getText().toUpperCase());
+					}
+				}
+				else {
+					controller.aggiungiLezioneInPresenza(titoloTF.getText().toUpperCase(),descrizioneTF.getText().toUpperCase(), durata.substring(0, 2), dataEOra, codiceCorso, codiceDocente, sedeTF.getText().toUpperCase(),aulaTF.getText().toUpperCase());
+				}
 				
-				controller.getAggiungiLezioneFrame().setVisible(false);
-				
+				controller.getAggiungiLezioneFrame().setVisible(false);		
 			}
 		});
 		confermaButton.setFont(new Font("Century", Font.PLAIN, 16));

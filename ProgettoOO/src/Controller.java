@@ -308,8 +308,12 @@ public class Controller {
 		lezioneDAO.eliminaLezione(codiceLezione);
 	}
 	
-	public void aggiungiLezione(String titolo,String descrizione,String durata,String dataEOraInizio,String codiceCorso,String codiceDocente,String sede,String aula) {
-		lezioneDAO.aggiungiLezione(titolo, descrizione, durata, dataEOraInizio, codiceCorso, codiceDocente, sede, aula);
+	public void aggiungiLezioneInPresenza(String titolo,String descrizione,String durata,String dataEOraInizio,String codiceCorso,String codiceDocente,String sede,String aula) {
+		lezioneDAO.aggiungiLezioneInPresenza(titolo, descrizione, durata, dataEOraInizio, codiceCorso, codiceDocente, sede, aula);
+	}
+	
+	public void aggiungiLezioneInPresenzaEDaRemoto(String titolo,String descrizione,String durata,String dataEOraInizio,String codiceCorso,String codiceDocente,String sede,String aula,String piattaforma) {
+		lezioneDAO.aggiungiLezioneInPresenzaEDaRemoto(titolo, descrizione, durata, dataEOraInizio, codiceCorso, codiceDocente, sede, aula,piattaforma);
 	}
 	
 	
