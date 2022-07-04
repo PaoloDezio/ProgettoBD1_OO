@@ -95,13 +95,26 @@ public class LezioniFrame extends JFrame {
 		lezioniDTM.addColumn("Data Inizio");
 		lezioniDTM.addColumn("Sede");
 		lezioniDTM.addColumn("Aula");
+		lezioniDTM.addColumn("Piattaforma");
 		
 		aggiungiButton = new JButton("Aggiungi");
 		aggiungiButton.setFont(new Font("Century", Font.PLAIN, 16));
 		aggiungiButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.getAggiungiLezioneFrame().getNomeCorsoLabel().setText(nomeCorsoLabel.getText());;
+				controller.getAggiungiLezioneFrame().getNomeCorsoLabel().setText(nomeCorsoLabel.getText());
 				controller.getAggiungiLezioneFrame().setVisible(true);
+				controller.getAggiungiLezioneFrame().getTitoloTF().setText("");
+				controller.getAggiungiLezioneFrame().getDescrizioneTF().setText("");
+				controller.getAggiungiLezioneFrame().getDurataCB().setSelectedIndex(0);
+				controller.getAggiungiLezioneFrame().getDataTF().setText("");
+				controller.getAggiungiLezioneFrame().getOraCB().setSelectedIndex(0);
+				controller.getAggiungiLezioneFrame().getDocentiCB().setSelectedIndex(0);
+				controller.getAggiungiLezioneFrame().getSedeTF().setText("");
+				controller.getAggiungiLezioneFrame().getAulaTF().setText("");
+				controller.getAggiungiLezioneFrame().getOnlineCheckBox().setSelected(false);
+				controller.getAggiungiLezioneFrame().getPiattaformaTF().setText("");
+				controller.getAggiungiLezioneFrame().getPiattaformaTF().setVisible(false);
+				controller.getAggiungiLezioneFrame().getPiattaformaLabel().setVisible(false);
 			}
 		});
 		GridBagConstraints gbc_aggiungiButton = new GridBagConstraints();
@@ -199,7 +212,6 @@ public class LezioniFrame extends JFrame {
 					lezioniDTM.getDataVector().removeAllElements();
 					listaLezioni=controller.recuperaLezioni(controller.getRicercaCorsoFrame().getCorsiTable().getValueAt(controller.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(), 0).toString());
 					lezioniDTM=controller.setDefaultTableModel(lezioniDTM, listaLezioni);
-					
 					lezioniTable.setModel(lezioniDTM);
 				}
 				else {

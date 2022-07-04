@@ -14,8 +14,8 @@ public class LezioneDAO {
 		try {
 			connessioneDB=istanzaDB.connectToDB();	
 			Statement statement = connessioneDB.createStatement();
-			statement.executeUpdate("INSERT INTO lezione(titolo,descrizione,durata,dataorainizio,codicecorso,codicedocente,online,sede,aula) "
-				+					"VALUES ('"+titolo+"','"+descrizione+"','"+durata+"','"+dataEOraInizio+"',"+codiceCorso+","+codiceDocente+",''FALSE','"+sede+"','"+aula+"')");
+			statement.executeUpdate("INSERT INTO lezione(titolo,descrizione,durata,dataorainizio,codicecorso,codicedocente,online,sede,aula,piattaforma) "
+				+					"VALUES ('"+titolo+"','"+descrizione+"',"+durata+"*'1 minute'::interval,'"+dataEOraInizio+"',"+codiceCorso+","+codiceDocente+",'FALSE','"+sede+"','"+aula+"','prova')");
 			statement.close();
 			istanzaDB.closeConnectionToDB();
 		}
@@ -31,7 +31,7 @@ public class LezioneDAO {
 			connessioneDB=istanzaDB.connectToDB();	
 			Statement statement = connessioneDB.createStatement();
 			statement.executeUpdate("INSERT INTO lezione(titolo,descrizione,durata,dataorainizio,codicecorso,codicedocente,online,sede,aula,piattaforma) "
-				+					"VALUES ('"+titolo+"','"+descrizione+"','"+durata+"','"+dataEOraInizio+"',"+codiceCorso+","+codiceDocente+",'TRUE','"+sede+"','"+aula+"','"+piattaforma+"')");
+				+					"VALUES ('"+titolo+"','"+descrizione+"',"+durata+"*'1 minute'::interval,'"+dataEOraInizio+"',"+codiceCorso+","+codiceDocente+",'TRUE','"+sede+"','"+aula+"','"+piattaforma+"')");
 			statement.close();
 			istanzaDB.closeConnectionToDB();
 		}
@@ -48,7 +48,7 @@ public class LezioneDAO {
 			connessioneDB=istanzaDB.connectToDB();
 
 			Statement statement = connessioneDB.createStatement();
-			ResultSet resultSet = statement.executeQuery("SELECT codicelezione,titolo,descrizione,to_char (dataorainizio,'YYYY-MM-DD HH24:MI') as dataorainizio,sede,aula "
+			ResultSet resultSet = statement.executeQuery("SELECT codicelezione,titolo,descrizione,to_char (dataorainizio,'YYYY-MM-DD HH24:MI') as dataorainizio,sede,aula,piattaforma "
 					+ 									 "FROM lezione  "
 					+ 									 "WHERE codiceCorso = "+codiceCorso);
 
@@ -60,6 +60,7 @@ public class LezioneDAO {
 				vettore.add(resultSet.getString("dataorainizio"));
 				vettore.add(resultSet.getString("sede"));
 				vettore.add(resultSet.getString("aula"));
+				vettore.add(resultSet.getString("piattaforma"));
 				lezioni.add(vettore);
 
 			}
@@ -87,32 +88,37 @@ public class LezioneDAO {
 		}}
 
 
-	public void inserisciLezione(String codiceCorso,String titolo,String descrizione,String durata,String dataOraInizio,String online,String aula,String sede,String piattaforma ) {	
+//	public void inserisciLezione(String codiceCorso,String titolo,String descrizione,String durata,String dataOraInizio,String online,String aula,String sede,String piattaforma ) {	
+//		try {
+//			connessioneDB=istanzaDB.connectToDB();
+//
+//			Statement statement = connessioneDB.createStatement();
+//			statement.executeUpdate("INSERT INTO lezione (titolo,descrizione,durata,dataorainizio,codicecorso,online,aula,sede,piattaforma)"
+//					+ "				VALUES('"+titolo+"','"+descrizione+"','"+durata+"','"+dataOraInizio+"','"+codiceCorso+"','"+online+"','"+aula+"','"+sede+"','"+piattaforma);
+//			statement.close();
+//			istanzaDB.closeConnectionToDB();
+//
+//		}catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+		
+		
+	public void modificaLezione(String codiceLezione,String titolo,String descrizione,String durata,String dataOraInizio,String codiceDocente,String online,String sede,String aula,String piattaforma )	{
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
 			Statement statement = connessioneDB.createStatement();
-			statement.executeUpdate("INSERT INTO lezione (Titolo,descrizione,durata,dataorainizio,codicecorso,online,aula,sede,piattaforma)"
-					+ "				VALUES('"+titolo+"','"+descrizione+"','"+durata+"','"+dataOraInizio+"','"+codiceCorso+"','"+online+"','"+aula+"','"+sede+"','"+piattaforma);
+			statement.executeUpdate("UPDATE lezione "
+					+			   	"SET titolo='"+titolo+"',descrizione='"+descrizione+"',durata="+durata+"*'1 minute'::interval,dataorainizio='"+dataOraInizio+"',codicedocente="+codiceDocente+",online='TRUE',sede='"+sede+"',aula='"+aula+"',piattaforma='"+piattaforma+"', "
+					+ 				"WHERE codicelezione="+codiceLezione);
 			statement.close();
 			istanzaDB.closeConnectionToDB();
 
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-
-}
-
-
-
-
-
-
-
-
-
-
+	}
+	
 
 
 

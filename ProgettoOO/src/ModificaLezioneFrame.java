@@ -443,11 +443,15 @@ public class ModificaLezioneFrame extends JFrame {
 		confermaButton = new JButton("Conferma");
 		confermaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String codiceLezione = controller.getLezioniFrame().getLezioniTable().getValueAt(controller.getLezioniFrame().getLezioniTable().getSelectedRow(),0).toString();
+				String titolo = titoloTF.getText();
+				String descrizione = descrizioneTF.getText();
 				String durata = durataCB.getSelectedItem().toString();
 				String dataEOra = dataTF.getText()+" "+oraCB.getSelectedItem();
-//				String codiceCorso = controller.recuperaCodiceCorso(nomeCorsoLabel.getText());
 				String codiceDocente = controller.recuperaCodiceDocente(docentiCB.getSelectedItem().toString());
-//				controller.aggiungiLezione(titoloTF.getText(),descrizioneTF.getText(), durata.substring(0, 2), dataEOra, codiceCorso, codiceDocente, sedeTF.getText(),aulaTF.getText());
+				String sede = sedeTF.getText();
+				String aula = aulaTF.getText();
+				String piattaforma = piattaformaTF.getText();
 				
 				controller.getModificaLezioneFrame().setVisible(false);
 				

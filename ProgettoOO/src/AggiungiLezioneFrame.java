@@ -34,7 +34,55 @@ public class AggiungiLezioneFrame extends JFrame {
 	private JTextField piattaformaTF;
 	private JButton confermaButton;
 	private JLabel nomeCorsoLabel;
+	private JCheckBox onlineCheckBox;
+	
+	public JTextField getTitoloTF() {
+		return titoloTF;
+	}
 
+	public JTextField getDescrizioneTF() {
+		return descrizioneTF;
+	}
+
+	public JComboBox<String> getDurataCB() {
+		return durataCB;
+	}
+
+	public JTextField getDataTF() {
+		return dataTF;
+	}
+
+	public JComboBox<String> getOraCB() {
+		return oraCB;
+	}
+
+	public JComboBox<String> getDocentiCB() {
+		return docentiCB;
+	}
+
+	public JTextField getSedeTF() {
+		return sedeTF;
+	}
+
+	public JTextField getPiattaformaTF() {
+		return piattaformaTF;
+	}
+
+	public JTextField getAulaTF() {
+		return aulaTF;
+	}
+
+	public JCheckBox getOnlineCheckBox() {
+		return onlineCheckBox;
+	}
+
+	public JLabel getPiattaformaLabel() {
+		return piattaformaLabel;
+	}
+
+	public void setPiattaformaLabel(JLabel piattaformaLabel) {
+		this.piattaformaLabel = piattaformaLabel;
+	}
 
 	public JLabel getNomeCorsoLabel() {
 		return nomeCorsoLabel;
@@ -290,7 +338,7 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_onlineLabel.gridy = 10;
 		contentPane.add(onlineLabel, gbc_onlineLabel);
 		
-		JCheckBox onlineCheckBox = new JCheckBox("Si");
+		onlineCheckBox = new JCheckBox("Si");
 		onlineCheckBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(onlineCheckBox.isSelected()) {
@@ -368,19 +416,32 @@ public class AggiungiLezioneFrame extends JFrame {
 				String codiceCorso = controller.recuperaCodiceCorso(nomeCorsoLabel.getText());
 				String codiceDocente = controller.recuperaCodiceDocente(docentiCB.getSelectedItem().toString());
 			
-				if(onlineCheckBox.isSelected()) {
-					if(piattaformaTF.getText().isEmpty()) {
-						JOptionPane.showMessageDialog(contentPane,"Inserire una piattaforma!","",JOptionPane.ERROR_MESSAGE);
-					}
-					else {
-						controller.aggiungiLezioneInPresenzaEDaRemoto(titoloTF.getText().toUpperCase(),descrizioneTF.getText().toUpperCase(), durata.substring(0, 2), dataEOra, codiceCorso, codiceDocente, sedeTF.getText().toUpperCase(),aulaTF.getText().toUpperCase(),piattaformaTF.getText().toUpperCase());
-					}
+				if(titoloTF.getText().isEmpty() || descrizioneTF.getText().isEmpty() || dataTF.getText().isEmpty() || sedeTF.getText().isEmpty() || aulaTF.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(contentPane,"Compilare tutti i campi prima di confermare!","",JOptionPane.ERROR_MESSAGE);
 				}
 				else {
-					controller.aggiungiLezioneInPresenza(titoloTF.getText().toUpperCase(),descrizioneTF.getText().toUpperCase(), durata.substring(0, 2), dataEOra, codiceCorso, codiceDocente, sedeTF.getText().toUpperCase(),aulaTF.getText().toUpperCase());
+					if(onlineCheckBox.isSelected()) {
+						if(piattaformaTF.getText().isEmpty()) {
+							JOptionPane.showMessageDialog(contentPane,"Inserire una piattaforma!","",JOptionPane.ERROR_MESSAGE);
+						}
+						else {
+							controller.aggiungiLezioneInPresenzaEDaRemoto(titoloTF.getText().toUpperCase(),descrizioneTF.getText().toUpperCase(), durata.substring(0, 2), dataEOra, codiceCorso, codiceDocente, sedeTF.getText().toUpperCase(),aulaTF.getText().toUpperCase(),piattaformaTF.getText().toUpperCase());
+							controller.getAggiungiLezioneFrame().setVisible(false);
+						}
+					}
+					else {
+						controller.aggiungiLezioneInPresenza(titoloTF.getText().toUpperCase(),descrizioneTF.getText().toUpperCase(), durata.substring(0, 2), dataEOra, codiceCorso, codiceDocente, sedeTF.getText().toUpperCase(),aulaTF.getText().toUpperCase());
+						controller.getAggiungiLezioneFrame().setVisible(false);
+					}
+					
+					controller.getLezioniFrame().getLezioniDTM().getDataVector().removeAllElements();
+					controller.getLezioniFrame().setListaLezioni(controller.recuperaLezioni(controller.getRicercaCorsoFrame().getCorsiTable().getValueAt(controller.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(), 0).toString()));
+					controller.getLezioniFrame().setLezioniDTM(controller.setDefaultTableModel(controller.getLezioniFrame().getLezioniDTM(),controller.getLezioniFrame().getListaLezioni()));
+					controller.getLezioniFrame().getLezioniTable().setModel(controller.getLezioniFrame().getLezioniDTM());
+					
 				}
 				
-				controller.getAggiungiLezioneFrame().setVisible(false);		
+						
 			}
 		});
 		confermaButton.setFont(new Font("Century", Font.PLAIN, 16));
