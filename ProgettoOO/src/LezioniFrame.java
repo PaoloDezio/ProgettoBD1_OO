@@ -32,6 +32,7 @@ public class LezioniFrame extends JFrame {
 	private JLabel lezioniLabel;
 	private JButton indietroButton;
 	private JLabel nomeCorsoLabel;
+	private Vector<Vector<String>> iscritti;
 	
 	public JTable getLezioniTable() {
 		return lezioniTable;
@@ -167,7 +168,7 @@ public class LezioniFrame extends JFrame {
 
 
 
-		
+	//MA QUA CHE STAVI FACENDO? NON è SARCASMO, VERAMENTE NON HO CAPITO	
 		modificaButton = new JButton("Modifica");
 		modificaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		modificaButton.addActionListener(new ActionListener() {
@@ -231,6 +232,11 @@ public class LezioniFrame extends JFrame {
 		presenzeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(lezioniTable.getSelectedRow()>-1) {
+
+					controller.getPresenzeFrame().getPresenzeDTM().getDataVector().removeAllElements();
+					iscritti=controller.recuperaIscrittiAdUnCorso(controller.getRicercaCorsoFrame().getCorsiTable().getValueAt(controller.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(), 0).toString());
+					controller.getPresenzeFrame().setPresenzeDTM(controller.setDefaultTableModel(controller.getPresenzeFrame().getPresenzeDTM(), iscritti));
+					controller.getPresenzeFrame().getPresenzeTable().setModel(controller.getPresenzeFrame().getPresenzeDTM());
 					controller.getPresenzeFrame().setVisible(true);
 				}
 				else {
