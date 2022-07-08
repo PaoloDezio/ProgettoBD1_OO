@@ -1,4 +1,5 @@
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
@@ -273,6 +274,10 @@ public class Controller {
 		return studenteDAO.recuperaStudentiIdonei(codiceCorso);
 	}
 	
+	public ArrayList<String> recuperaPartecipantiAdUnaLezione(String codiceLezione){
+		return studenteDAO.recuperaPartecipantiAdUnaLezione(codiceLezione);
+	}
+	
 	
 
 	//METODI AreaTematicaDAO
@@ -316,6 +321,9 @@ public class Controller {
 		lezioneDAO.aggiungiLezioneInPresenzaEDaRemoto(titolo, descrizione, durata, dataEOraInizio, codiceCorso, codiceDocente, sede, aula,piattaforma);
 	}
 	
+	public String recuperaDurata(String codiceLezione) {
+		return lezioneDAO.recuperaDurata(codiceLezione);
+	}
 	
 	//METODI DocenteDAO
 	public int contaDocenti() {

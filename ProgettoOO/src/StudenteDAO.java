@@ -3,6 +3,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class StudenteDAO {
@@ -174,5 +175,31 @@ public class StudenteDAO {
 		return studentiIdonei;
 	};
 
+	
+	public ArrayList<String> recuperaPartecipantiAdUnaLezione(String codiceLezione) {
+		ArrayList<String> codiciStudenti = new ArrayList<String>();
+		try {
+			connessioneDB=istanzaDB.connectToDB();
+
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT p.codicestudente "
+					+ 									 "FROM partecipare AS p join iscrivere AS i ON p.codicestudente=i.codicestudente "
+					+ 									 "WHERE p.codicelezione="+codiceLezione+" "
+					+ 									 "ORDER BY i.codicecorso");
+			
+			while(resultSet.next()) {
+				codiciStudenti.add(resultSet.getString("codiceStudente"));
+			}
+			
+			
+			statement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return codiciStudenti;
+	}
 
 }

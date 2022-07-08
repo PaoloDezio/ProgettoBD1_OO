@@ -144,7 +144,7 @@ public class ModificaLezioneFrame extends JFrame {
 
 
 	public ModificaLezioneFrame(Controller mainController) {
-		setTitle("AggiungiLezione");
+		setTitle("ModificaLezione");
 		controller=mainController;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 560, 490);

@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JFrame;
@@ -33,6 +34,8 @@ public class LezioniFrame extends JFrame {
 	private JButton indietroButton;
 	private JLabel nomeCorsoLabel;
 	private Vector<Vector<String>> iscritti;
+	private ArrayList<String> partecipanti;
+
 	
 	public JTable getLezioniTable() {
 		return lezioniTable;
@@ -169,6 +172,7 @@ public class LezioniFrame extends JFrame {
 
 
 	//MA QUA CHE STAVI FACENDO? NON è SARCASMO, VERAMENTE NON HO CAPITO	
+	//NON LO SO,DEVO CHIEDERE
 		modificaButton = new JButton("Modifica");
 		modificaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		modificaButton.addActionListener(new ActionListener() {
@@ -177,7 +181,7 @@ public class LezioniFrame extends JFrame {
 					controller.getModificaLezioneFrame().setVisible(true);
 					controller.getModificaLezioneFrame().getTitoloTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),1).toString());
 					controller.getModificaLezioneFrame().getDescrizioneTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),2).toString());
-//DURATA?			controller.getModificaLezioneFrame().getDurataCB().setSelectedItem();
+					controller.getModificaLezioneFrame().getDurataCB().setSelectedItem(controller.recuperaDurata(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),0).toString()));
 					controller.getModificaLezioneFrame().getDataTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),3).toString().substring(0,10));
 					controller.getModificaLezioneFrame().getOraCB().setSelectedItem(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),3).toString().substring(11));
 //DOCENTE?			controller.getModificaLezioneFrame().getDocenteCB().setSelectedItem();
@@ -238,6 +242,21 @@ public class LezioniFrame extends JFrame {
 					controller.getPresenzeFrame().setPresenzeDTM(controller.setDefaultTableModel(controller.getPresenzeFrame().getPresenzeDTM(), iscritti));
 					controller.getPresenzeFrame().getPresenzeTable().setModel(controller.getPresenzeFrame().getPresenzeDTM());
 					controller.getPresenzeFrame().setVisible(true);
+					partecipanti = controller.recuperaPartecipantiAdUnaLezione(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),0).toString());
+					int count=0;						
+
+					for(Vector vettore: iscritti) {
+						for(String codiciStudenti: partecipanti) {
+							if(codiciStudenti.equals(vettore.get(0))){
+								controller.getPresenzeFrame().getPresenzeTable().setValueAt("Presente", count,3);
+							}
+						}
+						if(controller.getPresenzeFrame().getPresenzeTable().getValueAt(count,3)==null) {
+
+							controller.getPresenzeFrame().getPresenzeTable().setValueAt("Assente", count,3);
+						}
+						count++;
+					}
 				}
 				else {
 					JOptionPane.showMessageDialog(contentPane,"Selezionare una lezione","",JOptionPane.INFORMATION_MESSAGE);

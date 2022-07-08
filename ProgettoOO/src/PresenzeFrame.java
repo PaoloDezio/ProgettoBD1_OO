@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JTable;
 import java.awt.Insets;
+import java.util.ArrayList;
+
 import javax.swing.JScrollPane;
 
 public class PresenzeFrame extends JFrame {
@@ -20,6 +22,7 @@ public class PresenzeFrame extends JFrame {
 	private DefaultTableModel presenzeDTM;
 	private JScrollPane scrollPane;
 	
+
 	public JTable getPresenzeTable() {
 		return presenzeTable;
 	}
@@ -38,6 +41,7 @@ public class PresenzeFrame extends JFrame {
 	
 	//PERCHé QUESTO ORA SI CHIAMA MAIN CONTROLLER?
 	public PresenzeFrame(Controller mainController) {
+		setTitle("Presenze");
 		controller = mainController;
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -75,6 +79,7 @@ public class PresenzeFrame extends JFrame {
 		contentPane.add(scrollPane, gbc_scrollPane);
 		
 		presenzeTable = new JTable();
+		presenzeTable.setForeground(new Color(0, 0, 0));
 		scrollPane.setViewportView(presenzeTable);
 		presenzeTable.setModel(presenzeDTM);
 		
@@ -85,13 +90,6 @@ public class PresenzeFrame extends JFrame {
 		gbc_IndietroButton.gridx = 1;
 		gbc_IndietroButton.gridy = 1;
 		contentPane.add(IndietroButton, gbc_IndietroButton);
-		
-		JButton assenteButton = new JButton("Assente");
-		GridBagConstraints gbc_assenteButton = new GridBagConstraints();
-		gbc_assenteButton.insets = new Insets(0, 0, 0, 5);
-		gbc_assenteButton.gridx = 2;
-		gbc_assenteButton.gridy = 1;
-		contentPane.add(assenteButton, gbc_assenteButton);
 		
 		presenteButton = new JButton("Presente");
 		GridBagConstraints gbc_presenteButton = new GridBagConstraints();

@@ -88,20 +88,6 @@ public class LezioneDAO {
 		}}
 
 
-//	public void inserisciLezione(String codiceCorso,String titolo,String descrizione,String durata,String dataOraInizio,String online,String aula,String sede,String piattaforma ) {	
-//		try {
-//			connessioneDB=istanzaDB.connectToDB();
-//
-//			Statement statement = connessioneDB.createStatement();
-//			statement.executeUpdate("INSERT INTO lezione (titolo,descrizione,durata,dataorainizio,codicecorso,online,aula,sede,piattaforma)"
-//					+ "				VALUES('"+titolo+"','"+descrizione+"','"+durata+"','"+dataOraInizio+"','"+codiceCorso+"','"+online+"','"+aula+"','"+sede+"','"+piattaforma);
-//			statement.close();
-//			istanzaDB.closeConnectionToDB();
-//
-//		}catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-		
 		
 	public void modificaLezione(String codiceLezione,String titolo,String descrizione,String durata,String dataOraInizio,String codiceDocente,String online,String sede,String aula,String piattaforma )	{
 		try {
@@ -120,7 +106,27 @@ public class LezioneDAO {
 	}
 	
 
+	public String recuperaDurata(String codiceLezione) {
+		String durata = new String();
+		try {
+			connessioneDB=istanzaDB.connectToDB();
 
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT durata FROM lezione WHERE codiceLezione="+codiceLezione);
+			
+			resultSet.next();
+			durata=resultSet.getString("durata");
+			
+			statement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
+
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return durata;
+	}
 
 
 
