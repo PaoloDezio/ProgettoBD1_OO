@@ -27,6 +27,7 @@ public class IscriviStudenteFrame extends JFrame {
 	private JTextField luogoDiNascitaTF;
 	private JComboBox<String> corsoCB;
 	private DefaultComboBoxModel<String> corsoCBM;
+	private JTextField codiceFiscaleTF;
 	
 	public IscriviStudenteFrame(Controller mainController) {
 		
@@ -132,30 +133,11 @@ public class IscriviStudenteFrame extends JFrame {
 		contentPane.add(luogoDiNascitaTF, gbc_luogoDiNascitaTF);
 		luogoDiNascitaTF.setColumns(10);
 		
-		JLabel corsoLabel = new JLabel("Corso");
-		corsoLabel.setFont(new Font("Century", Font.PLAIN, 16));
-		GridBagConstraints gbc_corsoLabel = new GridBagConstraints();
-		gbc_corsoLabel.anchor = GridBagConstraints.EAST;
-		gbc_corsoLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_corsoLabel.gridx = 1;
-		gbc_corsoLabel.gridy = 6;
-		contentPane.add(corsoLabel, gbc_corsoLabel);
-		
 
 		corsoCBM = new DefaultComboBoxModel<String>();
 		int numeroCorsi=controller.contaCorsi();
 		String[] corsi = controller.recuperaCorsi(numeroCorsi);
 		corsoCBM = controller.setDefaultComboBoxModel(corsoCBM,corsi);
-		
-		corsoCB = new JComboBox<String>();
-		corsoCB.setModel(corsoCBM);
-		corsoCB.setFont(new Font("Century", Font.PLAIN, 16));
-		GridBagConstraints gbc_corsoCB = new GridBagConstraints();
-		gbc_corsoCB.insets = new Insets(0, 0, 5, 5);
-		gbc_corsoCB.fill = GridBagConstraints.HORIZONTAL;
-		gbc_corsoCB.gridx = 2;
-		gbc_corsoCB.gridy = 6;
-		contentPane.add(corsoCB, gbc_corsoCB);
 		
 		JButton indietroButton = new JButton("Indietro");
 		indietroButton.addActionListener(new ActionListener() {
@@ -172,6 +154,42 @@ public class IscriviStudenteFrame extends JFrame {
 				corsoCBM=controller.setDefaultComboBoxModel(corsoCBM,corsi);
 			}
 		});
+		
+		JLabel codiceFiscaleLabel = new JLabel("codiceFiscale");
+		GridBagConstraints gbc_codiceFiscaleLabel = new GridBagConstraints();
+		gbc_codiceFiscaleLabel.anchor = GridBagConstraints.EAST;
+		gbc_codiceFiscaleLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_codiceFiscaleLabel.gridx = 1;
+		gbc_codiceFiscaleLabel.gridy = 6;
+		contentPane.add(codiceFiscaleLabel, gbc_codiceFiscaleLabel);
+		
+		codiceFiscaleTF = new JTextField();
+		GridBagConstraints gbc_codiceFiscaleTF = new GridBagConstraints();
+		gbc_codiceFiscaleTF.insets = new Insets(0, 0, 5, 5);
+		gbc_codiceFiscaleTF.fill = GridBagConstraints.HORIZONTAL;
+		gbc_codiceFiscaleTF.gridx = 2;
+		gbc_codiceFiscaleTF.gridy = 6;
+		contentPane.add(codiceFiscaleTF, gbc_codiceFiscaleTF);
+		codiceFiscaleTF.setColumns(10);
+		
+		JLabel corsoLabel = new JLabel("Corso");
+		corsoLabel.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_corsoLabel = new GridBagConstraints();
+		gbc_corsoLabel.anchor = GridBagConstraints.EAST;
+		gbc_corsoLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_corsoLabel.gridx = 1;
+		gbc_corsoLabel.gridy = 7;
+		contentPane.add(corsoLabel, gbc_corsoLabel);
+		
+		corsoCB = new JComboBox<String>();
+		corsoCB.setModel(corsoCBM);
+		corsoCB.setFont(new Font("Century", Font.PLAIN, 16));
+		GridBagConstraints gbc_corsoCB = new GridBagConstraints();
+		gbc_corsoCB.insets = new Insets(0, 0, 5, 5);
+		gbc_corsoCB.fill = GridBagConstraints.HORIZONTAL;
+		gbc_corsoCB.gridx = 2;
+		gbc_corsoCB.gridy = 7;
+		contentPane.add(corsoCB, gbc_corsoCB);
 		indietroButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_indietroButton = new GridBagConstraints();
 		gbc_indietroButton.insets = new Insets(0, 0, 0, 5);
@@ -183,16 +201,25 @@ public class IscriviStudenteFrame extends JFrame {
 		JButton confermaButton = new JButton("Conferma");
 		confermaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nome = nomeTF.getText().toUpperCase();
-				String cognome = cognomeTF.getText().toUpperCase();
-				Date dataDiNascita = new Date(0);
-				dataDiNascita = dataDiNascita.valueOf(dataDiNascitaTF.getText());
-				String luogoDiNascita = luogoDiNascitaTF.getText().toUpperCase();
-				String nomeCorso=corsoCB.getSelectedItem().toString();
-				String codiceCorso=controller.recuperaCodiceCorso(nomeCorso);
-				
+
+				if(nomeTF.getText().isEmpty()||cognomeTF.getText().isEmpty()||dataDiNascitaTF.getText().isEmpty()||codiceFiscaleTF.getText().isEmpty()||luogoDiNascitaTF.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(contentPane,"Riempi tutti i campi","",JOptionPane.INFORMATION_MESSAGE);
+				}
+				else {
+					if(codiceFiscaleTF.getText().length()!=16) {
+						JOptionPane.showMessageDialog(contentPane,"Codice fiscale non valido","",JOptionPane.INFORMATION_MESSAGE);
+					}
+					else {
+					String nome = nomeTF.getText().toUpperCase();
+					String cognome = cognomeTF.getText().toUpperCase();
+					Date dataDiNascita = new Date(0);
+					dataDiNascita = dataDiNascita.valueOf(dataDiNascitaTF.getText());
+					String luogoDiNascita = luogoDiNascitaTF.getText().toUpperCase();
+					String codiceFiscale = codiceFiscaleTF.getText().toUpperCase();
+					String nomeCorso=corsoCB.getSelectedItem().toString();
+					String codiceCorso=controller.recuperaCodiceCorso(nomeCorso);
 				if(controller.isStudenteInDb(nome,cognome,dataDiNascita,luogoDiNascita)==false) {
-					controller.salvaStudente(nome,cognome,dataDiNascita,luogoDiNascita);
+					controller.salvaStudente(nome,cognome,dataDiNascita,luogoDiNascita,codiceFiscale);
 				}
 				
 				String codiceStudente=controller.recuperaCodiceStudente(nome,cognome,dataDiNascita,luogoDiNascita);
@@ -215,7 +242,7 @@ public class IscriviStudenteFrame extends JFrame {
 					JOptionPane.showMessageDialog(null,cognome+" "+nome+" è già iscritto/a al corso di "+nomeCorso,"",JOptionPane.WARNING_MESSAGE);
 				}
 			}
-		});
+				}}});
 		confermaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_confermaButton = new GridBagConstraints();
 		gbc_confermaButton.gridwidth = 2;

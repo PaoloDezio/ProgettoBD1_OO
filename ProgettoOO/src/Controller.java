@@ -250,8 +250,8 @@ public class Controller {
 	public boolean isStudenteInDb(String nome,String cognome,Date dataDiNascita,String luogoDiNascita) {
 		return studenteDAO.IsStudenteInDB(nome,cognome,dataDiNascita,luogoDiNascita);
 	}
-	public void salvaStudente(String nome,String cognome,Date dataDiNascita,String luogo) {
-		studenteDAO.salvaStudente(nome,cognome,dataDiNascita,luogo);
+	public void salvaStudente(String nome,String cognome,Date dataDiNascita,String luogo,String codiceFiscale) {
+		studenteDAO.salvaStudente(nome,cognome,dataDiNascita,luogo,codiceFiscale);
 	}
 	
 	public String recuperaCodiceStudente(String nome,String cognome,Date dataDiNascita,String luogoDiNascita) {

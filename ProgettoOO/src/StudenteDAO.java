@@ -15,13 +15,13 @@ public class StudenteDAO {
 		istanzaDB=ConnessioneDB.getIstanza();
 	}
 	
-	public void salvaStudente(String nome,String cognome,Date dataDiNascita,String luogoDiNascita)  {
+	public void salvaStudente(String nome,String cognome,Date dataDiNascita,String luogoDiNascita, String codiceFiscale)  {
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 			
 			Statement st = connessioneDB.createStatement();
-			st.executeUpdate("INSERT INTO studente(nome,cognome,luogonascita,datanascita) "
-							 +"VALUES('"+nome+"','"+cognome+"','"+luogoDiNascita+"','"+dataDiNascita+"')");
+			st.executeUpdate("INSERT INTO studente(nome,cognome,luogonascita,datanascita,codicefiscale) "
+							 +"VALUES('"+nome+"','"+cognome+"','"+luogoDiNascita+"','"+dataDiNascita+"','"+codiceFiscale+"')");
 			
 			st.close();
 			istanzaDB.closeConnectionToDB();
