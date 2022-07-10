@@ -128,12 +128,47 @@ public class LezioneDAO {
 		return durata;
 	}
 
+	public void inserisciPresenza(String codiceLezione, String codiceStudente){
+		try {
+			connessioneDB=istanzaDB.connectToDB();
+
+			Statement statement = connessioneDB.createStatement();
+			statement.executeUpdate("INSERT INTO partecipare(codicelezione,codicestudente) VALUES("+codiceLezione+","+codiceStudente+")");
+			statement.close();
+			istanzaDB.closeConnectionToDB();
+
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	
+		
+	}
+
+	
+	public void eliminaPresenza(String codiceLezione, String codiceStudente){
+		try {
+			connessioneDB=istanzaDB.connectToDB();
+
+			Statement statement = connessioneDB.createStatement();
+			statement.executeUpdate("DELETE FROM partecipare WHERE codicelezione="+codiceLezione+" AND codicestudente="+codiceStudente);
+			statement.close();
+			istanzaDB.closeConnectionToDB();
+
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	
+		
+	}
 
 
 
 
 
-
-
+	
+	
+	
 
 }

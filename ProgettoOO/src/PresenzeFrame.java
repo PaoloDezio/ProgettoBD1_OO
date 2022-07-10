@@ -1,4 +1,5 @@
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -8,10 +9,15 @@ import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+
 import java.awt.Insets;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.JScrollPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PresenzeFrame extends JFrame {
 
@@ -79,12 +85,18 @@ public class PresenzeFrame extends JFrame {
 		contentPane.add(scrollPane, gbc_scrollPane);
 		
 		presenzeTable = new JTable();
+		presenzeTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		presenzeTable.setForeground(new Color(0, 0, 0));
 		scrollPane.setViewportView(presenzeTable);
 		presenzeTable.setModel(presenzeDTM);
 		
 		
 		JButton IndietroButton = new JButton("Indietro");
+		IndietroButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}
+		});
 		GridBagConstraints gbc_IndietroButton = new GridBagConstraints();
 		gbc_IndietroButton.insets = new Insets(0, 0, 0, 5);
 		gbc_IndietroButton.gridx = 1;
@@ -92,6 +104,25 @@ public class PresenzeFrame extends JFrame {
 		contentPane.add(IndietroButton, gbc_IndietroButton);
 		
 		presenteButton = new JButton("Presente");
+		presenteButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(presenzeTable.getSelectedRow()<0) {
+					JOptionPane.showMessageDialog(contentPane,"Selezionare uno studente","",JOptionPane.INFORMATION_MESSAGE);
+				}
+				else {
+					if(presenzeTable.getValueAt(presenzeTable.getSelectedRow(), 3).equals("Presente")) {
+						controller.eliminaPresenza(controller.getLezioniFrame().getLezioniTable().getValueAt(controller.getLezioniFrame().getLezioniTable().getSelectedRow(), 0).toString(), presenzeTable.getValueAt(presenzeTable.getSelectedRow(), 0).toString());
+						presenzeTable.setValueAt("Assente", presenzeTable.getSelectedRow(), 3);
+						presenzeDTM.fireTableDataChanged();
+					}
+					else {
+						controller.inserisciPresenza(controller.getLezioniFrame().getLezioniTable().getValueAt(controller.getLezioniFrame().getLezioniTable().getSelectedRow(), 0).toString(), presenzeTable.getValueAt(presenzeTable.getSelectedRow(), 0).toString());
+						presenzeTable.setValueAt("Presente", presenzeTable.getSelectedRow(), 3);
+						presenzeDTM.fireTableDataChanged();
+					}
+				}
+			}
+		});
 		GridBagConstraints gbc_presenteButton = new GridBagConstraints();
 		gbc_presenteButton.gridx = 3;
 		gbc_presenteButton.gridy = 1;

@@ -325,6 +325,13 @@ public class Controller {
 		return lezioneDAO.recuperaDurata(codiceLezione);
 	}
 	
+	public void inserisciPresenza(String codiceLezione, String codiceStudente) {
+		lezioneDAO.inserisciPresenza(codiceLezione, codiceStudente);
+	}
+	
+	public void eliminaPresenza(String codiceLezione, String codiceStudente) {
+		lezioneDAO.eliminaPresenza(codiceLezione, codiceStudente);
+	}
 	//METODI DocenteDAO
 	public int contaDocenti() {
 		return docenteDAO.contaDocenti();
