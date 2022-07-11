@@ -128,6 +128,28 @@ public class LezioneDAO {
 		return durata;
 	}
 
+	public String recuperaCodiceDocente(String codiceLezione) {
+		String codiceDocente = new String();
+		try {
+			connessioneDB=istanzaDB.connectToDB();
+
+			Statement statement = connessioneDB.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT codicedocente FROM lezione WHERE codiceLezione="+codiceLezione);
+			
+			resultSet.next();
+			codiceDocente=resultSet.getString("codicedocente");
+			
+			statement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
+
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return codiceDocente;
+	}
+	
 	public void inserisciPresenza(String codiceLezione, String codiceStudente){
 		try {
 			connessioneDB=istanzaDB.connectToDB();

@@ -172,9 +172,6 @@ public class LezioniFrame extends JFrame {
 		lezioniTable.getColumnModel().getColumn(5).setPreferredWidth(50);
 
 
-
-	//MA QUA CHE STAVI FACENDO? NON è SARCASMO, VERAMENTE NON HO CAPITO	
-	//NON LO SO,DEVO CHIEDERE
 		modificaButton = new JButton("Modifica");
 		modificaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		modificaButton.addActionListener(new ActionListener() {
