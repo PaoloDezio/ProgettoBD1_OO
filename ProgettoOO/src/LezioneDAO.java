@@ -14,8 +14,8 @@ public class LezioneDAO {
 		try {
 			connessioneDB=istanzaDB.connectToDB();	
 			Statement statement = connessioneDB.createStatement();
-			statement.executeUpdate("INSERT INTO lezione(titolo,descrizione,durata,dataorainizio,codicecorso,codicedocente,online,sede,aula,piattaforma) "
-				+					"VALUES ('"+titolo+"','"+descrizione+"',"+durata+"*'1 minute'::interval,'"+dataEOraInizio+"',"+codiceCorso+","+codiceDocente+",'FALSE','"+sede+"','"+aula+"','prova')");
+			statement.executeUpdate("INSERT INTO lezione(titolo,descrizione,durata,dataorainizio,codicecorso,codicedocente,online,sede,aula) "
+				+					"VALUES ('"+titolo+"','"+descrizione+"',"+durata+"*'1 minute'::interval,'"+dataEOraInizio+"',"+codiceCorso+","+codiceDocente+",'FALSE','"+sede+"','"+aula+"')");
 			statement.close();
 			istanzaDB.closeConnectionToDB();
 		}
@@ -50,7 +50,8 @@ public class LezioneDAO {
 			Statement statement = connessioneDB.createStatement();
 			ResultSet resultSet = statement.executeQuery("SELECT codicelezione,titolo,descrizione,to_char (dataorainizio,'YYYY-MM-DD HH24:MI') as dataorainizio,sede,aula,piattaforma "
 					+ 									 "FROM lezione  "
-					+ 									 "WHERE codiceCorso = "+codiceCorso);
+					+ 									 "WHERE codiceCorso = "+codiceCorso
+					+									 " ORDER BY codicelezione");
 
 			while(resultSet.next()) {
 				Vector<String> vettore = new Vector<String>();
@@ -89,13 +90,13 @@ public class LezioneDAO {
 
 
 		
-	public void modificaLezione(String codiceLezione,String titolo,String descrizione,String durata,String dataOraInizio,String codiceDocente,String online,String sede,String aula,String piattaforma )	{
+	public void modificaLezioneInPresenza(String codiceLezione,String titolo,String descrizione,String durata,String dataOraInizio,String codiceDocente,String sede,String aula)	{
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
 			Statement statement = connessioneDB.createStatement();
 			statement.executeUpdate("UPDATE lezione "
-					+			   	"SET titolo='"+titolo+"',descrizione='"+descrizione+"',durata="+durata+"*'1 minute'::interval,dataorainizio='"+dataOraInizio+"',codicedocente="+codiceDocente+",online='FALSE',sede='"+sede+"',aula='"+aula+"',piattaforma='"+piattaforma+"', "
+					+			   	"SET titolo='"+titolo+"',descrizione='"+descrizione+"',durata="+durata+"*'1 minute'::interval,dataorainizio='"+dataOraInizio+"',codicedocente="+codiceDocente+",online='FALSE',sede='"+sede+"',aula='"+aula+"' "
 					+ 				"WHERE codicelezione="+codiceLezione);
 			statement.close();
 			istanzaDB.closeConnectionToDB();
@@ -105,6 +106,21 @@ public class LezioneDAO {
 		}
 	}
 	
+	public void modificaLezioneInPresenzaEDaRemoto(String codiceLezione,String titolo,String descrizione,String durata,String dataOraInizio,String codiceDocente,String sede,String aula,String piattaforma )	{
+		try {
+			connessioneDB=istanzaDB.connectToDB();
+
+			Statement statement = connessioneDB.createStatement();
+			statement.executeUpdate("UPDATE lezione "
+					+			   	"SET titolo='"+titolo+"',descrizione='"+descrizione+"',durata="+durata+"*'1 minute'::interval,dataorainizio='"+dataOraInizio+"',codicedocente="+codiceDocente+",online='TRUE',sede='"+sede+"',aula='"+aula+"',piattaforma='"+piattaforma+"' "
+					+ 				"WHERE codicelezione="+codiceLezione);
+			statement.close();
+			istanzaDB.closeConnectionToDB();
+
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public String recuperaDurata(String codiceLezione) {
 		String durata = new String();
@@ -112,7 +128,7 @@ public class LezioneDAO {
 			connessioneDB=istanzaDB.connectToDB();
 
 			Statement statement = connessioneDB.createStatement();
-			ResultSet resultSet = statement.executeQuery("SELECT durata FROM lezione WHERE codiceLezione="+codiceLezione);
+			ResultSet resultSet = statement.executeQuery("SELECT EXTRACT(EPOCH FROM (select durata from lezione where codicelezione="+codiceLezione+")::INTERVAL)::INTEGER/60 as durata;");
 			
 			resultSet.next();
 			durata=resultSet.getString("durata");
@@ -128,16 +144,16 @@ public class LezioneDAO {
 		return durata;
 	}
 
-	public String recuperaCodiceDocente(String codiceLezione) {
+	public String recuperaCodiceDocenteDaLezione(String codiceLezione) {
 		String codiceDocente = new String();
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
 			Statement statement = connessioneDB.createStatement();
-			ResultSet resultSet = statement.executeQuery("SELECT codicedocente FROM lezione WHERE codiceLezione="+codiceLezione);
+			ResultSet resultSet = statement.executeQuery("SELECT codiceDocente from lezione where codicelezione="+codiceLezione);
 			
 			resultSet.next();
-			codiceDocente=resultSet.getString("codicedocente");
+			codiceDocente=resultSet.getString("codiceDocente");
 			
 			statement.close();
 			resultSet.close();

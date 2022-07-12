@@ -10,9 +10,12 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JCheckBox;
 
 public class ModificaLezioneFrame extends JFrame {
@@ -261,10 +264,10 @@ public class ModificaLezioneFrame extends JFrame {
 		
 		
 		oraCBM = new DefaultComboBoxModel<String>();
-		oraCBM.addElement("8:00");
-		oraCBM.addElement("8:30");
-		oraCBM.addElement("9:00");
-		oraCBM.addElement("9:30");
+		oraCBM.addElement("08:00");
+		oraCBM.addElement("08:30");
+		oraCBM.addElement("09:00");
+		oraCBM.addElement("09:30");
 		oraCBM.addElement("10:00");
 		oraCBM.addElement("10:30");
 		oraCBM.addElement("11:00");
@@ -431,6 +434,7 @@ public class ModificaLezioneFrame extends JFrame {
 				piattaformaLabel.setVisible(false);
 				piattaformaTF.setVisible(false);
 				piattaformaTF.setText("");
+				setVisible(false);
 			}
 		});
 		indietroButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -444,19 +448,44 @@ public class ModificaLezioneFrame extends JFrame {
 		confermaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String codiceLezione = controller.getLezioniFrame().getLezioniTable().getValueAt(controller.getLezioniFrame().getLezioniTable().getSelectedRow(),0).toString();
-				String titolo = titoloTF.getText();
-				String descrizione = descrizioneTF.getText();
+				String titolo = titoloTF.getText().toUpperCase();
+				String descrizione = descrizioneTF.getText().toUpperCase();
 				String durata = durataCB.getSelectedItem().toString();
 				String dataEOra = dataTF.getText()+" "+oraCB.getSelectedItem();
 				String codiceDocente = controller.recuperaCodiceDocente(docentiCB.getSelectedItem().toString());
-				String sede = sedeTF.getText();
-				String aula = aulaTF.getText();
-				String piattaforma = piattaformaTF.getText();
+				String sede = sedeTF.getText().toUpperCase();
+				String aula = aulaTF.getText().toUpperCase();
+				String piattaforma = piattaformaTF.getText().toUpperCase();
+				durata=durata.substring(0,3);
 				
-				controller.getModificaLezioneFrame().setVisible(false);
-				
+				if(titolo.isEmpty()||descrizione.isEmpty()||dataTF.toString().isEmpty()||sede.isEmpty()||aula.isEmpty()) {
+					JOptionPane.showMessageDialog(contentPane,"Compilare tutti i campi","",JOptionPane.INFORMATION_MESSAGE);
+				}
+				else {
+					if(onlineCheckBox.isSelected()) {
+						if(piattaforma.isEmpty()) {
+						JOptionPane.showMessageDialog(contentPane,"Inserire una piattaforma","",JOptionPane.INFORMATION_MESSAGE);
+						}
+						else{
+							 controller.modificaLezioneInPresenzaEDaRemoto(codiceLezione, titolo, descrizione, durata, dataEOra, codiceDocente, sede, aula, piattaforma);
+							setVisible(false);
+							
+						}
+					}
+					else {
+						  controller.modificaLezioneInPresenza(codiceLezione, titolo, descrizione, durata, dataEOra, codiceDocente, piattaforma, sede, aula);
+							setVisible(false);
+					}
+				}
+				controller.getLezioniFrame().getLezioniDTM().getDataVector().removeAllElements();
+				controller.getLezioniFrame().setListaLezioni(controller.recuperaLezioni(controller.getRicercaCorsoFrame().getCorsiTable().getValueAt(controller.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(), 0).toString()));
+				controller.getLezioniFrame().setLezioniDTM(controller.setDefaultTableModel(controller.getLezioniFrame().getLezioniDTM(),controller.getLezioniFrame().getListaLezioni()));
+				controller.getLezioniFrame().getLezioniTable().setModel(controller.getLezioniFrame().getLezioniDTM());
 			}
+			
 		});
+		
+		
 		confermaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_confermaButton = new GridBagConstraints();
 		gbc_confermaButton.anchor = GridBagConstraints.EAST;
@@ -466,6 +495,8 @@ public class ModificaLezioneFrame extends JFrame {
 		contentPane.add(confermaButton, gbc_confermaButton);
 		
 	
+		
 	}
+	
 
 }

@@ -306,6 +306,14 @@ public class Controller {
 	}
 	
 	//METODI LezioneDAO
+	public void modificaLezioneInPresenza(String codiceLezione,String titolo,String descrizione,String durata,String dataOraInizio,String codiceDocente,String online,String sede,String aula) {
+		lezioneDAO.modificaLezioneInPresenza(codiceLezione,titolo,descrizione,durata,dataOraInizio,codiceDocente,sede,aula);
+	}
+	
+	public void modificaLezioneInPresenzaEDaRemoto(String codiceLezione,String titolo,String descrizione,String durata,String dataOraInizio,String codiceDocente,String sede,String aula,String piattaforma ) {
+		lezioneDAO.modificaLezioneInPresenzaEDaRemoto(codiceLezione,titolo,descrizione,durata,dataOraInizio,codiceDocente,sede,aula,piattaforma);
+	}
+		
 	public Vector<Vector<String>> recuperaLezioni(String codiceCorso) {
 		return lezioneDAO.recuperaLezioni(codiceCorso);
 	}
@@ -323,6 +331,10 @@ public class Controller {
 	
 	public String recuperaDurata(String codiceLezione) {
 		return lezioneDAO.recuperaDurata(codiceLezione);
+	}
+	
+	public String recuperaCodiceDocenteDaLezione(String codiceLezione) {
+		return lezioneDAO.recuperaCodiceDocenteDaLezione(codiceLezione);
 	}
 	
 	public void inserisciPresenza(String codiceLezione, String codiceStudente) {
@@ -346,6 +358,9 @@ public class Controller {
 		return docenteDAO.recuperaCodiceDocente(cognome);
 	}
 	
+	public String recuperaDocente(String codiceDocente) {
+		return docenteDAO.recuperaDocente(codiceDocente);
+	}
 	
 	
 	
@@ -371,5 +386,17 @@ public class Controller {
 		return defaultComboBoxModel;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 

@@ -180,17 +180,12 @@ public class LezioniFrame extends JFrame {
 					controller.getModificaLezioneFrame().setVisible(true);
 					controller.getModificaLezioneFrame().getTitoloTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),1).toString());
 					controller.getModificaLezioneFrame().getDescrizioneTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),2).toString());
-					controller.getModificaLezioneFrame().getDurataCB().setSelectedItem(controller.recuperaDurata(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),0).toString()));
-					controller.getModificaLezioneFrame().getDataTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),3).toString().substring(0,10));
+					controller.getModificaLezioneFrame().getDurataCB().setSelectedItem(controller.recuperaDurata(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),0).toString())+" minuti");
+					controller.getModificaLezioneFrame().getDataTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),3).toString().substring(0,11));
 					controller.getModificaLezioneFrame().getOraCB().setSelectedItem(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),3).toString().substring(11));
-//DOCENTE?			controller.getModificaLezioneFrame().getDocenteCB().setSelectedItem();
+					controller.getModificaLezioneFrame().getDocentiCB().setSelectedItem(controller.recuperaDocente(controller.recuperaCodiceDocenteDaLezione(lezioniTable.getValueAt(lezioniTable.getSelectedRow(), 0).toString())));					
 					controller.getModificaLezioneFrame().getSedeTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),4).toString());
 					controller.getModificaLezioneFrame().getAulaTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),5).toString());
-//					if()
-					
-//					controller.getModificaLezioneFrame().
-					
-					
 					
 					
 				}

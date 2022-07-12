@@ -85,5 +85,25 @@ public class DocenteDAO {
 		return codiceDocente;
 	}
 	
-	
+	public String recuperaDocente(String codiceDocente) {
+		String docente=new String();
+		try {
+			connessioneDB=istanzaDB.connectToDB();
+
+			Statement statement= connessioneDB.createStatement();
+			ResultSet resultSet= statement.executeQuery("SELECT cognome FROM docente WHERE codicedocente ="+codiceDocente);
+			
+			while(resultSet.next()) {
+				docente=resultSet.getString("cognome");
+			}
+			
+			statement.close();
+			resultSet.close();
+			istanzaDB.closeConnectionToDB();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return docente;
+	}
 }

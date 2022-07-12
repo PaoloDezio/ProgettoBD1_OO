@@ -229,10 +229,10 @@ public class AggiungiLezioneFrame extends JFrame {
 		
 		
 		oraCBM = new DefaultComboBoxModel<String>();
-		oraCBM.addElement("8:00");
-		oraCBM.addElement("8:30");
-		oraCBM.addElement("9:00");
-		oraCBM.addElement("9:30");
+		oraCBM.addElement("08:00");
+		oraCBM.addElement("08:30");
+		oraCBM.addElement("09:00");
+		oraCBM.addElement("09:30");
 		oraCBM.addElement("10:00");
 		oraCBM.addElement("10:30");
 		oraCBM.addElement("11:00");
