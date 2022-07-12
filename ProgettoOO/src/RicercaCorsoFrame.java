@@ -491,6 +491,7 @@ public class RicercaCorsoFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				corsiTable.clearSelection();
 				controller.getAggiungiCorsoFrame().setVisible(true);
+				setEnabled(false);
 			}
 		});
 		AggiungiButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -515,6 +516,7 @@ public class RicercaCorsoFrame extends JFrame {
 					controller.getModificaFrame().getCategoriaCB().setSelectedItem(corsiTable.getValueAt(corsiTable.getSelectedRow(),4));
 					controller.getModificaFrame().getResponsabileCB().setSelectedItem(corsiTable.getValueAt(corsiTable.getSelectedRow(),5));
 				}
+				setEnabled(false);
 			}			
 		});
 		ModificaButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -593,6 +595,7 @@ public class RicercaCorsoFrame extends JFrame {
 					controller.getStatisticheFrame().getIscrittiDTM().fireTableDataChanged();
 					controller.getStatisticheFrame().getIscrittiTable().setModel(controller.getStatisticheFrame().getIscrittiDTM());
 				}
+				setEnabled(false);
 			}
 		});
 		StatisticheButton.setFont(new Font("Century", Font.PLAIN, 16));

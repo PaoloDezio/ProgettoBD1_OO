@@ -435,6 +435,7 @@ public class ModificaLezioneFrame extends JFrame {
 				piattaformaTF.setVisible(false);
 				piattaformaTF.setText("");
 				setVisible(false);
+				controller.getLezioniFrame().setEnabled(true);
 			}
 		});
 		indietroButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -481,6 +482,8 @@ public class ModificaLezioneFrame extends JFrame {
 				controller.getLezioniFrame().setListaLezioni(controller.recuperaLezioni(controller.getRicercaCorsoFrame().getCorsiTable().getValueAt(controller.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(), 0).toString()));
 				controller.getLezioniFrame().setLezioniDTM(controller.setDefaultTableModel(controller.getLezioniFrame().getLezioniDTM(),controller.getLezioniFrame().getListaLezioni()));
 				controller.getLezioniFrame().getLezioniTable().setModel(controller.getLezioniFrame().getLezioniDTM());
+				
+				controller.getLezioniFrame().setEnabled(true);
 			}
 			
 		});

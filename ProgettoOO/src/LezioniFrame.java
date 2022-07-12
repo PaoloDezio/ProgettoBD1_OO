@@ -187,6 +187,7 @@ public class LezioniFrame extends JFrame {
 					controller.getModificaLezioneFrame().getSedeTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),4).toString());
 					controller.getModificaLezioneFrame().getAulaTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),5).toString());
 					
+					setEnabled(false);
 					
 				}
 				else {
