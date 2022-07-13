@@ -79,7 +79,7 @@ public class StatisticheFrame extends JFrame {
 		controller = mainController;
 		
 		setTitle("Statistiche");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1020, 345);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));

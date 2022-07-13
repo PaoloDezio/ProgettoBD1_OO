@@ -19,6 +19,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class LezioniFrame extends JFrame {
 
@@ -107,6 +109,8 @@ public class LezioniFrame extends JFrame {
 		aggiungiButton.setFont(new Font("Century", Font.PLAIN, 16));
 		aggiungiButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setAlwaysOnTop(false);
+				controller.getAggiungiLezioneFrame().setAlwaysOnTop(true);
 				controller.getAggiungiLezioneFrame().getNomeCorsoLabel().setText(nomeCorsoLabel.getText());
 				controller.getAggiungiLezioneFrame().setVisible(true);
 				controller.getAggiungiLezioneFrame().getTitoloTF().setText("");
@@ -161,6 +165,16 @@ public class LezioniFrame extends JFrame {
 		contentPane.add(lezioniScrollPane, gbc_lezioniScrollPane);
 		
 		lezioniTable = new JTable();
+		lezioniTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				if(controller.getAggiungiLezioneFrame().isVisible()||controller.getModificaLezioneFrame().isVisible()||controller.getPresenzeFrame().isVisible()) {
+					lezioniTable.setEnabled(false);
+				}else {
+					lezioniTable.setEnabled(true);
+				}
+			}
+		});
 		lezioniTable.setFont(new Font("Century", Font.PLAIN, 14));
 		lezioniScrollPane.setViewportView(lezioniTable);
 		
@@ -176,22 +190,25 @@ public class LezioniFrame extends JFrame {
 		modificaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		modificaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(lezioniTable.getSelectedRow()>-1) {
-					controller.getModificaLezioneFrame().setVisible(true);
-					controller.getModificaLezioneFrame().getTitoloTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),1).toString());
-					controller.getModificaLezioneFrame().getDescrizioneTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),2).toString());
-					controller.getModificaLezioneFrame().getDurataCB().setSelectedItem(controller.recuperaDurata(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),0).toString())+" minuti");
-					controller.getModificaLezioneFrame().getDataTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),3).toString().substring(0,11));
-					controller.getModificaLezioneFrame().getOraCB().setSelectedItem(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),3).toString().substring(11));
-					controller.getModificaLezioneFrame().getDocentiCB().setSelectedItem(controller.recuperaDocente(controller.recuperaCodiceDocenteDaLezione(lezioniTable.getValueAt(lezioniTable.getSelectedRow(), 0).toString())));					
-					controller.getModificaLezioneFrame().getSedeTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),4).toString());
-					controller.getModificaLezioneFrame().getAulaTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),5).toString());
-					
-					controller.getGestioneCorsiFrame().getCorsiTable().setEnabled(true);
+				if(lezioniTable.getSelectedRow()<=-1 || lezioniTable.getSelectedRow()>lezioniTable.getRowCount()) {
+					JOptionPane.showMessageDialog(contentPane,"Selezionare una lezione","",JOptionPane.INFORMATION_MESSAGE);
 					
 				}
-				else {
-					JOptionPane.showMessageDialog(contentPane,"Selezionare una lezione","",JOptionPane.INFORMATION_MESSAGE);
+				else {controller.getModificaLezioneFrame().setVisible(true);
+				setAlwaysOnTop(false);
+				
+				controller.getModificaLezioneFrame().setAlwaysOnTop(true);
+				controller.getModificaLezioneFrame().getTitoloTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),1).toString());
+				controller.getModificaLezioneFrame().getDescrizioneTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),2).toString());
+				controller.getModificaLezioneFrame().getDurataCB().setSelectedItem(controller.recuperaDurata(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),0).toString())+" minuti");
+				controller.getModificaLezioneFrame().getDataTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),3).toString().substring(0,11));
+				controller.getModificaLezioneFrame().getOraCB().setSelectedItem(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),3).toString().substring(11));
+				controller.getModificaLezioneFrame().getDocentiCB().setSelectedItem(controller.recuperaDocente(controller.recuperaCodiceDocenteDaLezione(lezioniTable.getValueAt(lezioniTable.getSelectedRow(), 0).toString())));					
+				controller.getModificaLezioneFrame().getSedeTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),4).toString());
+				controller.getModificaLezioneFrame().getAulaTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),5).toString());
+				
+				controller.getGestioneCorsiFrame().getCorsiTable().setEnabled(true);
+					
 				}
 				
 			}
@@ -207,15 +224,15 @@ public class LezioniFrame extends JFrame {
 		eliminaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		eliminaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(lezioniTable.getSelectedRow()>-1) {
-					controller.eliminaLezione(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),0).toString());
-					lezioniDTM.getDataVector().removeAllElements();
-					listaLezioni=controller.recuperaLezioni(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(), 0).toString());
-					lezioniDTM=controller.setDefaultTableModel(lezioniDTM, listaLezioni);
-					lezioniTable.setModel(lezioniDTM);
-				}
-				else {
+				if(lezioniTable.getSelectedRow()<=-1 || lezioniTable.getSelectedRow()>lezioniTable.getRowCount()) {
 					JOptionPane.showMessageDialog(contentPane,"Selezionare una lezione","",JOptionPane.INFORMATION_MESSAGE);
+				}
+				else {controller.eliminaLezione(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),0).toString());
+				lezioniDTM.getDataVector().removeAllElements();
+				listaLezioni=controller.recuperaLezioni(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(), 0).toString());
+				lezioniDTM=controller.setDefaultTableModel(lezioniDTM, listaLezioni);
+				lezioniTable.setModel(lezioniDTM);
+					
 				}
 			}
 		});
@@ -230,32 +247,33 @@ public class LezioniFrame extends JFrame {
 		presenzeButton.setFont(new Font("Century", Font.PLAIN, 16));
 		presenzeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(lezioniTable.getSelectedRow()>-1) {
+				if(lezioniTable.getSelectedRow()<=-1 || lezioniTable.getSelectedRow()>lezioniTable.getRowCount()) {
 
-					controller.getPresenzeFrame().getPresenzeDTM().getDataVector().removeAllElements();
-					iscritti=controller.recuperaIscrittiAdUnCorso(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(), 0).toString());
-					controller.getPresenzeFrame().setPresenzeDTM(controller.setDefaultTableModel(controller.getPresenzeFrame().getPresenzeDTM(), iscritti));
-					controller.getPresenzeFrame().getPresenzeTable().setModel(controller.getPresenzeFrame().getPresenzeDTM());
-					controller.getPresenzeFrame().setVisible(true);
-					setEnabled(false);
-					partecipanti = controller.recuperaPartecipantiAdUnaLezione(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),0).toString());
-					int count=0;						
-
-					for(Vector vettore: iscritti) {
-						for(String codiciStudenti: partecipanti) {
-							if(codiciStudenti.equals(vettore.get(0))){
-								controller.getPresenzeFrame().getPresenzeTable().setValueAt("Presente", count,3);
-							}
-						}
-						if(controller.getPresenzeFrame().getPresenzeTable().getValueAt(count,3)==null) {
-
-							controller.getPresenzeFrame().getPresenzeTable().setValueAt("Assente", count,3);
-						}
-						count++;
-					}
-				}
-				else {
 					JOptionPane.showMessageDialog(contentPane,"Selezionare una lezione","",JOptionPane.INFORMATION_MESSAGE);
+				}
+				else {		controller.getPresenzeFrame().getPresenzeDTM().getDataVector().removeAllElements();
+				iscritti=controller.recuperaIscrittiAdUnCorso(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(), 0).toString());
+				controller.getPresenzeFrame().setPresenzeDTM(controller.setDefaultTableModel(controller.getPresenzeFrame().getPresenzeDTM(), iscritti));
+				controller.getPresenzeFrame().getPresenzeTable().setModel(controller.getPresenzeFrame().getPresenzeDTM());
+				controller.getPresenzeFrame().setVisible(true);
+				setAlwaysOnTop(false);
+				controller.getPresenzeFrame().setAlwaysOnTop(true);
+				partecipanti = controller.recuperaPartecipantiAdUnaLezione(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),0).toString());
+				int count=0;						
+
+				for(Vector vettore: iscritti) {
+					for(String codiciStudenti: partecipanti) {
+						if(codiciStudenti.equals(vettore.get(0))){
+							controller.getPresenzeFrame().getPresenzeTable().setValueAt("Presente", count,3);
+						}
+					}
+					if(controller.getPresenzeFrame().getPresenzeTable().getValueAt(count,3)==null) {
+
+						controller.getPresenzeFrame().getPresenzeTable().setValueAt("Assente", count,3);
+					}
+					count++;
+				}
+					
 				}
 			}
 		});
@@ -270,8 +288,7 @@ public class LezioniFrame extends JFrame {
 		indietroButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.getLezioniFrame().setVisible(false);
-				controller.getGestioneCorsiFrame().setEnabled(true);
-				controller.getGestioneCorsiFrame().setVisible(true);
+				controller.getModificaLezioneFrame().setVisible(false);
 			}
 		});
 		indietroButton.setFont(new Font("Century", Font.PLAIN, 16));

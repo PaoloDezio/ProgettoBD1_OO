@@ -14,6 +14,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.Insets;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -71,7 +72,10 @@ public class AggiungiCorsoFrame extends JFrame {
 		controller = mainController;
 		
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
 		setBounds(100, 100, 700, 440);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
@@ -236,7 +240,10 @@ public class AggiungiCorsoFrame extends JFrame {
 		aggiungiAreaTematicaButton = new JButton("Aggiungi Area Tematica");
 		aggiungiAreaTematicaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setAlwaysOnTop(false);
+				controller.getAggiungiAreaTematicaFrame().setAlwaysOnTop(true);
 				controller.getAggiungiAreaTematicaFrame().setVisible(true);
+				
 			}
 		});
 		aggiungiAreaTematicaButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -270,7 +277,7 @@ public class AggiungiCorsoFrame extends JFrame {
 		indietroButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.getAggiungiCorsoFrame().setVisible(false);
-				controller.getGestioneCorsiFrame().getCorsiTable().setEnabled(true);
+				controller.getAggiungiAreaTematicaFrame().setVisible(false);
 				resettaAggiungiCorsoFrame();
 			}
 		});
@@ -305,7 +312,8 @@ public class AggiungiCorsoFrame extends JFrame {
 				controller.getGestioneCorsiFrame().getCorsiTable().setModel(controller.getGestioneCorsiFrame().getCorsiDTM());
 
 				controller.getAggiungiCorsoFrame().setVisible(false);
-				controller.getGestioneCorsiFrame().getCorsiTable().setEnabled(true);
+
+				controller.getAggiungiAreaTematicaFrame().setVisible(false);
 				resettaAggiungiCorsoFrame();
 					}}}
 		});

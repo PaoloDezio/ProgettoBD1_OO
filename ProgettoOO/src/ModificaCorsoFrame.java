@@ -63,7 +63,7 @@ public class ModificaCorsoFrame extends JFrame {
 		controller = mainController;
 		
 		setTitle("ModificaCorsoFrame");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 770, 340);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
@@ -172,6 +172,8 @@ public class ModificaCorsoFrame extends JFrame {
 		aggiungiAreaTematicaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.getAggiungiAreaTematicaFrame().setVisible(true);
+				controller.getAggiungiAreaTematicaFrame().setAlwaysOnTop(true);
+				setAlwaysOnTop(false);
 			}
 		});
 		aggiungiAreaTematicaButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -209,7 +211,7 @@ public class ModificaCorsoFrame extends JFrame {
 		indietroButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.getModificaFrame().setVisible(false);
-				controller.getGestioneCorsiFrame().getCorsiTable().setEnabled(true);
+			
 			}
 		});
 		indietroButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -239,7 +241,7 @@ public class ModificaCorsoFrame extends JFrame {
 				controller.getGestioneCorsiFrame().setCorsiDTM(controller.setDefaultTableModel(controller.getGestioneCorsiFrame().getCorsiDTM(), controller.getGestioneCorsiFrame().getCorsi()));
 				controller.getGestioneCorsiFrame().getCorsiTable().setModel(controller.getGestioneCorsiFrame().getCorsiDTM());
 			
-				controller.getGestioneCorsiFrame().getCorsiTable().setEnabled(true);
+				
 			}
 		});
 		salvaModificheButton.setFont(new Font("Century", Font.PLAIN, 16));

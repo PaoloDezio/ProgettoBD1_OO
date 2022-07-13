@@ -520,7 +520,7 @@ public class GestioneCorsiFrame extends JFrame {
 		JButton ModificaButton = new JButton("Modifica");
 		ModificaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(corsiTable.getSelectedRow()==-1) {
+				if(corsiTable.getSelectedRow()==-1||corsiTable.getSelectedRow()>corsiTable.getRowCount()) {
 					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
@@ -546,7 +546,7 @@ public class GestioneCorsiFrame extends JFrame {
 		JButton EliminaButton = new JButton("Elimina");
 		EliminaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(corsiTable.getSelectedRow()==-1) {
+				if(corsiTable.getSelectedRow()==-1||corsiTable.getSelectedRow()>corsiTable.getRowCount()) {
 					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
@@ -572,7 +572,7 @@ public class GestioneCorsiFrame extends JFrame {
 		LezioniButton.setFont(new Font("Century", Font.PLAIN, 16));
 		LezioniButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(corsiTable.getSelectedRow()<=-1) {
+				if(corsiTable.getSelectedRow()<=-1||corsiTable.getSelectedRow()>corsiTable.getRowCount()) {
 					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
@@ -597,7 +597,7 @@ public class GestioneCorsiFrame extends JFrame {
 		JButton StatisticheButton = new JButton("Statistische");
 		StatisticheButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(corsiTable.getSelectedRow()<=-1) {
+				if(corsiTable.getSelectedRow()<=-1||corsiTable.getSelectedRow()>corsiTable.getRowCount()) {
 					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
