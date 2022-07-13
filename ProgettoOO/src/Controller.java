@@ -6,6 +6,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 public class Controller {
+	
 	private LoginFrame loginFrame;
 	private HomepageFrame homeFrame;
 	private GestioneCorsiFrame gestioneCorsiFrame;
@@ -33,6 +34,7 @@ public class Controller {
 	}
 
 	public Controller(){
+		
 		responsabileDAO = new ResponsabileDAO();
 		studenteDAO= new StudenteDAO();
 		corsoDAO = new CorsoDAO();
@@ -58,7 +60,7 @@ public class Controller {
 		
 	}
 	
-	//Getters e Setters of Frame
+	//GETTERS AND SETTERS DEI FRAME
 	public LoginFrame getLoginFrame() {
 		return loginFrame;
 	}
@@ -171,6 +173,8 @@ public class Controller {
 		this.modificaLezioneFrame = modificaLezioneFrame;
 	}
 
+	
+	
 	//METODI CorsoDAO
 	public void aggiungiCorso(String nome,String descrizione,String numeroMassimoPartecipanti,String numeroLezioni,String dataDiInizio,String codiceResponsabile) {
 		corsoDAO.aggiungiCorso(nome, descrizione, numeroMassimoPartecipanti, numeroLezioni, dataDiInizio, codiceResponsabile);
@@ -229,6 +233,7 @@ public class Controller {
 	}
 
 
+	
 	//METODI ResponsabileDAO
 	public boolean checkResponsabile(String username,String password) {
 		return responsabileDAO.checkResponsabile(username, password);
@@ -245,6 +250,8 @@ public class Controller {
 	public String recuperaCodiceResponsabile(String cognomeResponsabile) {
 		return responsabileDAO.recuperaCodiceResponsabile(cognomeResponsabile);
 	}
+	
+	
 	
 	//METODI StudenteDAO
 	public boolean isStudenteInDb(String nome,String cognome,Date dataDiNascita,String luogoDiNascita) {
@@ -305,6 +312,8 @@ public class Controller {
 		return areaTematicaDAO.recuperaAreeTematicheInVettoreDiVettoreDiStringhe(numeroCategorie);
 	}
 	
+	
+	
 	//METODI LezioneDAO
 	public void modificaLezioneInPresenza(String codiceLezione,String titolo,String descrizione,String durata,String dataOraInizio,String codiceDocente,String online,String sede,String aula) {
 		lezioneDAO.modificaLezioneInPresenza(codiceLezione,titolo,descrizione,durata,dataOraInizio,codiceDocente,sede,aula);
@@ -344,6 +353,9 @@ public class Controller {
 	public void eliminaPresenza(String codiceLezione, String codiceStudente) {
 		lezioneDAO.eliminaPresenza(codiceLezione, codiceStudente);
 	}
+	
+	
+	
 	//METODI DocenteDAO
 	public int contaDocenti() {
 		return docenteDAO.contaDocenti();
@@ -364,16 +376,14 @@ public class Controller {
 	
 	
 	
-	
-
-	
-	
+	//ALTRI METODI
 	public DefaultTableModel setDefaultTableModel(DefaultTableModel defaultTableModel,Vector<Vector<String>> vettoreDiVettoreDiStringhe){
 		for (Vector<String> vettoreDiStringhe : vettoreDiVettoreDiStringhe) {
 			defaultTableModel.addRow(vettoreDiStringhe);
 		}
 		
 		return defaultTableModel;
+		
 	}
 	
 	

@@ -12,19 +12,23 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
 public class HomepageFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Controller controller;
 	
-
+	
+	
 	public HomepageFrame(Controller mainController) {
-		setTitle("Homepage");
+		
 		controller = mainController;
 		
+		setTitle("Homepage");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(375, 175, 515, 240);
+		
+		
+		//CONTENT PANE
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -36,27 +40,22 @@ public class HomepageFrame extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
+		
+		//GESTIONE CORSI BUTTON
 		JButton gestioneCorsiButton = new JButton("Gestione Corsi");
+		
+		//GESTIONE CORSI BUTTON ACTION LISTENER
 		gestioneCorsiButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.getGestioneCorsiFrame().setVisible(true);
+				
 				controller.getHomeFrame().setVisible(false);
+				controller.getGestioneCorsiFrame().setVisible(true);
 				controller.getGestioneCorsiFrame().getCorsiDTM().getDataVector().removeAllElements();
 				controller.getGestioneCorsiFrame().setCorsi(controller.recuperaCorsiOrdinatiPer("codicecorso","","",""));
 				controller.getGestioneCorsiFrame().setCorsiDTM(controller.setDefaultTableModel(controller.getGestioneCorsiFrame().getCorsiDTM(), controller.getGestioneCorsiFrame().getCorsi()));
-				controller.getGestioneCorsiFrame().getCorsiTable().setModel(controller.getGestioneCorsiFrame().getCorsiDTM());
-				
+				controller.getGestioneCorsiFrame().getCorsiTable().setModel(controller.getGestioneCorsiFrame().getCorsiDTM());		
 			}});
 		
-		JLabel homeLabel = new JLabel("Homepage");
-		homeLabel.setFont(new Font("Century", Font.BOLD, 25));
-		GridBagConstraints gbc_homeLabel = new GridBagConstraints();
-		gbc_homeLabel.anchor = GridBagConstraints.NORTH;
-		gbc_homeLabel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_homeLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_homeLabel.gridx = 1;
-		gbc_homeLabel.gridy = 0;
-		contentPane.add(homeLabel, gbc_homeLabel);
 		gestioneCorsiButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_gestioneCorsiButton = new GridBagConstraints();
 		gbc_gestioneCorsiButton.fill = GridBagConstraints.HORIZONTAL;
@@ -66,13 +65,30 @@ public class HomepageFrame extends JFrame {
 		gbc_gestioneCorsiButton.gridy = 1;
 		contentPane.add(gestioneCorsiButton, gbc_gestioneCorsiButton);
 		
+		//HOME LABEL
+		JLabel homeLabel = new JLabel("Homepage");
+		homeLabel.setFont(new Font("Century", Font.BOLD, 25));
+		GridBagConstraints gbc_homeLabel = new GridBagConstraints();
+		gbc_homeLabel.anchor = GridBagConstraints.NORTH;
+		gbc_homeLabel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_homeLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_homeLabel.gridx = 1;
+		gbc_homeLabel.gridy = 0;
+		contentPane.add(homeLabel, gbc_homeLabel);
+		
+		
+		//ISCRIZIONI STUDENTI BUTTON
 		JButton iscrizioniStudentiButton = new JButton("Iscrizioni Studenti");
+		
+		//ISCRIZIONI STUDENTI BUTTON ACTION LISTENER
 		iscrizioniStudentiButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				controller.getHomeFrame().setVisible(false);
 				controller.getIscriviStudenteFrame().setVisible(true);
-				controller.getHomeFrame().setVisible(false);			
 				}
 		});
+		
 		iscrizioniStudentiButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_iscrizioniStudentiButton = new GridBagConstraints();
 		gbc_iscrizioniStudentiButton.fill = GridBagConstraints.HORIZONTAL;
@@ -81,9 +97,14 @@ public class HomepageFrame extends JFrame {
 		gbc_iscrizioniStudentiButton.gridy = 1;
 		contentPane.add(iscrizioniStudentiButton, gbc_iscrizioniStudentiButton);
 		
+		
+		//TORNA AL LOGIN BUTTON
 		JButton tornaAlLoginButton = new JButton("Torna al Login");
+		
+		//TORNA AL LOGIN BUTTON ACTION LISTENER
 		tornaAlLoginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				controller.getHomeFrame().setVisible(false);	
 				controller.getLoginFrame().setVisible(true);
 			}
@@ -99,4 +120,6 @@ public class HomepageFrame extends JFrame {
 		contentPane.add(tornaAlLoginButton, gbc_tornaAlLoginButton);
 	}
 
+	
+	
 }

@@ -10,7 +10,10 @@ public class LezioneDAO {
 		istanzaDB=ConnessioneDB.getIstanza();
 	}
 
+	
+	//METODI
 	public void aggiungiLezioneInPresenza(String titolo,String descrizione,String durata,String dataEOraInizio,String codiceCorso,String codiceDocente,String sede,String aula) {
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();	
 			Statement statement = connessioneDB.createStatement();
@@ -22,11 +25,13 @@ public class LezioneDAO {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	
 	
 	public void aggiungiLezioneInPresenzaEDaRemoto(String titolo,String descrizione,String durata,String dataEOraInizio,String codiceCorso,String codiceDocente,String sede,String aula,String piattaforma) {
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();	
 			Statement statement = connessioneDB.createStatement();
@@ -38,12 +43,15 @@ public class LezioneDAO {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	
 	
 	public Vector<Vector<String>> recuperaLezioni(String codiceCorso) {
+		
 		Vector<Vector<String>> lezioni = new Vector<Vector<String>>();
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
@@ -69,13 +77,19 @@ public class LezioneDAO {
 			resultSet.close();
 			istanzaDB.closeConnectionToDB();
 
-		}catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return lezioni;
+		
 	}
 
+	
+	
 	public void eliminaLezione(String codiceLezione) {
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
@@ -84,13 +98,17 @@ public class LezioneDAO {
 			statement.close();
 			istanzaDB.closeConnectionToDB();
 
-		}catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
-		}}
+		}
+		
+	}
 
 
 		
 	public void modificaLezioneInPresenza(String codiceLezione,String titolo,String descrizione,String durata,String dataOraInizio,String codiceDocente,String sede,String aula)	{
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
@@ -101,12 +119,17 @@ public class LezioneDAO {
 			statement.close();
 			istanzaDB.closeConnectionToDB();
 
-		}catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
+	
+	
 	public void modificaLezioneInPresenzaEDaRemoto(String codiceLezione,String titolo,String descrizione,String durata,String dataOraInizio,String codiceDocente,String sede,String aula,String piattaforma )	{
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
@@ -117,13 +140,19 @@ public class LezioneDAO {
 			statement.close();
 			istanzaDB.closeConnectionToDB();
 
-		}catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 	}
 
+	
+	
 	public String recuperaDurata(String codiceLezione) {
+		
 		String durata = new String();
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
@@ -137,15 +166,21 @@ public class LezioneDAO {
 			resultSet.close();
 			istanzaDB.closeConnectionToDB();
 
-		}catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		return durata;
+		
 	}
 
+	
+	
 	public String recuperaCodiceDocenteDaLezione(String codiceLezione) {
+		
 		String codiceDocente = new String();
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
@@ -159,14 +194,19 @@ public class LezioneDAO {
 			resultSet.close();
 			istanzaDB.closeConnectionToDB();
 
-		}catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		return codiceDocente;
+		
 	}
 	
+	
+	
 	public void inserisciPresenza(String codiceLezione, String codiceStudente){
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
@@ -175,16 +215,16 @@ public class LezioneDAO {
 			statement.close();
 			istanzaDB.closeConnectionToDB();
 
-		}catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-	
-		
+			
 	}
 
 	
 	public void eliminaPresenza(String codiceLezione, String codiceStudente){
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
@@ -193,11 +233,12 @@ public class LezioneDAO {
 			statement.close();
 			istanzaDB.closeConnectionToDB();
 
-		}catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-	
+		
 		
 	}
 

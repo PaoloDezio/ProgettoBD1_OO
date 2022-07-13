@@ -2,6 +2,7 @@ import java.sql.*;
 import java.util.Vector;
 
 public class AreaTematicaDAO {
+	
 	private ConnessioneDB istanzaDB ;
 	private Connection connessioneDB= null;
 	
@@ -10,8 +11,12 @@ public class AreaTematicaDAO {
 		istanzaDB= ConnessioneDB.getIstanza();
 	}
 	
+	
+	//METODI
 	public int contaCategorie() {
+		
 		Integer numeroCategorie=0;
+		
 		try {
 			connessioneDB = istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
@@ -26,12 +31,18 @@ public class AreaTematicaDAO {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return numeroCategorie;
+	
 	}
 	
+	
+	
 	public String[] recuperaAreeTematiche(Integer numeroCategorie) {
+		
 		String[] areeTematiche = new String[numeroCategorie]; 
 		int i=0;
+		
 		try {
 			connessioneDB = istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
@@ -49,10 +60,15 @@ public class AreaTematicaDAO {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return areeTematiche;
+		
 	}
 	
+	
+	
 	public Vector<Vector<String>> recuperaAreeTematicheInVettoreDiVettoreDiStringhe(Integer numeroCategorie) {
+		
 		Vector<Vector<String>> areeTematiche = new Vector<Vector<String>>();
 		
 		try {
@@ -73,10 +89,15 @@ public class AreaTematicaDAO {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return areeTematiche;
+		
 	}
 	
+	
+	
 	public boolean IsAreaTematicaInDB(String areaTematica) {
+		
 		try{
 			connessioneDB = istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
@@ -94,10 +115,15 @@ public class AreaTematicaDAO {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return false;
+		
 	}
 	
+	
+	
 	public void aggiungiAreaTematica(String areaTematica) {
+		
 		try {
 			connessioneDB = istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
@@ -108,10 +134,14 @@ public class AreaTematicaDAO {
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
-		}		
+		}
+		
 	}
 	
+	
+	
 	public void assegnaAreeTematicheAdUnCorso(String areeTematiche,String codiceCorso) {
+		
 		try {
 			connessioneDB = istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
@@ -122,7 +152,8 @@ public class AreaTematicaDAO {
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
-		}		
+		}
+		
 	}
 	
 

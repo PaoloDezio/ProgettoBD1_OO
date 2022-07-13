@@ -7,15 +7,18 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 public class StudenteDAO {
+	
 	private ConnessioneDB istanzaDB;
 	private Connection connessioneDB = null;
-	
 	
 	public StudenteDAO() {
 		istanzaDB=ConnessioneDB.getIstanza();
 	}
 	
+	
+	//METODI
 	public void salvaStudente(String nome,String cognome,Date dataDiNascita,String luogoDiNascita, String codiceFiscale)  {
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 			
@@ -29,9 +32,13 @@ public class StudenteDAO {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
+	
+	
 	public boolean IsStudenteInDB(String nome,String cognome,Date dataDiNascita,String luogoDiNascita) {
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
@@ -53,11 +60,17 @@ public class StudenteDAO {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return false;
+		
 	}
 	
+	
+	
 	public String recuperaCodiceStudente(String nome,String cognome,Date dataDiNascita,String luogoDiNascita) {
+		
 		String codiceStudente="";
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
@@ -75,14 +88,19 @@ public class StudenteDAO {
 			st.close();
 			rs.close();
 			istanzaDB.closeConnectionToDB();
-		} catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		return codiceStudente;
+		
 	}
 	
+	
+	
 	public boolean isStudenteIscrittoAdUnCorso(String codiceStudente,String codiceCorso) {
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 			
@@ -100,10 +118,15 @@ public class StudenteDAO {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return false;
+		
 	}
 	
+	
+	
 	public void iscriviStudente(String codiceStudente,String codiceCorso) {
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
@@ -113,15 +136,19 @@ public class StudenteDAO {
 			st.close();
 			istanzaDB.closeConnectionToDB();
 
-		} catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 	}
 	
 	
+	
 	public Vector<Vector<String>> recuperaIscrittiAdUnCorso(String codiceCorso){
+		
 		Vector<Vector<String>> iscritti = new Vector<Vector<String>>();
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
@@ -145,12 +172,17 @@ public class StudenteDAO {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return iscritti;
-	};
+		
+	}
 	
+
 	
 	public Vector<Vector<String>> recuperaStudentiIdonei(String codiceCorso){
+		
 		Vector<Vector<String>> studentiIdonei = new Vector<Vector<String>>();
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
@@ -172,12 +204,17 @@ public class StudenteDAO {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return studentiIdonei;
-	};
+		
+	}
 
 	
+	
 	public ArrayList<String> recuperaPartecipantiAdUnaLezione(String codiceLezione) {
+		
 		ArrayList<String> codiciStudenti = new ArrayList<String>();
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
@@ -199,7 +236,11 @@ public class StudenteDAO {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return codiciStudenti;
+		
 	}
 
+	
+	
 }

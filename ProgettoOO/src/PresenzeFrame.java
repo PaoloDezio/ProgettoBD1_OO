@@ -26,9 +26,9 @@ public class PresenzeFrame extends JFrame {
 	private JButton presenteButton;
 	private JTable presenzeTable;
 	private DefaultTableModel presenzeDTM;
-	private JScrollPane scrollPane;
+	private JScrollPane presenzeScrollPane;
 	
-
+	//GETTERS AND SETTERS
 	public JTable getPresenzeTable() {
 		return presenzeTable;
 	}
@@ -45,13 +45,17 @@ public class PresenzeFrame extends JFrame {
 		this.presenzeDTM = presenzeDTM;
 	}
 	
-
+	
+	
 	public PresenzeFrame(Controller mainController) {
-		setTitle("Presenze");
+		
 		controller = mainController;
 		
+		setTitle("Presenze");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		
+		//CONTENT PANE
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -64,6 +68,7 @@ public class PresenzeFrame extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 		
 		
+		//PRESENZE DEFAULT TABLE MODEL
 		presenzeDTM = new DefaultTableModel() {
 			@Override
 			public boolean isCellEditable(int row,int column) {
@@ -75,38 +80,50 @@ public class PresenzeFrame extends JFrame {
 		presenzeDTM.addColumn("Nome");
 		presenzeDTM.addColumn("Presenza");
 		
-		scrollPane = new JScrollPane();
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridwidth = 3;
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPane.gridx = 0;
-		gbc_scrollPane.gridy = 0;
-		contentPane.add(scrollPane, gbc_scrollPane);
 		
+		//PRESENZE SCROLL PANE
+		presenzeScrollPane = new JScrollPane();
+		GridBagConstraints gbc_presenzeScrollPane = new GridBagConstraints();
+		gbc_presenzeScrollPane.fill = GridBagConstraints.BOTH;
+		gbc_presenzeScrollPane.gridwidth = 3;
+		gbc_presenzeScrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_presenzeScrollPane.gridx = 0;
+		gbc_presenzeScrollPane.gridy = 0;
+		contentPane.add(presenzeScrollPane, gbc_presenzeScrollPane);
+		
+		
+		//PRESENZE TABLE
 		presenzeTable = new JTable();
 		presenzeTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		presenzeTable.setForeground(new Color(0, 0, 0));
-		scrollPane.setViewportView(presenzeTable);
+		presenzeScrollPane.setViewportView(presenzeTable);
 		presenzeTable.setModel(presenzeDTM);
 		
 		
+		//INDIETRO BUTTON
 		JButton IndietroButton = new JButton("Indietro");
+		
+		//INDIETRO BUTTON ACTION LISTENER
 		IndietroButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
 				
+				setVisible(false);
 			}
 		});
+		
 		GridBagConstraints gbc_IndietroButton = new GridBagConstraints();
 		gbc_IndietroButton.insets = new Insets(0, 0, 0, 5);
 		gbc_IndietroButton.gridx = 1;
 		gbc_IndietroButton.gridy = 1;
 		contentPane.add(IndietroButton, gbc_IndietroButton);
 		
+		//PRESENTE BUTTON
 		presenteButton = new JButton("Presente");
+		
+		//PRESENTE BUTTON ACTION LISTENER
 		presenteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				if(presenzeTable.getSelectedRow()<0) {
 					JOptionPane.showMessageDialog(contentPane,"Selezionare uno studente","",JOptionPane.INFORMATION_MESSAGE);
 				}
@@ -124,6 +141,7 @@ public class PresenzeFrame extends JFrame {
 				}
 			}
 		});
+		
 		GridBagConstraints gbc_presenteButton = new GridBagConstraints();
 		gbc_presenteButton.gridx = 3;
 		gbc_presenteButton.gridy = 1;

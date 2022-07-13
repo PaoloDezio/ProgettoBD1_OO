@@ -39,7 +39,7 @@ public class LezioniFrame extends JFrame {
 	private Vector<Vector<String>> iscritti;
 	private ArrayList<String> partecipanti;
 
-	
+	//GETTERS AND SETTERS
 	public JTable getLezioniTable() {
 		return lezioniTable;
 	}
@@ -64,7 +64,6 @@ public class LezioniFrame extends JFrame {
 		this.listaLezioni = listaLezioni;
 	}
 
-
 	public JLabel getNomeCorsoLabel() {
 		return nomeCorsoLabel;
 	}
@@ -73,12 +72,18 @@ public class LezioniFrame extends JFrame {
 		this.nomeCorsoLabel = nomeCorsoLabel;
 	}
 
+	
+	
 	public LezioniFrame(Controller mainController) {
-		controller=mainController;
-		setTitle("Lezioni");
 		
+		controller=mainController;
+		
+		setTitle("Lezioni");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1000, 370);
+		
+		
+		//CONTENT PANE
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -91,6 +96,7 @@ public class LezioniFrame extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 		
 		
+		//LEZIONI DEFAULT TABLE MODEL
 		lezioniDTM = new DefaultTableModel(){
 			@Override
 			public boolean isCellEditable(int row,int column) {
@@ -105,11 +111,17 @@ public class LezioniFrame extends JFrame {
 		lezioniDTM.addColumn("Aula");
 		lezioniDTM.addColumn("Piattaforma");
 		
+		
+		//AGGIUNGI BUTTON
 		aggiungiButton = new JButton("Aggiungi");
 		aggiungiButton.setFont(new Font("Century", Font.PLAIN, 16));
+		
+		//AGGIUNGI BUTTON ACTION LISTENER
 		aggiungiButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				setAlwaysOnTop(false);
+				
 				controller.getAggiungiLezioneFrame().setAlwaysOnTop(true);
 				controller.getAggiungiLezioneFrame().getNomeCorsoLabel().setText(nomeCorsoLabel.getText());
 				controller.getAggiungiLezioneFrame().setVisible(true);
@@ -127,6 +139,7 @@ public class LezioniFrame extends JFrame {
 				controller.getAggiungiLezioneFrame().getPiattaformaLabel().setVisible(false);
 			}
 		});
+		
 		GridBagConstraints gbc_aggiungiButton = new GridBagConstraints();
 		gbc_aggiungiButton.anchor = GridBagConstraints.WEST;
 		gbc_aggiungiButton.insets = new Insets(0, 0, 5, 5);
@@ -134,6 +147,8 @@ public class LezioniFrame extends JFrame {
 		gbc_aggiungiButton.gridy = 3;
 		contentPane.add(aggiungiButton, gbc_aggiungiButton);
 		
+		
+		//NOME CORSO LABEL
 		nomeCorsoLabel = new JLabel("");
 		nomeCorsoLabel.setFont(new Font("Century", Font.PLAIN, 23));
 		GridBagConstraints gbc_nomeCorsoLabel = new GridBagConstraints();
@@ -145,6 +160,7 @@ public class LezioniFrame extends JFrame {
 		contentPane.add(nomeCorsoLabel, gbc_nomeCorsoLabel);
 	
 		
+		//LEZIONI LABEL
 		lezioniLabel = new JLabel("Lezioni");
 		lezioniLabel.setFont(new Font("Century", Font.PLAIN, 22));
 		GridBagConstraints gbc_lezioniLabel = new GridBagConstraints();
@@ -154,6 +170,8 @@ public class LezioniFrame extends JFrame {
 		gbc_lezioniLabel.gridy = 2;
 		contentPane.add(lezioniLabel, gbc_lezioniLabel);
 		
+		
+		//LEZIONI SCROLL PANE
 		JScrollPane lezioniScrollPane = new JScrollPane();
 		GridBagConstraints gbc_lezioniScrollPane = new GridBagConstraints();
 		gbc_lezioniScrollPane.gridheight = 5;
@@ -164,17 +182,24 @@ public class LezioniFrame extends JFrame {
 		gbc_lezioniScrollPane.gridy = 3;
 		contentPane.add(lezioniScrollPane, gbc_lezioniScrollPane);
 		
+		
+		//LEZIONI TABLE
 		lezioniTable = new JTable();
+		
+		//LEZIONI TABLE MOUSE LISTENER
 		lezioniTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				
 				if(controller.getAggiungiLezioneFrame().isVisible()||controller.getModificaLezioneFrame().isVisible()||controller.getPresenzeFrame().isVisible()) {
 					lezioniTable.setEnabled(false);
-				}else {
+				}
+				else {
 					lezioniTable.setEnabled(true);
 				}
 			}
 		});
+		
 		lezioniTable.setFont(new Font("Century", Font.PLAIN, 14));
 		lezioniScrollPane.setViewportView(lezioniTable);
 		
@@ -186,33 +211,37 @@ public class LezioniFrame extends JFrame {
 		lezioniTable.getColumnModel().getColumn(5).setPreferredWidth(50);
 
 
+		//MODIFICA BUTTON
 		modificaButton = new JButton("Modifica");
 		modificaButton.setFont(new Font("Century", Font.PLAIN, 16));
+		
+		//MODIFICA BUTTON ACTION LISTENER
 		modificaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				if(lezioniTable.getSelectedRow()<=-1 || lezioniTable.getSelectedRow()>lezioniTable.getRowCount()) {
 					JOptionPane.showMessageDialog(contentPane,"Selezionare una lezione","",JOptionPane.INFORMATION_MESSAGE);
-					
 				}
-				else {controller.getModificaLezioneFrame().setVisible(true);
-				setAlwaysOnTop(false);
+				else {
 				
-				controller.getModificaLezioneFrame().setAlwaysOnTop(true);
-				controller.getModificaLezioneFrame().getTitoloTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),1).toString());
-				controller.getModificaLezioneFrame().getDescrizioneTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),2).toString());
-				controller.getModificaLezioneFrame().getDurataCB().setSelectedItem(controller.recuperaDurata(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),0).toString())+" minuti");
-				controller.getModificaLezioneFrame().getDataTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),3).toString().substring(0,11));
-				controller.getModificaLezioneFrame().getOraCB().setSelectedItem(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),3).toString().substring(11));
-				controller.getModificaLezioneFrame().getDocentiCB().setSelectedItem(controller.recuperaDocente(controller.recuperaCodiceDocenteDaLezione(lezioniTable.getValueAt(lezioniTable.getSelectedRow(), 0).toString())));					
-				controller.getModificaLezioneFrame().getSedeTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),4).toString());
-				controller.getModificaLezioneFrame().getAulaTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),5).toString());
+					setAlwaysOnTop(false);
 				
-				controller.getGestioneCorsiFrame().getCorsiTable().setEnabled(true);
+					controller.getModificaLezioneFrame().setVisible(true);
+					controller.getModificaLezioneFrame().setAlwaysOnTop(true);
+					controller.getModificaLezioneFrame().getTitoloTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),1).toString());
+					controller.getModificaLezioneFrame().getDescrizioneTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),2).toString());
+					controller.getModificaLezioneFrame().getDurataCB().setSelectedItem(controller.recuperaDurata(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),0).toString())+" minuti");
+					controller.getModificaLezioneFrame().getDataTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),3).toString().substring(0,11));
+					controller.getModificaLezioneFrame().getOraCB().setSelectedItem(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),3).toString().substring(11));
+					controller.getModificaLezioneFrame().getDocentiCB().setSelectedItem(controller.recuperaDocente(controller.recuperaCodiceDocenteDaLezione(lezioniTable.getValueAt(lezioniTable.getSelectedRow(), 0).toString())));					
+					controller.getModificaLezioneFrame().getSedeTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),4).toString());
+					controller.getModificaLezioneFrame().getAulaTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),5).toString());
 					
-				}
-				
+					controller.getGestioneCorsiFrame().getCorsiTable().setEnabled(true);	
+				}		
 			}
 		});
+		
 		GridBagConstraints gbc_modificaButton = new GridBagConstraints();
 		gbc_modificaButton.anchor = GridBagConstraints.WEST;
 		gbc_modificaButton.insets = new Insets(0, 0, 5, 5);
@@ -220,22 +249,29 @@ public class LezioniFrame extends JFrame {
 		gbc_modificaButton.gridy = 4;
 		contentPane.add(modificaButton, gbc_modificaButton);
 		
+		//ELIMINA BUTTON
 		eliminaButton = new JButton("Elimina");
 		eliminaButton.setFont(new Font("Century", Font.PLAIN, 16));
+		
+		//ELIMINA BUTTON ACTION LISTENER
 		eliminaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				if(lezioniTable.getSelectedRow()<=-1 || lezioniTable.getSelectedRow()>lezioniTable.getRowCount()) {
 					JOptionPane.showMessageDialog(contentPane,"Selezionare una lezione","",JOptionPane.INFORMATION_MESSAGE);
 				}
-				else {controller.eliminaLezione(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),0).toString());
-				lezioniDTM.getDataVector().removeAllElements();
-				listaLezioni=controller.recuperaLezioni(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(), 0).toString());
-				lezioniDTM=controller.setDefaultTableModel(lezioniDTM, listaLezioni);
-				lezioniTable.setModel(lezioniDTM);
+				else {
+					controller.eliminaLezione(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),0).toString());
+					lezioniDTM.getDataVector().removeAllElements();
+					listaLezioni=controller.recuperaLezioni(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(), 0).toString());
+					lezioniDTM=controller.setDefaultTableModel(lezioniDTM, listaLezioni);
 					
+					lezioniTable.clearSelection();
+					lezioniTable.setModel(lezioniDTM);				
 				}
 			}
 		});
+		
 		GridBagConstraints gbc_eliminaButton = new GridBagConstraints();
 		gbc_eliminaButton.anchor = GridBagConstraints.WEST;
 		gbc_eliminaButton.insets = new Insets(0, 0, 5, 5);
@@ -243,40 +279,48 @@ public class LezioniFrame extends JFrame {
 		gbc_eliminaButton.gridy = 5;
 		contentPane.add(eliminaButton, gbc_eliminaButton);
 		
+		
+		//PRESENZE BUTTON
 		presenzeButton = new JButton("Presenze");
 		presenzeButton.setFont(new Font("Century", Font.PLAIN, 16));
+		
+		//PRESENZE BUTTON ACTION LISTENER
 		presenzeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				if(lezioniTable.getSelectedRow()<=-1 || lezioniTable.getSelectedRow()>lezioniTable.getRowCount()) {
-
 					JOptionPane.showMessageDialog(contentPane,"Selezionare una lezione","",JOptionPane.INFORMATION_MESSAGE);
 				}
-				else {		controller.getPresenzeFrame().getPresenzeDTM().getDataVector().removeAllElements();
-				iscritti=controller.recuperaIscrittiAdUnCorso(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(), 0).toString());
-				controller.getPresenzeFrame().setPresenzeDTM(controller.setDefaultTableModel(controller.getPresenzeFrame().getPresenzeDTM(), iscritti));
-				controller.getPresenzeFrame().getPresenzeTable().setModel(controller.getPresenzeFrame().getPresenzeDTM());
-				controller.getPresenzeFrame().setVisible(true);
-				setAlwaysOnTop(false);
-				controller.getPresenzeFrame().setAlwaysOnTop(true);
-				partecipanti = controller.recuperaPartecipantiAdUnaLezione(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),0).toString());
-				int count=0;						
-
-				for(Vector vettore: iscritti) {
-					for(String codiciStudenti: partecipanti) {
-						if(codiciStudenti.equals(vettore.get(0))){
-							controller.getPresenzeFrame().getPresenzeTable().setValueAt("Presente", count,3);
-						}
-					}
-					if(controller.getPresenzeFrame().getPresenzeTable().getValueAt(count,3)==null) {
-
-						controller.getPresenzeFrame().getPresenzeTable().setValueAt("Assente", count,3);
-					}
-					count++;
-				}
+				else {
+					controller.getPresenzeFrame().getPresenzeDTM().getDataVector().removeAllElements();
+					iscritti=controller.recuperaIscrittiAdUnCorso(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(), 0).toString());
 					
+					controller.getPresenzeFrame().setPresenzeDTM(controller.setDefaultTableModel(controller.getPresenzeFrame().getPresenzeDTM(), iscritti));
+					controller.getPresenzeFrame().getPresenzeTable().setModel(controller.getPresenzeFrame().getPresenzeDTM());
+					controller.getPresenzeFrame().setVisible(true);
+					controller.getPresenzeFrame().setAlwaysOnTop(true);
+					
+					setAlwaysOnTop(false);
+					
+					partecipanti = controller.recuperaPartecipantiAdUnaLezione(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),0).toString());
+					
+					int count=0;						
+
+					for(Vector vettore: iscritti) {
+						for(String codiciStudenti: partecipanti) {
+							if(codiciStudenti.equals(vettore.get(0))){
+								controller.getPresenzeFrame().getPresenzeTable().setValueAt("Presente", count,3);
+							}
+						}
+						if(controller.getPresenzeFrame().getPresenzeTable().getValueAt(count,3)==null) {
+							controller.getPresenzeFrame().getPresenzeTable().setValueAt("Assente", count,3);
+						}
+						count++;
+					}	
 				}
 			}
 		});
+		
 		GridBagConstraints gbc_presenzeButton = new GridBagConstraints();
 		gbc_presenzeButton.anchor = GridBagConstraints.WEST;
 		gbc_presenzeButton.insets = new Insets(0, 0, 5, 5);
@@ -284,22 +328,26 @@ public class LezioniFrame extends JFrame {
 		gbc_presenzeButton.gridy = 6;
 		contentPane.add(presenzeButton, gbc_presenzeButton);
 		
+		
+		//INDIETRO BUTTON
 		indietroButton = new JButton("Indietro");
+		
+		//INDIETRO BUTTON ACTION LISTENER
 		indietroButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				controller.getLezioniFrame().setVisible(false);
 				controller.getModificaLezioneFrame().setVisible(false);
 			}
 		});
+		
 		indietroButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_indietroButton = new GridBagConstraints();
 		gbc_indietroButton.insets = new Insets(0, 0, 0, 5);
 		gbc_indietroButton.gridx = 1;
 		gbc_indietroButton.gridy = 9;
 		contentPane.add(indietroButton, gbc_indietroButton);
-	
 	}
-
 
 
 

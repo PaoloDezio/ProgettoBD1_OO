@@ -2,6 +2,7 @@ import java.sql.*;
 import java.util.Vector;
 
 public class CorsoDAO {
+	
 	private ConnessioneDB istanzaDB;
 	private Connection connessioneDB = null;
 	
@@ -9,7 +10,10 @@ public class CorsoDAO {
 		istanzaDB=ConnessioneDB.getIstanza();
 	}
 	
+	
+	//METODI
 	public void aggiungiCorso(String nomeCorso,String descrizione,String numeroMassimoPartecipanti,String numeroLezioni,String dataDiInizio,String codiceResponsabile) {
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();	
 			Statement statement = connessioneDB.createStatement();
@@ -23,11 +27,15 @@ public class CorsoDAO {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	
+	
 	public String recuperaCodiceCorso(String nome) {
+		
 		String codiceCorso="";
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
@@ -41,16 +49,21 @@ public class CorsoDAO {
 			statement.close();
 			resultSet.close();
 			istanzaDB.closeConnectionToDB();
-		} catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		return codiceCorso;
+		
 	}
 	
 	
+	
 	public int contaCorsi() {
+		
 		int numeroCorsi=0;
+		
 		try {
 			connessioneDB = istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
@@ -65,12 +78,18 @@ public class CorsoDAO {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return numeroCorsi;
+		
 	}
 	
+	
+	
 	public String[] recuperaCorsi(int numeroCorsi) {
+		
 		String[] corsi = new String[numeroCorsi]; 
 		int indice=0;
+		
 		try {
 			connessioneDB = istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
@@ -88,12 +107,17 @@ public class CorsoDAO {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return corsi;
+		
 	}
 	
 	
+	
 	public Vector<Vector<String>> recuperaCorsiOrdinatiPer(String ordinamento,String nome,String data,String parolaChiave){
+		
 		Vector<Vector<String>> corsiPerCodiceCorso = new Vector<Vector<String>>();
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
@@ -123,11 +147,17 @@ public class CorsoDAO {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return corsiPerCodiceCorso;
+		
 	}
 	
+	
+	
 	public Vector<Vector<String>> recuperaCorsiPerCategorieOrdinatiPer(String ordinamento,String categorieSelezionate,String nome,String data,String parolaChiave){
+		
 		Vector<Vector<String>> corsi = new Vector<Vector<String>>();
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 			
@@ -158,12 +188,17 @@ public class CorsoDAO {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return corsi;
+		
 	}
 	
 	
+	
 	public Vector<Vector<String>> recuperaCorsiPerUnaCategoriaOrdinatiPer(String ordinamento,String categorieSelezionate,String nome,String data,String parolaChiave){
+		
 		Vector<Vector<String>> corsi = new Vector<Vector<String>>();
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 			
@@ -196,11 +231,15 @@ public class CorsoDAO {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return corsi;
+		
 	}
+	
 		
 	
 	public void modificaCorso(String codiceCorso,String nome,String descrizione,String data,String codiceResponsabile,String categoria,String oldCategoria) {
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
@@ -213,9 +252,13 @@ public class CorsoDAO {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
+	
+	
 	public void eliminaCorso(String codiceCorso) {
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
@@ -228,10 +271,15 @@ public class CorsoDAO {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
+	
+	
 	public String recuperaNomeCorso(String codiceCorso) {
+		
 		String nomeCorso = new String();
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
@@ -248,11 +296,17 @@ public class CorsoDAO {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return nomeCorso;
+		
 	}
 	
+	
+	
 	public String calcolaPresenzeMinime(String codiceCorso) {
+		
 		String numerooPresenzeMinime = new String();
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
@@ -269,12 +323,17 @@ public class CorsoDAO {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return numerooPresenzeMinime;
+		
 	}
 	
 	
+	
 	public String calcolaPresenzeMassime(String codiceCorso) {
+		
 		String numeroPresenzeMassime = new String();
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
@@ -291,12 +350,17 @@ public class CorsoDAO {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return numeroPresenzeMassime;
+		
 	}
 	
 	
+	
 	public String calcolaFrequenzaMedia(String codiceCorso) {
+		
 		String frequenzaMedia = new String();
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
@@ -315,12 +379,17 @@ public class CorsoDAO {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return frequenzaMedia;
+		
 	}
 	
 	
+	
 	public String calcolaPercentualeRiempimentoMedia(String codiceCorso) {
+		
 		String percentualeRiempimentoMedia = new String();
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
@@ -339,8 +408,11 @@ public class CorsoDAO {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return percentualeRiempimentoMedia;
+		
 	}
+	
 	
 	
 }

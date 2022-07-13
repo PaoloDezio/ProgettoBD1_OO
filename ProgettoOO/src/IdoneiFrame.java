@@ -24,6 +24,7 @@ public class IdoneiFrame extends JFrame {
 	private Vector<Vector<String>> studenti;
 	private DefaultTableModel studentiDTM;
 	
+	//GETTERS AND SETTERS
 	public Vector<Vector<String>> getStudenti() {
 		return studenti;
 	}
@@ -44,13 +45,19 @@ public class IdoneiFrame extends JFrame {
 		return studentiIdoneiTable;
 	}
 
+	
+	
 	public IdoneiFrame(Controller mainController) {
-		setTitle("Idonei");
-		setResizable(false);
+		
 		controller = mainController;
 		
+		setTitle("Idonei");
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 600, 330);
+		
+		
+		//CONTENT PANE
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -62,6 +69,8 @@ public class IdoneiFrame extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
+		
+		//IDONEI LABEL
 		JLabel IdoneiLabel = new JLabel("Studenti Idonei");
 		IdoneiLabel.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		GridBagConstraints gbc_IdoneiLabel = new GridBagConstraints();
@@ -71,6 +80,8 @@ public class IdoneiFrame extends JFrame {
 		gbc_IdoneiLabel.gridy = 0;
 		contentPane.add(IdoneiLabel, gbc_IdoneiLabel);
 		
+		
+		//STUDENTI TABLE SCROLLA PANE
 		JScrollPane studentiTableScrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridheight = 6;
@@ -82,6 +93,7 @@ public class IdoneiFrame extends JFrame {
 		contentPane.add(studentiTableScrollPane, gbc_scrollPane);	
 		
 		
+		//STUDENTI DEFAULT TABLE MODEL
 		studentiDTM = new DefaultTableModel(){
 			@Override
 			public boolean isCellEditable(int row,int column) {
@@ -93,6 +105,7 @@ public class IdoneiFrame extends JFrame {
 		studentiDTM.addColumn("Nome");
 		
 		
+		//STUDENTI IDONEI TABLE
 		studentiIdoneiTable = new JTable();
 		studentiIdoneiTable.setModel(studentiDTM);
 		studentiIdoneiTable.setRowSelectionAllowed(false);
@@ -110,10 +123,13 @@ public class IdoneiFrame extends JFrame {
 		studentiIdoneiTable.getColumnModel().getColumn(2).setResizable(false);
 		
 		
-		
+		//INDIETRO BUTTON
 		JButton IndietroButton = new JButton("Indietro");
+		
+		//INDIETRO BUTTON ACTION LISTENER
 		IndietroButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e){
+			
 			controller.getIdoneiFrame().setVisible(false);
 			controller.getStatisticheFrame().setVisible(false);
 			controller.getGestioneCorsiFrame().setEnabled(true);
@@ -130,4 +146,5 @@ public class IdoneiFrame extends JFrame {
 	}
 
 
+	
 }

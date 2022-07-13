@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 public class StatisticheFrame extends JFrame {
+	
 	private JPanel contentPane;
 	private Controller controller;
 	private JTextField presenzeMinimeTF;
@@ -30,7 +31,7 @@ public class StatisticheFrame extends JFrame {
 	private DefaultTableModel iscrittiDTM;
 	private Vector<Vector<String>> iscritti;
 	
-	
+	//GETTERS AND SETTERS
 	public JTable getIscrittiTable() {
 		return iscrittiTable;
 	}
@@ -75,12 +76,18 @@ public class StatisticheFrame extends JFrame {
 		return riempimentoMedioTF;
 	}
 	
+	
+	
 	public StatisticheFrame(Controller mainController) {
+		
 		controller = mainController;
 		
 		setTitle("Statistiche");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1020, 345);
+		
+		
+		//CONTENT PANE
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -92,6 +99,8 @@ public class StatisticheFrame extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
+		
+		//STATISTICHE LABEL
 		JLabel statisticheLabel = new JLabel("Statistiche\r\n");
 		statisticheLabel.setFont(new Font("Century", Font.PLAIN, 25));
 		GridBagConstraints gbc_statisticheLabel = new GridBagConstraints();
@@ -101,6 +110,8 @@ public class StatisticheFrame extends JFrame {
 		gbc_statisticheLabel.gridy = 0;
 		contentPane.add(statisticheLabel, gbc_statisticheLabel);
 		
+		
+		//NOME CORSO LABEL
 		JLabel nomeCorsoLabel = new JLabel("Corso ");
 		nomeCorsoLabel.setAlignmentX(0.5f);
 		nomeCorsoLabel.setFont(new Font("Century", Font.PLAIN, 18));
@@ -111,12 +122,15 @@ public class StatisticheFrame extends JFrame {
 		gbc_nomeCorsoLabel.gridy = 1;
 		contentPane.add(nomeCorsoLabel, gbc_nomeCorsoLabel);
 		
+		
+		//NOME CORSO TEXT FIELD
 		nomeCorsoTF = new JTextField();
 		nomeCorsoTF.setFont(new Font("Century", Font.PLAIN, 16));
 		nomeCorsoTF.setEditable(false);
 		nomeCorsoTF.setColumns(10);
 		nomeCorsoTF.setBorder(null);
 		nomeCorsoTF.setBackground(new Color(30, 144, 255));
+		
 		GridBagConstraints gbc_corsoTF = new GridBagConstraints();
 		gbc_corsoTF.gridwidth = 2;
 		gbc_corsoTF.insets = new Insets(0, 0, 5, 5);
@@ -125,6 +139,8 @@ public class StatisticheFrame extends JFrame {
 		gbc_corsoTF.gridy = 1;
 		contentPane.add(nomeCorsoTF, gbc_corsoTF);
 		
+		
+		//ISCRITTI SCROLL PANE
 		iscrittiScrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridheight = 5;
@@ -135,6 +151,7 @@ public class StatisticheFrame extends JFrame {
 		contentPane.add(iscrittiScrollPane, gbc_scrollPane);
 		
 		
+		//ISCRITTI DTM
 		iscrittiDTM = new DefaultTableModel() {
 			@Override
 			public boolean isCellEditable(int row,int column) {
@@ -145,12 +162,16 @@ public class StatisticheFrame extends JFrame {
 		iscrittiDTM.addColumn("Cognome");
 		iscrittiDTM.addColumn("Nome");
 		
+		
+		//ISCRITTI TABLE
 		iscrittiTable = new JTable();
 		iscrittiTable.setFont(new Font("Century", Font.PLAIN, 14));
 		iscrittiTable.setModel(iscrittiDTM);
 		iscrittiTable.setRowSelectionAllowed(false);
 		iscrittiScrollPane.setViewportView(iscrittiTable);
 		
+		
+		//PRESENZE MINIME LABEL
 		JLabel presenzeMinimeLabel = new JLabel("Presenze minime");
 		presenzeMinimeLabel.setAlignmentX(0.5f);
 		presenzeMinimeLabel.setFont(new Font("Century", Font.PLAIN, 18));
@@ -161,6 +182,8 @@ public class StatisticheFrame extends JFrame {
 		gbc_presenzeMinimeLabel.gridy = 2;
 		contentPane.add(presenzeMinimeLabel, gbc_presenzeMinimeLabel);
 		
+		
+		//PRESENZE MINIME TEXT FIELD
 		presenzeMinimeTF = new JTextField();
 		presenzeMinimeTF.setBorder(null);
 		presenzeMinimeTF.setBackground(new Color(30, 144, 255));
@@ -174,6 +197,8 @@ public class StatisticheFrame extends JFrame {
 		contentPane.add(presenzeMinimeTF, gbc_presenzeMinimeTF);
 		presenzeMinimeTF.setColumns(10);
 		
+		
+		//PRESENZE MASSIME LABEL
 		JLabel presenzeMassimeLabel = new JLabel("Presenze massime");
 		presenzeMassimeLabel.setAlignmentX(0.5f);
 		presenzeMassimeLabel.setFont(new Font("Century", Font.PLAIN, 18));
@@ -184,6 +209,8 @@ public class StatisticheFrame extends JFrame {
 		gbc_presenzeMassimeLabel.gridy = 3;
 		contentPane.add(presenzeMassimeLabel, gbc_presenzeMassimeLabel);
 		
+		
+		//PRESENZE MASSIME TEXT FIELD
 		presenzeMassimeTF = new JTextField();
 		presenzeMassimeTF.setBorder(null);
 		presenzeMassimeTF.setBackground(new Color(30, 144, 255));
@@ -197,6 +224,8 @@ public class StatisticheFrame extends JFrame {
 		contentPane.add(presenzeMassimeTF, gbc_presenzeMassimeTF);
 		presenzeMassimeTF.setColumns(10);
 		
+		
+		//FREQUENZA MEDIA LABEL
 		JLabel frequenzaMediaLabel = new JLabel("Frequenza media");
 		frequenzaMediaLabel.setAlignmentX(0.5f);
 		frequenzaMediaLabel.setFont(new Font("Century", Font.PLAIN, 18));
@@ -207,6 +236,8 @@ public class StatisticheFrame extends JFrame {
 		gbc_frequenzaMediaLabel.gridy = 4;
 		contentPane.add(frequenzaMediaLabel, gbc_frequenzaMediaLabel);
 		
+		
+		//FREQUENZA MEDIA TEXT FIELD
 		frequenzaMediaTF = new JTextField();
 		frequenzaMediaTF.setBorder(null);
 		frequenzaMediaTF.setBackground(new Color(30, 144, 255));
@@ -220,6 +251,8 @@ public class StatisticheFrame extends JFrame {
 		contentPane.add(frequenzaMediaTF, gbc_frequenzaMediaTF);
 		frequenzaMediaTF.setColumns(10);
 		
+		
+		//RIEMPIMENTO MEDIO LABEL
 		JLabel riempimentoMedioLabel = new JLabel("Riempimento medio");
 		riempimentoMedioLabel.setAlignmentX(0.5f);
 		riempimentoMedioLabel.setFont(new Font("Century", Font.PLAIN, 18));
@@ -230,6 +263,8 @@ public class StatisticheFrame extends JFrame {
 		gbc_riempimentoMedioLabel.gridy = 5;
 		contentPane.add(riempimentoMedioLabel, gbc_riempimentoMedioLabel);
 		
+		
+		//RIEMPIMENTO MEDIO TEXT FIELD
 		riempimentoMedioTF = new JTextField();
 		riempimentoMedioTF.setBorder(null);
 		riempimentoMedioTF.setBackground(new Color(30, 144, 255));
@@ -242,16 +277,20 @@ public class StatisticheFrame extends JFrame {
 		gbc_riempimentoMedioTF.gridy = 5;
 		contentPane.add(riempimentoMedioTF, gbc_riempimentoMedioTF);
 		riempimentoMedioTF.setColumns(10);
-
+		
+		
+		//INDIETRO BUTTON
 		JButton indietroButton = new JButton("Indietro");
+		
+		//INDIETRO BUTTON ACTION LISTENER
 		indietroButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				controller.getStatisticheFrame().setVisible(false);
 				controller.getIdoneiFrame().setVisible(false);
-				controller.getGestioneCorsiFrame().setEnabled(true);
-				controller.getGestioneCorsiFrame().setVisible(true);
 			}
 		});
+		
 		indietroButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_indietroButton = new GridBagConstraints();
 		gbc_indietroButton.insets = new Insets(0, 0, 0, 5);
@@ -259,9 +298,14 @@ public class StatisticheFrame extends JFrame {
 		gbc_indietroButton.gridy = 7;
 		contentPane.add(indietroButton, gbc_indietroButton);
 		
+		
+		//IDONEI BUTTON
 		JButton idoneiButton = new JButton("Idonei");
+		
+		//IDONEI BUTTON ACTION LISTENER
 		idoneiButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				controller.getIdoneiFrame().setVisible(true);
 				controller.getIdoneiFrame().getStudentiDTM().getDataVector().removeAllElements();
 				controller.getIdoneiFrame().setStudenti(controller.recuperaStudentiIdonei(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(),0).toString()));
@@ -270,6 +314,7 @@ public class StatisticheFrame extends JFrame {
 				controller.getIdoneiFrame().getStudentiIdoneiTable().setModel(controller.getIdoneiFrame().getStudentiDTM());
 			}
 		});
+		
 		idoneiButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_idoneiButton = new GridBagConstraints();
 		gbc_idoneiButton.insets = new Insets(0, 0, 0, 5);
@@ -280,4 +325,5 @@ public class StatisticheFrame extends JFrame {
 	}
 
 
+	
 }

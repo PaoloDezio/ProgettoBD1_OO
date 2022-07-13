@@ -18,6 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 
 public class AggiungiLezioneFrame extends JFrame {
+	
 	private Controller controller;
 	private JPanel contentPane;
 	private JTextField titoloTF;
@@ -25,6 +26,7 @@ public class AggiungiLezioneFrame extends JFrame {
 	private JComboBox<String> durataCB;
 	private JTextField dataTF;
 	private DefaultComboBoxModel<String> oraCBM;
+	private DefaultComboBoxModel<String> durataCBM;
 	private JComboBox<String> oraCB;
 	private DefaultComboBoxModel<String> docentiCBM;
 	private JComboBox<String> docentiCB;
@@ -36,6 +38,7 @@ public class AggiungiLezioneFrame extends JFrame {
 	private JLabel nomeCorsoLabel;
 	private JCheckBox onlineCheckBox;
 	
+	//GETTERS AND SETTERS
 	public JTextField getTitoloTF() {
 		return titoloTF;
 	}
@@ -91,12 +94,20 @@ public class AggiungiLezioneFrame extends JFrame {
 	public void setNomeCorsoLabel(JLabel nomeCorsoLabel) {
 		this.nomeCorsoLabel = nomeCorsoLabel;
 	}
-
+	
+	
+	
 	public AggiungiLezioneFrame(Controller mainController) {
-		setTitle("AggiungiLezione");
+		
 		controller=mainController;
+		
+		
+		setTitle("AggiungiLezione");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 560, 490);
+		
+		
+		//CONTENT PANE
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -108,6 +119,8 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
+		
+		//AGGIUNGI LEZIONE LABEL
 		JLabel aggiungiLezioneLabel = new JLabel("Aggiungi Lezione");
 		aggiungiLezioneLabel.setFont(new Font("Century", Font.PLAIN, 25));
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -119,6 +132,8 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_lblNewLabel_1.gridy = 0;
 		contentPane.add(aggiungiLezioneLabel, gbc_lblNewLabel_1);
 		
+		
+		//CORSO LABEL
 		JLabel CorsoLabel = new JLabel("Corso");
 		CorsoLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_CorsoLabel = new GridBagConstraints();
@@ -129,6 +144,8 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_CorsoLabel.gridy = 2;
 		contentPane.add(CorsoLabel, gbc_CorsoLabel);
 		
+		
+		//NOME CORSO LABEL
 		nomeCorsoLabel = new JLabel("");
 		nomeCorsoLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_nomeCorsoLabel = new GridBagConstraints();
@@ -139,6 +156,7 @@ public class AggiungiLezioneFrame extends JFrame {
 		contentPane.add(nomeCorsoLabel, gbc_nomeCorsoLabel);
 		
 		
+		//TITOLO LABEL
 		JLabel titoloLabel = new JLabel("Titolo");
 		titoloLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_titoloLabel = new GridBagConstraints();
@@ -149,6 +167,8 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_titoloLabel.gridy = 3;
 		contentPane.add(titoloLabel, gbc_titoloLabel);
 		
+		
+		//TITOLO TEXTFIELD
 		titoloTF = new JTextField();
 		titoloTF.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_titoloTF = new GridBagConstraints();
@@ -159,6 +179,8 @@ public class AggiungiLezioneFrame extends JFrame {
 		contentPane.add(titoloTF, gbc_titoloTF);
 		titoloTF.setColumns(10);
 		
+		
+		//DESCRIZIONE LABEL
 		JLabel descrizioneLabel = new JLabel("Descrizione");
 		descrizioneLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_descrizioneLabel = new GridBagConstraints();
@@ -169,6 +191,8 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_descrizioneLabel.gridy = 4;
 		contentPane.add(descrizioneLabel, gbc_descrizioneLabel);
 		
+		
+		//DESCRIZIONE TEXT FIELD
 		descrizioneTF = new JTextField();
 		descrizioneTF.setFont(new Font("Century", Font.PLAIN, 16));
 		descrizioneTF.setColumns(10);
@@ -179,6 +203,8 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_descrizioneTF.gridy = 4;
 		contentPane.add(descrizioneTF, gbc_descrizioneTF);
 		
+		
+		//DURATA LABEL
 		JLabel durataLabel = new JLabel("Durata");
 		durataLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_durataLabel = new GridBagConstraints();
@@ -190,15 +216,18 @@ public class AggiungiLezioneFrame extends JFrame {
 		contentPane.add(durataLabel, gbc_durataLabel);
 		
 		
-		oraCBM = new DefaultComboBoxModel<String>();
-		oraCBM.addElement("60 minuti");
-		oraCBM.addElement("90 minuti");
-		oraCBM.addElement("120 minuti");
-		oraCBM.addElement("150 minuti");
-		oraCBM.addElement("180 minuti");
+		//DURATA DEFAULT COMBO BOX MODEL
+		durataCBM = new DefaultComboBoxModel<String>();
+		durataCBM.addElement("60 minuti");
+		durataCBM.addElement("90 minuti");
+		durataCBM.addElement("120 minuti");
+		durataCBM.addElement("150 minuti");
+		durataCBM.addElement("180 minuti");
 		
+		
+		//DURATA COMBO BOX
 		durataCB = new JComboBox<String>();
-		durataCB.setModel(oraCBM);
+		durataCB.setModel(durataCBM);
 		durataCB.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_durataCB = new GridBagConstraints();
 		gbc_durataCB.insets = new Insets(0, 0, 5, 5);
@@ -207,6 +236,8 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_durataCB.gridy = 5;
 		contentPane.add(durataCB, gbc_durataCB);
 		
+		
+		//DATA ORA INIZIO LABEL
 		JLabel dataOraInizioLabel = new JLabel("Data e Ora");
 		dataOraInizioLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_dataOraInizioLabel = new GridBagConstraints();
@@ -217,6 +248,8 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_dataOraInizioLabel.gridy = 6;
 		contentPane.add(dataOraInizioLabel, gbc_dataOraInizioLabel);
 		
+		
+		//DATA TEXTFIELD
 		dataTF = new JTextField();
 		dataTF.setFont(new Font("Century", Font.PLAIN, 16));
 		dataTF.setColumns(10);
@@ -227,7 +260,7 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_dataLabel.gridy = 6;
 		contentPane.add(dataTF, gbc_dataLabel);
 		
-		
+		//ORA DEFAULT COMBO BOX MODEL
 		oraCBM = new DefaultComboBoxModel<String>();
 		oraCBM.addElement("08:00");
 		oraCBM.addElement("08:30");
@@ -252,6 +285,7 @@ public class AggiungiLezioneFrame extends JFrame {
 		oraCBM.addElement("18:00");
 		
 		
+		//ORA COMBO BOX
 		oraCB = new JComboBox<String>();
 		oraCB.setModel(oraCBM);
 		oraCB.setFont(new Font("Century", Font.PLAIN, 16));
@@ -262,6 +296,8 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_oraCB.gridy = 6;
 		contentPane.add(oraCB, gbc_oraCB);
 		
+		
+		//DOCENTE LABEL
 		JLabel docenteLabel = new JLabel("Docente");
 		docenteLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_docenteLabel = new GridBagConstraints();
@@ -273,11 +309,15 @@ public class AggiungiLezioneFrame extends JFrame {
 		contentPane.add(docenteLabel, gbc_docenteLabel);
 		
 		
+		//DOCENTI DEFAULT COMBO BOX MODEL
 		docentiCBM = new DefaultComboBoxModel<String>();
+		
 		int numeroDocenti=controller.contaDocenti();
 		String[] docenti = controller.recuperaDocenti(numeroDocenti);
 		docentiCBM = controller.setDefaultComboBoxModel(docentiCBM, docenti);
 				
+		
+		//DOCENTI COMBO BOX
 		docentiCB = new JComboBox<String>();
 		docentiCB.setModel(docentiCBM);
 		docentiCB.setFont(new Font("Century", Font.PLAIN, 16));
@@ -288,6 +328,8 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_docentiCB.gridy = 7;
 		contentPane.add(docentiCB, gbc_docentiCB);
 		
+		
+		//SEDE LABEL
 		JLabel sedeLabel = new JLabel("Sede");
 		sedeLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_sedeLabel = new GridBagConstraints();
@@ -298,6 +340,8 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_sedeLabel.gridy = 8;
 		contentPane.add(sedeLabel, gbc_sedeLabel);
 		
+		
+		//SEDE TEXTFIELD
 		sedeTF = new JTextField();
 		sedeTF.setFont(new Font("Century", Font.PLAIN, 16));
 		sedeTF.setColumns(10);
@@ -308,6 +352,8 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_sedeTF.gridy = 8;
 		contentPane.add(sedeTF, gbc_sedeTF);
 		
+		
+		//AULA LABEL
 		JLabel aulaLabel = new JLabel("Aula");
 		aulaLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_aulaLabel = new GridBagConstraints();
@@ -318,6 +364,8 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_aulaLabel.gridy = 9;
 		contentPane.add(aulaLabel, gbc_aulaLabel);
 		
+		
+		//AULA TEXTFIELD
 		aulaTF = new JTextField();
 		aulaTF.setFont(new Font("Century", Font.PLAIN, 16));
 		aulaTF.setColumns(10);
@@ -328,6 +376,8 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_aulaTF.gridy = 9;
 		contentPane.add(aulaTF, gbc_aulaTF);
 		
+		
+		//ONLINE LABEL
 		JLabel onlineLabel = new JLabel("Online");
 		onlineLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_onlineLabel = new GridBagConstraints();
@@ -338,9 +388,13 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_onlineLabel.gridy = 10;
 		contentPane.add(onlineLabel, gbc_onlineLabel);
 		
+		//ONLINE CHECK BOX
 		onlineCheckBox = new JCheckBox("Si");
+		
+		//ONLINE CHECK BOX ACTION LISTENER
 		onlineCheckBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				if(onlineCheckBox.isSelected()) {
 					piattaformaLabel.setVisible(true);
 					piattaformaTF.setVisible(true);
@@ -351,6 +405,7 @@ public class AggiungiLezioneFrame extends JFrame {
 				}
 			}
 		});
+		
 		onlineCheckBox.setBackground(new Color(30, 144, 255));
 		onlineCheckBox.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
@@ -361,6 +416,7 @@ public class AggiungiLezioneFrame extends JFrame {
 		contentPane.add(onlineCheckBox, gbc_chckbxNewCheckBox);
 		
 		
+		//PIATTAFORMA LABEL
 		piattaformaLabel = new JLabel("Piattaforma");
 		piattaformaLabel.setVisible(false);
 		piattaformaLabel.setFont(new Font("Century", Font.PLAIN, 16));
@@ -372,6 +428,8 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_piattaformaLabel.gridy = 11;
 		contentPane.add(piattaformaLabel, gbc_piattaformaLabel);
 		
+		
+		//PIATTAFORMA TEXTFIELD
 		piattaformaTF = new JTextField();
 		piattaformaTF.setVisible(false);
 		piattaformaTF.setFont(new Font("Century", Font.PLAIN, 16));
@@ -383,11 +441,18 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_piattaformaTF.gridy = 11;
 		contentPane.add(piattaformaTF, gbc_piattaformaTF);
 		
+		
+		//INDIETRO BUTTON
 		JButton indietroButton = new JButton("Indietro");
+		
+		//INDIETRO BUTTON ACTION LISTENER
 		indietroButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				controller.getAggiungiLezioneFrame().setVisible(false);
-				controller.getLezioniFrame().getLezioniTable().setEnabled(true);
+				
+				
+				
 				titoloTF.setText("");
 				descrizioneTF.setText("");
 				durataCB.setSelectedIndex(0);
@@ -402,6 +467,7 @@ public class AggiungiLezioneFrame extends JFrame {
 				piattaformaTF.setText("");
 			}
 		});
+		
 		indietroButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_indietroButton = new GridBagConstraints();
 		gbc_indietroButton.insets = new Insets(0, 0, 0, 5);
@@ -409,9 +475,14 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_indietroButton.gridy = 13;
 		contentPane.add(indietroButton, gbc_indietroButton);
 		
+		
+		//CONFERMA BUTTON
 		confermaButton = new JButton("Conferma");
+		
+		//CONFERMA BUTTON ACTION LISTENER
 		confermaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				String durata = durataCB.getSelectedItem().toString();
 				String dataEOra = dataTF.getText()+" "+oraCB.getSelectedItem();
 				String codiceCorso = controller.recuperaCodiceCorso(nomeCorsoLabel.getText());
@@ -427,26 +498,24 @@ public class AggiungiLezioneFrame extends JFrame {
 						}
 						else {
 							controller.aggiungiLezioneInPresenzaEDaRemoto(titoloTF.getText().toUpperCase(),descrizioneTF.getText().toUpperCase(), durata.substring(0, 2), dataEOra, codiceCorso, codiceDocente, sedeTF.getText().toUpperCase(),aulaTF.getText().toUpperCase(),piattaformaTF.getText().toUpperCase());
+							
 							controller.getAggiungiLezioneFrame().setVisible(false);
-							controller.getLezioniFrame().getLezioniTable().setEnabled(true);
 						}
 					}
 					else {
 						controller.aggiungiLezioneInPresenza(titoloTF.getText().toUpperCase(),descrizioneTF.getText().toUpperCase(), durata.substring(0, 2), dataEOra, codiceCorso, codiceDocente, sedeTF.getText().toUpperCase(),aulaTF.getText().toUpperCase());
+						
 						controller.getAggiungiLezioneFrame().setVisible(false);
-						controller.getLezioniFrame().getLezioniTable().setEnabled(true);
 					}
 					
 					controller.getLezioniFrame().getLezioniDTM().getDataVector().removeAllElements();
 					controller.getLezioniFrame().setListaLezioni(controller.recuperaLezioni(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(), 0).toString()));
 					controller.getLezioniFrame().setLezioniDTM(controller.setDefaultTableModel(controller.getLezioniFrame().getLezioniDTM(),controller.getLezioniFrame().getListaLezioni()));
 					controller.getLezioniFrame().getLezioniTable().setModel(controller.getLezioniFrame().getLezioniDTM());
-					
-				}
-				
-						
+					}
 			}
 		});
+		
 		confermaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_confermaButton = new GridBagConstraints();
 		gbc_confermaButton.anchor = GridBagConstraints.EAST;
@@ -455,7 +524,8 @@ public class AggiungiLezioneFrame extends JFrame {
 		gbc_confermaButton.gridy = 13;
 		contentPane.add(confermaButton, gbc_confermaButton);
 		
-	
 	}
 
+	
+	
 }

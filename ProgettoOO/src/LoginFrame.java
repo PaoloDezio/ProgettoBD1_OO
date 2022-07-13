@@ -33,14 +33,18 @@ public class LoginFrame extends JFrame {
 	private JCheckBox mostraPasswordCheckBox;
 	
 
+	
 	public LoginFrame(Controller mainController) {
+		
 		controller=mainController;
 		
 		setTitle("Login");
 		setBackground(new Color(240, 240, 240));
 		setBounds(375, 175, 580, 285);
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
+		//CONTENT PANE
 		contentPane = new JPanel();
 		contentPane.setMaximumSize(new Dimension(20000, 20000));
 		contentPane.setBackground(new Color(30, 144, 255));
@@ -53,6 +57,8 @@ public class LoginFrame extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
+		
+		//LOGIN LABEL
 		loginLabel = new JLabel("Login");
 		loginLabel.setVerticalAlignment(SwingConstants.TOP);
 		loginLabel.setLabelFor(this);
@@ -65,6 +71,8 @@ public class LoginFrame extends JFrame {
 		gbc_lblNewLabel.gridy = 0;
 		contentPane.add(loginLabel, gbc_lblNewLabel);
 		
+		
+		//USERNAME LABEL
 		usernameLabel = new JLabel("Username");
 		usernameLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_usernameLabel = new GridBagConstraints();
@@ -74,6 +82,8 @@ public class LoginFrame extends JFrame {
 		gbc_usernameLabel.gridy = 1;
 		contentPane.add(usernameLabel, gbc_usernameLabel);
 		
+		
+		//USERNAME TEXT FIELD
 		usernameTF = new JTextField();
 		usernameTF.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_usernameTF = new GridBagConstraints();
@@ -85,6 +95,8 @@ public class LoginFrame extends JFrame {
 		contentPane.add(usernameTF, gbc_usernameTF);
 		usernameTF.setColumns(10);
 		
+		
+		//PASSWORD LABEL
 		passwordLabel = new JLabel("Password");
 		passwordLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_passwordLabel = new GridBagConstraints();
@@ -94,6 +106,8 @@ public class LoginFrame extends JFrame {
 		gbc_passwordLabel.gridy = 2;
 		contentPane.add(passwordLabel, gbc_passwordLabel);
 		
+		
+		//PASSOWRD TEXT FIELD
 		passwordTF = new JPasswordField();
 		passwordTF.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_passwordTF = new GridBagConstraints();
@@ -103,15 +117,22 @@ public class LoginFrame extends JFrame {
 		gbc_passwordTF.gridx = 2;
 		gbc_passwordTF.gridy = 2;
 		contentPane.add(passwordTF, gbc_passwordTF);
+		
+		
+		//MOSTRA PASSWORD CHECK BOX
 		mostraPasswordCheckBox = new JCheckBox("Mostra Password");
+		
+		//MOSTRA PASSWORD CHECK BOX ITEM LISTENER
 		mostraPasswordCheckBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
+				
 				if(e.getStateChange()==1)
 					passwordTF.setEchoChar((char)0);
 				else
 					passwordTF.setEchoChar('\u25CF');
 			}
 		});
+		
 		mostraPasswordCheckBox.setFont(new Font("Century", Font.PLAIN, 14));
 		mostraPasswordCheckBox.setBackground(new Color(30, 144, 255));
 		GridBagConstraints gbc_mostraPasswordCheckBox = new GridBagConstraints();
@@ -121,12 +142,18 @@ public class LoginFrame extends JFrame {
 		gbc_mostraPasswordCheckBox.gridy = 3;
 		contentPane.add(mostraPasswordCheckBox, gbc_mostraPasswordCheckBox);
 		
+		
+		//ACCEDI BUTTON
 		accediButton = new JButton("Accedi");
 		accediButton.setBackground(new Color(255, 255, 255));
+		
+		//ACCEDI BUTTON ACTION LISTENER
 		accediButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				String username = usernameTF.getText();
 				String password= new String(passwordTF.getPassword());
+				
 				if(username.isEmpty() && password.isEmpty()) {
 					JOptionPane.showMessageDialog(contentPane,"Inserire un Username e una Password","",JOptionPane.WARNING_MESSAGE);
 				}
@@ -134,6 +161,7 @@ public class LoginFrame extends JFrame {
 					if(mainController.checkResponsabile(username,password)==true) {
 						mainController.getLoginFrame().setVisible(false);
 						mainController.getHomeFrame().setVisible(true);
+						
 						usernameTF.setText("");
 						passwordTF.setText("");
 					}
@@ -146,14 +174,14 @@ public class LoginFrame extends JFrame {
 			}
 		});
 		
-		
 		accediButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_accediButton = new GridBagConstraints();
 		gbc_accediButton.insets = new Insets(0, 0, 5, 5);
 		gbc_accediButton.gridx = 6;
 		gbc_accediButton.gridy = 4;
-		
 		contentPane.add(accediButton, gbc_accediButton);
 	}
 
+	
+	
 }

@@ -42,10 +42,11 @@ public class AggiungiCorsoFrame extends JFrame {
 	private JScrollPane categorieTableScrollPane;
 	private JButton aggiungiAreaTematicaButton;
 	
+	//GETTERS AND SETTERS
 	public Vector<Vector<String>> getCategorie() {
 		return categorie;
 	}
-
+	
 	public void setCategorie(Vector<Vector<String>> categorie) {
 		this.categorie = categorie;
 	}
@@ -65,18 +66,20 @@ public class AggiungiCorsoFrame extends JFrame {
 	public void setCategorieTable(JTable categorieTable) {
 		this.categorieTable = categorieTable;
 	}
-
-	public AggiungiCorsoFrame(Controller mainController) {
-		setTitle("AggiungiCorsoFrame");
 	
+	
+	
+	public AggiungiCorsoFrame(Controller mainController) {
+		
 		controller = mainController;
 		
 		
-		
-
+		setTitle("AggiungiCorsoFrame");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
 		setBounds(100, 100, 700, 440);
+		
+		
+		//CONTENT PANE
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -88,6 +91,8 @@ public class AggiungiCorsoFrame extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
+		
+		//AGGIUNGI CORSO LABEL
 		JLabel aggiungiCorsoLabel = new JLabel("Aggiungi Corso");
 		aggiungiCorsoLabel.setFont(new Font("Century", Font.PLAIN, 25));
 		GridBagConstraints gbc_aggiungiCorsoLabel = new GridBagConstraints();
@@ -97,6 +102,8 @@ public class AggiungiCorsoFrame extends JFrame {
 		gbc_aggiungiCorsoLabel.gridy = 0;
 		contentPane.add(aggiungiCorsoLabel, gbc_aggiungiCorsoLabel);
 		
+		
+		//NOME LABEL
 		JLabel nomeLabel = new JLabel("Nome");
 		nomeLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_nomeLabel = new GridBagConstraints();
@@ -106,6 +113,8 @@ public class AggiungiCorsoFrame extends JFrame {
 		gbc_nomeLabel.gridy = 1;
 		contentPane.add(nomeLabel, gbc_nomeLabel);
 		
+		
+		//NOME TEXTFIELD
 		nomeTF = new JTextField();
 		nomeTF.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_nomeTF = new GridBagConstraints();
@@ -117,6 +126,8 @@ public class AggiungiCorsoFrame extends JFrame {
 		contentPane.add(nomeTF, gbc_nomeTF);
 		nomeTF.setColumns(10);
 		
+		
+		//DESCRIZIONE LABEL
 		JLabel descrizioneLabel = new JLabel("Descrizione");
 		descrizioneLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_descrizioneLabel = new GridBagConstraints();
@@ -126,6 +137,8 @@ public class AggiungiCorsoFrame extends JFrame {
 		gbc_descrizioneLabel.gridy = 2;
 		contentPane.add(descrizioneLabel, gbc_descrizioneLabel);
 		
+		
+		//DESCRIZIONE TEXT FIELD
 		descrizioneTF = new JTextField();
 		descrizioneTF.setFont(new Font("Century", Font.PLAIN, 16));
 		descrizioneTF.setColumns(10);
@@ -137,6 +150,8 @@ public class AggiungiCorsoFrame extends JFrame {
 		gbc_descrizioneTF.gridy = 2;
 		contentPane.add(descrizioneTF, gbc_descrizioneTF);
 		
+		
+		//NUMERO MASSIMO PARTECIPANTI LABEL
 		JLabel numeroMassimoPartecipantiLabel = new JLabel("N\u00B0 massimo di partecipanti");
 		numeroMassimoPartecipantiLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_numeroMassimoPartecipantiLabel = new GridBagConstraints();
@@ -146,6 +161,8 @@ public class AggiungiCorsoFrame extends JFrame {
 		gbc_numeroMassimoPartecipantiLabel.gridy = 3;
 		contentPane.add(numeroMassimoPartecipantiLabel, gbc_numeroMassimoPartecipantiLabel);
 		
+		
+		//NUMERO MASSIMO PARTECIPANTI TEXT FIELD
 		numeroMassimoPartecipantiTF = new JTextField();
 		numeroMassimoPartecipantiTF.setFont(new Font("Century", Font.PLAIN, 16));
 		numeroMassimoPartecipantiTF.setColumns(10);
@@ -157,6 +174,8 @@ public class AggiungiCorsoFrame extends JFrame {
 		gbc_numeroMassimoPartecipantiTF.gridy = 3;
 		contentPane.add(numeroMassimoPartecipantiTF, gbc_numeroMassimoPartecipantiTF);
 		
+		
+		//NUMERO DI LEZIONI LABEL
 		JLabel numeroDiLezioniLabel = new JLabel("N\u00B0 di lezioni");
 		numeroDiLezioniLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_numeroDiLezioniLabel = new GridBagConstraints();
@@ -166,6 +185,8 @@ public class AggiungiCorsoFrame extends JFrame {
 		gbc_numeroDiLezioniLabel.gridy = 4;
 		contentPane.add(numeroDiLezioniLabel, gbc_numeroDiLezioniLabel);
 		
+		
+		//NUMERO DI LEZIONI TEXTFIELD
 		numeroDiLezioniTF = new JTextField();
 		numeroDiLezioniTF.setFont(new Font("Century", Font.PLAIN, 16));
 		numeroDiLezioniTF.setColumns(10);
@@ -177,6 +198,8 @@ public class AggiungiCorsoFrame extends JFrame {
 		gbc_numeroDiLezioniTF.gridy = 4;
 		contentPane.add(numeroDiLezioniTF, gbc_numeroDiLezioniTF);
 		
+		
+		//DATA DI INIZIO LABEL
 		JLabel dataDiInizio = new JLabel("Data di inizio");
 		dataDiInizio.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_dataDiInizio = new GridBagConstraints();
@@ -186,6 +209,8 @@ public class AggiungiCorsoFrame extends JFrame {
 		gbc_dataDiInizio.gridy = 5;
 		contentPane.add(dataDiInizio, gbc_dataDiInizio);
 		
+		
+		//DATA DI INIZIO TEXTFIELD
 		dataDiInizioTF = new JTextField();
 		dataDiInizioTF.setFont(new Font("Century", Font.PLAIN, 16));
 		dataDiInizioTF.setColumns(10);
@@ -197,6 +222,8 @@ public class AggiungiCorsoFrame extends JFrame {
 		gbc_dataDiInizioTF.gridy = 5;
 		contentPane.add(dataDiInizioTF, gbc_dataDiInizioTF);
 		
+		
+		//CATEGORIA LABEL
 		JLabel categoriaLabel = new JLabel("Categoria");
 		categoriaLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_categoriaLabel = new GridBagConstraints();
@@ -207,6 +234,7 @@ public class AggiungiCorsoFrame extends JFrame {
 		contentPane.add(categoriaLabel, gbc_categoriaLabel);
 		
 
+		//CATEGORIE TABLE SCROLL PANE
 		categorieTableScrollPane = new JScrollPane();
 		GridBagConstraints gbc_categorieTableScrollPane = new GridBagConstraints();
 		gbc_categorieTableScrollPane.gridheight = 3;
@@ -218,6 +246,7 @@ public class AggiungiCorsoFrame extends JFrame {
 		contentPane.add(categorieTableScrollPane, gbc_categorieTableScrollPane);
 		
 		
+		//CATEGORIE DEFAULT TABLE MODEL
 		categorieDTM = new DefaultTableModel() {
 			@Override
 			public boolean isCellEditable(int row,int column) {
@@ -225,27 +254,30 @@ public class AggiungiCorsoFrame extends JFrame {
 			}
 		};
 		categorieDTM.addColumn("Categoria");
-
 		categorie=controller.recuperaAreeTematicheInVettoreDiVettoreDiStringhe(controller.contaCategorie());
 		categorieDTM=controller.setDefaultTableModel(categorieDTM,categorie);
 		
+		
+		//CATEGORIE TABLE
 		categorieTable = new JTable();
 		categorieTable.setModel(categorieDTM);
 		categorieTable.setFont(new Font("Century", Font.PLAIN, 16));
 		categorieTableScrollPane.setViewportView(categorieTable);
 		
-		int numeroResponsabili=mainController.contaResponsabili();
-		String[] responsabili=mainController.salvaResponsabili(numeroResponsabili);
 		
+		//AGGIUNGI AREA TEMATICA BUTTON
 		aggiungiAreaTematicaButton = new JButton("Aggiungi Area Tematica");
+		
+		//AGGIUNGI AREA TEMATICA ACTION LISTENER
 		aggiungiAreaTematicaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				setAlwaysOnTop(false);
 				controller.getAggiungiAreaTematicaFrame().setAlwaysOnTop(true);
 				controller.getAggiungiAreaTematicaFrame().setVisible(true);
-				
 			}
 		});
+		
 		aggiungiAreaTematicaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_aggiungiAreaTematicaButton = new GridBagConstraints();
 		gbc_aggiungiAreaTematicaButton.insets = new Insets(0, 0, 5, 5);
@@ -253,6 +285,8 @@ public class AggiungiCorsoFrame extends JFrame {
 		gbc_aggiungiAreaTematicaButton.gridy = 6;
 		contentPane.add(aggiungiAreaTematicaButton, gbc_aggiungiAreaTematicaButton);
 		
+		
+		//RESPONSABILE LABEL
 		JLabel responsabileLabel = new JLabel("Responsabile");
 		responsabileLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_responsabileLabel = new GridBagConstraints();
@@ -262,7 +296,11 @@ public class AggiungiCorsoFrame extends JFrame {
 		gbc_responsabileLabel.gridy = 9;
 		contentPane.add(responsabileLabel, gbc_responsabileLabel);
 		
-
+		
+		//RESPONSABILI COMBO BOX
+		int numeroResponsabili=mainController.contaResponsabili();
+		String[] responsabili=mainController.salvaResponsabili(numeroResponsabili);
+		
 		responsabiliCB = new JComboBox<String>(responsabili);
 		responsabiliCB.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_responsabileCB = new GridBagConstraints();
@@ -273,14 +311,20 @@ public class AggiungiCorsoFrame extends JFrame {
 		gbc_responsabileCB.gridy = 9;
 		contentPane.add(responsabiliCB, gbc_responsabileCB);
 		
+		
+		//INDIETRO BUTTON
 		indietroButton = new JButton("Indietro");
+		
+		//INDIETRO BUTTON ACTION LISTENER
 		indietroButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				controller.getAggiungiCorsoFrame().setVisible(false);
 				controller.getAggiungiAreaTematicaFrame().setVisible(false);
 				resettaAggiungiCorsoFrame();
 			}
 		});
+		
 		indietroButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_indietroButton = new GridBagConstraints();
 		gbc_indietroButton.insets = new Insets(0, 0, 5, 5);
@@ -288,35 +332,46 @@ public class AggiungiCorsoFrame extends JFrame {
 		gbc_indietroButton.gridy = 11;
 		contentPane.add(indietroButton, gbc_indietroButton);
 		
+		
+		//CONFERMA BUTTON
 		confermaButton = new JButton("Conferma");
+		
+		//CONFERMA BUTTON ACTION LISTENER
 		confermaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				if(nomeTF.getText().isEmpty()||descrizioneTF.getText().isEmpty()||numeroMassimoPartecipantiTF.getText().isEmpty()||numeroDiLezioniTF.getText().isEmpty()||dataDiInizioTF.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(contentPane,"Compilare tutti i campi prima di confermare!","",JOptionPane.ERROR_MESSAGE);
 				}
 				else {
 					if(categorieTable.getSelectedRow()==-1) {
 						JOptionPane.showMessageDialog(contentPane,"Selezionare una categoria!","",JOptionPane.ERROR_MESSAGE);
-					}else {
-				controller.aggiungiCorso(nomeTF.getText().toUpperCase(), descrizioneTF.getText().toUpperCase(), numeroMassimoPartecipantiTF.getText(), numeroDiLezioniTF.getText(), dataDiInizioTF.getText(), controller.recuperaCodiceResponsabile(responsabiliCB.getSelectedItem().toString()));
-				String categorieSelezionate = new String();
-				for (int indiceCategoria : categorieTable.getSelectedRows()) {
-					categorieSelezionate= categorieSelezionate +","+categorieTable.getValueAt(indiceCategoria, 0).toString();
-				}	
-				categorieSelezionate= categorieSelezionate.substring(1);
+					}
+					else {
+						controller.aggiungiCorso(nomeTF.getText().toUpperCase(), descrizioneTF.getText().toUpperCase(), numeroMassimoPartecipantiTF.getText(), numeroDiLezioniTF.getText(), dataDiInizioTF.getText(), controller.recuperaCodiceResponsabile(responsabiliCB.getSelectedItem().toString()));
+						
+						String categorieSelezionate = new String();
+						
+						for (int indiceCategoria : categorieTable.getSelectedRows()) {
+							categorieSelezionate= categorieSelezionate +","+categorieTable.getValueAt(indiceCategoria, 0).toString();
+						}	
+						
+						categorieSelezionate= categorieSelezionate.substring(1);
+						controller.assegnaAreeTematicheAdUnCorso(categorieSelezionate,controller.recuperaCodiceCorso(nomeTF.getText().toString().toUpperCase()));
 				
-				controller.assegnaAreeTematicheAdUnCorso(categorieSelezionate,controller.recuperaCodiceCorso(nomeTF.getText().toString().toUpperCase()));
-				controller.getGestioneCorsiFrame().getCorsiDTM().getDataVector().removeAllElements();
-				controller.getGestioneCorsiFrame().setCorsi(controller.recuperaCorsiOrdinatiPer("codicecorso","","",""));
-				controller.getGestioneCorsiFrame().setCorsiDTM(controller.setDefaultTableModel(controller.getGestioneCorsiFrame().getCorsiDTM(), controller.getGestioneCorsiFrame().getCorsi()));
-				controller.getGestioneCorsiFrame().getCorsiTable().setModel(controller.getGestioneCorsiFrame().getCorsiDTM());
+						controller.getGestioneCorsiFrame().getCorsiDTM().getDataVector().removeAllElements();
+						controller.getGestioneCorsiFrame().setCorsi(controller.recuperaCorsiOrdinatiPer("codicecorso","","",""));
+						controller.getGestioneCorsiFrame().setCorsiDTM(controller.setDefaultTableModel(controller.getGestioneCorsiFrame().getCorsiDTM(), controller.getGestioneCorsiFrame().getCorsi()));
+						controller.getGestioneCorsiFrame().getCorsiTable().setModel(controller.getGestioneCorsiFrame().getCorsiDTM());
 
-				controller.getAggiungiCorsoFrame().setVisible(false);
+						controller.getAggiungiCorsoFrame().setVisible(false);
 
-				controller.getAggiungiAreaTematicaFrame().setVisible(false);
-				resettaAggiungiCorsoFrame();
+						controller.getAggiungiAreaTematicaFrame().setVisible(false);
+						
+						resettaAggiungiCorsoFrame();
 					}}}
 		});
+		
 		confermaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_confermaButton = new GridBagConstraints();
 		gbc_confermaButton.insets = new Insets(0, 0, 5, 5);
@@ -326,6 +381,8 @@ public class AggiungiCorsoFrame extends JFrame {
 
 	}
 	
+	
+	//METODO RESETTA AGGIUNGI CORSO FRAME
 	public void resettaAggiungiCorsoFrame() {
 		nomeTF.setText("");
 		descrizioneTF.setText("");
@@ -336,4 +393,6 @@ public class AggiungiCorsoFrame extends JFrame {
 		responsabiliCB.setSelectedItem(responsabiliCB.getItemAt(0));
 	}
 
+	
+	
 }

@@ -22,16 +22,20 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 	private Controller controller;
 
 	public AggiungiAreaTematicaFrame(Controller mainController) {
+		
 		controller = mainController;
 
 
 		setTitle("Aggiungi Area Tematica");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 470, 285);
+		
+		
+		//CONTENT PANE
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		setContentPane(contentPane);		
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{20, 0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{27, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -39,6 +43,8 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
+		
+		//AREA TEMATICA LABEL
 		JLabel aggiungiAreaTematicaLabel = new JLabel("Aggiungi Area Tematica");
 		aggiungiAreaTematicaLabel.setFont(new Font("Century", Font.PLAIN, 24));
 		GridBagConstraints gbc_aggiungiAreaTematicaLabel = new GridBagConstraints();
@@ -48,18 +54,22 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 		gbc_aggiungiAreaTematicaLabel.gridx = 1;
 		gbc_aggiungiAreaTematicaLabel.gridy = 0;
 		contentPane.add(aggiungiAreaTematicaLabel, gbc_aggiungiAreaTematicaLabel);
+
 		
-		JLabel nuovaAreaTematica = new JLabel("Nuova Area Tematica");
-		nuovaAreaTematica.setFont(new Font("Century", Font.PLAIN, 18));
-		GridBagConstraints gbc_nuovaAreaTematica = new GridBagConstraints();
-		gbc_nuovaAreaTematica.gridheight = 2;
-		gbc_nuovaAreaTematica.gridwidth = 2;
-		gbc_nuovaAreaTematica.anchor = GridBagConstraints.WEST;
-		gbc_nuovaAreaTematica.insets = new Insets(0, 0, 5, 5);
-		gbc_nuovaAreaTematica.gridx = 1;
-		gbc_nuovaAreaTematica.gridy = 2;
-		contentPane.add(nuovaAreaTematica, gbc_nuovaAreaTematica);
+		//NUOVA AREA TEMATICA LABEL
+		JLabel nuovaAreaTematicaLabel = new JLabel("Nuova Area Tematica");
+		nuovaAreaTematicaLabel.setFont(new Font("Century", Font.PLAIN, 18));
+		GridBagConstraints gbc_nuovaAreaTematicaLabel = new GridBagConstraints();
+		gbc_nuovaAreaTematicaLabel.gridheight = 2;
+		gbc_nuovaAreaTematicaLabel.gridwidth = 2;
+		gbc_nuovaAreaTematicaLabel.anchor = GridBagConstraints.WEST;
+		gbc_nuovaAreaTematicaLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_nuovaAreaTematicaLabel.gridx = 1;
+		gbc_nuovaAreaTematicaLabel.gridy = 2;
+		contentPane.add(nuovaAreaTematicaLabel, gbc_nuovaAreaTematicaLabel);
 		
+		
+		//AREA TEMATICA TEXT FIELD
 		areaTematicaTF = new JTextField();
 		areaTematicaTF.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_areaTematicaTF = new GridBagConstraints();
@@ -72,12 +82,18 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 		contentPane.add(areaTematicaTF, gbc_areaTematicaTF);
 		areaTematicaTF.setColumns(10);
 		
+		
+		//INDIETRO BUTTON
 		JButton indietroButton = new JButton("Indietro");
+		
+		//INDIETRO BUTTON ACTION LISTENER
 		indietroButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				controller.getAggiungiAreaTematicaFrame().setVisible(false);
 			}
 		});
+		
 		indietroButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_indietroButton = new GridBagConstraints();
 		gbc_indietroButton.anchor = GridBagConstraints.WEST;
@@ -86,9 +102,14 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 		gbc_indietroButton.gridy = 5;
 		contentPane.add(indietroButton, gbc_indietroButton);
 		
+		
+		//CONFERMA BUTTON
 		JButton confermaButton = new JButton("Conferma");
+		
+		//CONFERMA BUTTO ACTION LISTENER
 		confermaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				if(areaTematicaTF.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(contentPane, "Inserire un'area tematica","",JOptionPane.INFORMATION_MESSAGE);
 				}
@@ -98,9 +119,10 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 				}
 				else {
 					controller.aggiungiAreaTematica(areaTematicaTF.getText().toUpperCase());
+								
+					String[] categorie = controller.recuperaAreeTematiche(controller.contaCategorie());
 					
 					controller.getModificaFrame().getCategoriaCB().removeAllItems();
-					String[] categorie = controller.recuperaAreeTematiche(controller.contaCategorie());
 					controller.getModificaFrame().getCategoriaCB().setModel(controller.setDefaultComboBoxModel(controller.getModificaFrame().getCategoriaCBM(),categorie));
 					
 					controller.getAggiungiCorsoFrame().getCategorieDTM().getDataVector().removeAllElements();
@@ -117,6 +139,7 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 					areaTematicaTF.setText("");
 				}
 			}});
+		
 		confermaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_confermaButton = new GridBagConstraints();
 		gbc_confermaButton.gridwidth = 2;
@@ -126,4 +149,6 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 		contentPane.add(confermaButton, gbc_confermaButton);
 	}
 
+	
+	
 }

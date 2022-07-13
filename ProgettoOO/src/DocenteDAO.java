@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DocenteDAO {
+	
 	private ConnessioneDB istanzaDB;
 	private Connection connessioneDB = null;
 	
@@ -12,7 +13,9 @@ public class DocenteDAO {
 	}
 	
 	
+	//METODI
 	public int contaDocenti() {
+		
 		int numeroDocenti=0;
 		
 		try {
@@ -31,12 +34,15 @@ public class DocenteDAO {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return numeroDocenti;
+		
 	}
 	
 	
 	
 	public String[] recuperaDocenti(int numeroDocenti) {
+		
 		String[] docenti = new String[numeroDocenti];
 		int indice=0;
 		
@@ -58,13 +64,16 @@ public class DocenteDAO {
 			e.printStackTrace();
 		}
 		
-		
 		return docenti;
+		
 	}
 	
 	
+	
 	public String recuperaCodiceDocente(String cognome) {
+		
 		String codiceDocente="";
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
@@ -83,10 +92,15 @@ public class DocenteDAO {
 		}
 		
 		return codiceDocente;
+		
 	}
 	
+	
+	
 	public String recuperaDocente(String codiceDocente) {
+		
 		String docente=new String();
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 
@@ -105,5 +119,9 @@ public class DocenteDAO {
 		}
 		
 		return docente;
+		
 	}
+	
+	
+	
 }

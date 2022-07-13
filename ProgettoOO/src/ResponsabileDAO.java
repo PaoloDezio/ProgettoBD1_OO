@@ -1,7 +1,7 @@
 import java.sql.*;
 
-
 public class ResponsabileDAO {
+	
 	private ConnessioneDB istanzaDB;
 	private Connection connessioneDB = null;
 	
@@ -10,7 +10,9 @@ public class ResponsabileDAO {
 	}
 	
 	
+	//METODI
 	public boolean checkResponsabile(String username,String password)  {
+		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
 			
@@ -29,12 +31,17 @@ public class ResponsabileDAO {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return false;
+		
 	}
 	
 	
+	
 	public Integer contaResponsabili() {
+		
 		Integer numeroResponsabili=0;
+		
 		try {
 			connessioneDB = istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
@@ -49,14 +56,18 @@ public class ResponsabileDAO {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return numeroResponsabili;
+		
 	}
 	
 	
 	
 	public String[] salvaResponsabili(int numeroResponsabili) {
+		
 		String[] responsabili= new String[numeroResponsabili];
 		int i=0;
+		
 		try {
 			connessioneDB = istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
@@ -74,12 +85,17 @@ public class ResponsabileDAO {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return responsabili;
+		
 	}
 	
 	
+	
 	public String recuperaCodiceResponsabile(String cognomeResponsabile) {
+		
 		String codiceResponsabile="";
+		
 		try {
 			connessioneDB = istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
@@ -96,6 +112,11 @@ public class ResponsabileDAO {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return codiceResponsabile;
+		
 	}
+	
+	
+	
 }
