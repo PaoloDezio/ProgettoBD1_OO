@@ -95,7 +95,7 @@ public class AggiungiLezioneFrame extends JFrame {
 	public AggiungiLezioneFrame(Controller mainController) {
 		setTitle("AggiungiLezione");
 		controller=mainController;
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 560, 490);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
@@ -387,6 +387,7 @@ public class AggiungiLezioneFrame extends JFrame {
 		indietroButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.getAggiungiLezioneFrame().setVisible(false);
+				controller.getLezioniFrame().getLezioniTable().setEnabled(true);
 				titoloTF.setText("");
 				descrizioneTF.setText("");
 				durataCB.setSelectedIndex(0);
@@ -427,15 +428,17 @@ public class AggiungiLezioneFrame extends JFrame {
 						else {
 							controller.aggiungiLezioneInPresenzaEDaRemoto(titoloTF.getText().toUpperCase(),descrizioneTF.getText().toUpperCase(), durata.substring(0, 2), dataEOra, codiceCorso, codiceDocente, sedeTF.getText().toUpperCase(),aulaTF.getText().toUpperCase(),piattaformaTF.getText().toUpperCase());
 							controller.getAggiungiLezioneFrame().setVisible(false);
+							controller.getLezioniFrame().getLezioniTable().setEnabled(true);
 						}
 					}
 					else {
 						controller.aggiungiLezioneInPresenza(titoloTF.getText().toUpperCase(),descrizioneTF.getText().toUpperCase(), durata.substring(0, 2), dataEOra, codiceCorso, codiceDocente, sedeTF.getText().toUpperCase(),aulaTF.getText().toUpperCase());
 						controller.getAggiungiLezioneFrame().setVisible(false);
+						controller.getLezioniFrame().getLezioniTable().setEnabled(true);
 					}
 					
 					controller.getLezioniFrame().getLezioniDTM().getDataVector().removeAllElements();
-					controller.getLezioniFrame().setListaLezioni(controller.recuperaLezioni(controller.getRicercaCorsoFrame().getCorsiTable().getValueAt(controller.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(), 0).toString()));
+					controller.getLezioniFrame().setListaLezioni(controller.recuperaLezioni(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(), 0).toString()));
 					controller.getLezioniFrame().setLezioniDTM(controller.setDefaultTableModel(controller.getLezioniFrame().getLezioniDTM(),controller.getLezioniFrame().getListaLezioni()));
 					controller.getLezioniFrame().getLezioniTable().setModel(controller.getLezioniFrame().getLezioniDTM());
 					

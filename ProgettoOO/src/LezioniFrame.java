@@ -187,7 +187,7 @@ public class LezioniFrame extends JFrame {
 					controller.getModificaLezioneFrame().getSedeTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),4).toString());
 					controller.getModificaLezioneFrame().getAulaTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),5).toString());
 					
-					setEnabled(false);
+					controller.getGestioneCorsiFrame().getCorsiTable().setEnabled(true);
 					
 				}
 				else {
@@ -210,7 +210,7 @@ public class LezioniFrame extends JFrame {
 				if(lezioniTable.getSelectedRow()>-1) {
 					controller.eliminaLezione(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),0).toString());
 					lezioniDTM.getDataVector().removeAllElements();
-					listaLezioni=controller.recuperaLezioni(controller.getRicercaCorsoFrame().getCorsiTable().getValueAt(controller.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(), 0).toString());
+					listaLezioni=controller.recuperaLezioni(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(), 0).toString());
 					lezioniDTM=controller.setDefaultTableModel(lezioniDTM, listaLezioni);
 					lezioniTable.setModel(lezioniDTM);
 				}
@@ -233,10 +233,11 @@ public class LezioniFrame extends JFrame {
 				if(lezioniTable.getSelectedRow()>-1) {
 
 					controller.getPresenzeFrame().getPresenzeDTM().getDataVector().removeAllElements();
-					iscritti=controller.recuperaIscrittiAdUnCorso(controller.getRicercaCorsoFrame().getCorsiTable().getValueAt(controller.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(), 0).toString());
+					iscritti=controller.recuperaIscrittiAdUnCorso(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(), 0).toString());
 					controller.getPresenzeFrame().setPresenzeDTM(controller.setDefaultTableModel(controller.getPresenzeFrame().getPresenzeDTM(), iscritti));
 					controller.getPresenzeFrame().getPresenzeTable().setModel(controller.getPresenzeFrame().getPresenzeDTM());
 					controller.getPresenzeFrame().setVisible(true);
+					setEnabled(false);
 					partecipanti = controller.recuperaPartecipantiAdUnaLezione(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),0).toString());
 					int count=0;						
 
@@ -269,6 +270,8 @@ public class LezioniFrame extends JFrame {
 		indietroButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.getLezioniFrame().setVisible(false);
+				controller.getGestioneCorsiFrame().setEnabled(true);
+				controller.getGestioneCorsiFrame().setVisible(true);
 			}
 		});
 		indietroButton.setFont(new Font("Century", Font.PLAIN, 16));

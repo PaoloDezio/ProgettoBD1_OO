@@ -39,12 +39,12 @@ public class HomepageFrame extends JFrame {
 		JButton gestioneCorsiButton = new JButton("Gestione Corsi");
 		gestioneCorsiButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.getRicercaCorsoFrame().setVisible(true);
+				controller.getGestioneCorsiFrame().setVisible(true);
 				controller.getHomeFrame().setVisible(false);
-				controller.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
-				controller.getRicercaCorsoFrame().setCorsi(controller.recuperaCorsiOrdinatiPer("codicecorso","","",""));
-				controller.getRicercaCorsoFrame().setCorsiDTM(controller.setDefaultTableModel(controller.getRicercaCorsoFrame().getCorsiDTM(), controller.getRicercaCorsoFrame().getCorsi()));
-				controller.getRicercaCorsoFrame().getCorsiTable().setModel(controller.getRicercaCorsoFrame().getCorsiDTM());
+				controller.getGestioneCorsiFrame().getCorsiDTM().getDataVector().removeAllElements();
+				controller.getGestioneCorsiFrame().setCorsi(controller.recuperaCorsiOrdinatiPer("codicecorso","","",""));
+				controller.getGestioneCorsiFrame().setCorsiDTM(controller.setDefaultTableModel(controller.getGestioneCorsiFrame().getCorsiDTM(), controller.getGestioneCorsiFrame().getCorsi()));
+				controller.getGestioneCorsiFrame().getCorsiTable().setModel(controller.getGestioneCorsiFrame().getCorsiDTM());
 				
 			}});
 		

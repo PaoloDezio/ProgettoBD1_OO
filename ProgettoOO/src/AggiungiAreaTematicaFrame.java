@@ -108,10 +108,10 @@ public class AggiungiAreaTematicaFrame extends JFrame {
 					controller.getAggiungiCorsoFrame().setCategorieDTM(controller.setDefaultTableModel(controller.getAggiungiCorsoFrame().getCategorieDTM(),controller.getAggiungiCorsoFrame().getCategorie()));
 					controller.getAggiungiCorsoFrame().getCategorieTable().setModel(controller.getAggiungiCorsoFrame().getCategorieDTM());
 					
-					controller.getRicercaCorsoFrame().getCategorieDTM().getDataVector().removeAllElements();
-					controller.getRicercaCorsoFrame().setCategorie(controller.recuperaAreeTematicheInVettoreDiVettoreDiStringhe(controller.contaCategorie()));
-					controller.getRicercaCorsoFrame().setCategorieDTM(controller.setDefaultTableModel(controller.getRicercaCorsoFrame().getCategorieDTM(),controller.getRicercaCorsoFrame().getCategorie()));
-					controller.getRicercaCorsoFrame().getCategorieTable().setModel(controller.getRicercaCorsoFrame().getCategorieDTM());
+					controller.getGestioneCorsiFrame().getCategorieDTM().getDataVector().removeAllElements();
+					controller.getGestioneCorsiFrame().setCategorie(controller.recuperaAreeTematicheInVettoreDiVettoreDiStringhe(controller.contaCategorie()));
+					controller.getGestioneCorsiFrame().setCategorieDTM(controller.setDefaultTableModel(controller.getGestioneCorsiFrame().getCategorieDTM(),controller.getGestioneCorsiFrame().getCategorie()));
+					controller.getGestioneCorsiFrame().getCategorieTable().setModel(controller.getGestioneCorsiFrame().getCategorieDTM());
 					
 					JOptionPane.showMessageDialog(contentPane, "L'area tematica '"+areaTematicaTF.getText().toUpperCase()+"' è stata aggiunta correttamente","",JOptionPane.CLOSED_OPTION);
 					areaTematicaTF.setText("");

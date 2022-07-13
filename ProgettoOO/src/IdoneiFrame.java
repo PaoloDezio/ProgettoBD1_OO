@@ -49,7 +49,7 @@ public class IdoneiFrame extends JFrame {
 		setResizable(false);
 		controller = mainController;
 		
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 600, 330);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
@@ -116,7 +116,8 @@ public class IdoneiFrame extends JFrame {
 		public void actionPerformed(ActionEvent e){
 			controller.getIdoneiFrame().setVisible(false);
 			controller.getStatisticheFrame().setVisible(false);
-			controller.getRicercaCorsoFrame().setVisible(true);
+			controller.getGestioneCorsiFrame().setEnabled(true);
+			controller.getGestioneCorsiFrame().setVisible(true);
 			}
 		});
 		

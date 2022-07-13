@@ -63,8 +63,8 @@ public class ModificaCorsoFrame extends JFrame {
 		controller = mainController;
 		
 		setTitle("ModificaCorsoFrame");
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 680, 365);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 770, 340);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -182,7 +182,7 @@ public class ModificaCorsoFrame extends JFrame {
 		contentPane.add(aggiungiAreaTematicaButton, gbc_aggiungiAreaTematicaButton);
 		
 		JLabel responsabileLabel = new JLabel("Responsabile");
-		responsabileLabel.setFont(new Font("Century", Font.PLAIN, 18));
+		responsabileLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_responsabileLabel = new GridBagConstraints();
 		gbc_responsabileLabel.anchor = GridBagConstraints.EAST;
 		gbc_responsabileLabel.insets = new Insets(0, 0, 5, 5);
@@ -209,9 +209,10 @@ public class ModificaCorsoFrame extends JFrame {
 		indietroButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.getModificaFrame().setVisible(false);
+				controller.getGestioneCorsiFrame().getCorsiTable().setEnabled(true);
 			}
 		});
-		indietroButton.setFont(new Font("Century", Font.PLAIN, 18));
+		indietroButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_indietroButton = new GridBagConstraints();
 		gbc_indietroButton.insets = new Insets(0, 0, 0, 5);
 		gbc_indietroButton.gridx = 1;
@@ -223,21 +224,23 @@ public class ModificaCorsoFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				String nomecorso = nomeTF.getText().toUpperCase();
-				String codiceCorso = controller.recuperaCodiceCorso(controller.getRicercaCorsoFrame().getCorsiTable().getValueAt(controller.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(),1).toString());
+				String codiceCorso = controller.recuperaCodiceCorso(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(),1).toString());
 				String descrizione = descrizioneTF.getText().toUpperCase();
 				String codiceResponsabile = controller.recuperaCodiceResponsabile(responsabiliCB.getSelectedItem().toString());
 				String data = dataTF.getText();
 				String categoria = categorieCB.getSelectedItem().toString();
-				String oldCategoria= controller.getRicercaCorsoFrame().getCorsiTable().getValueAt(controller.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(),4).toString().toUpperCase();
+				String oldCategoria= controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(),4).toString().toUpperCase();
 				
 				controller.modificaCorso(codiceCorso,nomecorso,descrizione,data,codiceResponsabile,categoria,oldCategoria);
 				controller.getModificaFrame().setVisible(false);
 				
-				controller.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
-				controller.getRicercaCorsoFrame().setCorsi(controller.recuperaCorsiOrdinatiPer("codicecorso","","",""));
-				controller.getRicercaCorsoFrame().setCorsiDTM(controller.setDefaultTableModel(controller.getRicercaCorsoFrame().getCorsiDTM(), controller.getRicercaCorsoFrame().getCorsi()));
-				controller.getRicercaCorsoFrame().getCorsiTable().setModel(controller.getRicercaCorsoFrame().getCorsiDTM());
-				}
+				controller.getGestioneCorsiFrame().getCorsiDTM().getDataVector().removeAllElements();
+				controller.getGestioneCorsiFrame().setCorsi(controller.recuperaCorsiOrdinatiPer("codicecorso","","",""));
+				controller.getGestioneCorsiFrame().setCorsiDTM(controller.setDefaultTableModel(controller.getGestioneCorsiFrame().getCorsiDTM(), controller.getGestioneCorsiFrame().getCorsi()));
+				controller.getGestioneCorsiFrame().getCorsiTable().setModel(controller.getGestioneCorsiFrame().getCorsiDTM());
+			
+				controller.getGestioneCorsiFrame().getCorsiTable().setEnabled(true);
+			}
 		});
 		salvaModificheButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_salvaButton = new GridBagConstraints();

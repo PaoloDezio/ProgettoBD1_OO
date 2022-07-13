@@ -71,7 +71,7 @@ public class AggiungiCorsoFrame extends JFrame {
 		controller = mainController;
 		
 		
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 440);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
@@ -255,7 +255,6 @@ public class AggiungiCorsoFrame extends JFrame {
 		gbc_responsabileLabel.gridy = 9;
 		contentPane.add(responsabileLabel, gbc_responsabileLabel);
 		
-		
 
 		responsabiliCB = new JComboBox<String>(responsabili);
 		responsabiliCB.setFont(new Font("Century", Font.PLAIN, 16));
@@ -271,6 +270,7 @@ public class AggiungiCorsoFrame extends JFrame {
 		indietroButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.getAggiungiCorsoFrame().setVisible(false);
+				controller.getGestioneCorsiFrame().getCorsiTable().setEnabled(true);
 				resettaAggiungiCorsoFrame();
 			}
 		});
@@ -299,14 +299,13 @@ public class AggiungiCorsoFrame extends JFrame {
 				categorieSelezionate= categorieSelezionate.substring(1);
 				
 				controller.assegnaAreeTematicheAdUnCorso(categorieSelezionate,controller.recuperaCodiceCorso(nomeTF.getText().toString().toUpperCase()));
-				controller.getRicercaCorsoFrame().getCorsiDTM().getDataVector().removeAllElements();
-				controller.getRicercaCorsoFrame().setCorsi(controller.recuperaCorsiOrdinatiPer("codicecorso","","",""));
-				controller.getRicercaCorsoFrame().setCorsiDTM(controller.setDefaultTableModel(controller.getRicercaCorsoFrame().getCorsiDTM(), controller.getRicercaCorsoFrame().getCorsi()));
-				controller.getRicercaCorsoFrame().getCorsiTable().setModel(controller.getRicercaCorsoFrame().getCorsiDTM());
+				controller.getGestioneCorsiFrame().getCorsiDTM().getDataVector().removeAllElements();
+				controller.getGestioneCorsiFrame().setCorsi(controller.recuperaCorsiOrdinatiPer("codicecorso","","",""));
+				controller.getGestioneCorsiFrame().setCorsiDTM(controller.setDefaultTableModel(controller.getGestioneCorsiFrame().getCorsiDTM(), controller.getGestioneCorsiFrame().getCorsi()));
+				controller.getGestioneCorsiFrame().getCorsiTable().setModel(controller.getGestioneCorsiFrame().getCorsiDTM());
 
 				controller.getAggiungiCorsoFrame().setVisible(false);
-//				controller.getRicercaCorsoFrame().setEnabled(true);
-//				controller.getRicercaCorsoFrame().setVisible(true);
+				controller.getGestioneCorsiFrame().getCorsiTable().setEnabled(true);
 				resettaAggiungiCorsoFrame();
 					}}}
 		});

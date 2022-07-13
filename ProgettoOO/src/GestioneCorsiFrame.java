@@ -23,9 +23,11 @@ import javax.swing.table.DefaultTableModel;
 
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JRadioButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
-public class RicercaCorsoFrame extends JFrame {
+public class GestioneCorsiFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Controller controller;
@@ -93,7 +95,7 @@ public class RicercaCorsoFrame extends JFrame {
 		this.categorie = categorie;
 	}
 
-	public RicercaCorsoFrame(Controller mainController){
+	public GestioneCorsiFrame(Controller mainController){
 		
 		controller = mainController;
 		
@@ -104,6 +106,7 @@ public class RicercaCorsoFrame extends JFrame {
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		
 		
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 156, 0, 0, 0, 0, 0, 76, 18, 110, 130, 44, 114, 100, 0, 0};
@@ -462,6 +465,17 @@ public class RicercaCorsoFrame extends JFrame {
 		corsiDTM=controller.setDefaultTableModel(corsiDTM,corsi);
 		
 		corsiTable = new JTable();
+		corsiTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				if(controller.getAggiungiCorsoFrame().isVisible() || controller.getModificaCorsoFrame().isVisible() || controller.getLezioniFrame().isVisible() ||controller.getStatisticheFrame().isVisible()) {
+					corsiTable.setEnabled(false);
+				}
+				else {
+					corsiTable.setEnabled(true);
+				}
+			}
+		});
 		corsiTable.setModel(corsiDTM);
 		corsiTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
@@ -491,7 +505,8 @@ public class RicercaCorsoFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				corsiTable.clearSelection();
 				controller.getAggiungiCorsoFrame().setVisible(true);
-				setEnabled(false);
+				controller.getAggiungiCorsoFrame().setAlwaysOnTop(true);
+				corsiTable.setEnabled(false);
 			}
 		});
 		AggiungiButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -510,13 +525,14 @@ public class RicercaCorsoFrame extends JFrame {
 				}
 				else {
 					controller.getModificaFrame().setVisible(true);
+					corsiTable.setEnabled(false);
+					controller.getModificaFrame().setAlwaysOnTop(true);
 					controller.getModificaFrame().getNomeTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString().toLowerCase());
 					controller.getModificaFrame().getDescrizioneTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),2).toString().toLowerCase());
 					controller.getModificaFrame().getDataTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),3).toString());
 					controller.getModificaFrame().getCategoriaCB().setSelectedItem(corsiTable.getValueAt(corsiTable.getSelectedRow(),4));
 					controller.getModificaFrame().getResponsabileCB().setSelectedItem(corsiTable.getValueAt(corsiTable.getSelectedRow(),5));
 				}
-				setEnabled(false);
 			}			
 		});
 		ModificaButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -558,15 +574,18 @@ public class RicercaCorsoFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(corsiTable.getSelectedRow()<=-1) {
 					JOptionPane.showMessageDialog(contentPane,"Selezionare un corso","",JOptionPane.INFORMATION_MESSAGE);
-				}else {
-			controller.getLezioniFrame().setVisible(true);
-			controller.getLezioniFrame().getLezioniDTM().getDataVector().removeAllElements();
-			controller.getLezioniFrame().getNomeCorsoLabel().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(), 1).toString());
-			controller.getLezioniFrame().setListaLezioni(controller.recuperaLezioni(corsiTable.getValueAt(corsiTable.getSelectedRow(), 0).toString()));
-			controller.setDefaultTableModel(controller.getLezioniFrame().getLezioniDTM(), controller.getLezioniFrame().getListaLezioni());
-			controller.getLezioniFrame().getLezioniTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			controller.getLezioniFrame().getLezioniDTM().fireTableDataChanged();
-			}
+				}
+				else {
+					controller.getLezioniFrame().setVisible(true);
+					corsiTable.setEnabled(false);
+					controller.getLezioniFrame().setAlwaysOnTop(true);
+					controller.getLezioniFrame().getLezioniDTM().getDataVector().removeAllElements();
+					controller.getLezioniFrame().getNomeCorsoLabel().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(), 1).toString());
+					controller.getLezioniFrame().setListaLezioni(controller.recuperaLezioni(corsiTable.getValueAt(corsiTable.getSelectedRow(), 0).toString()));
+					controller.setDefaultTableModel(controller.getLezioniFrame().getLezioniDTM(), controller.getLezioniFrame().getListaLezioni());
+					controller.getLezioniFrame().getLezioniTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+					controller.getLezioniFrame().getLezioniDTM().fireTableDataChanged();
+				}
 		}});
 		GridBagConstraints gbc_LezioniButton = new GridBagConstraints();
 		gbc_LezioniButton.anchor = GridBagConstraints.WEST;
@@ -583,6 +602,7 @@ public class RicercaCorsoFrame extends JFrame {
 				}
 				else {
 					controller.getStatisticheFrame().setVisible(true);
+					corsiTable.setEnabled(false);
 					controller.getStatisticheFrame().getNomeCorsoTF().setText(corsiTable.getValueAt(corsiTable.getSelectedRow(),1).toString());
 					controller.getStatisticheFrame().getPresenzeMinimeTF().setText(controller.calcolaPresenzeMinime(corsiTable.getValueAt(corsiTable.getSelectedRow(),0).toString()));
 					controller.getStatisticheFrame().getPresenzeMassimeTF().setText(controller.calcolaPresenzeMassime(corsiTable.getValueAt(corsiTable.getSelectedRow(),0).toString()));
@@ -595,7 +615,6 @@ public class RicercaCorsoFrame extends JFrame {
 					controller.getStatisticheFrame().getIscrittiDTM().fireTableDataChanged();
 					controller.getStatisticheFrame().getIscrittiTable().setModel(controller.getStatisticheFrame().getIscrittiDTM());
 				}
-				setEnabled(false);
 			}
 		});
 		StatisticheButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -611,7 +630,7 @@ public class RicercaCorsoFrame extends JFrame {
 		tornaHomeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.getHomeFrame().setVisible(true);
-				controller.getRicercaCorsoFrame().setVisible(false);
+				controller.getGestioneCorsiFrame().setVisible(false);
 				nomeTF.setText("");
 				dataTF.setText("");
 				parolaChiaveTF.setText("");

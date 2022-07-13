@@ -79,7 +79,7 @@ public class StatisticheFrame extends JFrame {
 		controller = mainController;
 		
 		setTitle("Statistiche");
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1020, 345);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
@@ -248,7 +248,8 @@ public class StatisticheFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				controller.getStatisticheFrame().setVisible(false);
 				controller.getIdoneiFrame().setVisible(false);
-				controller.getRicercaCorsoFrame().setVisible(true);
+				controller.getGestioneCorsiFrame().setEnabled(true);
+				controller.getGestioneCorsiFrame().setVisible(true);
 			}
 		});
 		indietroButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -263,7 +264,7 @@ public class StatisticheFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				controller.getIdoneiFrame().setVisible(true);
 				controller.getIdoneiFrame().getStudentiDTM().getDataVector().removeAllElements();
-				controller.getIdoneiFrame().setStudenti(controller.recuperaStudentiIdonei(controller.getRicercaCorsoFrame().getCorsiTable().getValueAt(controller.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(),0).toString()));
+				controller.getIdoneiFrame().setStudenti(controller.recuperaStudentiIdonei(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(),0).toString()));
 				controller.getIdoneiFrame().setStudentiDTM(controller.setDefaultTableModel(controller.getIdoneiFrame().getStudentiDTM(), controller.getIdoneiFrame().getStudenti()));
 				controller.getIdoneiFrame().getStudentiDTM().fireTableDataChanged();
 				controller.getIdoneiFrame().getStudentiIdoneiTable().setModel(controller.getIdoneiFrame().getStudentiDTM());

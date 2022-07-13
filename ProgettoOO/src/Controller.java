@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
 public class Controller {
 	private LoginFrame loginFrame;
 	private HomepageFrame homeFrame;
-	private RicercaCorsoFrame ricercaCorsoFrame;
+	private GestioneCorsiFrame gestioneCorsiFrame;
 	private IscriviStudenteFrame iscriviStudenteFrame;
 	private StatisticheFrame statisticheFrame;
 	private IdoneiFrame idoneiFrame;
@@ -44,7 +44,7 @@ public class Controller {
 		setLoginFrame(new LoginFrame(this));
 		getLoginFrame().setVisible(true);
 		setHomeFrame(new HomepageFrame(this));
-		setRicercaCorsoFrame(new RicercaCorsoFrame(this));
+		setGestioneCorsiFrame(new GestioneCorsiFrame(this));
 		setIscriviStudenteFrame(new IscriviStudenteFrame(this));
 		setStatisticheFrame(new StatisticheFrame(this));
 		setIdoneiFrame(new IdoneiFrame(this));
@@ -75,12 +75,12 @@ public class Controller {
 		this.homeFrame = homeFrame;
 	}
 
-	public RicercaCorsoFrame getRicercaCorsoFrame() {
-		return ricercaCorsoFrame;
+	public GestioneCorsiFrame getGestioneCorsiFrame() {
+		return gestioneCorsiFrame;
 	}
 
-	public void setRicercaCorsoFrame(RicercaCorsoFrame ricercaCorsoFrame) {
-		this.ricercaCorsoFrame = ricercaCorsoFrame;
+	public void setGestioneCorsiFrame(GestioneCorsiFrame gestioneCorsiFrame) {
+		this.gestioneCorsiFrame = gestioneCorsiFrame;
 	}
 
 	public IscriviStudenteFrame getIscriviStudenteFrame() {

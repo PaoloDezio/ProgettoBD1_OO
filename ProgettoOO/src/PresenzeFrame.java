@@ -45,7 +45,7 @@ public class PresenzeFrame extends JFrame {
 		this.presenzeDTM = presenzeDTM;
 	}
 	
-	//PERCHé QUESTO ORA SI CHIAMA MAIN CONTROLLER?
+
 	public PresenzeFrame(Controller mainController) {
 		setTitle("Presenze");
 		controller = mainController;
@@ -95,6 +95,8 @@ public class PresenzeFrame extends JFrame {
 		IndietroButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
+				controller.getGestioneCorsiFrame().setEnabled(true);
+				controller.getGestioneCorsiFrame().setVisible(true);
 			}
 		});
 		GridBagConstraints gbc_IndietroButton = new GridBagConstraints();

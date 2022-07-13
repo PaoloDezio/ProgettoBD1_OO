@@ -149,7 +149,7 @@ public class ModificaLezioneFrame extends JFrame {
 	public ModificaLezioneFrame(Controller mainController) {
 		setTitle("ModificaLezione");
 		controller=mainController;
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 560, 490);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
@@ -479,7 +479,7 @@ public class ModificaLezioneFrame extends JFrame {
 					}
 				}
 				controller.getLezioniFrame().getLezioniDTM().getDataVector().removeAllElements();
-				controller.getLezioniFrame().setListaLezioni(controller.recuperaLezioni(controller.getRicercaCorsoFrame().getCorsiTable().getValueAt(controller.getRicercaCorsoFrame().getCorsiTable().getSelectedRow(), 0).toString()));
+				controller.getLezioniFrame().setListaLezioni(controller.recuperaLezioni(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(), 0).toString()));
 				controller.getLezioniFrame().setLezioniDTM(controller.setDefaultTableModel(controller.getLezioniFrame().getLezioniDTM(),controller.getLezioniFrame().getListaLezioni()));
 				controller.getLezioniFrame().getLezioniTable().setModel(controller.getLezioniFrame().getLezioniDTM());
 				
