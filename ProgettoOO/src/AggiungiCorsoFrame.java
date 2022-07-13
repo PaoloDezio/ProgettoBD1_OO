@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.GridBagLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.GridBagConstraints;
 import java.awt.Font;
@@ -70,7 +71,7 @@ public class AggiungiCorsoFrame extends JFrame {
 		controller = mainController;
 		
 		
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 700, 440);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
@@ -255,7 +256,7 @@ public class AggiungiCorsoFrame extends JFrame {
 		contentPane.add(responsabileLabel, gbc_responsabileLabel);
 		
 		
-//		Correggere responsabiliCB
+
 		responsabiliCB = new JComboBox<String>(responsabili);
 		responsabiliCB.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_responsabileCB = new GridBagConstraints();
@@ -283,6 +284,13 @@ public class AggiungiCorsoFrame extends JFrame {
 		confermaButton = new JButton("Conferma");
 		confermaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(nomeTF.getText().isEmpty()||descrizioneTF.getText().isEmpty()||numeroMassimoPartecipantiTF.getText().isEmpty()||numeroDiLezioniTF.getText().isEmpty()||dataDiInizioTF.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(contentPane,"Compilare tutti i campi prima di confermare!","",JOptionPane.ERROR_MESSAGE);
+				}
+				else {
+					if(categorieTable.getSelectedRow()==-1) {
+						JOptionPane.showMessageDialog(contentPane,"Selezionare una categoria!","",JOptionPane.ERROR_MESSAGE);
+					}else {
 				controller.aggiungiCorso(nomeTF.getText().toUpperCase(), descrizioneTF.getText().toUpperCase(), numeroMassimoPartecipantiTF.getText(), numeroDiLezioniTF.getText(), dataDiInizioTF.getText(), controller.recuperaCodiceResponsabile(responsabiliCB.getSelectedItem().toString()));
 				String categorieSelezionate = new String();
 				for (int indiceCategoria : categorieTable.getSelectedRows()) {
@@ -297,8 +305,10 @@ public class AggiungiCorsoFrame extends JFrame {
 				controller.getRicercaCorsoFrame().getCorsiTable().setModel(controller.getRicercaCorsoFrame().getCorsiDTM());
 
 				controller.getAggiungiCorsoFrame().setVisible(false);
+//				controller.getRicercaCorsoFrame().setEnabled(true);
+//				controller.getRicercaCorsoFrame().setVisible(true);
 				resettaAggiungiCorsoFrame();
-			}
+					}}}
 		});
 		confermaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_confermaButton = new GridBagConstraints();
