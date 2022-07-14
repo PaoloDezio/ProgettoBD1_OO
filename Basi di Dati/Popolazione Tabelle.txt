@@ -1,8 +1,0 @@
-TABELLA CORSO
-insert into corso(codicecorso,nome,descrizione,capienza,numlezioni,datainizio,codiceresponsabile)
-values(13,'TEDESCO','CORSO DI TEDESCO',100,30,'2017-04-05',NULL)
-
-
-TABELLA AREA_TEMATICA
-insert into tematica_corso(categoria,codicecorso)
-values('INFORMATICA',3)

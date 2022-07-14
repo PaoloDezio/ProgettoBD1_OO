@@ -1,2 +1,0 @@
-sintassi per lanciare una procedura:
-call nome_procedura(parametri)
