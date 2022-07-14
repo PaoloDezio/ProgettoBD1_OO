@@ -54,7 +54,7 @@ public class IdoneiFrame extends JFrame {
 		setTitle("Idonei");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 600, 330);
+		setBounds(100, 100, 600, 360);
 		
 		
 		//CONTENT PANE
@@ -63,10 +63,10 @@ public class IdoneiFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 147, 131, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{29, 0, 0, 0, 0, 0, 0, 20, 0, 35, 0};
+		gbl_contentPane.columnWidths = new int[]{40, 147, 131, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{20, 29, 0, 0, 0, 0, 0, 0, 20, 0, 35, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		
@@ -77,7 +77,7 @@ public class IdoneiFrame extends JFrame {
 		gbc_IdoneiLabel.anchor = GridBagConstraints.NORTHWEST;
 		gbc_IdoneiLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_IdoneiLabel.gridx = 1;
-		gbc_IdoneiLabel.gridy = 0;
+		gbc_IdoneiLabel.gridy = 1;
 		contentPane.add(IdoneiLabel, gbc_IdoneiLabel);
 		
 		
@@ -89,7 +89,7 @@ public class IdoneiFrame extends JFrame {
 		gbc_scrollPane.gridwidth = 2;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 1;
+		gbc_scrollPane.gridy = 2;
 		contentPane.add(studentiTableScrollPane, gbc_scrollPane);	
 		
 		
@@ -125,6 +125,7 @@ public class IdoneiFrame extends JFrame {
 		
 		//INDIETRO BUTTON
 		JButton IndietroButton = new JButton("Indietro");
+		IndietroButton.setFont(new Font("Century", Font.PLAIN, 16));
 		
 		//INDIETRO BUTTON ACTION LISTENER
 		IndietroButton.addActionListener(new ActionListener() {
@@ -141,7 +142,7 @@ public class IdoneiFrame extends JFrame {
 		gbc_IndietroButton.insets = new Insets(0, 0, 5, 5);
 		gbc_IndietroButton.anchor = GridBagConstraints.WEST;
 		gbc_IndietroButton.gridx = 1;
-		gbc_IndietroButton.gridy = 8;
+		gbc_IndietroButton.gridy = 9;
 		contentPane.add(IndietroButton, gbc_IndietroButton);
 	}
 

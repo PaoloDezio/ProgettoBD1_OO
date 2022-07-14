@@ -33,6 +33,7 @@ public class ModificaLezioneFrame extends JFrame {
 	private JComboBox<String> docentiCB;
 	private JTextField sedeTF;
 	private JTextField aulaTF;
+	private JCheckBox onlineCheckBox;
 	private JLabel piattaformaLabel;
 	private JTextField piattaformaTF;
 	private JButton confermaButton;
@@ -114,8 +115,24 @@ public class ModificaLezioneFrame extends JFrame {
 		return aulaTF;
 	}
 
+	public JCheckBox getOnlineCheckBox() {
+		return onlineCheckBox;
+	}
+
+	public void setOnlineCheckBox(JCheckBox onlineCheckBox) {
+		this.onlineCheckBox = onlineCheckBox;
+	}
+
 	public void setAulaTF(JTextField aulaTF) {
 		this.aulaTF = aulaTF;
+	}
+
+	public JLabel getPiattaformaLabel() {
+		return piattaformaLabel;
+	}
+
+	public void setPiattaformaLabel(JLabel piattaformaLabel) {
+		this.piattaformaLabel = piattaformaLabel;
 	}
 
 	public JTextField getPiattaformaTF() {
@@ -130,7 +147,7 @@ public class ModificaLezioneFrame extends JFrame {
 
 	public ModificaLezioneFrame(Controller mainController) {
 		
-		controller=mainController;
+		controller = mainController;
 		
 		setTitle("ModificaLezione");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -320,7 +337,7 @@ public class ModificaLezioneFrame extends JFrame {
 		//DOCENTI DEFAULT COMBO BOX MODEL
 		docentiCBM = new DefaultComboBoxModel<String>();
 		
-		int numeroDocenti=controller.contaDocenti();
+		int numeroDocenti = controller.contaDocenti();
 		String[] docenti = controller.recuperaDocenti(numeroDocenti);
 		
 		docentiCBM = controller.setDefaultComboBoxModel(docentiCBM, docenti);
@@ -399,7 +416,7 @@ public class ModificaLezioneFrame extends JFrame {
 		
 		
 		//ONLINE CHECK BOX 
-		JCheckBox onlineCheckBox = new JCheckBox("Si");
+		onlineCheckBox = new JCheckBox("Si");
 		
 		//ONLINE CHECK BOX ACTION LISTENER
 		onlineCheckBox.addActionListener(new ActionListener() {
@@ -407,6 +424,7 @@ public class ModificaLezioneFrame extends JFrame {
 				
 				if(onlineCheckBox.isSelected()) {
 					piattaformaLabel.setVisible(true);
+					piattaformaTF.setText("");
 					piattaformaTF.setVisible(true);
 				}
 				else {
@@ -492,7 +510,8 @@ public class ModificaLezioneFrame extends JFrame {
 		confermaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String codiceLezione = controller.getLezioniFrame().getLezioniTable().getValueAt(controller.getLezioniFrame().getLezioniTable().getSelectedRow(),0).toString();
+				String codiceLezione="";
+				codiceLezione = controller.getLezioniFrame().getLezioniTable().getValueAt(controller.getLezioniFrame().getLezioniTable().getSelectedRow(),0).toString();
 				String titolo = titoloTF.getText().toUpperCase();
 				String descrizione = descrizioneTF.getText().toUpperCase();
 				String durata = durataCB.getSelectedItem().toString();
@@ -501,7 +520,7 @@ public class ModificaLezioneFrame extends JFrame {
 				String sede = sedeTF.getText().toUpperCase();
 				String aula = aulaTF.getText().toUpperCase();
 				String piattaforma = piattaformaTF.getText().toUpperCase();
-				durata=durata.substring(0,3);
+				durata = durata.substring(0,3);
 				
 				if(titolo.isEmpty()||descrizione.isEmpty()||dataTF.toString().isEmpty()||sede.isEmpty()||aula.isEmpty()) {
 					JOptionPane.showMessageDialog(contentPane,"Compilare tutti i campi","",JOptionPane.INFORMATION_MESSAGE);
@@ -512,23 +531,26 @@ public class ModificaLezioneFrame extends JFrame {
 							JOptionPane.showMessageDialog(contentPane,"Inserire una piattaforma","",JOptionPane.INFORMATION_MESSAGE);
 						}
 						else{
-							 controller.modificaLezioneInPresenzaEDaRemoto(codiceLezione, titolo, descrizione, durata, dataEOra, codiceDocente, sede, aula, piattaforma);
+							controller.modificaLezioneInPresenzaEDaRemoto(codiceLezione, titolo, descrizione, durata, dataEOra, codiceDocente, sede, aula, piattaforma);
+							controller.getLezioniFrame().getLezioniDTM().getDataVector().removeAllElements();
+							controller.getLezioniFrame().setListaLezioni(controller.recuperaLezioni(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(), 0).toString()));
+							controller.getLezioniFrame().setLezioniDTM(controller.setDefaultTableModel(controller.getLezioniFrame().getLezioniDTM(),controller.getLezioniFrame().getListaLezioni()));
+							controller.getLezioniFrame().getLezioniTable().setModel(controller.getLezioniFrame().getLezioniDTM());
 							setVisible(false);
-							
 						}
 					}
 					else {
-						  controller.modificaLezioneInPresenza(codiceLezione, titolo, descrizione, durata, dataEOra, codiceDocente, piattaforma, sede, aula);
-							setVisible(false);
+						controller.modificaLezioneInPresenza(codiceLezione, titolo, descrizione, durata, dataEOra, codiceDocente, sede, aula);
+						controller.getLezioniFrame().getLezioniDTM().getDataVector().removeAllElements();
+						controller.getLezioniFrame().setListaLezioni(controller.recuperaLezioni(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(), 0).toString()));
+						controller.getLezioniFrame().setLezioniDTM(controller.setDefaultTableModel(controller.getLezioniFrame().getLezioniDTM(),controller.getLezioniFrame().getListaLezioni()));
+						controller.getLezioniFrame().getLezioniTable().setModel(controller.getLezioniFrame().getLezioniDTM());
+						setVisible(false);
 					}
 				}
-				controller.getLezioniFrame().getLezioniDTM().getDataVector().removeAllElements();
-				controller.getLezioniFrame().setListaLezioni(controller.recuperaLezioni(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(), 0).toString()));
-				controller.getLezioniFrame().setLezioniDTM(controller.setDefaultTableModel(controller.getLezioniFrame().getLezioniDTM(),controller.getLezioniFrame().getListaLezioni()));
-				controller.getLezioniFrame().getLezioniTable().setModel(controller.getLezioniFrame().getLezioniDTM());
 			}	
 		});
-		
+
 		confermaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_confermaButton = new GridBagConstraints();
 		gbc_confermaButton.anchor = GridBagConstraints.EAST;

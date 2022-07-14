@@ -16,7 +16,7 @@ public class DocenteDAO {
 	//METODI
 	public int contaDocenti() {
 		
-		int numeroDocenti=0;
+		int numeroDocenti = 0;
 		
 		try {
 			connessioneDB = istanzaDB.connectToDB();
@@ -44,7 +44,7 @@ public class DocenteDAO {
 	public String[] recuperaDocenti(int numeroDocenti) {
 		
 		String[] docenti = new String[numeroDocenti];
-		int indice=0;
+		int indice = 0;
 		
 		try {
 			connessioneDB = istanzaDB.connectToDB();
@@ -72,7 +72,7 @@ public class DocenteDAO {
 	
 	public String recuperaCodiceDocente(String cognome) {
 		
-		String codiceDocente="";
+		String codiceDocente = new String();
 		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
@@ -99,7 +99,7 @@ public class DocenteDAO {
 	
 	public String recuperaDocente(String codiceDocente) {
 		
-		String docente=new String();
+		String docente = new String();
 		
 		try {
 			connessioneDB=istanzaDB.connectToDB();

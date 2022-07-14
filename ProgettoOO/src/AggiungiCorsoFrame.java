@@ -298,8 +298,8 @@ public class AggiungiCorsoFrame extends JFrame {
 		
 		
 		//RESPONSABILI COMBO BOX
-		int numeroResponsabili=mainController.contaResponsabili();
-		String[] responsabili=mainController.salvaResponsabili(numeroResponsabili);
+		int numeroResponsabili = mainController.contaResponsabili();
+		String[] responsabili = mainController.salvaResponsabili(numeroResponsabili);
 		
 		responsabiliCB = new JComboBox<String>(responsabili);
 		responsabiliCB.setFont(new Font("Century", Font.PLAIN, 16));

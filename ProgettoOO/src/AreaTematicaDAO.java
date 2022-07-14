@@ -8,7 +8,7 @@ public class AreaTematicaDAO {
 	
 	
 	public AreaTematicaDAO() {
-		istanzaDB= ConnessioneDB.getIstanza();
+		istanzaDB = ConnessioneDB.getIstanza();
 	}
 	
 	

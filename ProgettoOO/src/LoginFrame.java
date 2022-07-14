@@ -36,7 +36,7 @@ public class LoginFrame extends JFrame {
 	
 	public LoginFrame(Controller mainController) {
 		
-		controller=mainController;
+		controller = mainController;
 		
 		setTitle("Login");
 		setBackground(new Color(240, 240, 240));
@@ -152,7 +152,7 @@ public class LoginFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				String username = usernameTF.getText();
-				String password= new String(passwordTF.getPassword());
+				String password = new String(passwordTF.getPassword());
 				
 				if(username.isEmpty() && password.isEmpty()) {
 					JOptionPane.showMessageDialog(contentPane,"Inserire un Username e una Password","",JOptionPane.WARNING_MESSAGE);

@@ -93,7 +93,7 @@ public class CorsoDAO {
 		try {
 			connessioneDB = istanzaDB.connectToDB();
 			Statement statement = connessioneDB.createStatement();
-			ResultSet resultSet = statement.executeQuery("SELECT * FROM CORSO ORDER BY codiceCorso");	
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM CORSO ORDER BY nome");	
 		
 			while(resultSet.next()) {
 				corsi[indice]=resultSet.getString("nome");

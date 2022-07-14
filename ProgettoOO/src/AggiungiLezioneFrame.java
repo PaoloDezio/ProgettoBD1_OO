@@ -251,6 +251,7 @@ public class AggiungiLezioneFrame extends JFrame {
 		
 		//DATA TEXTFIELD
 		dataTF = new JTextField();
+		dataTF.setToolTipText("YYYY-MM-DD");
 		dataTF.setFont(new Font("Century", Font.PLAIN, 16));
 		dataTF.setColumns(10);
 		GridBagConstraints gbc_dataLabel = new GridBagConstraints();
@@ -312,7 +313,7 @@ public class AggiungiLezioneFrame extends JFrame {
 		//DOCENTI DEFAULT COMBO BOX MODEL
 		docentiCBM = new DefaultComboBoxModel<String>();
 		
-		int numeroDocenti=controller.contaDocenti();
+		int numeroDocenti = controller.contaDocenti();
 		String[] docenti = controller.recuperaDocenti(numeroDocenti);
 		docentiCBM = controller.setDefaultComboBoxModel(docentiCBM, docenti);
 				

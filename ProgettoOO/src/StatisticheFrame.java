@@ -93,9 +93,9 @@ public class StatisticheFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{168, 130, 120, 416, 0, 25, 0};
+		gbl_contentPane.columnWidths = new int[]{40, 168, 130, 120, 416, 0, 0, 25, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 61, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
@@ -106,7 +106,7 @@ public class StatisticheFrame extends JFrame {
 		GridBagConstraints gbc_statisticheLabel = new GridBagConstraints();
 		gbc_statisticheLabel.anchor = GridBagConstraints.WEST;
 		gbc_statisticheLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_statisticheLabel.gridx = 0;
+		gbc_statisticheLabel.gridx = 1;
 		gbc_statisticheLabel.gridy = 0;
 		contentPane.add(statisticheLabel, gbc_statisticheLabel);
 		
@@ -118,7 +118,7 @@ public class StatisticheFrame extends JFrame {
 		GridBagConstraints gbc_nomeCorsoLabel = new GridBagConstraints();
 		gbc_nomeCorsoLabel.anchor = GridBagConstraints.EAST;
 		gbc_nomeCorsoLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_nomeCorsoLabel.gridx = 0;
+		gbc_nomeCorsoLabel.gridx = 1;
 		gbc_nomeCorsoLabel.gridy = 1;
 		contentPane.add(nomeCorsoLabel, gbc_nomeCorsoLabel);
 		
@@ -135,7 +135,7 @@ public class StatisticheFrame extends JFrame {
 		gbc_corsoTF.gridwidth = 2;
 		gbc_corsoTF.insets = new Insets(0, 0, 5, 5);
 		gbc_corsoTF.fill = GridBagConstraints.HORIZONTAL;
-		gbc_corsoTF.gridx = 1;
+		gbc_corsoTF.gridx = 2;
 		gbc_corsoTF.gridy = 1;
 		contentPane.add(nomeCorsoTF, gbc_corsoTF);
 		
@@ -143,10 +143,11 @@ public class StatisticheFrame extends JFrame {
 		//ISCRITTI SCROLL PANE
 		iscrittiScrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridwidth = 3;
 		gbc_scrollPane.gridheight = 5;
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPane.gridx = 3;
+		gbc_scrollPane.gridx = 4;
 		gbc_scrollPane.gridy = 1;
 		contentPane.add(iscrittiScrollPane, gbc_scrollPane);
 		
@@ -178,7 +179,7 @@ public class StatisticheFrame extends JFrame {
 		GridBagConstraints gbc_presenzeMinimeLabel = new GridBagConstraints();
 		gbc_presenzeMinimeLabel.anchor = GridBagConstraints.EAST;
 		gbc_presenzeMinimeLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_presenzeMinimeLabel.gridx = 0;
+		gbc_presenzeMinimeLabel.gridx = 1;
 		gbc_presenzeMinimeLabel.gridy = 2;
 		contentPane.add(presenzeMinimeLabel, gbc_presenzeMinimeLabel);
 		
@@ -192,7 +193,7 @@ public class StatisticheFrame extends JFrame {
 		GridBagConstraints gbc_presenzeMinimeTF = new GridBagConstraints();
 		gbc_presenzeMinimeTF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_presenzeMinimeTF.insets = new Insets(0, 0, 5, 5);
-		gbc_presenzeMinimeTF.gridx = 1;
+		gbc_presenzeMinimeTF.gridx = 2;
 		gbc_presenzeMinimeTF.gridy = 2;
 		contentPane.add(presenzeMinimeTF, gbc_presenzeMinimeTF);
 		presenzeMinimeTF.setColumns(10);
@@ -205,7 +206,7 @@ public class StatisticheFrame extends JFrame {
 		GridBagConstraints gbc_presenzeMassimeLabel = new GridBagConstraints();
 		gbc_presenzeMassimeLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_presenzeMassimeLabel.anchor = GridBagConstraints.EAST;
-		gbc_presenzeMassimeLabel.gridx = 0;
+		gbc_presenzeMassimeLabel.gridx = 1;
 		gbc_presenzeMassimeLabel.gridy = 3;
 		contentPane.add(presenzeMassimeLabel, gbc_presenzeMassimeLabel);
 		
@@ -219,7 +220,7 @@ public class StatisticheFrame extends JFrame {
 		GridBagConstraints gbc_presenzeMassimeTF = new GridBagConstraints();
 		gbc_presenzeMassimeTF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_presenzeMassimeTF.insets = new Insets(0, 0, 5, 5);
-		gbc_presenzeMassimeTF.gridx = 1;
+		gbc_presenzeMassimeTF.gridx = 2;
 		gbc_presenzeMassimeTF.gridy = 3;
 		contentPane.add(presenzeMassimeTF, gbc_presenzeMassimeTF);
 		presenzeMassimeTF.setColumns(10);
@@ -232,7 +233,7 @@ public class StatisticheFrame extends JFrame {
 		GridBagConstraints gbc_frequenzaMediaLabel = new GridBagConstraints();
 		gbc_frequenzaMediaLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_frequenzaMediaLabel.anchor = GridBagConstraints.EAST;
-		gbc_frequenzaMediaLabel.gridx = 0;
+		gbc_frequenzaMediaLabel.gridx = 1;
 		gbc_frequenzaMediaLabel.gridy = 4;
 		contentPane.add(frequenzaMediaLabel, gbc_frequenzaMediaLabel);
 		
@@ -246,7 +247,7 @@ public class StatisticheFrame extends JFrame {
 		GridBagConstraints gbc_frequenzaMediaTF = new GridBagConstraints();
 		gbc_frequenzaMediaTF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_frequenzaMediaTF.insets = new Insets(0, 0, 5, 5);
-		gbc_frequenzaMediaTF.gridx = 1;
+		gbc_frequenzaMediaTF.gridx = 2;
 		gbc_frequenzaMediaTF.gridy = 4;
 		contentPane.add(frequenzaMediaTF, gbc_frequenzaMediaTF);
 		frequenzaMediaTF.setColumns(10);
@@ -259,7 +260,7 @@ public class StatisticheFrame extends JFrame {
 		GridBagConstraints gbc_riempimentoMedioLabel = new GridBagConstraints();
 		gbc_riempimentoMedioLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_riempimentoMedioLabel.anchor = GridBagConstraints.EAST;
-		gbc_riempimentoMedioLabel.gridx = 0;
+		gbc_riempimentoMedioLabel.gridx = 1;
 		gbc_riempimentoMedioLabel.gridy = 5;
 		contentPane.add(riempimentoMedioLabel, gbc_riempimentoMedioLabel);
 		
@@ -273,7 +274,7 @@ public class StatisticheFrame extends JFrame {
 		GridBagConstraints gbc_riempimentoMedioTF = new GridBagConstraints();
 		gbc_riempimentoMedioTF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_riempimentoMedioTF.insets = new Insets(0, 0, 5, 5);
-		gbc_riempimentoMedioTF.gridx = 1;
+		gbc_riempimentoMedioTF.gridx = 2;
 		gbc_riempimentoMedioTF.gridy = 5;
 		contentPane.add(riempimentoMedioTF, gbc_riempimentoMedioTF);
 		riempimentoMedioTF.setColumns(10);
@@ -293,8 +294,9 @@ public class StatisticheFrame extends JFrame {
 		
 		indietroButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_indietroButton = new GridBagConstraints();
+		gbc_indietroButton.anchor = GridBagConstraints.WEST;
 		gbc_indietroButton.insets = new Insets(0, 0, 0, 5);
-		gbc_indietroButton.gridx = 0;
+		gbc_indietroButton.gridx = 1;
 		gbc_indietroButton.gridy = 7;
 		contentPane.add(indietroButton, gbc_indietroButton);
 		
@@ -317,8 +319,9 @@ public class StatisticheFrame extends JFrame {
 		
 		idoneiButton.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_idoneiButton = new GridBagConstraints();
+		gbc_idoneiButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_idoneiButton.insets = new Insets(0, 0, 0, 5);
-		gbc_idoneiButton.gridx = 4;
+		gbc_idoneiButton.gridx = 6;
 		gbc_idoneiButton.gridy = 7;
 		contentPane.add(idoneiButton, gbc_idoneiButton);
 

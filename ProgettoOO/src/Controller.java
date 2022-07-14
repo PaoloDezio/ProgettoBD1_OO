@@ -315,7 +315,7 @@ public class Controller {
 	
 	
 	//METODI LezioneDAO
-	public void modificaLezioneInPresenza(String codiceLezione,String titolo,String descrizione,String durata,String dataOraInizio,String codiceDocente,String online,String sede,String aula) {
+	public void modificaLezioneInPresenza(String codiceLezione,String titolo,String descrizione,String durata,String dataOraInizio,String codiceDocente,String sede,String aula) {
 		lezioneDAO.modificaLezioneInPresenza(codiceLezione,titolo,descrizione,durata,dataOraInizio,codiceDocente,sede,aula);
 	}
 	

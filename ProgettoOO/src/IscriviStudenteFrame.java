@@ -25,10 +25,27 @@ public class IscriviStudenteFrame extends JFrame {
 	private JTextField cognomeTF;
 	private JTextField dataDiNascitaTF;
 	private JTextField luogoDiNascitaTF;
-	private JComboBox<String> corsoCB;
 	private DefaultComboBoxModel<String> corsoCBM;
+	private JComboBox<String> corsoCB;
 	private JTextField codiceFiscaleTF;
 	
+	
+	public DefaultComboBoxModel<String> getCorsoCBM() {
+		return corsoCBM;
+	}
+
+	public void setCorsoCBM(DefaultComboBoxModel<String> corsoCBM) {
+		this.corsoCBM = corsoCBM;
+	}
+	
+	public JComboBox<String> getCorsoCB() {
+		return corsoCB;
+	}
+
+	public void setCorsoCB(JComboBox<String> corsoCB) {
+		this.corsoCB = corsoCB;
+	}
+
 	public IscriviStudenteFrame(Controller mainController) {
 		
 		controller = mainController;
@@ -157,7 +174,7 @@ public class IscriviStudenteFrame extends JFrame {
 		//CORSO DEFAULT COMBO BOX MODEL
 		corsoCBM = new DefaultComboBoxModel<String>();
 		
-		int numeroCorsi=controller.contaCorsi();
+		int numeroCorsi = controller.contaCorsi();
 		String[] corsi = controller.recuperaCorsi(numeroCorsi);
 		
 		corsoCBM = controller.setDefaultComboBoxModel(corsoCBM,corsi);
@@ -176,12 +193,13 @@ public class IscriviStudenteFrame extends JFrame {
 				cognomeTF.setText("");
 				dataDiNascitaTF.setText("");
 				luogoDiNascitaTF.setText("");
+				codiceFiscaleTF.setText("");
 				corsoCBM.removeAllElements();
 				
-				int numeroCorsi=controller.contaCorsi();
-				String[] corsi = controller.recuperaCorsi(numeroCorsi);
-				
-				corsoCBM=controller.setDefaultComboBoxModel(corsoCBM,corsi);
+//				int numeroCorsi = controller.contaCorsi();
+//				String[] corsi = controller.recuperaCorsi(numeroCorsi);
+//				
+//				corsoCBM = controller.setDefaultComboBoxModel(corsoCBM,corsi);
 			}
 		});
 		
@@ -193,7 +211,8 @@ public class IscriviStudenteFrame extends JFrame {
 		contentPane.add(indietroButton, gbc_indietroButton);
 		
 		//CODICE FISCALE LABEL
-		JLabel codiceFiscaleLabel = new JLabel("codiceFiscale");
+		JLabel codiceFiscaleLabel = new JLabel("Codice Fiscale");
+		codiceFiscaleLabel.setFont(new Font("Century", Font.PLAIN, 16));
 		GridBagConstraints gbc_codiceFiscaleLabel = new GridBagConstraints();
 		gbc_codiceFiscaleLabel.anchor = GridBagConstraints.EAST;
 		gbc_codiceFiscaleLabel.insets = new Insets(0, 0, 5, 5);
@@ -257,8 +276,8 @@ public class IscriviStudenteFrame extends JFrame {
 						dataDiNascita = dataDiNascita.valueOf(dataDiNascitaTF.getText());
 						String luogoDiNascita = luogoDiNascitaTF.getText().toUpperCase();
 						String codiceFiscale = codiceFiscaleTF.getText().toUpperCase();
-						String nomeCorso=corsoCB.getSelectedItem().toString();
-						String codiceCorso=controller.recuperaCodiceCorso(nomeCorso);
+						String nomeCorso = corsoCB.getSelectedItem().toString();
+						String codiceCorso = controller.recuperaCodiceCorso(nomeCorso);
 						
 						if(controller.isStudenteInDb(nome,cognome,dataDiNascita,luogoDiNascita)==false) {
 							controller.salvaStudente(nome,cognome,dataDiNascita,luogoDiNascita,codiceFiscale);
@@ -275,9 +294,10 @@ public class IscriviStudenteFrame extends JFrame {
 							cognomeTF.setText("");
 							dataDiNascitaTF.setText("");
 							luogoDiNascitaTF.setText("");
+							codiceFiscaleTF.setText("");
 							corsoCBM.removeAllElements();
 							
-							int numeroCorsi=controller.contaCorsi();
+							int numeroCorsi = controller.contaCorsi();
 							String[] corsi = controller.recuperaCorsi(numeroCorsi);
 							
 							corsoCBM= controller.setDefaultComboBoxModel(corsoCBM,corsi);

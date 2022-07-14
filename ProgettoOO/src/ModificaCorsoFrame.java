@@ -227,7 +227,7 @@ public class ModificaCorsoFrame extends JFrame {
 		responsabiliCBM = new DefaultComboBoxModel<String>();
 		
 		int numeroResponsabili = controller.contaResponsabili();
-		String[] responsabili= controller.salvaResponsabili(numeroResponsabili);
+		String[] responsabili = controller.salvaResponsabili(numeroResponsabili);
 		
 		responsabiliCBM = controller.setDefaultComboBoxModel(responsabiliCBM, responsabili);
 		
@@ -268,9 +268,10 @@ public class ModificaCorsoFrame extends JFrame {
 		//SALVA MODIFICHE ACTION LISTENER
 		salvaModificheButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String codiceCorso = "";
 				
 				String nomecorso = nomeTF.getText().toUpperCase();
-				String codiceCorso = controller.recuperaCodiceCorso(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(),1).toString());
+				codiceCorso = controller.recuperaCodiceCorso(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(),1).toString());
 				String descrizione = descrizioneTF.getText().toUpperCase();
 				String codiceResponsabile = controller.recuperaCodiceResponsabile(responsabiliCB.getSelectedItem().toString());
 				String data = dataTF.getText();

@@ -65,16 +65,16 @@ public class HomepageFrame extends JFrame {
 		gbc_gestioneCorsiButton.gridy = 1;
 		contentPane.add(gestioneCorsiButton, gbc_gestioneCorsiButton);
 		
-		//HOME LABEL
-		JLabel homeLabel = new JLabel("Homepage");
-		homeLabel.setFont(new Font("Century", Font.BOLD, 25));
+		//HOMEPAGE LABEL
+		JLabel homepageLabel = new JLabel("Homepage");
+		homepageLabel.setFont(new Font("Century", Font.BOLD, 25));
 		GridBagConstraints gbc_homeLabel = new GridBagConstraints();
 		gbc_homeLabel.anchor = GridBagConstraints.NORTH;
 		gbc_homeLabel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_homeLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_homeLabel.gridx = 1;
 		gbc_homeLabel.gridy = 0;
-		contentPane.add(homeLabel, gbc_homeLabel);
+		contentPane.add(homepageLabel, gbc_homeLabel);
 		
 		
 		//ISCRIZIONI STUDENTI BUTTON
@@ -86,7 +86,14 @@ public class HomepageFrame extends JFrame {
 				
 				controller.getHomeFrame().setVisible(false);
 				controller.getIscriviStudenteFrame().setVisible(true);
-				}
+				
+				controller.getIscriviStudenteFrame().getCorsoCBM().removeAllElements();
+				String[] corsi = controller.recuperaCorsi(controller.contaCorsi());
+				controller.getIscriviStudenteFrame().setCorsoCBM(controller.setDefaultComboBoxModel(controller.getIscriviStudenteFrame().getCorsoCBM(),corsi));
+				controller.getIscriviStudenteFrame().getCorsoCB().setModel(controller.getIscriviStudenteFrame().getCorsoCBM());
+				
+			
+			}
 		});
 		
 		iscrizioniStudentiButton.setFont(new Font("Century", Font.PLAIN, 16));

@@ -24,7 +24,7 @@ public class ConnessioneDB {
 		if(connessioneDB==null) {
 			try {
 				Class.forName("org.postgresql.Driver");
-				String url = "jdbc:postgresql://localhost:5432/DataBaseFinal";
+				String url = "jdbc:postgresql://localhost:5432/BasiDiDati2";
 				connessioneDB = DriverManager.getConnection(url,"postgres","admin");
 
 			}

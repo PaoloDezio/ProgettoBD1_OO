@@ -6,7 +6,7 @@ public class ResponsabileDAO {
 	private Connection connessioneDB = null;
 	
 	public ResponsabileDAO() {
-		istanzaDB=ConnessioneDB.getIstanza();
+		istanzaDB = ConnessioneDB.getIstanza();
 	}
 	
 	

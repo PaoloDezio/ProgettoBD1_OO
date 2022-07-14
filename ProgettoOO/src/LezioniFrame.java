@@ -96,22 +96,6 @@ public class LezioniFrame extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 		
 		
-		//LEZIONI DEFAULT TABLE MODEL
-		lezioniDTM = new DefaultTableModel(){
-			@Override
-			public boolean isCellEditable(int row,int column) {
-				return false;
-			}
-		};
-		lezioniDTM.addColumn("Codice");
-		lezioniDTM.addColumn("Titolo");
-		lezioniDTM.addColumn("Descrizione");
-		lezioniDTM.addColumn("Data Inizio");
-		lezioniDTM.addColumn("Sede");
-		lezioniDTM.addColumn("Aula");
-		lezioniDTM.addColumn("Piattaforma");
-		
-		
 		//AGGIUNGI BUTTON
 		aggiungiButton = new JButton("Aggiungi");
 		aggiungiButton.setFont(new Font("Century", Font.PLAIN, 16));
@@ -182,6 +166,22 @@ public class LezioniFrame extends JFrame {
 		gbc_lezioniScrollPane.gridy = 3;
 		contentPane.add(lezioniScrollPane, gbc_lezioniScrollPane);
 		
+
+		//LEZIONI DEFAULT TABLE MODEL
+		lezioniDTM = new DefaultTableModel(){
+			@Override
+			public boolean isCellEditable(int row,int column) {
+				return false;
+			}
+		};
+		lezioniDTM.addColumn("Codice");
+		lezioniDTM.addColumn("Titolo");
+		lezioniDTM.addColumn("Descrizione");
+		lezioniDTM.addColumn("Data Inizio");
+		lezioniDTM.addColumn("Sede");
+		lezioniDTM.addColumn("Aula");
+		lezioniDTM.addColumn("Piattaforma");
+		
 		
 		//LEZIONI TABLE
 		lezioniTable = new JTable();
@@ -237,6 +237,13 @@ public class LezioniFrame extends JFrame {
 					controller.getModificaLezioneFrame().getSedeTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),4).toString());
 					controller.getModificaLezioneFrame().getAulaTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),5).toString());
 					
+					if(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),6).toString().isEmpty()==false) {
+						controller.getModificaLezioneFrame().getOnlineCheckBox().setSelected(true);
+						controller.getModificaLezioneFrame().getPiattaformaLabel().setVisible(true);
+						controller.getModificaLezioneFrame().getPiattaformaTF().setVisible(true);
+						controller.getModificaLezioneFrame().getPiattaformaTF().setText(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),6).toString());
+					}
+					
 					controller.getGestioneCorsiFrame().getCorsiTable().setEnabled(true);	
 				}		
 			}
@@ -263,8 +270,8 @@ public class LezioniFrame extends JFrame {
 				else {
 					controller.eliminaLezione(lezioniTable.getValueAt(lezioniTable.getSelectedRow(),0).toString());
 					lezioniDTM.getDataVector().removeAllElements();
-					listaLezioni=controller.recuperaLezioni(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(), 0).toString());
-					lezioniDTM=controller.setDefaultTableModel(lezioniDTM, listaLezioni);
+					listaLezioni = controller.recuperaLezioni(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(), 0).toString());
+					lezioniDTM = controller.setDefaultTableModel(lezioniDTM, listaLezioni);
 					
 					lezioniTable.clearSelection();
 					lezioniTable.setModel(lezioniDTM);				
@@ -293,7 +300,7 @@ public class LezioniFrame extends JFrame {
 				}
 				else {
 					controller.getPresenzeFrame().getPresenzeDTM().getDataVector().removeAllElements();
-					iscritti=controller.recuperaIscrittiAdUnCorso(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(), 0).toString());
+					iscritti = controller.recuperaIscrittiAdUnCorso(controller.getGestioneCorsiFrame().getCorsiTable().getValueAt(controller.getGestioneCorsiFrame().getCorsiTable().getSelectedRow(), 0).toString());
 					
 					controller.getPresenzeFrame().setPresenzeDTM(controller.setDefaultTableModel(controller.getPresenzeFrame().getPresenzeDTM(), iscritti));
 					controller.getPresenzeFrame().getPresenzeTable().setModel(controller.getPresenzeFrame().getPresenzeDTM());

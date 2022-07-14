@@ -7,7 +7,7 @@ public class LezioneDAO {
 	private Connection connessioneDB = null;
 
 	public LezioneDAO() {
-		istanzaDB=ConnessioneDB.getIstanza();
+		istanzaDB = ConnessioneDB.getIstanza();
 	}
 
 	
@@ -114,7 +114,7 @@ public class LezioneDAO {
 
 			Statement statement = connessioneDB.createStatement();
 			statement.executeUpdate("UPDATE lezione "
-					+			   	"SET titolo='"+titolo+"',descrizione='"+descrizione+"',durata="+durata+"*'1 minute'::interval,dataorainizio='"+dataOraInizio+"',codicedocente="+codiceDocente+",online='FALSE',sede='"+sede+"',aula='"+aula+"' "
+					+			   	"SET titolo='"+titolo+"',descrizione='"+descrizione+"',durata="+durata+"*'1 minute'::interval,dataorainizio='"+dataOraInizio+"',codicedocente="+codiceDocente+",online='FALSE',sede='"+sede+"',aula='"+aula+"',piattaforma='' "
 					+ 				"WHERE codicelezione="+codiceLezione);
 			statement.close();
 			istanzaDB.closeConnectionToDB();

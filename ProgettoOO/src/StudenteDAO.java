@@ -12,7 +12,7 @@ public class StudenteDAO {
 	private Connection connessioneDB = null;
 	
 	public StudenteDAO() {
-		istanzaDB=ConnessioneDB.getIstanza();
+		istanzaDB = ConnessioneDB.getIstanza();
 	}
 	
 	
@@ -20,7 +20,7 @@ public class StudenteDAO {
 	public void salvaStudente(String nome,String cognome,Date dataDiNascita,String luogoDiNascita, String codiceFiscale)  {
 		
 		try {
-			connessioneDB=istanzaDB.connectToDB();
+			connessioneDB = istanzaDB.connectToDB();
 			
 			Statement st = connessioneDB.createStatement();
 			st.executeUpdate("INSERT INTO studente(nome,cognome,luogonascita,datanascita,codicefiscale) "
@@ -40,7 +40,7 @@ public class StudenteDAO {
 	public boolean IsStudenteInDB(String nome,String cognome,Date dataDiNascita,String luogoDiNascita) {
 		
 		try {
-			connessioneDB=istanzaDB.connectToDB();
+			connessioneDB = istanzaDB.connectToDB();
 
 			Statement st= connessioneDB.createStatement();
 			ResultSet rs= st.executeQuery("SELECT * "
@@ -69,7 +69,7 @@ public class StudenteDAO {
 	
 	public String recuperaCodiceStudente(String nome,String cognome,Date dataDiNascita,String luogoDiNascita) {
 		
-		String codiceStudente="";
+		String codiceStudente = new String();
 		
 		try {
 			connessioneDB=istanzaDB.connectToDB();
@@ -102,7 +102,7 @@ public class StudenteDAO {
 	public boolean isStudenteIscrittoAdUnCorso(String codiceStudente,String codiceCorso) {
 		
 		try {
-			connessioneDB=istanzaDB.connectToDB();
+			connessioneDB = istanzaDB.connectToDB();
 			
 			Statement st = connessioneDB.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * "
@@ -128,7 +128,7 @@ public class StudenteDAO {
 	public void iscriviStudente(String codiceStudente,String codiceCorso) {
 		
 		try {
-			connessioneDB=istanzaDB.connectToDB();
+			connessioneDB = istanzaDB.connectToDB();
 
 			Statement st= connessioneDB.createStatement();
 			st.executeUpdate("INSERT INTO iscrivere VALUES("+codiceCorso+","+codiceStudente+");");	
@@ -150,7 +150,7 @@ public class StudenteDAO {
 		Vector<Vector<String>> iscritti = new Vector<Vector<String>>();
 		
 		try {
-			connessioneDB=istanzaDB.connectToDB();
+			connessioneDB = istanzaDB.connectToDB();
 
 			Statement statement = connessioneDB.createStatement();
 			ResultSet resultSet = statement.executeQuery("SELECT s.codicestudente,s.cognome,s.nome "

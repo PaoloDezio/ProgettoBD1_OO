@@ -18,15 +18,18 @@ import java.util.Vector;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 public class PresenzeFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Controller controller;
-	private JButton presenteButton;
+	private JButton modificaPresenzaButton;
 	private JTable presenzeTable;
 	private DefaultTableModel presenzeDTM;
 	private JScrollPane presenzeScrollPane;
+	private JLabel presenzeLabel;
 	
 	//GETTERS AND SETTERS
 	public JTable getPresenzeTable() {
@@ -53,7 +56,7 @@ public class PresenzeFrame extends JFrame {
 		
 		setTitle("Presenze");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 700, 390);
 		
 		//CONTENT PANE
 		contentPane = new JPanel();
@@ -61,10 +64,10 @@ public class PresenzeFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{19, 0, 0, 0, 0, 0};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		
@@ -80,15 +83,38 @@ public class PresenzeFrame extends JFrame {
 		presenzeDTM.addColumn("Nome");
 		presenzeDTM.addColumn("Presenza");
 		
+		presenzeLabel = new JLabel("Presenze");
+		presenzeLabel.setFont(new Font("Century", Font.PLAIN, 25));
+		GridBagConstraints gbc_presenzeLabel = new GridBagConstraints();
+		gbc_presenzeLabel.anchor = GridBagConstraints.WEST;
+		gbc_presenzeLabel.gridwidth = 4;
+		gbc_presenzeLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_presenzeLabel.gridx = 1;
+		gbc_presenzeLabel.gridy = 1;
+		contentPane.add(presenzeLabel, gbc_presenzeLabel);
+		
+		
+		//INDIETRO BUTTON
+		JButton IndietroButton = new JButton("Indietro");
+		IndietroButton.setFont(new Font("Century", Font.PLAIN, 16));
+		
+		//INDIETRO BUTTON ACTION LISTENER
+		IndietroButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				setVisible(false);
+			}
+		});
+		
 		
 		//PRESENZE SCROLL PANE
 		presenzeScrollPane = new JScrollPane();
 		GridBagConstraints gbc_presenzeScrollPane = new GridBagConstraints();
 		gbc_presenzeScrollPane.fill = GridBagConstraints.BOTH;
-		gbc_presenzeScrollPane.gridwidth = 3;
+		gbc_presenzeScrollPane.gridwidth = 7;
 		gbc_presenzeScrollPane.insets = new Insets(0, 0, 5, 5);
-		gbc_presenzeScrollPane.gridx = 0;
-		gbc_presenzeScrollPane.gridy = 0;
+		gbc_presenzeScrollPane.gridx = 1;
+		gbc_presenzeScrollPane.gridy = 2;
 		contentPane.add(presenzeScrollPane, gbc_presenzeScrollPane);
 		
 		
@@ -99,29 +125,19 @@ public class PresenzeFrame extends JFrame {
 		presenzeScrollPane.setViewportView(presenzeTable);
 		presenzeTable.setModel(presenzeDTM);
 		
-		
-		//INDIETRO BUTTON
-		JButton IndietroButton = new JButton("Indietro");
-		
-		//INDIETRO BUTTON ACTION LISTENER
-		IndietroButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				setVisible(false);
-			}
-		});
-		
 		GridBagConstraints gbc_IndietroButton = new GridBagConstraints();
-		gbc_IndietroButton.insets = new Insets(0, 0, 0, 5);
+		gbc_IndietroButton.anchor = GridBagConstraints.WEST;
+		gbc_IndietroButton.insets = new Insets(0, 0, 5, 5);
 		gbc_IndietroButton.gridx = 1;
-		gbc_IndietroButton.gridy = 1;
+		gbc_IndietroButton.gridy = 3;
 		contentPane.add(IndietroButton, gbc_IndietroButton);
 		
 		//PRESENTE BUTTON
-		presenteButton = new JButton("Presente");
+		modificaPresenzaButton = new JButton("Modifica Presenza");
+		modificaPresenzaButton.setFont(new Font("Century", Font.PLAIN, 16));
 		
 		//PRESENTE BUTTON ACTION LISTENER
-		presenteButton.addActionListener(new ActionListener() {
+		modificaPresenzaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				if(presenzeTable.getSelectedRow()<0) {
@@ -142,10 +158,11 @@ public class PresenzeFrame extends JFrame {
 			}
 		});
 		
-		GridBagConstraints gbc_presenteButton = new GridBagConstraints();
-		gbc_presenteButton.gridx = 3;
-		gbc_presenteButton.gridy = 1;
-		contentPane.add(presenteButton, gbc_presenteButton);
+		GridBagConstraints gbc_modificaPresenzaButton = new GridBagConstraints();
+		gbc_modificaPresenzaButton.insets = new Insets(0, 0, 5, 5);
+		gbc_modificaPresenzaButton.gridx = 7;
+		gbc_modificaPresenzaButton.gridy = 3;
+		contentPane.add(modificaPresenzaButton, gbc_modificaPresenzaButton);
 	}
 
 
