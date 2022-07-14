@@ -196,10 +196,6 @@ public class IscriviStudenteFrame extends JFrame {
 				codiceFiscaleTF.setText("");
 				corsoCBM.removeAllElements();
 				
-//				int numeroCorsi = controller.contaCorsi();
-//				String[] corsi = controller.recuperaCorsi(numeroCorsi);
-//				
-//				corsoCBM = controller.setDefaultComboBoxModel(corsoCBM,corsi);
 			}
 		});
 		
